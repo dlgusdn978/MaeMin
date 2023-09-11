@@ -32,7 +32,7 @@
     "no-eq-null": "error",
     "no-array-constructor": "error",
     "no-dupe-keys": "error",
-    "max-len": ["error", {"code": 120, "tabWidth": 4}],
+    "max-len": ["error", {"code": 180, "tabWidth": 4}],
     "no-multiple-empty-lines": "error"
   }
 }
