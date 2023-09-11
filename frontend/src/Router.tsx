@@ -1,8 +1,9 @@
 import React from 'react';
-import { useRoutes } from 'react-router-dom';
+import { Navigate, useRoutes } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import PageNotFound from './pages/PageNotFound';
 
 /** Router */
 export function MainRoutes() {
@@ -10,6 +11,12 @@ export function MainRoutes() {
 		{
 			path: '/',
 			element: <Home />,
+			children: [
+				{
+					path: 'home',
+					element: <Home />,
+				},
+			],
 		},
 		{
 			path: '/login',
@@ -19,5 +26,6 @@ export function MainRoutes() {
 			path: '/signup',
 			element: <Signup />,
 		},
+		{ path: '*', element: <PageNotFound /> },
 	]);
 }
