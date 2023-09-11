@@ -1,19 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-interface IconTypeProps {
-	width?: number;
-	height?: number;
-	color?: string;
-}
-
-type IconType = (props: IconTypeProps) => JSX.Element;
-
-interface Props {
-	iconSize?: number;
-	icon: IconType;
-}
-
 const IconDiv = styled.div`
 	:hover {
 		cursor: pointer;
@@ -26,7 +13,7 @@ const IconDiv = styled.div`
 	min-height: 70px;
 `;
 
-const IconBox = ({ icon, iconSize }: PropsWithChildren<Props>) => {
+const IconBox = ({ icon, iconSize }: PropsWithChildren<IconProps>) => {
 	return <IconDiv>{React.createElement(icon, { width: iconSize, height: iconSize })}</IconDiv>;
 };
 
