@@ -27,10 +27,18 @@ const Footer = () => {
 
 	return (
 		<FooterContainer>
-			<IconBox icon={(props) => <HomeIcon {...props} />} iconSize={25} />
-			<IconBox icon={(props) => <TrendIcon {...props} />} iconSize={25} />
-			<IconBox icon={(props) => <LogIcon {...props} />} iconSize={25} />
-			<IconBox icon={(props) => <MyIcon {...props} />} iconSize={25} />
+			<div onClick={() => moveTo('home')}>
+				<IconBox icon={(props) => <HomeIcon {...props} />} iconSize={25} />
+			</div>
+			<div onClick={() => moveTo('trend')}>
+				<IconBox icon={(props) => <TrendIcon {...props} />} iconSize={25} />
+			</div>
+			<div onClick={() => moveTo('log')}>
+				<IconBox icon={(props) => <LogIcon {...props} />} iconSize={25} />
+			</div>
+			<div onClick={() => moveTo('myPage')}>
+				<IconBox icon={(props) => <MyIcon {...props} />} iconSize={25} />
+			</div>
 		</FooterContainer>
 	);
 };

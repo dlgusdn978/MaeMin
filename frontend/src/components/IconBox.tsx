@@ -12,7 +12,6 @@ type IconType = (props: IconTypeProps) => JSX.Element;
 interface Props {
 	iconSize?: number;
 	icon: IconType;
-	divSize?: number;
 }
 
 const IconDiv = styled.div`
@@ -27,7 +26,7 @@ const IconDiv = styled.div`
 	min-height: 70px;
 `;
 
-const IconBox = ({ icon, iconSize, divSize }: PropsWithChildren<Props>) => {
+const IconBox = ({ icon, iconSize }: PropsWithChildren<Props>) => {
 	return <IconDiv>{React.createElement(icon, { width: iconSize, height: iconSize })}</IconDiv>;
 };
 
