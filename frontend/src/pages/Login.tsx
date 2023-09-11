@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import InputComponent from './InputComponent';
-import ButtonComponent from './ButtonComponent';
+import { useNavigate } from 'react-router-dom';
+import InputComponent from '../components/InputComponent';
+import ButtonComponent from '../components/ButtonComponent';
 
 const Login: React.FC = () => {
+	const navigate = useNavigate();
+
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 
@@ -21,26 +24,18 @@ const Login: React.FC = () => {
 
 	const handleSignup = () => {
 		// 회원가입 로직
-		console.log('Signup clicked');
+		navigate('/signup');
 	};
-
-	// const checkUser = () => {
-	// 	for (let i = 0; i < user)
-	// 	if(id === '' || password === '') {
-	// 		alert('아이디와 비밀번호를 입력해주세요')
-	// 		return
-	// 	}
-	// }
 
 	return (
 		<div>
 			<div>
 				<label htmlFor="id">ID:</label>
-				<InputComponent value={id} placeholder="Enter your ID" onChange={handleIdChange} />
+				<InputComponent value={id} placeholder="아이디" onChange={handleIdChange} />
 			</div>
 			<div>
 				<label htmlFor="password">Password:</label>
-				<InputComponent value={password} placeholder="Enter your Password" onChange={handlePasswordChange} />
+				<InputComponent value={password} placeholder="비밀번호" onChange={handlePasswordChange} />
 			</div>
 			<div>
 				<ButtonComponent label="Login" onClick={handleLogin} />
