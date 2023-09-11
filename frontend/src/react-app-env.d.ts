@@ -19,3 +19,15 @@ interface CardProps {
 	title?: string;
 	content?: string;
 }
+
+type SlideFlag = {
+	active?: boolean;
+};
+
+interface CarouselProps {
+	curSlide: number;
+}
+
+interface ArrayProps {
+	children: JSX.Element[];
+}
