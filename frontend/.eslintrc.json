@@ -27,7 +27,6 @@
     "quotes": ["error", "single"],
     "no-duplicate-imports": "error",
     "no-var": "warn",
-    "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
     "@typescript-eslint/no-use-before-define": "off",
     "no-eq-null": "error",
     "no-array-constructor": "error",
