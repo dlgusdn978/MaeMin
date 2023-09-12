@@ -32,7 +32,6 @@ const Home = () => {
 		<Container>
 			<div onClick={() => dispatch(searchSlice.actions.openSearch())}>검색창</div>
 			<SearchIcon />
-			<SearchHistory />
 			{flag ? <SearchHistory /> : null}
 			<HomeBox dir="column">
 				<Card
