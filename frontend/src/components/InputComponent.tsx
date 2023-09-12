@@ -5,18 +5,49 @@ interface InputComponentProps {
 	placeholder?: string;
 	type?: string;
 	onChange: (value: string) => void;
-	style?: React.CSSProperties; // style prop 추가
+	backgroundColor?: string;
+	fontSize?: string;
+	margin?: string;
+	borderRadius?: string;
+	width?: string | number;
+	height?: string | number;
+	border?: string;
 }
 
-const InputComponent: FC<InputComponentProps> = ({ value, placeholder, type, onChange, style }) => {
-	// type과 style prop 추가
+const InputComponent: FC<InputComponentProps> = ({
+	value,
+	placeholder,
+	type,
+	onChange,
+	backgroundColor,
+	fontSize,
+	margin,
+	borderRadius,
+	width,
+	height,
+	border,
+}) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		onChange(e.target.value);
 	};
 
 	return (
-		<input type={type || 'text'} value={value} placeholder={placeholder} onChange={handleChange} style={style} />
-	); // type과 style 적용
+		<input
+			type={type || 'text'}
+			value={value}
+			placeholder={placeholder}
+			onChange={handleChange}
+			style={{
+				backgroundColor,
+				fontSize,
+				margin,
+				borderRadius,
+				width,
+				height,
+				border,
+			}}
+		/>
+	);
 };
 
 export default InputComponent;

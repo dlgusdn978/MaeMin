@@ -30,16 +30,56 @@ const Login: React.FC = () => {
 	return (
 		<div>
 			<div>
-				<label htmlFor="id">ID:</label>
-				<InputComponent value={id} placeholder="아이디" onChange={handleIdChange} />
+				<InputComponent
+					value={id}
+					placeholder="아이디를 입력하세요"
+					type="text"
+					onChange={handleIdChange}
+					width={350}
+					height={64}
+					borderRadius="100px"
+					border="white"
+					margin="10px"
+				/>
 			</div>
 			<div>
-				<label htmlFor="password">Password:</label>
-				<InputComponent value={password} placeholder="비밀번호" onChange={handlePasswordChange} />
+				<InputComponent
+					value={password}
+					placeholder="비밀번호를 입력하세요"
+					type="password"
+					onChange={handlePasswordChange}
+					width={350}
+					height={64}
+					borderRadius="100px"
+					border="white"
+					margin="10px"
+				/>
 			</div>
 			<div>
-				<ButtonComponent label="Login" onClick={handleLogin} />
-				<ButtonComponent label="Signup" onClick={handleSignup} />
+				{/* 로그인 */}
+				<ButtonComponent
+					label="로그인"
+					onClick={handleLogin}
+					backgroundColor="rgba(255, 182, 73, 1)"
+					fontSize="16px"
+					margin="10px"
+					textColor="white"
+					borderRadius="100px"
+					width={344}
+					height={64}
+				/>
+				{/* 회원가입 */}
+				<ButtonComponent
+					label="회원가입"
+					onClick={handleSignup}
+					backgroundColor="rgba(255, 182, 73, 1)"
+					fontSize="16px"
+					margin="10px"
+					textColor="white"
+					borderRadius="100px"
+					width={344}
+					height={64}
+				/>
 			</div>
 		</div>
 	);

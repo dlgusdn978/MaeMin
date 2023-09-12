@@ -13,6 +13,40 @@ const Signup: React.FC = () => {
 	const [isPasswordMismatch, setIsPasswordMismatch] = useState<boolean>(false);
 	const [selectedAgeGroup, setSelectedAgeGroup] = useState<string | null>(null);
 	const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+	const [timer, setTimer] = useState<number | null>(null);
+	const [countdown, setCountdown] = useState<number>(180);
+
+	const handleGenderSelect = (selectedGender: string) => {
+		setGender(selectedGender);
+	};
+	useEffect(() => {
+		let timerId: NodeJS.Timeout;
+		if (timer !== null) {
+			timerId = setInterval(() => {
+				setCountdown((prevCountdown) => {
+					if (prevCountdown === 0) {
+						clearInterval(timerId);
+						setTimer(null);
+						return 180; // 초기값으로 설정
+					}
+					return prevCountdown - 1;
+				});
+			}, 1000);
+		}
+		return () => {
+			clearInterval(timerId);
+		};
+	}, [timer]);
+
+	const startTimer = () => {
+		setTimer(Date.now());
+	};
+
+	const displayTime = () => {
+		const minutes = Math.floor(countdown / 60);
+		const seconds = countdown % 60;
+		return `${minutes}분 ${seconds}초`;
+	};
 
 	useEffect(() => {
 		if (password && confirmPassword) {
@@ -22,8 +56,6 @@ const Signup: React.FC = () => {
 		}
 	}, [password, confirmPassword]);
 
-	const inputStyle = isPasswordMismatch ? { border: '2px solid red' } : {};
-
 	const toggleDrawer = () => {
 		setDrawerOpen(!drawerOpen);
 	};
@@ -32,12 +64,37 @@ const Signup: React.FC = () => {
 		setSelectedAgeGroup(ageGroup);
 		toggleDrawer();
 	};
+	// 아이디 중복검사
+	const checkIdDuplicate = () => {
+		// 임시로 랜덤한 방법으로 중복을 확인합니다.
+		// 실제로는 서버에 요청을 보내서 중복을 확인해야 합니다.
+		const isDuplicate = Math.random() > 0.5;
+
+		if (isDuplicate) {
+			alert('이미 사용 중인 아이디입니다.');
+		} else {
+			alert('사용 가능한 아이디입니다.');
+		}
+	};
+	// 닉네임 중복검사
+	const checkNicknameDuplicate = () => {
+		// 임시로 랜덤한 방법으로 중복을 확인합니다.
+		// 실제로는 서버에 요청을 보내서 중복을 확인해야 합니다.
+		const isDuplicate = Math.random() > 0.5;
+
+		if (isDuplicate) {
+			alert('이미 사용 중인 닉네임입니다.');
+		} else {
+			alert('사용 가능한 닉네임입니다.');
+		}
+	};
 
 	const handleSubmit = () => {
 		if (isPasswordMismatch) {
 			alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 			return;
 		}
+
 		// 회원가입 로직
 		console.log({
 			id,
@@ -47,7 +104,7 @@ const Signup: React.FC = () => {
 			verificationCode,
 			nickname,
 			gender,
-			// age,
+			selectedAgeGroup,
 		});
 	};
 
@@ -56,7 +113,18 @@ const Signup: React.FC = () => {
 			<h1>회원가입</h1>
 			<div>
 				{/* 아이디 */}
-				<InputComponent value={id} placeholder="ID" type="text" onChange={setId} />
+				<InputComponent
+					value={id}
+					placeholder="ID"
+					type="text"
+					onChange={setId}
+					width={270}
+					height={40}
+					borderRadius="100px"
+					border="white"
+					margin="10px"
+				/>
+				<ButtonComponent label="중복검사" fontSize="10px" width={80} height={40} onClick={checkIdDuplicate} />
 			</div>
 			<div>
 				{/* 비밀번호 */}
@@ -65,7 +133,11 @@ const Signup: React.FC = () => {
 					placeholder="PW"
 					type="password"
 					onChange={setPassword}
-					style={inputStyle}
+					border={isPasswordMismatch ? '2px solid red' : '1px solid white'}
+					width={270}
+					height={40}
+					borderRadius="100px"
+					margin="10px"
 				/>
 			</div>
 			<div>
@@ -75,12 +147,27 @@ const Signup: React.FC = () => {
 					placeholder="PW 확인"
 					type="password"
 					onChange={setConfirmPassword}
-					style={inputStyle}
+					border={isPasswordMismatch ? '2px solid red' : '1px solid white'}
+					width={270}
+					height={40}
+					borderRadius="100px"
+					margin="10px"
 				/>
 			</div>
 			<div>
 				{/* 전화번호 */}
-				<InputComponent value={phone} placeholder="Phone" type="tel" onChange={setPhone} />
+				<InputComponent
+					value={phone}
+					placeholder="Phone"
+					type="tel"
+					onChange={setPhone}
+					width={270}
+					height={40}
+					borderRadius="100px"
+					border="white"
+					margin="10px"
+				/>
+				<ButtonComponent label="인증번호 발송" fontSize="10px" width={80} height={40} onClick={startTimer} />
 			</div>
 			<div>
 				{/* 인증번호 */}
@@ -89,23 +176,65 @@ const Signup: React.FC = () => {
 					placeholder="인증번호"
 					type="text"
 					onChange={setVerificationCode}
+					width={270}
+					height={40}
+					borderRadius="100px"
+					border="white"
+					margin="10px"
+				/>
+				<ButtonComponent label="인증번호 확인" fontSize="10px" width={80} height={40} />
+				{timer && <div>남은 시간: {displayTime()}</div>}
+			</div>
+			{/* 닉네임 */}
+			<div>
+				<InputComponent
+					value={nickname}
+					placeholder="닉네임"
+					type="text"
+					onChange={setNickname}
+					width={270}
+					height={40}
+					borderRadius="100px"
+					border="white"
+					margin="10px"
+				/>
+				<ButtonComponent
+					label="중복검사"
+					fontSize="10px"
+					width={80}
+					height={40}
+					onClick={checkNicknameDuplicate}
 				/>
 			</div>
+			{/* 성별 */}
 			<div>
-				{/* 닉네임 */}
-				<InputComponent value={nickname} placeholder="닉네임" type="text" onChange={setNickname} />
+				<ButtonComponent
+					label="남자"
+					fontSize="16px"
+					width={150}
+					height={40}
+					margin="10px"
+					backgroundColor={gender === 'male' ? 'rgba(255, 182, 73, 1)' : 'grey'}
+					textColor="white"
+					borderRadius="100px"
+					onClick={() => handleGenderSelect('male')}
+				/>
+				<ButtonComponent
+					label="여자"
+					fontSize="16px"
+					width={150}
+					height={40}
+					margin="10px"
+					backgroundColor={gender === 'female' ? 'rgba(255, 182, 73, 1)' : 'grey'}
+					textColor="white"
+					borderRadius="100px"
+					onClick={() => handleGenderSelect('female')}
+				/>
 			</div>
-			<div>
-				{/* 성별 */}
-				<select value={gender} onChange={(e) => setGender(e.target.value)}>
-					<option value="">성별선택</option>
-					<option value="male">남자</option>
-					<option value="female">여자</option>
-				</select>
-			</div>
+
 			{/* 나이 */}
 			<div>
-				<ButtonComponent label="나이 선택" onClick={toggleDrawer} />
+				<ButtonComponent label="나이 선택" onClick={toggleDrawer} width={150} height={40} />
 				{selectedAgeGroup && <div>{selectedAgeGroup}</div>}
 				<div
 					style={{
@@ -123,7 +252,17 @@ const Signup: React.FC = () => {
 					))}
 				</div>
 				<div>
-					<ButtonComponent label="Submit" onClick={handleSubmit} />
+					<ButtonComponent
+						label="회원가입"
+						onClick={handleSubmit}
+						backgroundColor="rgba(255, 182, 73, 1)"
+						fontSize="16px"
+						margin="10px"
+						textColor="white"
+						borderRadius="100px"
+						width={344}
+						height={64}
+					/>
 				</div>
 			</div>
 		</div>
