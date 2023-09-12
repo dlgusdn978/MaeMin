@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
-import { HomeContainer } from '../components/layout/common';
+import { Container } from '../components/layout/common';
 import { ReactComponent as SearchIcon } from '../assets/imgs/search.svg';
 import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
 import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
@@ -19,9 +19,11 @@ const HomeBox = styled.div<directionType>`
 const testArr = ['1', '2', '3', '4'];
 const Home = () => {
 	return (
-		<HomeContainer>
-			<PayRegist></PayRegist>
-			{/* Home페이지
+		<Container>
+			<div>
+				검색창
+				<SearchIcon />
+			</div>
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"
@@ -51,8 +53,8 @@ const Home = () => {
 					icon={(props) => <QrIcon {...props} />}
 					iconSize={40}
 				/>
-			</HomeBox> */}
-		</HomeContainer>
+			</HomeBox>
+		</Container>
 	);
 };
 
