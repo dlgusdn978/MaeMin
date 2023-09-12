@@ -1,6 +1,6 @@
-import React, { FC, ButtonHTMLAttributes } from 'react';
+import React from 'react';
 
-interface ButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonComponentProps {
 	label: string;
 	backgroundColor?: string;
 	fontSize?: string;
@@ -9,9 +9,12 @@ interface ButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	textColor?: string;
 	width?: string | number;
 	height?: string | number;
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	disabled?: boolean;
+	borderColor?: string;
 }
 
-const ButtonComponent: FC<ButtonComponentProps> = ({
+const ButtonComponent: React.FC<ButtonComponentProps> = ({
 	label,
 	backgroundColor,
 	fontSize,
@@ -20,7 +23,9 @@ const ButtonComponent: FC<ButtonComponentProps> = ({
 	textColor,
 	width,
 	height,
-	...props
+	onClick,
+	disabled,
+	borderColor,
 }) => {
 	return (
 		<button
@@ -32,8 +37,10 @@ const ButtonComponent: FC<ButtonComponentProps> = ({
 				color: textColor,
 				width: width,
 				height: height,
+				border: borderColor ? `1px solid ${borderColor}` : undefined,
 			}}
-			{...props}
+			onClick={onClick}
+			disabled={disabled}
 		>
 			{label}
 		</button>

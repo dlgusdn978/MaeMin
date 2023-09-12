@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import InputComponent from '../components/InputComponent';
-import ButtonComponent from '../components/ButtonComponent';
+import Button from '../components/Button';
 
-const Signup: React.FC = () => {
+const Signup = () => {
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
 	const [phone, setPhone] = useState<string>('');
 	const [verificationCode, setVerificationCode] = useState<string>('');
 	const [nickname, setNickname] = useState<string>('');
-	const [gender, setGender] = useState<string>(''); // 'male', 'female', or 'other'
+	const [gender, setGender] = useState<string>('');
 	const [isPasswordMismatch, setIsPasswordMismatch] = useState<boolean>(false);
 	const [selectedAgeGroup, setSelectedAgeGroup] = useState<string | null>(null);
 	const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
@@ -109,7 +109,7 @@ const Signup: React.FC = () => {
 	};
 
 	return (
-		<div>
+		<div style={{ paddingLeft: '15px' }}>
 			<h1>회원가입</h1>
 			<div>
 				{/* 아이디 */}
@@ -124,7 +124,7 @@ const Signup: React.FC = () => {
 					border="white"
 					margin="10px"
 				/>
-				<ButtonComponent label="중복검사" fontSize="10px" width={80} height={40} onClick={checkIdDuplicate} />
+				<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkIdDuplicate} />
 			</div>
 			<div>
 				{/* 비밀번호 */}
@@ -154,6 +154,7 @@ const Signup: React.FC = () => {
 					margin="10px"
 				/>
 			</div>
+			{isPasswordMismatch && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
 			<div>
 				{/* 전화번호 */}
 				<InputComponent
@@ -167,7 +168,7 @@ const Signup: React.FC = () => {
 					border="white"
 					margin="10px"
 				/>
-				<ButtonComponent label="인증번호 발송" fontSize="10px" width={80} height={40} onClick={startTimer} />
+				<Button label="인증번호 발송" fontSize="10px" width={81} height={26} onClick={startTimer} />
 			</div>
 			<div>
 				{/* 인증번호 */}
@@ -182,7 +183,7 @@ const Signup: React.FC = () => {
 					border="white"
 					margin="10px"
 				/>
-				<ButtonComponent label="인증번호 확인" fontSize="10px" width={80} height={40} />
+				<Button label="인증번호 확인" fontSize="10px" width={81} height={26} />
 				{timer && <div>남은 시간: {displayTime()}</div>}
 			</div>
 			{/* 닉네임 */}
@@ -198,17 +199,11 @@ const Signup: React.FC = () => {
 					border="white"
 					margin="10px"
 				/>
-				<ButtonComponent
-					label="중복검사"
-					fontSize="10px"
-					width={80}
-					height={40}
-					onClick={checkNicknameDuplicate}
-				/>
+				<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkNicknameDuplicate} />
 			</div>
 			{/* 성별 */}
 			<div>
-				<ButtonComponent
+				<Button
 					label="남자"
 					fontSize="16px"
 					width={150}
@@ -217,9 +212,10 @@ const Signup: React.FC = () => {
 					backgroundColor={gender === 'male' ? 'rgba(255, 182, 73, 1)' : 'grey'}
 					textColor="white"
 					borderRadius="100px"
+					borderColor="rgb(240, 240, 240)"
 					onClick={() => handleGenderSelect('male')}
 				/>
-				<ButtonComponent
+				<Button
 					label="여자"
 					fontSize="16px"
 					width={150}
@@ -228,14 +224,16 @@ const Signup: React.FC = () => {
 					backgroundColor={gender === 'female' ? 'rgba(255, 182, 73, 1)' : 'grey'}
 					textColor="white"
 					borderRadius="100px"
+					borderColor="rgb(240, 240, 240)"
 					onClick={() => handleGenderSelect('female')}
 				/>
 			</div>
 
 			{/* 나이 */}
 			<div>
-				<ButtonComponent label="나이 선택" onClick={toggleDrawer} width={150} height={40} />
-				{selectedAgeGroup && <div>{selectedAgeGroup}</div>}
+				<Button label="나이 선택" onClick={toggleDrawer} width={150} height={40} margin="10px" />
+				{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}</span>}
+
 				<div
 					style={{
 						display: drawerOpen ? 'block' : 'none',
@@ -252,7 +250,7 @@ const Signup: React.FC = () => {
 					))}
 				</div>
 				<div>
-					<ButtonComponent
+					<Button
 						label="회원가입"
 						onClick={handleSubmit}
 						backgroundColor="rgba(255, 182, 73, 1)"
@@ -260,6 +258,7 @@ const Signup: React.FC = () => {
 						margin="10px"
 						textColor="white"
 						borderRadius="100px"
+						borderColor="rgb(240, 240, 240)"
 						width={344}
 						height={64}
 					/>

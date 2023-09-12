@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { ChangeEvent } from 'react';
 
 interface InputComponentProps {
 	value: string;
@@ -12,9 +12,13 @@ interface InputComponentProps {
 	width?: string | number;
 	height?: string | number;
 	border?: string;
+	// marginBottom?: string;
+	// marginLeft?: string;
+	// marginRight?: string;
+	// marginTop?: string;
 }
 
-const InputComponent: FC<InputComponentProps> = ({
+const InputComponent = ({
 	value,
 	placeholder,
 	type,
@@ -25,8 +29,11 @@ const InputComponent: FC<InputComponentProps> = ({
 	borderRadius,
 	width,
 	height,
-	border,
-}) => {
+	border, // marginBottom,
+	// marginLeft,
+} // marginRight,
+// marginTop,
+: InputComponentProps) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		onChange(e.target.value);
 	};
@@ -45,6 +52,10 @@ const InputComponent: FC<InputComponentProps> = ({
 				width,
 				height,
 				border,
+				// marginBottom,
+				// marginLeft,
+				// marginRight,
+				// marginTop,
 			}}
 		/>
 	);
