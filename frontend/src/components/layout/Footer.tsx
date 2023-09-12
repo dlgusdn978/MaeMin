@@ -7,8 +7,8 @@ import { ReactComponent as MyIcon } from '../../assets/imgs/mypage.svg';
 import { useNavigate } from 'react-router';
 
 const FooterContainer = styled.div`
-	position: fixed;
-	height: 100px;
+	/* position: fixed; */
+	height: 80px;
 	min-width: 390px;
 	margin-top: auto;
 	background-color: white;
@@ -17,7 +17,7 @@ const FooterContainer = styled.div`
 	justify-content: space-around;
 	align-items: center;
 	z-index: 999;
-	bottom: 0;
+	/* bottom: 0; */
 `;
 
 // const footerList = ['home', 'trend', 'log', 'myPage'];
