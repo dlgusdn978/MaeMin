@@ -15,6 +15,7 @@ const FooterContainer = styled.div`
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
+	z-index: 999;
 `;
 
 const footerList = ['home', 'trend', 'log', 'myPage'];

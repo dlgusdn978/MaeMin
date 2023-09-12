@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Footer from './Footer';
+import { Container } from './common';
 
 const Main = styled.main`
 	min-height: calc(100vh - 100px);
@@ -7,10 +8,10 @@ const Main = styled.main`
 
 const Layout = (props: { children: React.ReactNode }) => {
 	return (
-		<div>
+		<Container>
 			<Main>{props.children}</Main>
 			<Footer />
-		</div>
+		</Container>
 	);
 };
 

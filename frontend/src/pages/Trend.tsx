@@ -1,12 +1,13 @@
 import React from 'react';
-import Carousel from '../components/Carousel';
+import CarouselCard from '../components/Carousel/CarouselCard';
 
 const Trend = () => {
-	const slides = ['Delhi', 'Mumbai', 'Pune'];
 	return (
 		<div>
-			Trend
-			{/* <Carousel children={slides} /> */}
+			<h2>Trend Page</h2>
+			<CarouselCard trendword="약과" />
+			<CarouselCard trendword="탕후루" />
+			<CarouselCard trendword="싸피" />
 		</div>
 	);
 };

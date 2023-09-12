@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
 					font-family: sans-serif;
 					height: 100%;
 					justify-content: center;
-					padding: 15px;
+					padding: 0 10px;
 				}
 			}
 		}
