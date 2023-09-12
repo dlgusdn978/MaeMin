@@ -41,3 +41,7 @@ interface SliderProps {
 interface CarouselProps {
 	trendword: string;
 }
+
+interface TallProps {
+	height?: string;
+}
