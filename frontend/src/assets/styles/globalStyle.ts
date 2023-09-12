@@ -45,6 +45,10 @@ const GlobalStyle = createGlobalStyle`
 			appearance: none;
 		}
 	`}
+
+	.slick-slide div {
+    outline: none;
+}
 `;
 
 export default GlobalStyle;

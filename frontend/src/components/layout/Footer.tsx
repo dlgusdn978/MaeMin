@@ -18,7 +18,7 @@ const FooterContainer = styled.div`
 	z-index: 999;
 `;
 
-const footerList = ['home', 'trend', 'log', 'myPage'];
+// const footerList = ['home', 'trend', 'log', 'myPage'];
 
 const Footer = () => {
 	const navigate = useNavigate();

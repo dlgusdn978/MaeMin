@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Carousel from './Carousel';
 import { StoreName } from '../text';
+import { useNavigate } from 'react-router';
 
 interface itemsProps {
 	item: string;
@@ -32,10 +33,17 @@ const items: itemsProps[] = [
 ];
 
 function CarouselCard({ trendword }: CarouselProps) {
+	const navigate = useNavigate();
+
 	return (
 		<Carousel keyword={trendword}>
 			{items.map((item, index) => (
-				<SliderItem key={index}>
+				<SliderItem
+					key={index}
+					onClick={() => {
+						navigate(`${item.name}`);
+					}}
+				>
 					<img src={item.item} alt={item.name} />
 					<StoreName>{item.name}</StoreName>
 				</SliderItem>

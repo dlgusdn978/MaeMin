@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { ReactComponent as LeftArrowIcon } from '../assets/imgs/leftArrow.svg';
-import { ReactComponent as RightArrowIcon } from '../assets/imgs/rightArrow.svg';
+import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -15,11 +13,6 @@ const CarouselWrapper = styled.section`
 	padding-bottom: 10px;
 `;
 
-// function NextArrow(props: ArrowProps) {
-// 	const { className, style, onClick } = props;
-// 	return <div className={className} style={{ ...style, display: 'block', background: 'red' }} onClick={onClick} />;
-// }
-
 const Carousel = ({ children, keyword, className, autoplay = true, speed = 300, loop = true }: SliderProps) => {
 	const settings = {
 		dots: false,
@@ -28,7 +21,6 @@ const Carousel = ({ children, keyword, className, autoplay = true, speed = 300, 
 		slidesToShow: 2,
 		autoplay: Boolean(autoplay),
 		autoplaySpeed: typeof autoplay === 'boolean' ? 3000 : autoplay,
-		// NextArrow: <NextArrow />,
 	};
 
 	return (

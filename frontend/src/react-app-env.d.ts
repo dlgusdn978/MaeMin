@@ -38,12 +38,6 @@ interface SliderProps {
 	keyword: string;
 }
 
-// interface ArrowProps {
-// 	className?: string;
-// 	style?: React.CSSProperties;
-// 	onClick?: () => void;
-// }
-
 interface CarouselProps {
 	trendword: string;
 }
