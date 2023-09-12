@@ -7,6 +7,11 @@ import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
 import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
 import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
+import { useDispatch, useSelector } from 'react-redux';
+// import { openSearch } from '../store/searchSlice';
+import { AppDispatch, RootState } from '../store/store';
+import { searchSlice } from '../store/searchSlice';
+import SearchHistory from '../components/SearchHistory';
 
 type directionType = {
 	dir: string;
@@ -18,12 +23,17 @@ const HomeBox = styled.div<directionType>`
 `;
 
 const Home = () => {
+	const searchState = useSelector((state: RootState) => state.search);
+	console.log(searchState.isOpen);
+	const flag = searchState.isOpen;
+	const dispatch = useDispatch();
+
 	return (
 		<Container>
-			<div>
-				검색창
-				<SearchIcon />
-			</div>
+			<div onClick={() => dispatch(searchSlice.actions.openSearch())}>검색창</div>
+			<SearchIcon />
+			<SearchHistory />
+			{flag ? <SearchHistory /> : null}
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"
