@@ -19,3 +19,16 @@ interface CardProps {
 	title?: string;
 	content?: string;
 }
+
+interface SelectProps {
+	list?: string[];
+	width?: string;
+}
+
+interface NavigationProps {
+	title?: string;
+}
+
+interface InputProps {
+	width?: string;
+}

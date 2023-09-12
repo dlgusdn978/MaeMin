@@ -7,7 +7,7 @@ import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
 import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
 import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
-
+import PayRegist from '../pages/PayRegist';
 type directionType = {
 	dir: string;
 };
@@ -16,11 +16,12 @@ const HomeBox = styled.div<directionType>`
 	display: flex;
 	flex-direction: ${(props) => (props.dir === 'row' ? 'row' : 'column')};
 `;
-
+const testArr = ['1', '2', '3', '4'];
 const Home = () => {
 	return (
 		<HomeContainer>
-			Home페이지
+			<PayRegist></PayRegist>
+			{/* Home페이지
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"
@@ -50,7 +51,7 @@ const Home = () => {
 					icon={(props) => <QrIcon {...props} />}
 					iconSize={40}
 				/>
-			</HomeBox>
+			</HomeBox> */}
 		</HomeContainer>
 	);
 };
