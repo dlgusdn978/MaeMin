@@ -20,7 +20,10 @@ const HomeBox = styled.div<directionType>`
 const Home = () => {
 	return (
 		<Container>
-			Home페이지
+			<div>
+				검색창
+				<SearchIcon />
+			</div>
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"
