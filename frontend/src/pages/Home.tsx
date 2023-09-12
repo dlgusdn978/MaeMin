@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
-import { HomeContainer } from '../components/layout/common';
+import { Container } from '../components/layout/common';
 import { ReactComponent as SearchIcon } from '../assets/imgs/search.svg';
 import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
 import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
@@ -19,7 +19,7 @@ const HomeBox = styled.div<directionType>`
 
 const Home = () => {
 	return (
-		<HomeContainer>
+		<Container>
 			Home페이지
 			<HomeBox dir="column">
 				<Card
@@ -51,7 +51,7 @@ const Home = () => {
 					iconSize={40}
 				/>
 			</HomeBox>
-		</HomeContainer>
+		</Container>
 	);
 };
 
