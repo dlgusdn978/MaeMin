@@ -4,8 +4,7 @@ import Navigation from '../components/Navigation';
 import Select from '../components/Select';
 import Input from '../components/Input';
 const PayRegistContainer = styled.div`
-	width: 100%;
-	height: 100%;
+	width: 90%;
 	background-color: white;
 	& div {
 		margin-bottom: 10px;
