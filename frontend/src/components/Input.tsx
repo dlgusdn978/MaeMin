@@ -12,6 +12,7 @@ interface InputComponentProps {
 	width?: string | number;
 	height?: string | number;
 	border?: string;
+	paddingLeft?: string;
 }
 
 const Input = ({
@@ -26,6 +27,7 @@ const Input = ({
 	width,
 	height,
 	border,
+	paddingLeft,
 }: InputComponentProps) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		onChange(e.target.value);
@@ -45,6 +47,7 @@ const Input = ({
 				width,
 				height,
 				border,
+				paddingLeft,
 			}}
 		/>
 	);

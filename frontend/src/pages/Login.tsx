@@ -40,6 +40,7 @@ const Login = () => {
 					borderRadius="20px"
 					border="white"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 			</div>
 			<div>
@@ -53,6 +54,7 @@ const Login = () => {
 					borderRadius="20px"
 					border="white"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 			</div>
 			<div>

@@ -123,6 +123,7 @@ const Signup = () => {
 					borderRadius="100px"
 					border="white"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 				<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkIdDuplicate} />
 			</div>
@@ -138,6 +139,7 @@ const Signup = () => {
 					height={40}
 					borderRadius="100px"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 			</div>
 			<div>
@@ -152,6 +154,7 @@ const Signup = () => {
 					height={40}
 					borderRadius="100px"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 			</div>
 			{isPasswordMismatch && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
@@ -167,6 +170,7 @@ const Signup = () => {
 					borderRadius="100px"
 					border="white"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 				<Button label="인증번호 발송" fontSize="10px" width={81} height={26} onClick={startTimer} />
 			</div>
@@ -182,6 +186,7 @@ const Signup = () => {
 					borderRadius="100px"
 					border="white"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 				<Button label="인증번호 확인" fontSize="10px" width={81} height={26} />
 				{timer && <div>남은 시간: {displayTime()}</div>}
@@ -198,6 +203,7 @@ const Signup = () => {
 					borderRadius="100px"
 					border="white"
 					margin="10px"
+					paddingLeft="30px"
 				/>
 				<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkNicknameDuplicate} />
 			</div>
