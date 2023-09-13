@@ -6,11 +6,13 @@ export const Container = styled.div`
 	justify-content: center;
 	align-items: center;
 `;
+
 // height: ${(height) => (height ? height : '1000px')};
 export const TallContainer = styled.div<TallProps>`
 	height: ${(props) => (props.height ? props.height : '1000px')};
 `;
 
-export const HoverPointerBox = styled.div`
+export const HoverPointerBox = styled.div<HoverProps>`
 	cursor: pointer;
+	width: ${({ width }) => (width ? `${width}px` : '20px')};
 `;

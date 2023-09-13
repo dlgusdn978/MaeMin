@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { ReactComponent as LeftArrow } from '../assets/imgs/leftArrow.svg';
 import { closeSearch } from '../store/searchSlice';
 import { useDispatch } from 'react-redux';
-import { HoverPointerBox } from './layout/common';
-import { HistoryItem } from './style/searchHistory';
+import { Container, HoverPointerBox } from './layout/common';
+import { HistoryItem, SearchHistoryBox, SearchIconBox, SearchingBox } from './style/search';
+import Input from './Input';
+import { ReactComponent as SearchIcon } from '../assets/imgs/search.svg';
 
 interface hisInterface {
 	id: number;
@@ -32,6 +34,7 @@ const dummyHistory: hisInterface[] = [
 
 const SearchHistory = () => {
 	const [history, setHistory] = useState<hisInterface[]>(dummyHistory);
+	const [val, setVal] = useState('');
 	const dispatch = useDispatch();
 
 	// 브라우저가 모두 렌더링된 상태에서 해당 함수를 실행
@@ -48,13 +51,13 @@ const SearchHistory = () => {
 	}, [history]);
 
 	// 검색어 추가
-	const handleAddKeyword = (text: string) => {
-		const newKeyword = {
-			id: Date.now(),
-			text: text,
-		};
-		setHistory([newKeyword, ...history]);
-	};
+	// const handleAddKeyword = (text: string) => {
+	// 	const newKeyword = {
+	// 		id: Date.now(),
+	// 		text: text,
+	// 	};
+	// 	setHistory([newKeyword, ...history]);
+	// };
 
 	// 단일 검색어 삭제
 	const handleRemoveKeyword = (id: number) => {
@@ -70,22 +73,30 @@ const SearchHistory = () => {
 	};
 
 	return (
-		<div>
-			<HoverPointerBox
-				onClick={() => {
-					dispatch(closeSearch());
-				}}
-			>
-				<LeftArrow />
-			</HoverPointerBox>
+		<Container>
+			<SearchHistoryBox>
+				<HoverPointerBox
+					onClick={() => {
+						dispatch(closeSearch());
+					}}
+				>
+					<LeftArrow />
+				</HoverPointerBox>
+
+				<SearchingBox>
+					<Input value={val} onChange={setVal} height={40} width={305} border="none" borderRadius="10px" />
+					<SearchIconBox>
+						<SearchIcon />
+					</SearchIconBox>
+				</SearchingBox>
+			</SearchHistoryBox>
+
 			<h2>최근 검색어</h2>
 			{dummyHistory.length ? (
 				<button type="button" onClick={handleClearKeywords}>
 					전체 삭제
 				</button>
-			) : (
-				<button />
-			)}
+			) : null}
 			{dummyHistory.length ? (
 				dummyHistory.map((item, i) => {
 					return (
@@ -100,7 +111,7 @@ const SearchHistory = () => {
 			) : (
 				<div>최근 검색어가 없습니다.</div>
 			)}
-		</div>
+		</Container>
 	);
 };
 
