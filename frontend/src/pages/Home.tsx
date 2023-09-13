@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
 import { Container } from '../components/layout/common';
-import { ReactComponent as SearchIcon } from '../assets/imgs/search.svg';
 import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
 import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
 import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
-import { useDispatch, useSelector } from 'react-redux';
-import { openSearch } from '../store/searchSlice';
-import { RootState } from '../store/store';
-import SearchHistory from '../components/SearchHistory';
-import Input from '../components/Input';
-import { SearchBox, SearchIconBox } from '../components/style/search';
+import Search from '../components/Search';
 
 type directionType = {
 	dir: string;
@@ -24,28 +18,9 @@ const HomeBox = styled.div<directionType>`
 `;
 
 const Home = () => {
-	const [val, setVal] = useState('');
-	const searchState = useSelector((state: RootState) => state.search);
-	console.log(searchState.isOpen);
-	const flag = searchState.isOpen;
-	const dispatch = useDispatch();
-
-	useEffect(() => {
-		console.log(val);
-	}, [val]);
-
 	return (
 		<Container>
-			{flag ? null : (
-				<SearchBox onClick={() => dispatch(openSearch())}>
-					<Input value={val} onChange={setVal} height={40} width={305} border="none" borderRadius="10px" />
-					<SearchIconBox>
-						<SearchIcon />
-					</SearchIconBox>
-				</SearchBox>
-			)}
-
-			{flag ? <SearchHistory /> : null}
+			<Search />
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"

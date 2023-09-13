@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { ReactComponent as LeftArrow } from '../assets/imgs/leftArrow.svg';
-import { closeSearch } from '../store/searchSlice';
-import { useDispatch } from 'react-redux';
-import { Container, HoverPointerBox } from './layout/common';
-import { HistoryItem, SearchHistoryBox, SearchIconBox, SearchingBox } from './style/search';
-import Input from './Input';
+import { ReactComponent as LocationIcon } from '../assets/imgs/location.svg';
+import { HoverPointerBox } from '../components/layout/common';
+import {
+	HistoryBox,
+	HistoryItem,
+	HistoryText,
+	SearchContainer,
+	SearchHistoryBox,
+	SearchIconBox,
+	SearchingBox,
+} from '../components/style/search';
+import Input from '../components/Input';
 import { ReactComponent as SearchIcon } from '../assets/imgs/search.svg';
-import Button from './Button';
+import Button from '../components/Button';
+import { useNavigate } from 'react-router';
 
 interface hisInterface {
 	id: number;
@@ -36,8 +44,8 @@ const dummyHistory: hisInterface[] = [
 const SearchHistory = () => {
 	const [history, setHistory] = useState<hisInterface[]>(dummyHistory);
 	const [val, setVal] = useState('');
-	const dispatch = useDispatch();
-	console.log(history);
+	const navigate = useNavigate();
+
 	// 브라우저가 모두 렌더링된 상태에서 해당 함수를 실행
 	// -> db에서 내가 저장한 검색어 ? 위치 ? 저장 & 최근검색어 localStorage로 사용
 	useEffect(() => {
@@ -73,19 +81,38 @@ const SearchHistory = () => {
 		setHistory([]);
 	};
 
+	const inputRef = useRef<HTMLInputElement>(null);
+	console.log(inputRef);
+	useEffect(() => {
+		inputRef.current?.focus();
+	}, []);
+	useLayoutEffect(() => {
+		if (inputRef.current !== null) inputRef.current.focus();
+	});
+
 	return (
-		<Container>
+		<SearchContainer>
 			<SearchHistoryBox>
 				<HoverPointerBox
 					onClick={() => {
-						dispatch(closeSearch());
+						navigate(-1);
 					}}
 				>
 					<LeftArrow />
 				</HoverPointerBox>
 
 				<SearchingBox>
-					<Input value={val} onChange={setVal} height={40} width={305} border="none" borderRadius="10px" />
+					<Input
+						ref={inputRef}
+						value={val}
+						onChange={setVal}
+						height={40}
+						width={305}
+						border="none"
+						borderRadius="10px"
+						paddingLeft="10px"
+						placeholder="위치 검색"
+					/>
 					<SearchIconBox
 						onClick={() => {
 							handleAddKeyword(val);
@@ -95,34 +122,40 @@ const SearchHistory = () => {
 					</SearchIconBox>
 				</SearchingBox>
 			</SearchHistoryBox>
-
-			<h2>최근 검색어</h2>
-			{history.length ? (
-				<Button
-					label="전체삭제"
-					fontSize="10px"
-					width={57}
-					height={26}
-					onClick={() => {
-						handleClearKeywords();
-					}}
-				/>
-			) : null}
-			{history.length ? (
-				history.map((item, i) => {
-					return (
-						<HistoryItem key={i}>
-							{item.text}
-							<button className="removeBtn" type="button" onClick={() => handleRemoveKeyword(item.id)}>
-								x
-							</button>
-						</HistoryItem>
-					);
-				})
-			) : (
-				<div>최근 검색어가 없습니다.</div>
-			)}
-		</Container>
+			<div>
+				<h2>최근 검색어</h2>
+				{history.length ? (
+					<Button
+						label="전체삭제"
+						fontSize="10px"
+						width={57}
+						height={26}
+						onClick={() => {
+							handleClearKeywords();
+						}}
+					/>
+				) : null}
+			</div>
+			<HistoryBox>
+				{history.length ? (
+					history.map((item, i) => {
+						return (
+							<HistoryItem key={i}>
+								<LocationIcon />
+								<HistoryText>{item.text}</HistoryText>
+								<Button
+									label="x"
+									onClick={() => handleRemoveKeyword(item.id)}
+									backgroundColor="white"
+								/>
+							</HistoryItem>
+						);
+					})
+				) : (
+					<div>최근 검색어가 없습니다.</div>
+				)}
+			</HistoryBox>
+		</SearchContainer>
 	);
 };
 

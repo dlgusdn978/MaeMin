@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface SearchState {
-	isOpen: boolean;
+	focus: boolean;
 }
 
 const initialState: SearchState = {
-	isOpen: false,
+	focus: false,
 };
 
 export const searchSlice = createSlice({
@@ -13,7 +13,7 @@ export const searchSlice = createSlice({
 	initialState,
 	reducers: {
 		openSearch: (state) => {
-			state.isOpen = true;
+			state.focus = true;
 		},
 		closeSearch: () => {
 			return initialState;
