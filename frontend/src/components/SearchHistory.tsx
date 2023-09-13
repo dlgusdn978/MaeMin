@@ -8,10 +8,27 @@ interface hisInterface {
 	text: string;
 }
 
-const dummyHistory = ['동명동', '서명서', '광산구', '정읍시'];
+const dummyHistory: hisInterface[] = [
+	{
+		id: 1,
+		text: '동명동',
+	},
+	{
+		id: 2,
+		text: '서명서',
+	},
+	{
+		id: 3,
+		text: '광산구',
+	},
+	{
+		id: 4,
+		text: '정읍시',
+	},
+];
 
 const SearchHistory = () => {
-	const [history, setHistory] = useState<hisInterface[]>([]);
+	const [history, setHistory] = useState<hisInterface[]>(dummyHistory);
 	const dispatch = useDispatch();
 
 	// 브라우저가 모두 렌더링된 상태에서 해당 함수를 실행
@@ -67,8 +84,8 @@ const SearchHistory = () => {
 				<button />
 			)}
 			{dummyHistory.length ? (
-				dummyHistory.map((word, i) => {
-					return <div key={i}>{word}</div>;
+				dummyHistory.map((item, i) => {
+					return <div key={i}>{item.text}</div>;
 				})
 			) : (
 				<div>최근 검색어가 없습니다.</div>
