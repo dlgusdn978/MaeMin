@@ -6,7 +6,6 @@ import MenuInfo from './MenuInfo';
 const StoreMenuContainer = styled.div`
 	position: relative;
 	height: auto;
-	min-width: 390px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;

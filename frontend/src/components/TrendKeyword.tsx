@@ -5,7 +5,6 @@ import TagIcon from '../assets/imgs/tag.svg';
 const TrendKeywordContainer = styled.div`
 	position: relative;
 	height: 52px;
-	min-width: 390px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;

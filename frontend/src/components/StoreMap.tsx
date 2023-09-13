@@ -5,7 +5,6 @@ import StoreMapIcon from '../assets/imgs/storemap.svg';
 const StoreMapContainer = styled.div`
 	position: relative;
 	height: 176px;
-	min-width: 390px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;

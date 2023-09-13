@@ -7,7 +7,6 @@ import SharboxIcon from '../assets/imgs/sharebox.svg';
 const StorePhotoContainer = styled.div`
 	position: relative;
 	height: 224px;
-	min-width: 390px;
 	background-color: white;
 	display: flex;
 	flex-direction: row;
@@ -21,7 +20,9 @@ const BackButton = styled.button`
 	left: 0;
 	background-color: white;
 	border: none;
-	margin: 24px;
+	/* margin: 20px; */
+	margin-top: 25px;
+	margin-left: 10px;
 `;
 
 const ShareButton = styled.button`
@@ -30,7 +31,8 @@ const ShareButton = styled.button`
 	right: 0;
 	background-color: white;
 	border: none;
-	margin: 20px;
+	margin-top: 25px;
+	margin-right: 10px;
 `;
 
 const FixedSizeImage = styled.img`
