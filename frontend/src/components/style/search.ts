@@ -12,6 +12,7 @@ export const HistoryItem = styled.div`
 	background-color: white;
 	border-bottom: 1px solid #f0f0f0;
 	height: 50px;
+	padding-left: 10px;
 `;
 
 export const SearchBox = styled.div`
@@ -29,7 +30,7 @@ export const SearchingBox = styled.div`
 	display: flex;
 	align-items: center;
 	background-color: white;
-	height: 40px;
+	height: 38px;
 `;
 
 export const SearchIconBox = styled.div`
@@ -45,6 +46,7 @@ export const SearchHistoryBox = styled.div`
 	background-color: white;
 	height: 40px;
 	width: 390px;
+	border-bottom: 1px solid #bbb;
 `;
 
 export const HistoryBox = styled.div`

@@ -106,7 +106,7 @@ const SearchHistory = () => {
 						ref={inputRef}
 						value={val}
 						onChange={setVal}
-						height={40}
+						height={38}
 						width={305}
 						border="none"
 						borderRadius="10px"
