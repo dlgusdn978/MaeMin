@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
 import { Container } from '../components/layout/common';
-import { ReactComponent as SearchIcon } from '../assets/imgs/search.svg';
 import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
 import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
 import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
+import Search from '../components/Search';
 
 type directionType = {
 	dir: string;
@@ -20,10 +20,7 @@ const HomeBox = styled.div<directionType>`
 const Home = () => {
 	return (
 		<Container>
-			<div>
-				검색창
-				<SearchIcon />
-			</div>
+			<Search />
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"
