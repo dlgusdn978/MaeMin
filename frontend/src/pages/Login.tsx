@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import InputComponent from '../components/Input';
+import Input from '../components/Input';
 import Button from '../components/Button';
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
 	return (
 		<div style={{ paddingLeft: '15px' }}>
 			<div>
-				<InputComponent
+				<Input
 					value={id}
 					placeholder="ID"
 					type="text"
@@ -43,7 +43,7 @@ const Login = () => {
 				/>
 			</div>
 			<div>
-				<InputComponent
+				<Input
 					value={password}
 					placeholder="PW"
 					type="password"

@@ -14,7 +14,7 @@ interface InputComponentProps {
 	border?: string;
 }
 
-const InputComponent = ({
+const Input = ({
 	value,
 	placeholder,
 	type,
@@ -50,4 +50,4 @@ const InputComponent = ({
 	);
 };
 
-export default InputComponent;
+export default Input;

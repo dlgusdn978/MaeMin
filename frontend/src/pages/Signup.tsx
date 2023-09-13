@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import InputComponent from '../components/Input';
+import Input from '../components/Input';
 import Button from '../components/Button';
 
 const Signup = () => {
@@ -113,7 +113,7 @@ const Signup = () => {
 			<h1>회원가입</h1>
 			<div>
 				{/* 아이디 */}
-				<InputComponent
+				<Input
 					value={id}
 					placeholder="ID"
 					type="text"
@@ -128,7 +128,7 @@ const Signup = () => {
 			</div>
 			<div>
 				{/* 비밀번호 */}
-				<InputComponent
+				<Input
 					value={password}
 					placeholder="PW"
 					type="password"
@@ -142,7 +142,7 @@ const Signup = () => {
 			</div>
 			<div>
 				{/* 비밀번호 확인 */}
-				<InputComponent
+				<Input
 					value={confirmPassword}
 					placeholder="PW 확인"
 					type="password"
@@ -157,7 +157,7 @@ const Signup = () => {
 			{isPasswordMismatch && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
 			<div>
 				{/* 전화번호 */}
-				<InputComponent
+				<Input
 					value={phone}
 					placeholder="Phone"
 					type="tel"
@@ -172,7 +172,7 @@ const Signup = () => {
 			</div>
 			<div>
 				{/* 인증번호 */}
-				<InputComponent
+				<Input
 					value={verificationCode}
 					placeholder="인증번호"
 					type="text"
@@ -188,7 +188,7 @@ const Signup = () => {
 			</div>
 			{/* 닉네임 */}
 			<div>
-				<InputComponent
+				<Input
 					value={nickname}
 					placeholder="닉네임"
 					type="text"
