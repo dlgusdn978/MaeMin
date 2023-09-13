@@ -6,6 +6,7 @@ import {
 	HistoryBox,
 	HistoryItem,
 	HistoryText,
+	RemoveBox,
 	SearchContainer,
 	SearchHistoryBox,
 	SearchIconBox,
@@ -123,7 +124,28 @@ const SearchHistory = () => {
 				</SearchingBox>
 			</SearchHistoryBox>
 			<div>
-				<h2>최근 검색어</h2>
+				<Button
+					label="최근검색"
+					backgroundColor="blue"
+					fontSize="8px"
+					margin="10px"
+					textColor="white"
+					borderRadius="100px"
+					width={60}
+					height={20}
+					borderColor="rgb(240, 240, 240)"
+				/>
+				<Button
+					label="즐겨찾기"
+					backgroundColor="rgb(50, 255, 139)"
+					fontSize="8px"
+					margin="10px"
+					textColor="white"
+					borderRadius="100px"
+					width={60}
+					height={20}
+					borderColor="rgb(240, 240, 240)"
+				/>
 				{history.length ? (
 					<Button
 						label="전체삭제"
@@ -141,13 +163,18 @@ const SearchHistory = () => {
 					history.map((item, i) => {
 						return (
 							<HistoryItem key={i}>
-								<LocationIcon />
-								<HistoryText>{item.text}</HistoryText>
-								<Button
-									label="x"
-									onClick={() => handleRemoveKeyword(item.id)}
-									backgroundColor="white"
-								/>
+								<div>
+									<LocationIcon />
+									<HistoryText>{item.text}</HistoryText>
+								</div>
+								<RemoveBox>
+									<Button
+										label="x"
+										onClick={() => handleRemoveKeyword(item.id)}
+										backgroundColor="white"
+										border="none"
+									/>
+								</RemoveBox>
 							</HistoryItem>
 						);
 					})

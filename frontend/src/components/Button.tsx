@@ -11,6 +11,7 @@ interface ButtonComponentProps {
 	height?: string | number;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	disabled?: boolean;
+	border?: string;
 	borderColor?: string;
 }
 
@@ -26,6 +27,7 @@ const Button: React.FC<ButtonComponentProps> = ({
 	onClick,
 	disabled,
 	borderColor,
+	border,
 }) => {
 	return (
 		<button
@@ -37,7 +39,8 @@ const Button: React.FC<ButtonComponentProps> = ({
 				color: textColor,
 				width: width,
 				height: height,
-				border: borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
+				border:
+					`${border}` === 'none' ? 'none' : borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
 			}}
 			onClick={onClick}
 			disabled={disabled}

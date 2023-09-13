@@ -9,6 +9,7 @@ export const HistoryItem = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: space-between;
 	background-color: white;
 	border-bottom: 1px solid #f0f0f0;
 	height: 50px;
@@ -62,4 +63,8 @@ export const HistoryText = styled.span`
 	font-weight: 400;
 	line-height: 10px; /* 55.556% */
 	padding-left: 10px;
+`;
+
+export const RemoveBox = styled.div`
+	margin-right: 10px;
 `;
