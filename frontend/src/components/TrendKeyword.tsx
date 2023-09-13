@@ -19,22 +19,25 @@ const ContentContainer = styled.div`
 `;
 
 const TrendName = styled.div`
-	font-size: large;
+	font-size: 24px;
 	position: relative;
 	margin-left: 10px;
+`;
+
+const TrendList = styled.div`
+	font-size: 18px;
+	position: relative;
+	margin-left: 36px;
 `;
 
 const TrendKeyword = () => {
 	return (
 		<TrendKeywordContainer>
 			<ContentContainer>
-				{/* 아이콘 */}
 				<img src={TagIcon} alt="Tag" />
-
-				{/* 트렌드 이름 */}
 				<TrendName>트렌드 키워드</TrendName>
 			</ContentContainer>
-			<div>트랜드 키워드 나열~</div>
+			<TrendList>트랜드 키워드 나열~</TrendList>
 		</TrendKeywordContainer>
 	);
 };
