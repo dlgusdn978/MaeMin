@@ -12,10 +12,6 @@ interface InputComponentProps {
 	width?: string | number;
 	height?: string | number;
 	border?: string;
-	// marginBottom?: string;
-	// marginLeft?: string;
-	// marginRight?: string;
-	// marginTop?: string;
 }
 
 const InputComponent = ({
@@ -29,11 +25,8 @@ const InputComponent = ({
 	borderRadius,
 	width,
 	height,
-	border, // marginBottom,
-	// marginLeft,
-} // marginRight,
-// marginTop,
-: InputComponentProps) => {
+	border,
+}: InputComponentProps) => {
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		onChange(e.target.value);
 	};
@@ -52,10 +45,6 @@ const InputComponent = ({
 				width,
 				height,
 				border,
-				// marginBottom,
-				// marginLeft,
-				// marginRight,
-				// marginTop,
 			}}
 		/>
 	);
