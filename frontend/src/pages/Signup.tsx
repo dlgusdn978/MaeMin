@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import InputComponent from '../components/InputComponent';
+import InputComponent from '../components/Input';
 import Button from '../components/Button';
 
 const Signup = () => {
