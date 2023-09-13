@@ -10,3 +10,7 @@ export const Container = styled.div`
 export const TallContainer = styled.div<TallProps>`
 	height: ${(props) => (props.height ? props.height : '1000px')};
 `;
+
+export const HoverPointerBox = styled.div`
+	cursor: pointer;
+`;

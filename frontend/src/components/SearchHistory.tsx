@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { ReactComponent as LeftArrow } from '../assets/imgs/leftArrow.svg';
 import { closeSearch } from '../store/searchSlice';
 import { useDispatch } from 'react-redux';
+import { HoverPointerBox } from './layout/common';
+import { HistoryItem } from './style/searchHistory';
 
 interface hisInterface {
 	id: number;
@@ -9,21 +11,22 @@ interface hisInterface {
 }
 
 const dummyHistory: hisInterface[] = [
+	// 시 + 구 = 저장한 위치(구)정보 리스트 <- 백에서 받아올 데이터
 	{
 		id: 1,
-		text: '동명동',
+		text: '광주광역시 광산구',
 	},
 	{
 		id: 2,
-		text: '서명서',
+		text: '서울특별시 노원구',
 	},
 	{
 		id: 3,
-		text: '광산구',
+		text: '광주광역시 북구',
 	},
 	{
 		id: 4,
-		text: '정읍시',
+		text: '서울특별시 강남구',
 	},
 ];
 
@@ -68,13 +71,13 @@ const SearchHistory = () => {
 
 	return (
 		<div>
-			<div
+			<HoverPointerBox
 				onClick={() => {
 					dispatch(closeSearch());
 				}}
 			>
 				<LeftArrow />
-			</div>
+			</HoverPointerBox>
 			<h2>최근 검색어</h2>
 			{dummyHistory.length ? (
 				<button type="button" onClick={handleClearKeywords}>
@@ -85,7 +88,14 @@ const SearchHistory = () => {
 			)}
 			{dummyHistory.length ? (
 				dummyHistory.map((item, i) => {
-					return <div key={i}>{item.text}</div>;
+					return (
+						<HistoryItem key={i}>
+							{item.text}
+							<button className="removeBtn" type="button" onClick={() => handleRemoveKeyword(item.id)}>
+								<img src="/images/together/btn_delete.svg" alt="삭제" />
+							</button>
+						</HistoryItem>
+					);
 				})
 			) : (
 				<div>최근 검색어가 없습니다.</div>
