@@ -30,14 +30,14 @@ const Button: React.FC<ButtonComponentProps> = ({
 	return (
 		<button
 			style={{
-				backgroundColor: backgroundColor,
+				backgroundColor: backgroundColor ? `${backgroundColor}` : 'white',
 				fontSize: fontSize,
 				margin: margin,
 				borderRadius: borderRadius,
 				color: textColor,
 				width: width,
 				height: height,
-				border: borderColor ? `1px solid ${borderColor}` : undefined,
+				border: borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
 			}}
 			onClick={onClick}
 			disabled={disabled}
