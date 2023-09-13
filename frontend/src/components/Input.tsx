@@ -1,14 +1,61 @@
-import react from 'react';
-import styled from 'styled-components';
+import React, { ChangeEvent } from 'react';
 
-const StyledInput = styled.input<InputProps>`
-	width: ${({ width }) => (width ? width : '100%')};
-	border-radius: 5px;
-	background-color: rgba(0, 0, 0, 0.05);
-	border: none;
-	padding: 10px;
-`;
-const Input = ({ width }: InputProps) => {
-	return <StyledInput width={width}></StyledInput>;
-};
+interface InputComponentProps {
+	value: string;
+	placeholder?: string;
+	type?: string;
+	onChange: (value: string) => void;
+	backgroundColor?: string;
+	fontSize?: string;
+	margin?: string;
+	borderRadius?: string;
+	width?: string | number;
+	height?: string | number;
+	border?: string;
+	paddingLeft?: string;
+	inputRef?: React.ForwardedRef<HTMLInputElement>;
+}
+
+const Input = React.forwardRef(
+	({
+		value,
+		placeholder,
+		type,
+		onChange,
+		backgroundColor,
+		fontSize,
+		margin,
+		borderRadius,
+		width,
+		height,
+		border,
+		paddingLeft,
+		inputRef,
+	}: InputComponentProps): React.ReactElement => {
+		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+			onChange(e.target.value);
+		};
+
+		return (
+			<input
+				ref={inputRef}
+				type={type || 'text'}
+				value={value}
+				placeholder={placeholder}
+				onChange={handleChange}
+				style={{
+					backgroundColor,
+					fontSize,
+					margin,
+					borderRadius,
+					width,
+					height,
+					border,
+					paddingLeft,
+				}}
+			/>
+		);
+	},
+);
+Input.displayName = 'input';
 export default Input;

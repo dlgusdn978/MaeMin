@@ -46,6 +46,11 @@ interface TallProps {
 	height?: string;
 }
 
+type HoverProps = {
+	width?: number;
+	height?: number;
+};
+
 interface SelectProps {
 	list?: string[];
 	width?: string;
