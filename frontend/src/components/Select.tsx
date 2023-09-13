@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import styled, { keyframes } from 'styled-components';
-import IconBox from '../components/IconBox';
+import styled from 'styled-components';
 import downT from '../assets/imgs/down triangle.png';
 
 const SelectDiv = styled.div<SelectProps>`
@@ -8,10 +7,7 @@ const SelectDiv = styled.div<SelectProps>`
 	display: flex;
 	flex-direction: column;
 `;
-const SelectTitleBox = styled.div`
-	font-size: 12px;
-	font-weight: bold;
-`;
+
 const SelectContentBox = styled.div`
 	width: 100%;
 	height: 50%;
