@@ -14,7 +14,7 @@ interface ButtonComponentProps {
 	borderColor?: string;
 }
 
-const ButtonComponent: React.FC<ButtonComponentProps> = ({
+const Button: React.FC<ButtonComponentProps> = ({
 	label,
 	backgroundColor,
 	fontSize,
@@ -47,4 +47,4 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
 	);
 };
 
-export default ButtonComponent;
+export default Button;
