@@ -34,12 +34,9 @@ const StoreMenu = () => {
 				<img src={MedalIcon} alt="아이콘" />
 				<StoreMenudName>트렌드 메뉴</StoreMenudName>
 			</ContentContainer>
-			<MenuInfo name="치킨" price="15,000원" imageUrl="https://example.com/chicken.jpg" />
-			<MenuInfo name="피자" price="20,000원" imageUrl="https://example.com/pizza.jpg" />
-			<MenuInfo name="피자" price="20,000원" imageUrl="https://example.com/pizza.jpg" />
-			<MenuInfo name="피자" price="20,000원" imageUrl="https://example.com/pizza.jpg" />
-			<MenuInfo name="피자" price="20,000원" imageUrl="https://example.com/pizza.jpg" />
-			<MenuInfo name="피자" price="20,000원" imageUrl="https://example.com/pizza.jpg" />
+			<MenuInfo name="치킨" price="15,000원" imageUrl="https://example.com/chicken.jpg" menuId="1" />
+			<MenuInfo name="피자" price="20,000원" imageUrl="https://example.com/pizza.jpg" menuId="2" />
+			<MenuInfo name="피자" price="20,000원" imageUrl="https://example.com/pizza.jpg" menuId="3" />
 			{/* 메뉴 컴포넌트가 들어와야함 */}
 		</StoreMenuContainer>
 	);

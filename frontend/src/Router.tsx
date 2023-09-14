@@ -7,6 +7,7 @@ import PageNotFound from './pages/PageNotFound';
 import Trend from './pages/Trend';
 import StoreDetail from './pages/StoreDetail';
 import SearchHistory from './pages/SearchHistory';
+import MenuDetail from './pages/MenuDetail';
 
 /** Router */
 export function MainRoutes() {
@@ -41,6 +42,11 @@ export function MainRoutes() {
 			path: '/storedetail',
 			element: <StoreDetail />,
 		},
+		{
+			path: '/menu-detail/:menuId',
+			element: <MenuDetail />,
+		},
+
 		{ path: '*', element: <PageNotFound /> },
 	]);
 }

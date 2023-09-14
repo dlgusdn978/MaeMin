@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const MenuInfoContainer = styled.div`
 	display: flex;
@@ -7,7 +8,6 @@ const MenuInfoContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	margin: 10px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const MenuDetail = styled.div`
@@ -39,16 +39,27 @@ interface MenuInfoProps {
 	name: string;
 	price: string;
 	imageUrl: string;
+	menuId: string;
 }
 
-const MenuInfo: React.FC<MenuInfoProps> = ({ name, price, imageUrl }) => {
+const MenuInfo: React.FC<MenuInfoProps> = ({ name, price, imageUrl, menuId }) => {
+	const navigate = useNavigate();
+
+	const goToMenuDetail = () => {
+		navigate(`/menu-detail/${menuId}`); // 메뉴 상세 페이지로 이동
+	};
+
 	return (
-		<MenuInfoContainer>
-			<MenuDetail>
-				<MenuName>{name}</MenuName>
-				<MenuPrice>{price}</MenuPrice>
-			</MenuDetail>
-			<MenuImage src={imageUrl} alt={name} />
+		<MenuInfoContainer onClick={goToMenuDetail}>
+			{' '}
+			{/* 클릭 이벤트 추가 */}
+			<MenuInfoContainer>
+				<MenuDetail>
+					<MenuName>{name}</MenuName>
+					<MenuPrice>{price}</MenuPrice>
+				</MenuDetail>
+				<MenuImage src={imageUrl} alt={name} />
+			</MenuInfoContainer>
 		</MenuInfoContainer>
 	);
 };
