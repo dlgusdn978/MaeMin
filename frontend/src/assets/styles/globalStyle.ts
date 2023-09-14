@@ -35,7 +35,6 @@ const GlobalStyle = createGlobalStyle`
 					font-family: sans-serif;
 					height: 100%;
 					justify-content: center;
-					padding: 0 10px;
 				}
 			}
 		}
@@ -43,6 +42,9 @@ const GlobalStyle = createGlobalStyle`
 			-webkit-appearance: none;
 			-moz-appearance: none;
 			appearance: none;
+		}
+		input {
+			outline: none;
 		}
 	`}
 

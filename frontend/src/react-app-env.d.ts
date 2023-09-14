@@ -45,3 +45,8 @@ interface CarouselProps {
 interface TallProps {
 	height?: string;
 }
+
+type HoverProps = {
+	width?: number;
+	height?: number;
+};

@@ -1,15 +1,18 @@
 import React from 'react';
 import CarouselCard from '../components/Carousel/CarouselCard';
-import { TallContainer } from '../components/layout/common';
+import { Container } from '../components/layout/common';
+import Search from '../components/Search';
 
 const Trend = () => {
 	return (
-		<TallContainer>
-			<h2>Trend Page</h2>
+		<Container>
+			{/* <TallContainer> */}
+			<Search />
 			<CarouselCard trendword="약과" />
 			<CarouselCard trendword="탕후루" />
 			<CarouselCard trendword="싸피" />
-		</TallContainer>
+			{/* </TallContainer> */}
+		</Container>
 	);
 };
 

@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import PageNotFound from './pages/PageNotFound';
 import Trend from './pages/Trend';
 import StoreDetail from './pages/StoreDetail';
+import SearchHistory from './pages/SearchHistory';
 
 /** Router */
 export function MainRoutes() {
@@ -33,10 +34,13 @@ export function MainRoutes() {
 			element: <Trend />,
 		},
 		{
+			path: '/search',
+			element: <SearchHistory />,
+		},
+		{
 			path: '/storedetail',
 			element: <StoreDetail />,
 		},
-
 		{ path: '*', element: <PageNotFound /> },
 	]);
 }

@@ -11,10 +11,11 @@ interface ButtonComponentProps {
 	height?: string | number;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	disabled?: boolean;
+	border?: string;
 	borderColor?: string;
 }
 
-const ButtonComponent: React.FC<ButtonComponentProps> = ({
+const Button: React.FC<ButtonComponentProps> = ({
 	label,
 	backgroundColor,
 	fontSize,
@@ -26,18 +27,20 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
 	onClick,
 	disabled,
 	borderColor,
+	border,
 }) => {
 	return (
 		<button
 			style={{
-				backgroundColor: backgroundColor,
+				backgroundColor: backgroundColor ? `${backgroundColor}` : 'white',
 				fontSize: fontSize,
 				margin: margin,
 				borderRadius: borderRadius,
 				color: textColor,
 				width: width,
 				height: height,
-				border: borderColor ? `1px solid ${borderColor}` : undefined,
+				border:
+					`${border}` === 'none' ? 'none' : borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
 			}}
 			onClick={onClick}
 			disabled={disabled}
@@ -47,4 +50,4 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
 	);
 };
 
-export default ButtonComponent;
+export default Button;
