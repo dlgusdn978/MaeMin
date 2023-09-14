@@ -51,7 +51,7 @@ const Input = React.forwardRef(
 					width,
 					height,
 					border,
-					paddingLeft,
+					paddingLeft: paddingLeft ? paddingLeft : '10px',
 				}}
 			/>
 		);

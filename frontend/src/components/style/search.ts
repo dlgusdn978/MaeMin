@@ -24,7 +24,8 @@ export const SearchBox = styled.div`
 	box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.25);
 	height: 40px;
 	width: 345px;
-	margin-top: 23px;
+	margin-top: 21px;
+	margin-bottom: 11px;
 `;
 
 export const SearchingBox = styled.div`
