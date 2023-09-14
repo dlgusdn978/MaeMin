@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { openSearch } from '../store/searchSlice';
 
-const Search = () => {
+const Search = ({ placeholder }: SearchProps) => {
 	const [val, setVal] = useState('');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -18,7 +18,15 @@ const Search = () => {
 				navigate('/search');
 			}}
 		>
-			<Input value={val} onChange={setVal} height={40} width={305} border="none" borderRadius="10px" />
+			<Input
+				value={val}
+				placeholder={placeholder}
+				onChange={setVal}
+				height={40}
+				width={305}
+				border="none"
+				borderRadius="10px"
+			/>
 			<SearchIconBox>
 				<SearchIcon />
 			</SearchIconBox>

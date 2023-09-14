@@ -20,32 +20,34 @@ const HomeBox = styled.div<directionType>`
 const Home = () => {
 	return (
 		<Container>
-			<Search />
+			<Search placeholder="배고프니까 일단 검색!!!" />
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"
 					content="현재 핫 토픽 키워드는?"
 					icon={(props) => <RedArrowIcon {...props} />}
 					iconSize={90}
+					titleSize="24px"
 				/>
 				<Card
 					content="원하는 매장에 예약해보세요"
 					title="예약하기"
 					icon={(props) => <ReservationIcon {...props} />}
 					iconSize={60}
+					titleSize="24px"
 				/>
 			</HomeBox>
 			<HomeBox dir="row">
 				<Card
 					title="내 주문 현황"
-					content="현재 함께 주문하고 있는 장바구니 보러가기"
+					content="현재 함께 주문확인"
 					width={160}
 					icon={(props) => <CartIcon {...props} />}
 					iconSize={40}
 				/>
 				<Card
 					title="QR 촬영"
-					content="현재 매장의 qr을 촬영해서 주문공유를 시작해보세요!"
+					content="QR로 주문을 시작해보세요!"
 					width={160}
 					icon={(props) => <QrIcon {...props} />}
 					iconSize={40}
