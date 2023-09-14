@@ -7,6 +7,7 @@ const MenuInfoContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	margin: 10px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const MenuDetail = styled.div`
