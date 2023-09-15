@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { searchSlice } from './searchSlice';
 
+import { searchSlice } from './searchSlice';
+import { basketSlice } from './basketSlice';
 const rootReducer = combineReducers({
 	search: searchSlice.reducer,
+	basket: basketSlice.reducer,
 });
 
 const store = configureStore({
@@ -13,5 +15,5 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
-
+// export const useAppDispatch = () => useDispatch<AppDispatch>();
 export default store;
