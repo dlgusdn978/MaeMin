@@ -1,6 +1,4 @@
-import React from 'react';
 import styled from 'styled-components';
-import { HomeCardContent, HomeCardTitle } from './text';
 
 const CardContainer = styled.div<CardProps>`
 	display: flex;
@@ -9,7 +7,7 @@ const CardContainer = styled.div<CardProps>`
 	background-color: white;
 	box-shadow: 1 1;
 	width: ${({ width }) => (width ? `${width}px` : '345px')};
-	height: 160px;
+	height: ${({ height }) => (height ? `${height}px` : '160px')};
 	border-radius: 10px;
 	background: #fff;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -33,16 +31,4 @@ const ImgBox = styled.div`
 	padding-bottom: 10px;
 `;
 
-const Card = ({ icon, iconSize, width, height, title, content, titleSize }: IconProps & CardProps) => {
-	return (
-		<CardContainer width={width} height={height}>
-			<CardTextBox>
-				<HomeCardTitle fontSize={titleSize}>{title}</HomeCardTitle>
-				<HomeCardContent>{content}</HomeCardContent>
-			</CardTextBox>
-			<ImgBox>{React.createElement(icon, { width: iconSize, height: iconSize })}</ImgBox>
-		</CardContainer>
-	);
-};
-
-export default Card;
+export { CardContainer, CardTextBox, ImgBox };

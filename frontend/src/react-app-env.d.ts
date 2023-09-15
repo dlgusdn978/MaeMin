@@ -18,7 +18,12 @@ interface CardProps {
 	height?: number;
 	title?: string;
 	content?: string;
+	titleSize?: string;
 }
+
+type FontSizeProps = {
+	fontSize?: string;
+};
 
 type SlideFlag = {
 	active?: boolean;
@@ -50,6 +55,10 @@ type HoverProps = {
 	width?: number;
 	height?: number;
 };
+
+interface SearchProps {
+	placeholder?: string;
+}
 
 interface SelectProps {
 	list?: string[];
