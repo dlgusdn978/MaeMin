@@ -15,20 +15,22 @@ interface ButtonComponentProps {
 	borderColor?: string;
 }
 
-const Button: React.FC<ButtonComponentProps> = ({
-	label,
-	backgroundColor,
-	fontSize,
-	margin,
-	borderRadius,
-	textColor,
-	width,
-	height,
-	onClick,
-	disabled,
-	borderColor,
-	border,
-}) => {
+const Button = (props: ButtonComponentProps) => {
+	const {
+		label,
+		backgroundColor,
+		fontSize,
+		margin,
+		borderRadius,
+		textColor,
+		width,
+		height,
+		onClick,
+		disabled,
+		border,
+		borderColor,
+	} = props;
+
 	return (
 		<button
 			style={{

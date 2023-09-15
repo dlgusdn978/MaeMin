@@ -40,26 +40,25 @@ interface MenuInfoProps {
 	price: string;
 	imageUrl: string;
 	menuId: string;
+	onClick: () => void;
 }
 
-const MenuInfo: React.FC<MenuInfoProps> = ({ name, price, imageUrl, menuId }) => {
+const MenuInfo = (props: MenuInfoProps) => {
+	const { name, price, imageUrl, menuId, onClick } = props;
 	const navigate = useNavigate();
 
-	const goToMenuDetail = () => {
+	const handleCombinedClick = () => {
+		onClick(); // Redux action을 호출
 		navigate(`/menu-detail/${menuId}`); // 메뉴 상세 페이지로 이동
 	};
 
 	return (
-		<MenuInfoContainer onClick={goToMenuDetail}>
-			{' '}
-			{/* 클릭 이벤트 추가 */}
-			<MenuInfoContainer>
-				<MenuDetail>
-					<MenuName>{name}</MenuName>
-					<MenuPrice>{price}</MenuPrice>
-				</MenuDetail>
-				<MenuImage src={imageUrl} alt={name} />
-			</MenuInfoContainer>
+		<MenuInfoContainer onClick={handleCombinedClick}>
+			<MenuDetail>
+				<MenuName>{name}</MenuName>
+				<MenuPrice>{price}</MenuPrice>
+			</MenuDetail>
+			<MenuImage src={imageUrl} alt={name} />
 		</MenuInfoContainer>
 	);
 };
