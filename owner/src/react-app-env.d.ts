@@ -20,3 +20,15 @@ type HoverProps = {
 type directionType = {
 	dir: string;
 };
+
+interface DragItem {
+	id: number;
+	menu: string;
+	menus: string[];
+	dropId: string;
+	isDone: boolean;
+}
+
+interface DragItemList {
+	dragItems: DragItem[];
+}

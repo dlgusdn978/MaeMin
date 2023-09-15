@@ -5,14 +5,14 @@ export const HeaderContainer = styled.div`
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-	background-color: '#f0f0f0';
+	background: '#000';
 	width: 100%;
 	height: 100px;
 `;
 
 export const HeaderDiv = styled.div`
 	background-color: gray;
-	width: 300px;
+	width: 100%;
 	height: 100px;
 	display: flex;
 	align-items: center;
@@ -21,4 +21,5 @@ export const HeaderDiv = styled.div`
 	:hover {
 		cursor: pointer;
 	}
+	border: 1px solid '#f0f0f0';
 `;

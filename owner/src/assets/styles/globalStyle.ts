@@ -31,9 +31,9 @@ const GlobalStyle = createGlobalStyle`
 					background: ${theme.colors.background}; // theme 안에 color 중에서 background 를 선택
 					color: ${theme.colors.black};
 					display: flex;
+					flex-direction: column;
 					font-family: sans-serif;
 					height: 100%;
-					justify-content: center;
 				}
 			}
 		}
