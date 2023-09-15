@@ -20,3 +20,13 @@ type HoverProps = {
 type directionType = {
 	dir: string;
 };
+
+interface Todo {
+	id: string;
+	todo: string;
+	isDone: boolean;
+}
+
+interface DragItemList {
+	dragItems: DragItem[];
+}
