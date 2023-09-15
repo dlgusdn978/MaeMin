@@ -1,8 +1,9 @@
 import React, { useState, useEffect, PropsWithChildren } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import type { AppDispatch } from '../store/store';
-import { basketActions } from '../store/basketSlice';
+import type { AppDispatch } from '../../store/store';
+import { basketActions } from '../../store/basketSlice';
+
 interface MenuInfoProps {
 	menuId: string;
 	menuName: string;
@@ -20,6 +21,16 @@ const PayMenuTitleBox = styled.div`
 	font-size: 16px;
 	font-weight: bold;
 	padding: 10px 0px;
+	display: flex;
+	justify-content: center;
+`;
+const PayMenuTitleItem = styled.div`
+	width: 80%;
+`;
+const PayMenuTitleBtn = styled.div`
+	width: 20%;
+	display: flex;
+	justify-content: flex-end;
 `;
 const PayMenuInfoBox = styled.div`
 	width: 100%;
@@ -41,21 +52,36 @@ const PayMenuInfoItem = styled.div`
 `;
 const PayMenuOption = styled.div`
 	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	& > div:first-child {
+		margin-bottom: 20px;
+	}
 `;
 const PayMenuName = styled.div`
-	width: 80%;
-`;
-const PayMenuCount = styled.div`
-	width: 20%;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
+	width: 80%;
+	font-size: 14px;
+`;
+const PayMenuCount = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	font-size: 12px;
 	align-items: center;
 `;
 const PayMenuCountBtn = styled.button`
-	width: 50%;
 	border: none;
+	display: flex;
+	justify-content: flex-end;
+	font-size: 8px;
+	font-color: blue;
+	background-color: blue;
+	align-items: center;
 	background-color: white;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	padding: 6px;
 `;
 const PayMenuPrice = styled.div`
 	display: flex;
@@ -85,6 +111,7 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
+	const deleteMenu = () => {};
 	useEffect(() => {
 		setTotalPrice(count * menuPrice);
 	}, [count]);
@@ -94,7 +121,10 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 	return (
 		<PayMenuContainer>
 			<PayMenuTitleBox>
-				{menuName}({menuId})
+				<PayMenuTitleItem>
+					{menuName}({menuId})
+				</PayMenuTitleItem>
+				<PayMenuTitleBtn onClick={() => deleteMenu()}>✖</PayMenuTitleBtn>
 			</PayMenuTitleBox>
 			<PayMenuInfoBox>
 				<PayMenuImgItem>
@@ -102,11 +132,11 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 				</PayMenuImgItem>
 				<PayMenuInfoItem>
 					<PayMenuOption>
-						<PayMenuName>옵션(기본) : {menuPrice}</PayMenuName>
+						<PayMenuName>옵션(기본) : {addRest(menuPrice)}</PayMenuName>
 						<PayMenuCount>
-							<PayMenuCountBtn onClick={() => addCount()}>↑</PayMenuCountBtn>
-							{count}
-							<PayMenuCountBtn onClick={() => subtractCount()}>↓</PayMenuCountBtn>
+							<PayMenuCountBtn onClick={() => subtractCount()}>-</PayMenuCountBtn>
+							<PayMenuCountBtn>{count}</PayMenuCountBtn>
+							<PayMenuCountBtn onClick={() => addCount()}>+</PayMenuCountBtn>
 						</PayMenuCount>
 					</PayMenuOption>
 					<PayMenuPrice>{addRest(totalPrice)}</PayMenuPrice>

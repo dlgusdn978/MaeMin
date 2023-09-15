@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const NavigationContainer = styled.div`
+	width: 90%;
 	margin: 3% 5%;
 	padding: 2%;
 	display: flex;
 	justify-content: space-between;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+	background-color: white;
 `;
 const NavigationTitleBox = styled.div`
 	font-weight: bold;
