@@ -21,11 +21,9 @@ type directionType = {
 	dir: string;
 };
 
-interface DragItem {
-	id: number;
-	menu: string;
-	menus: string[];
-	dropId: string;
+interface Todo {
+	id: string;
+	todo: string;
 	isDone: boolean;
 }
 

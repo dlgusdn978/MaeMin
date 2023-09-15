@@ -45,11 +45,10 @@ const GlobalStyle = createGlobalStyle`
 		input {
 			outline: none;
 		}
+		.dnd-container {
+			height: 100%;
+		}
 	`}
-
-	.slick-slide div {
-    outline: none;
-}
 `;
 
 export default GlobalStyle;
