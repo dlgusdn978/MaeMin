@@ -17,4 +17,9 @@ public class testController {
 	public ResponseEntity<String> returnOne() {
 		return ResponseEntity.ok("1234556");
 	}
+
+	@GetMapping("/test")
+	public ResponseEntity<String> test(){
+		return ResponseEntity.ok("test");
+	}
 }
