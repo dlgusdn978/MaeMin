@@ -8,6 +8,7 @@ const MenuInfoContainer = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	margin: 10px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
 const MenuDetail = styled.div`
@@ -33,6 +34,8 @@ const MenuImage = styled.img`
 	object-fit: cover;
 	border-radius: 25px;
 	align-self: center;
+	margin-left: 200px;
+	margin-bottom: 10px;
 `;
 
 interface MenuInfoProps {

@@ -8,6 +8,7 @@ const StoreDetail = () => {
 	return (
 		<div>
 			{/* StorePhoto 컴포넌트 렌더링 */}
+
 			<StorePhoto />
 			<TrendKeyword />
 			<StoreMap />

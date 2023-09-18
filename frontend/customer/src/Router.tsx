@@ -39,7 +39,7 @@ export function MainRoutes() {
 			element: <SearchHistory />,
 		},
 		{
-			path: '/store-detail',
+			path: '/store-detail/:storeId',
 			element: <StoreDetail />,
 		},
 		{

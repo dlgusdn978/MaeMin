@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import CartIcon from '../assets/imgs/shoppingcart.svg';
 import BackarrowIcon from '../assets/imgs/backarrow.svg';
+import rose from '../assets/imgs/rose.jpg';
 
 const MenuPhotoContainer = styled.div`
 	position: relative;
@@ -70,7 +71,8 @@ const MenuPhoto = () => {
 
 			<TextOverlay>메뉴아이디:{menuId}</TextOverlay>
 
-			<MenuImage src="store_photo_url_her" alt="" />
+			<MenuImage src={rose} alt="" />
+			{/* 이미지 url들어갈곳 */}
 
 			<CartButton>
 				<img src={CartIcon} alt="Share" />

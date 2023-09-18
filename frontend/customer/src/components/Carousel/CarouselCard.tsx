@@ -41,7 +41,8 @@ function CarouselCard({ trendword }: CarouselProps) {
 				<SliderItem
 					key={index}
 					onClick={() => {
-						navigate(`${item.name}`);
+						// navigate(`${item.name}`);
+						navigate(`/store-detail/${item.name}`);
 					}}
 				>
 					<img src={item.item} alt={item.name} />

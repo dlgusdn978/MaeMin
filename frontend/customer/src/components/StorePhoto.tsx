@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import BackarrowIcon from '../assets/imgs/backarrow.svg';
 import SharboxIcon from '../assets/imgs/sharebox.svg';
+import rose from '../assets/imgs/rose.jpg';
 
 const StorePhotoContainer = styled.div`
 	position: relative;
@@ -39,6 +40,7 @@ const FixedSizeImage = styled.img`
 	width: 236px;
 	height: 156px;
 	object-fit: cover;
+	border-radius: 40px;
 `;
 
 const StorePhoto = () => {
@@ -54,7 +56,7 @@ const StorePhoto = () => {
 				<img src={BackarrowIcon} alt="Go back" />
 			</BackButton>
 
-			<FixedSizeImage src="store_photo_url_her" alt="Store Photo" />
+			<FixedSizeImage src={rose} alt="Store Photo" />
 
 			<ShareButton>
 				<img src={SharboxIcon} alt="Share" />

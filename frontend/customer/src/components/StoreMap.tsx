@@ -16,6 +16,7 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-left: 5px;
 `;
 
 const NavidName = styled.div`
@@ -43,7 +44,7 @@ const StoreMap = () => {
 			<StoreMapContainer>
 				<ContentContainer>
 					<img src={StoreMapIcon} alt="Tag" />
-					<NavidName>지도</NavidName>
+					<NavidName>위치정보</NavidName>
 				</ContentContainer>
 				<Navi></Navi>
 				<NaviInfor>광주광역시 광산구~~</NaviInfor>

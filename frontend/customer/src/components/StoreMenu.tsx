@@ -4,6 +4,8 @@ import { setMenu } from '../store/menuSlice';
 import MedalIcon from '../assets/imgs/medal.svg';
 import styled from 'styled-components';
 import MenuInfo from './MenuInfo';
+import rose from '../assets/imgs/rose.jpg';
+import pollack from '../assets/imgs/pollack.jpg';
 
 interface Menu {
 	name: string;
@@ -25,6 +27,7 @@ const ContentContainer = styled.div`
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
+	margin-left: 4px;
 `;
 
 const StoreMenudName = styled.div`
@@ -49,14 +52,14 @@ const StoreMenu = () => {
 			<MenuInfo
 				name="치킨"
 				price="15000"
-				imageUrl="https://example.com/chicken.jpg"
+				imageUrl={rose}
 				menuId="1"
 				onClick={() => handleMenuClick({ name: '치킨', price: '15,000원' })}
 			/>
 			<MenuInfo
 				name="피자"
 				price="20000"
-				imageUrl="https://example.com/pizza.jpg"
+				imageUrl={pollack}
 				menuId="2"
 				onClick={() => handleMenuClick({ name: '피자', price: '20,000원' })}
 			/>
