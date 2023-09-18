@@ -2,13 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Navigation from '../components/Navigation';
 import PayMenuInfo from '../components/basket/BasketMenuInfo';
-import rose from '../../src/assets/imgs/rose.jpg';
-import pollack from '../../src/assets/imgs/pollack.jpg';
+// import rose from '../../src/assets/imgs/rose.jpg';
+// import pollack from '../../src/assets/imgs/pollack.jpg';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import BasketTotalResult from '../components/basket/BasketTotalResult';
 import BasketPayBtn from '../components/basket/BasketPayBtn';
 import BasketAddBtn from '../components/basket/BasketAddBtn';
+// import { basketActions } from '../store/basketSlice';
+
 const PaymentContainer = styled.div`
 	width: 100%;
 	margin: auto;
@@ -37,51 +39,8 @@ const PaymentRestInfoItem = styled.div`
 `;
 
 function Payment() {
-	const foodList = [
-		{
-			menuId: '1',
-			menuName: '로제 파스타',
-			menuPrice: 8900,
-			menuCount: 1,
-			menuImg: rose,
-			menuPayerList: [],
-		},
-		{
-			menuId: '2',
-			menuName: '명란 파스타',
-			menuPrice: 7900,
-			menuCount: 2,
-			menuImg: pollack,
-			menuPayerList: [],
-		},
-		{
-			menuId: '2',
-			menuName: '명란 파스타',
-			menuPrice: 7900,
-			menuCount: 2,
-			menuImg: pollack,
-			menuPayerList: [],
-		},
-		{
-			menuId: '2',
-			menuName: '명란 파스타',
-			menuPrice: 7900,
-			menuCount: 2,
-			menuImg: pollack,
-			menuPayerList: [],
-		},
-		{
-			menuId: '2',
-			menuName: '명란 파스타',
-			menuPrice: 7900,
-			menuCount: 2,
-			menuImg: pollack,
-			menuPayerList: [],
-		},
-	];
-
-	const basketTotal = useSelector((state: RootState) => state.basket.totalPrice);
-	console.log(basketTotal);
+	// const dispatch = useDispatch();
+	const menuList = useSelector((state: RootState) => state.basket.menuList);
 	return (
 		<PaymentContainer>
 			<Navigation title={'장바구니 '}></Navigation>
@@ -90,14 +49,16 @@ function Payment() {
 				<PaymentRestInfoItem></PaymentRestInfoItem>
 			</PaymentRestInfoBox>
 			<PaymentMenuInfoBox>
-				{foodList.map((item, index: number) => (
+				{menuList.map((item, index: number) => (
 					<PayMenuInfo
 						key={index}
+						index={index}
 						menuId={item.menuId}
 						menuName={item.menuName}
 						menuPrice={item.menuPrice}
 						menuCount={item.menuCount}
 						menuImg={item.menuImg}
+						menuPayerList={item.menuPayerList}
 					></PayMenuInfo>
 				))}
 			</PaymentMenuInfoBox>

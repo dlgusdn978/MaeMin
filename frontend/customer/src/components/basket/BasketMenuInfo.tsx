@@ -3,13 +3,15 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import type { AppDispatch } from '../../store/store';
 import { basketActions } from '../../store/basketSlice';
-
+import BasketMenuDetailPrice from '../../components/basket/BasketMenuDetailPrice';
 interface MenuInfoProps {
 	menuId: string;
 	menuName: string;
 	menuPrice: number;
 	menuImg: string;
 	menuCount: number;
+	menuPayerList: string[];
+	index: number;
 }
 const PayMenuContainer = styled.div`
 	width: 90%;
@@ -35,11 +37,9 @@ const PayMenuTitleBtn = styled.div`
 const PayMenuInfoBox = styled.div`
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 `;
-const PayMenuImgItem = styled.div`
-	width: 30%;
-	padding: 15px;
-`;
+
 const PayMenuImg = styled.img`
 	width: 60px;
 	height: 60px;
@@ -47,16 +47,20 @@ const PayMenuImg = styled.img`
 	object-fit: contains;
 `;
 const PayMenuInfoItem = styled.div`
-	width: 70%;
+	width: 100%;
 	padding: 10px;
+	display: flex;
+	justify-content: space-between;
 `;
 const PayMenuOption = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	width: 100%;
 	& > div:first-child {
 		margin-bottom: 20px;
 	}
+	margin-left: 10px;
 `;
 const PayMenuName = styled.div`
 	display: flex;
@@ -83,13 +87,12 @@ const PayMenuCountBtn = styled.button`
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	padding: 6px;
 `;
-const PayMenuPrice = styled.div`
+const PayMenuPriceItem = styled.div`
 	display: flex;
 	padding-top: 10px;
 	justify-content: flex-end;
-	font-weight: bold;
 `;
-const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsWithChildren<MenuInfoProps>) => {
+const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount, index }: PropsWithChildren<MenuInfoProps>) => {
 	const [count, setCount] = useState<number>(menuCount);
 	const [totalPrice, setTotalPrice] = useState<number>(menuPrice * menuCount);
 	const dispatch: AppDispatch = useDispatch();
@@ -111,7 +114,9 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
-	const deleteMenu = () => {};
+	const deleteMenu = (index: number) => {
+		dispatch(basketActions.deleteMenu(index));
+	};
 	useEffect(() => {
 		setTotalPrice(count * menuPrice);
 	}, [count]);
@@ -124,13 +129,11 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 				<PayMenuTitleItem>
 					{menuName}({menuId})
 				</PayMenuTitleItem>
-				<PayMenuTitleBtn onClick={() => deleteMenu()}>✖</PayMenuTitleBtn>
+				<PayMenuTitleBtn onClick={() => deleteMenu(index)}>✖</PayMenuTitleBtn>
 			</PayMenuTitleBox>
 			<PayMenuInfoBox>
-				<PayMenuImgItem>
-					<PayMenuImg src={menuImg} alt="이미지 없음"></PayMenuImg>
-				</PayMenuImgItem>
 				<PayMenuInfoItem>
+					<PayMenuImg src={menuImg} alt="이미지 없음"></PayMenuImg>
 					<PayMenuOption>
 						<PayMenuName>옵션(기본) : {addRest(menuPrice)}</PayMenuName>
 						<PayMenuCount>
@@ -139,8 +142,10 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 							<PayMenuCountBtn onClick={() => addCount()}>+</PayMenuCountBtn>
 						</PayMenuCount>
 					</PayMenuOption>
-					<PayMenuPrice>{addRest(totalPrice)}</PayMenuPrice>
 				</PayMenuInfoItem>
+				<PayMenuPriceItem>
+					<BasketMenuDetailPrice menuPrice={totalPrice} index={index}></BasketMenuDetailPrice>
+				</PayMenuPriceItem>
 			</PayMenuInfoBox>
 		</PayMenuContainer>
 	);

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import BasketPriceInfo from '../../components/basket/BasketPriceInfo';
+import BasketTotalPrice from './BasketTotalPrice';
 const BasketTotalContainer = styled.div`
 	width: 90%;
 	margin: 20% auto 0 auto;
@@ -25,8 +25,8 @@ function BasketTotalResult() {
 	return (
 		<BasketTotalContainer>
 			<BasketTotalTitleBox>결제 금액</BasketTotalTitleBox>
-			<BasketPriceInfo title={'총 결제 금액'} price={basketTotal}></BasketPriceInfo>
-			<BasketPriceInfo title={'내 결제 예정 금액'} price={basketTotal}></BasketPriceInfo>
+			<BasketTotalPrice title={'총 결제 금액'} price={basketTotal}></BasketTotalPrice>
+			<BasketTotalPrice title={'내 결제 예정 금액'} price={basketTotal}></BasketTotalPrice>
 		</BasketTotalContainer>
 	);
 }
