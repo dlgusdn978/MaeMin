@@ -1,11 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
 interface InputComponentProps {
-<<<<<<< HEAD
 	value: string;
-=======
-	value?: string;
->>>>>>> f9677cc92d466608a445947a6cd507eb90c40e2b
 	placeholder?: string;
 	type?: string;
 	onChange: (value: string) => void;
@@ -17,10 +13,6 @@ interface InputComponentProps {
 	height?: string | number;
 	border?: string;
 	paddingLeft?: string;
-<<<<<<< HEAD
-=======
-	padding?: string;
->>>>>>> f9677cc92d466608a445947a6cd507eb90c40e2b
 	inputRef?: React.ForwardedRef<HTMLInputElement>;
 }
 
@@ -38,10 +30,6 @@ const Input = React.forwardRef(
 		height,
 		border,
 		paddingLeft,
-<<<<<<< HEAD
-=======
-		padding,
->>>>>>> f9677cc92d466608a445947a6cd507eb90c40e2b
 		inputRef,
 	}: InputComponentProps): React.ReactElement => {
 		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,10 +51,6 @@ const Input = React.forwardRef(
 					width,
 					height,
 					border,
-<<<<<<< HEAD
-=======
-					padding,
->>>>>>> f9677cc92d466608a445947a6cd507eb90c40e2b
 					paddingLeft: paddingLeft ? paddingLeft : '10px',
 				}}
 			/>

@@ -13,8 +13,6 @@ interface ButtonComponentProps {
 	disabled?: boolean;
 	border?: string;
 	borderColor?: string;
-	padding?: string;
-	fontWeight?: string;
 }
 
 const Button = (props: ButtonComponentProps) => {
@@ -31,8 +29,6 @@ const Button = (props: ButtonComponentProps) => {
 		disabled,
 		border,
 		borderColor,
-		padding,
-		fontWeight,
 	} = props;
 
 	return (
@@ -45,8 +41,6 @@ const Button = (props: ButtonComponentProps) => {
 				color: textColor,
 				width: width,
 				height: height,
-				padding: padding,
-				fontWeight: fontWeight,
 				border:
 					`${border}` === 'none' ? 'none' : borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
 			}}
