@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setMenu } from '../store/menuSlice';
-import MedalIcon from '../assets/imgs/medal.svg';
+import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
 import styled from 'styled-components';
 import MenuInfo from './MenuInfo';
 import rose from '../assets/imgs/rose.jpg';
@@ -19,7 +19,7 @@ const StoreMenuContainer = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	margin-top: 20px;
-	border: 3px solid rgba(255, 182, 73, 1);
+	/* border: 3px solid rgba(255, 182, 73, 1); */
 `;
 
 const ContentContainer = styled.div`
@@ -46,18 +46,18 @@ const StoreMenu = () => {
 	return (
 		<StoreMenuContainer>
 			<ContentContainer>
-				<img src={MedalIcon} alt="아이콘" />
-				<StoreMenudName>트렌드 메뉴</StoreMenudName>
+				<img src={MenuBoardIcon} alt="아이콘" />
+				<StoreMenudName>다른 메뉴</StoreMenudName>
 			</ContentContainer>
 			<MenuInfo
-				name="치킨"
+				name="다른치킨"
 				price="15000"
 				imageUrl={rose}
 				menuId="1"
 				onClick={() => handleMenuClick({ name: '치킨', price: '15,000원' })}
 			/>
 			<MenuInfo
-				name="피자"
+				name="다른피자"
 				price="20000"
 				imageUrl={pollack}
 				menuId="2"

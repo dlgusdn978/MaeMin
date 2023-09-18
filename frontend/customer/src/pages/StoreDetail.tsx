@@ -3,7 +3,7 @@ import StorePhoto from '../components/StorePhoto';
 import TrendKeyword from '../components/TrendKeyword';
 import StoreMap from '../components/StoreMap';
 import StoreMenu from '../components/StoreMenu';
-
+import OtherMenu from '../components/OtherMenu';
 const StoreDetail = () => {
 	return (
 		<div>
@@ -13,6 +13,7 @@ const StoreDetail = () => {
 			<TrendKeyword />
 			<StoreMap />
 			<StoreMenu />
+			<OtherMenu />
 		</div>
 	);
 };

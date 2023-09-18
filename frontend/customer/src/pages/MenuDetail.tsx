@@ -19,6 +19,12 @@ const FoodPrice = styled.div`
 	margin-left: 36px;
 `;
 
+const ButtonWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 const MenuDetail = () => {
 	const { menuId } = useParams<{ menuId: string }>();
 	const selectedMenu = useSelector((state: RootState) => state.menu);
@@ -40,17 +46,19 @@ const MenuDetail = () => {
 			<FoodName>{selectedMenu.name}</FoodName>
 			<FoodPrice>{selectedMenu.price}</FoodPrice>
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />
-			<Button
-				label={`${totalPrice}원 담기`}
-				backgroundColor="rgba(255, 182, 73, 1)"
-				fontSize="16px"
-				margin="10px"
-				textColor="white"
-				borderRadius="100px"
-				width={344}
-				height={64}
-				borderColor="rgb(240, 240, 240)"
-			/>
+			<ButtonWrapper>
+				<Button
+					label={`${totalPrice}원 담기`}
+					backgroundColor="rgba(255, 182, 73, 1)"
+					fontSize="16px"
+					margin="10px"
+					textColor="white"
+					borderRadius="100px"
+					width={344}
+					height={64}
+					borderColor="rgb(240, 240, 240)"
+				/>
+			</ButtonWrapper>
 		</div>
 	);
 };
