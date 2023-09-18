@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { HomeCardContent, HomeCardTitle } from './text';
 import { CardContainer, CardTextBox } from './style/card';
 
