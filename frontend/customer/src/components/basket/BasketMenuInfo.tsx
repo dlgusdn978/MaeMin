@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import type { AppDispatch } from '../../store/store';
 import { basketActions } from '../../store/basketSlice';
+
+import Button from '../../components/Button';
 import BasketMenuDetailPrice from '../../components/basket/BasketMenuDetailPrice';
 interface MenuInfoProps {
 	menuId: string;
@@ -92,14 +94,25 @@ const PayMenuPriceItem = styled.div`
 	padding-top: 10px;
 	justify-content: flex-end;
 `;
-const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount, index }: PropsWithChildren<MenuInfoProps>) => {
+const PayMenuInfo = ({
+	menuId,
+	menuName,
+	menuPrice,
+	menuImg,
+	menuCount,
+	menuPayerList,
+	index,
+}: PropsWithChildren<MenuInfoProps>) => {
 	const [count, setCount] = useState<number>(menuCount);
 	const [totalPrice, setTotalPrice] = useState<number>(menuPrice * menuCount);
+	const [payerIndex, setPayerIndex] = useState(menuPayerList.indexOf('나'));
+	const payerCheck = payerIndex === -1;
 	const dispatch: AppDispatch = useDispatch();
 	// 수량 추가
 	const addCount = () => {
 		setCount(count + 1);
-		dispatch(basketActions.addTotalPrice(menuPrice));
+		dispatch(basketActions.addMenuCount(index));
+		dispatch(basketActions.setTotalPrice(menuPrice));
 	};
 	// 수량 제거
 	const subtractCount = () => {
@@ -108,27 +121,52 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount, index }:
 			return;
 		}
 		setCount(count - 1);
-		dispatch(basketActions.addTotalPrice(-menuPrice));
+		dispatch(basketActions.subMenuCount(index));
+		dispatch(basketActions.setTotalPrice(-menuPrice));
 	};
 	// 가격 세자리마다 쉼표 추가 ex) 1,000원
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
 	const deleteMenu = (index: number) => {
+		console.log('전달 index' + index);
 		dispatch(basketActions.deleteMenu(index));
+	};
+	const toggleParticipant = () => {
+		console.log('asdf');
+		if (payerIndex === -1) dispatch(basketActions.addParticipant(index));
+		else dispatch(basketActions.deleteParticipant(index));
 	};
 	useEffect(() => {
 		setTotalPrice(count * menuPrice);
 	}, [count]);
 	useEffect(() => {
-		dispatch(basketActions.addTotalPrice(totalPrice));
+		dispatch(basketActions.setTotalPrice(totalPrice));
 	}, []);
+	useEffect(() => {
+		setPayerIndex(menuPayerList.indexOf('나'));
+	});
 	return (
 		<PayMenuContainer>
 			<PayMenuTitleBox>
 				<PayMenuTitleItem>
 					{menuName}({menuId})
 				</PayMenuTitleItem>
+				<Button
+					label={payerCheck ? '참여하기' : '참여중'}
+					fontSize={'8px'}
+					width={'60px'}
+					padding={'5px'}
+					borderRadius={'5px'}
+					border={'solid'}
+					fontWeight={'bold'}
+					backgroundColor={payerCheck ? '' : 'rgba(123,160,255, 1)'}
+					borderColor={payerCheck ? 'rgba(123,160,255, 1)' : 'white'}
+					textColor={payerCheck ? 'rgba(123,160,255, 1)' : 'white'}
+					onClick={() => {
+						toggleParticipant();
+					}}
+				></Button>
 				<PayMenuTitleBtn onClick={() => deleteMenu(index)}>✖</PayMenuTitleBtn>
 			</PayMenuTitleBox>
 			<PayMenuInfoBox>
@@ -144,7 +182,7 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount, index }:
 					</PayMenuOption>
 				</PayMenuInfoItem>
 				<PayMenuPriceItem>
-					<BasketMenuDetailPrice menuPrice={totalPrice} index={index}></BasketMenuDetailPrice>
+					<BasketMenuDetailPrice index={index}></BasketMenuDetailPrice>
 				</PayMenuPriceItem>
 			</PayMenuInfoBox>
 		</PayMenuContainer>

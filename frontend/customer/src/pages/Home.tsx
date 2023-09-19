@@ -1,26 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
-import Card from '../components/Card';
+// import styled from 'styled-components';
+// import Card from '../components/Card';
 import { Container } from '../components/layout/common';
-import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
-import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
-import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
-import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
-import Search from '../components/Search';
+// import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
+// import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
+// import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
+// import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
+// import Search from '../components/Search';
+import Basket from '../pages/Basket';
+// type directionType = {
+// 	dir: string;
+// };
 
-type directionType = {
-	dir: string;
-};
-
-const HomeBox = styled.div<directionType>`
-	display: flex;
-	flex-direction: ${(props) => (props.dir === 'row' ? 'row' : 'column')};
-`;
+// const HomeBox = styled.div<directionType>`
+// 	display: flex;
+// 	flex-direction: ${(props) => (props.dir === 'row' ? 'row' : 'column')};
+// `;
 
 const Home = () => {
 	return (
 		<Container>
-			<Search placeholder="배고프니까 일단 검색!!!" />
+			<Basket></Basket>
+			{/* <Search placeholder="배고프니까 일단 검색!!!" />
 			<HomeBox dir="column">
 				<Card
 					title="트렌드"
@@ -52,7 +53,7 @@ const Home = () => {
 					icon={(props) => <QrIcon {...props} />}
 					iconSize={40}
 				/>
-			</HomeBox>
+			</HomeBox> */}
 		</Container>
 	);
 };
