@@ -4,13 +4,17 @@ import { setMenu } from '../store/menuSlice';
 import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
 import styled from 'styled-components';
 import MenuInfo from './MenuInfo';
-import rose from '../assets/imgs/rose.jpg';
-import pollack from '../assets/imgs/pollack.jpg';
+import { MenuData } from '../pages/StoreDetail';
 
 interface Menu {
 	name: string;
 	price: string;
 }
+
+interface OtherMenuProps {
+	menu: MenuData[];
+}
+
 const StoreMenuContainer = styled.div`
 	position: relative;
 	height: auto;
@@ -29,42 +33,38 @@ const ContentContainer = styled.div`
 	margin-left: 4px;
 `;
 
-const StoreMenudName = styled.div`
+const StoreMenuName = styled.div`
 	font-size: 24px;
 	position: relative;
 	margin-left: 10px;
 `;
 
-const StoreMenu = () => {
+const OtherMenu = ({ menu }: OtherMenuProps) => {
 	const dispatch = useDispatch();
 
 	const handleMenuClick = (menu: Menu) => {
 		dispatch(setMenu(menu));
 		console.log(menu);
 	};
+
 	return (
 		<StoreMenuContainer>
 			<ContentContainer>
 				<img src={MenuBoardIcon} alt="아이콘" />
-				<StoreMenudName>다른 메뉴</StoreMenudName>
+				<StoreMenuName>다른 메뉴</StoreMenuName>
 			</ContentContainer>
-			<MenuInfo
-				name="다른치킨"
-				price="15000"
-				imageUrl={rose}
-				menuId="1"
-				onClick={() => handleMenuClick({ name: '치킨', price: '15,000원' })}
-			/>
-			<MenuInfo
-				name="다른피자"
-				price="20000"
-				imageUrl={pollack}
-				menuId="2"
-				onClick={() => handleMenuClick({ name: '피자', price: '20,000원' })}
-			/>
-			{/* 메뉴 컴포넌트가 들어와야함 */}
+			{menu.map((item, index) => (
+				<MenuInfo
+					key={index}
+					name={item.name}
+					price={item.price.toString()}
+					imageUrl={item.menuPictureUrl}
+					menuId={item.menuId.toString()}
+					onClick={() => handleMenuClick({ name: item.name, price: item.price.toString() })}
+				/>
+			))}
 		</StoreMenuContainer>
 	);
 };
 
-export default StoreMenu;
+export default OtherMenu;

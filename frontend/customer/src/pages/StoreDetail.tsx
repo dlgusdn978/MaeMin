@@ -23,8 +23,19 @@ interface StoreDetailData {
 	reviewCount: number;
 }
 
+export interface MenuData {
+	menuId: number;
+	storeId: number;
+	category: number[];
+	name: string;
+	price: number;
+	menuPictureUrl: string;
+	popularity: number;
+}
+
 const StoreDetail = () => {
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
+	const [menuData, setMenuData] = useState<MenuData[]>([]);
 
 	// useEffect를 사용하여 컴포넌트가 마운트될 때 데이터를 가져옵니다.
 	useEffect(() => {
@@ -50,8 +61,28 @@ const StoreDetail = () => {
 					dibsCount: 65,
 					reviewCount: 39,
 				};
-
 				setStoreData(dummyData);
+				const dummyMenuData: MenuData[] = [
+					{
+						menuId: 2,
+						storeId: 1,
+						category: [1],
+						name: '음식2',
+						price: 13000,
+						menuPictureUrl: '이미지 주소',
+						popularity: 0,
+					},
+					{
+						menuId: 1,
+						storeId: 2,
+						category: [1],
+						name: '음식1',
+						price: 14000,
+						menuPictureUrl: '이미지 주소',
+						popularity: 1,
+					},
+				];
+				setMenuData(dummyMenuData);
 			} catch (error) {
 				console.error('There was an error fetching the data:', error);
 			}
@@ -60,14 +91,17 @@ const StoreDetail = () => {
 		fetchData();
 	}, []);
 
+	const trendMenus = menuData.filter((menu) => menu.popularity === 1);
+	const otherMenus = menuData.filter((menu) => menu.popularity === 0);
+
 	return (
 		<div>
 			{/* StorePhoto 컴포넌트에 props로 name과 pictureUrl을 전달 */}
 			{storeData && <StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} />}
 			<TrendKeyword />
-			<StoreMap />
-			<StoreMenu />
-			<OtherMenu />
+			{storeData && <StoreMap address={storeData.address} />}
+			<StoreMenu menu={trendMenus} />
+			<OtherMenu menu={otherMenus} />
 		</div>
 	);
 };
