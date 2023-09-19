@@ -14,15 +14,22 @@ const FoodName = styled.div`
 `;
 
 const FoodPrice = styled.div`
-	font-size: 18px;
+	font-size: 15px;
 	position: relative;
 	margin-left: 36px;
+	color: rgba(0, 0, 0, 0.5);
 `;
 
 const ButtonWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+`;
+
+const FoodWrapper = styled.div`
+	background-color: white;
+	/* margin-top: 20px;
+	margin-bottom: 20px; */
 `;
 
 const MenuDetail = () => {
@@ -43,8 +50,11 @@ const MenuDetail = () => {
 		<div>
 			<h1>해당 메뉴 상세페이지 메뉴id:{menuId}</h1>
 			<MenuPhoto />
-			<FoodName>{selectedMenu.name}</FoodName>
-			<FoodPrice>{selectedMenu.price}</FoodPrice>
+			{/* 감싸기 */}
+			<FoodWrapper>
+				<FoodName>{selectedMenu.name}</FoodName>
+				<FoodPrice>{selectedMenu.price}</FoodPrice>
+			</FoodWrapper>
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />
 			<ButtonWrapper>
 				<Button

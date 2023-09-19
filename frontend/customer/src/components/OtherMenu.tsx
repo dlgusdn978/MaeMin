@@ -19,7 +19,6 @@ const StoreMenuContainer = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	margin-top: 20px;
-	/* border: 3px solid rgba(255, 182, 73, 1); */
 `;
 
 const ContentContainer = styled.div`
