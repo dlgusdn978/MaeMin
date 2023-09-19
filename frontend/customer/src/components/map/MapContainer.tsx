@@ -23,7 +23,7 @@ const MapContainer = () => {
 
 	return (
 		<div className="kakaomap">
-			<div id="map" style={{ width: '500px', height: '500px' }} />
+			<div id="map" style={{ width: '390px', height: '300px' }} />
 		</div>
 	);
 };
