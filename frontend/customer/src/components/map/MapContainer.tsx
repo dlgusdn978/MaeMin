@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 const { kakao } = window;
 
@@ -10,10 +12,14 @@ declare global {
 }
 
 const MapContainer = () => {
+	const location = useSelector((state: RootState) => state.location);
+	console.log(location);
 	useEffect(() => {
 		const container = document.getElementById('map');
 		const options = {
-			center: new kakao.maps.LatLng(37.420125, 127.126665),
+			center: location
+				? new kakao.maps.LatLng(location.lat, location.lng)
+				: new kakao.maps.LatLng(37.420125, 127.126665),
 			level: 3,
 		};
 

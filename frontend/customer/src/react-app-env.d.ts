@@ -72,3 +72,8 @@ interface NavigationProps {
 interface InputProps {
 	width?: string;
 }
+
+interface locationState {
+	lat: number | undefined;
+	lng: number | undefined;
+}
