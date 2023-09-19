@@ -14,6 +14,9 @@ export const HistoryItem = styled.div`
 	border-bottom: 1px solid #f0f0f0;
 	height: 50px;
 	padding-left: 10px;
+	:hover {
+		cursor: pointer;
+	}
 `;
 
 export const SearchBox = styled.div`
