@@ -22,10 +22,13 @@ const GlobalStyle = createGlobalStyle`
 			height: 100%;
 			width: 390px;
 			margin: 0 auto;
+
 			body {
 				display: flex;
 				flex-direction: column;
 				height: 100%;
+				max-width: 100vw;
+				overflow-x: hidden;
 				margin: 0;
 				touch-action: pan-y;
 				#root {
@@ -37,6 +40,9 @@ const GlobalStyle = createGlobalStyle`
 					justify-content: center;
 				}
 			}
+		}
+		::-webkit-scrollbar {
+			display: none;
 		}
 		select {
 			-webkit-appearance: none;

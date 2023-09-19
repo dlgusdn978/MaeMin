@@ -15,7 +15,10 @@ import {
 import Input from '../components/Input';
 import { ReactComponent as SearchIcon } from '../assets/imgs/search.svg';
 import Button from '../components/Button';
-import { useNavigate } from 'react-router';
+import { getLocationByAddress } from '../hooks/getLocationByAddress';
+import { locationActions } from '../store/locationSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface hisInterface {
 	id: number;
@@ -38,15 +41,15 @@ const dummyHistory: hisInterface[] = [
 	},
 	{
 		id: 4,
-		text: '서울특별시 강남구',
+		text: '광주 광산구 풍영로 251',
 	},
 ];
 
 const SearchHistory = () => {
 	const [history, setHistory] = useState<hisInterface[]>(dummyHistory);
 	const [val, setVal] = useState('');
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
 	// 브라우저가 모두 렌더링된 상태에서 해당 함수를 실행
 	// -> db에서 내가 저장한 검색어 ? 위치 ? 저장 & 최근검색어 localStorage로 사용
 	useEffect(() => {
@@ -55,6 +58,7 @@ const SearchHistory = () => {
 			setHistory(JSON.parse(result));
 		}
 	}, []);
+	localStorage.setItem('history', JSON.stringify(history));
 
 	useEffect(() => {
 		localStorage.setItem('history', JSON.stringify(history));
@@ -62,11 +66,15 @@ const SearchHistory = () => {
 
 	// 검색어 추가
 	const handleAddKeyword = (text: string) => {
-		const newKeyword = {
-			id: Date.now(),
-			text: text,
-		};
-		setHistory([newKeyword, ...history]);
+		if (!text) {
+			alert('장소를 올바르게 입력해주세요!');
+		} else {
+			const newKeyword = {
+				id: Date.now(),
+				text: text,
+			};
+			setHistory([newKeyword, ...history]);
+		}
 	};
 
 	// 단일 검색어 삭제
@@ -162,7 +170,23 @@ const SearchHistory = () => {
 				{history.length ? (
 					history.map((item, i) => {
 						return (
-							<HistoryItem key={i}>
+							<HistoryItem
+								key={i}
+								onClick={() => {
+									const changeLocate = getLocationByAddress(item.text);
+									changeLocate
+										.then((data) => {
+											console.log(data);
+											const newLocation: locationState = {
+												lng: data?.La,
+												lat: data?.Ma,
+											};
+											dispatch(locationActions.setLocation(newLocation));
+											navigate('/trend');
+										})
+										.catch((err) => console.log(err));
+								}}
+							>
 								<div>
 									<LocationIcon />
 									<HistoryText>{item.text}</HistoryText>
