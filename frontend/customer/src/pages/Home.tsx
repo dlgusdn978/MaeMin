@@ -7,6 +7,10 @@ import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.sv
 import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
 import Search from '../components/Search';
+import { useDispatch } from 'react-redux';
+import useGeolocation from '../hooks/useGeolocation';
+import { locationActions } from '../store/locationSlice';
+// import { navigate } from '../hooks/constant';
 
 type directionType = {
 	dir: string;
@@ -18,6 +22,16 @@ const HomeBox = styled.div<directionType>`
 `;
 
 const Home = () => {
+	const dispatch = useDispatch();
+	const location = useGeolocation();
+	console.log(location.coordinates);
+	const locationInfo = location.coordinates;
+	const myLocation = {
+		lat: locationInfo?.lat,
+		lng: locationInfo?.lng,
+	};
+	console.log(myLocation);
+	dispatch(locationActions.setLocation(myLocation));
 	return (
 		<Container>
 			<Search placeholder="배고프니까 일단 검색!!!" />
@@ -28,6 +42,7 @@ const Home = () => {
 					icon={(props) => <RedArrowIcon {...props} />}
 					iconSize={90}
 					titleSize="24px"
+					// onClick={() => navigate('/trend')}
 				/>
 				<Card
 					content="원하는 매장에 예약해보세요"

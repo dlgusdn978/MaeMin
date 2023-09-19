@@ -2,16 +2,16 @@ import React from 'react';
 import CarouselCard from '../components/Carousel/CarouselCard';
 import { Container } from '../components/layout/common';
 import Search from '../components/Search';
+import MapContainer from '../components/map/MapContainer';
 
 const Trend = () => {
 	return (
 		<Container>
-			{/* <TallContainer> */}
-			<Search />
+			<Search placeholder="배고프니까 일단 검색!!!" />
+			<MapContainer />
 			<CarouselCard trendword="약과" />
 			<CarouselCard trendword="탕후루" />
-			<CarouselCard trendword="싸피" />
-			{/* </TallContainer> */}
+			<CarouselCard trendword="파스타" />
 		</Container>
 	);
 };
