@@ -1,10 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-
 import { searchSlice } from './searchSlice';
 import { basketSlice } from './basketSlice';
+import { locationSlice } from './locationSlice';
+import menuReducer from './menuSlice';
+
 const rootReducer = combineReducers({
 	search: searchSlice.reducer,
 	basket: basketSlice.reducer,
+	menu: menuReducer,
+	location: locationSlice.reducer,
 });
 
 const store = configureStore({

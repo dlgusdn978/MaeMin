@@ -5,7 +5,6 @@ export const Container = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 100%;
 `;
 
 // height: ${(height) => (height ? height : '1000px')};

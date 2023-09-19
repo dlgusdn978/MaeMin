@@ -17,22 +17,24 @@ interface ButtonComponentProps {
 	fontWeight?: string;
 }
 
-const Button: React.FC<ButtonComponentProps> = ({
-	label,
-	backgroundColor,
-	fontSize,
-	margin,
-	borderRadius,
-	textColor,
-	width,
-	height,
-	onClick,
-	disabled,
-	borderColor,
-	border,
-	padding,
-	fontWeight,
-}) => {
+const Button = (props: ButtonComponentProps) => {
+	const {
+		label,
+		backgroundColor,
+		fontSize,
+		margin,
+		borderRadius,
+		textColor,
+		width,
+		height,
+		onClick,
+		disabled,
+		border,
+		borderColor,
+		padding,
+		fontWeight,
+	} = props;
+
 	return (
 		<button
 			style={{

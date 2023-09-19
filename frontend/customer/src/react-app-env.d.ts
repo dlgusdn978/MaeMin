@@ -19,6 +19,7 @@ interface CardProps {
 	title?: string;
 	content?: string;
 	titleSize?: string;
+	onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
 type FontSizeProps = {
@@ -71,4 +72,14 @@ interface NavigationProps {
 
 interface InputProps {
 	width?: string;
+}
+
+interface locationState {
+	lat: number | undefined;
+	lng: number | undefined;
+}
+
+interface LaMa {
+	La: number | undefined;
+	Ma: number | undefined;
 }
