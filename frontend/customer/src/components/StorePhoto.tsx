@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import BackarrowIcon from '../assets/imgs/backarrow.svg';
 import SharboxIcon from '../assets/imgs/sharebox.svg';
-import rose from '../assets/imgs/rose.jpg';
+
+// 컴포넌트의 Props 타입을 정의합니다.
+interface StorePhotoProps {
+	name: string;
+	pictureUrl: string;
+}
 
 const StorePhotoContainer = styled.div`
 	position: relative;
@@ -21,7 +26,6 @@ const BackButton = styled.button`
 	left: 0;
 	background-color: white;
 	border: none;
-	/* margin: 20px; */
 	margin-top: 25px;
 	margin-left: 10px;
 `;
@@ -42,8 +46,16 @@ const FixedSizeImage = styled.img`
 	object-fit: cover;
 	border-radius: 40px;
 `;
+const StoreName = styled.div`
+	font-size: 24px;
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	transform: translateX(-50%);
+	text-align: center;
+`;
 
-const StorePhoto = () => {
+const StorePhoto = (props: StorePhotoProps) => {
 	const navigate = useNavigate();
 
 	const navigateToPreviousPage = () => {
@@ -55,9 +67,9 @@ const StorePhoto = () => {
 			<BackButton onClick={navigateToPreviousPage}>
 				<img src={BackarrowIcon} alt="Go back" />
 			</BackButton>
-
-			<FixedSizeImage src={rose} alt="Store Photo" />
-
+			{/* 이미지 URL과 가게 이름을 사용 */}
+			<FixedSizeImage src={props.pictureUrl} alt={props.name} />
+			<StoreName>{props.name}</StoreName>
 			<ShareButton>
 				<img src={SharboxIcon} alt="Share" />
 			</ShareButton>
