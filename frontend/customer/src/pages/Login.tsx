@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import styled from 'styled-components';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -26,6 +27,12 @@ const Login = () => {
 		// 회원가입 로직
 		navigate('/signup');
 	};
+
+	const ButtonWrapper = styled.div`
+		position: absolute;
+		left: 21px;
+		top: 704px;
+	`;
 
 	return (
 		<div style={{ paddingLeft: '15px' }}>
@@ -59,6 +66,7 @@ const Login = () => {
 			</div>
 			<div>
 				{/* 로그인 */}
+				<ButtonWrapper></ButtonWrapper>
 				<Button
 					label="로그인"
 					onClick={handleLogin}
