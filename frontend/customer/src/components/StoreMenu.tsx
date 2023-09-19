@@ -6,11 +6,6 @@ import styled from 'styled-components';
 import MenuInfo from './MenuInfo';
 import { MenuData } from '../pages/StoreDetail';
 
-interface Menu {
-	name: string;
-	price: string;
-}
-
 interface StoreMenuProps {
 	menu: MenuData[];
 }
@@ -43,8 +38,14 @@ const StoreMenuName = styled.div`
 const StoreMenu = ({ menu }: StoreMenuProps) => {
 	const dispatch = useDispatch();
 
-	const handleMenuClick = (menu: Menu) => {
-		dispatch(setMenu(menu));
+	const handleMenuClick = (menu: MenuData) => {
+		dispatch(
+			setMenu({
+				name: menu.name,
+				price: menu.price.toString(),
+				menuPictureUrl: menu.menuPictureUrl,
+			}),
+		);
 		console.log(menu);
 	};
 
@@ -61,7 +62,7 @@ const StoreMenu = ({ menu }: StoreMenuProps) => {
 					price={item.price.toString()}
 					imageUrl={item.menuPictureUrl}
 					menuId={item.menuId.toString()}
-					onClick={() => handleMenuClick({ name: item.name, price: item.price.toString() })}
+					onClick={() => handleMenuClick(item)}
 				/>
 			))}
 		</StoreMenuContainer>
