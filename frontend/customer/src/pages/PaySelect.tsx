@@ -7,58 +7,69 @@ import BasketTotalResult from '../components/basket/BasketTotalResult';
 import Input from '../components/Input';
 import Kakao from '../assets/imgs/payment_icon_yellow_medium.png';
 import Naver from '../assets/imgs/NaverLogo.png';
+import BasketPayBtn from '../components/basket/BasketPayBtn';
 const Container = styled.div`
 	width: 100%;
 `;
+const TitleItem = styled.div`
+	width: 90%;
+	margin: 0 auto;
+	padding: 10px 0;
+	font-weight: bold;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+`;
 const MenuBox = styled.div`
-	width: 100%;
+	width: 90%;
+	background-color: white;
 	margin: 0 auto;
 `;
 const MenuInfoBox = styled.div`
-	width: 90%;
+	width: 100%;
 	margin: 0 auto;
 	margin-bottom: 10px;
 	background-color: white;
 	border-radius: 0 0 5px 5px;
+	padding: 0 10px;
 `;
 const MenuInfoItem = styled.div`
-	width: 100%;
+	padding: 10px;
 `;
+
 const RequestBox = styled.div`
 	width: 90%;
 	margin: 0 auto;
 	background-color: white;
-	padding: 0 10px;
-	font-weight: bold;
-`;
-const RequestTitleItem = styled.div`
-	width: 100%;
-	padding: 10px;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 `;
 const RequestContentItem = styled.div`
 	width: 100%;
 	padding: 10px;
 `;
+
 const MethodBox = styled.div`
-	width: 100%;
-	margin: 5% 0;
+	width: 90%;
+	background-color: white;
+	margin: 5% auto;
 `;
-const ImgBox = styled.div`
+
+const MethodContentBox = styled.div`
 	width: 80%;
 	margin: 0 auto;
 	display: flex;
 	align-items: center;
 	border-radius: 10px;
 	padding: 10px;
+	background-color: white;
 	justify-content: center;
+	&:focus-within {
+		border: thin solid black;
+	}
 `;
-const ImgItem = styled.img`
+const MethodContentItem = styled.div`
+	width: 40%;
+`;
+const MethodContentImg = styled.img`
 	width: 50px;
-`;
-const ImgContentItem = styled.div`
-	width: 30%;
-	font-weight: bold;
+	margin-right: 10px;
 `;
 function PaySelect() {
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
@@ -70,7 +81,7 @@ function PaySelect() {
 		<Container>
 			<Navigation title={'결제'}></Navigation>
 			<MenuBox>
-				결제 정보, 요청사항, 결제 수단, 결제 금액
+				<TitleItem>내 결제항목</TitleItem>
 				<MenuInfoBox>
 					{myMenuList.map((item, index: number) => (
 						<MenuInfoItem key={index}>{item.menuName}</MenuInfoItem>
@@ -78,7 +89,7 @@ function PaySelect() {
 				</MenuInfoBox>
 			</MenuBox>
 			<RequestBox>
-				<RequestTitleItem>요청사항</RequestTitleItem>
+				<TitleItem>요청사항</TitleItem>
 				<RequestContentItem>
 					<Input
 						width={'100%'}
@@ -95,15 +106,17 @@ function PaySelect() {
 			</RequestBox>
 			<BasketTotalResult></BasketTotalResult>
 			<MethodBox>
-				<ImgBox>
-					<ImgItem src={Kakao} />
-					<ImgContentItem>카카오 페이</ImgContentItem>
-				</ImgBox>
-				<ImgBox color={''}>
-					<ImgItem src={Naver} />
-					<ImgContentItem>네이버 페이</ImgContentItem>
-				</ImgBox>
+				<TitleItem>결제 수단 선택</TitleItem>
+				<MethodContentBox>
+					<MethodContentImg src={Kakao}></MethodContentImg>
+					<MethodContentItem>카카오페이</MethodContentItem>
+				</MethodContentBox>
+				<MethodContentBox>
+					<MethodContentImg src={Naver}></MethodContentImg>
+					<MethodContentItem>네이버페이</MethodContentItem>
+				</MethodContentBox>
 			</MethodBox>
+			<BasketPayBtn label={'결제하기'} url={'/paySelect'}></BasketPayBtn>
 		</Container>
 	);
 }
