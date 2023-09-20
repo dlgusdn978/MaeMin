@@ -15,7 +15,7 @@ function BasketPayBtn() {
 			<Button
 				label={'주문 결제하기'}
 				width={'100%'}
-				margin={'0px auto;'}
+				margin={'0px auto'}
 				backgroundColor={'#FFB649'}
 				padding={'10px'}
 				borderRadius={'5px'}
