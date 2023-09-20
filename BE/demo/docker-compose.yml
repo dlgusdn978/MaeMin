@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  redis:
+    container_name: redis
+    image: redis
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - "./mariadb/conf.d:/etc/mysql/conf.d"
+      - "./mariadb/data:/var/lib/mysql"
+      - db-data:/var/lib/mysql
+    environment:
+      MARIADB_DATABASE :
+      MARIADB_USER : root
+      MARIADB_PASSWORD : bigbigred
+      MARIADB_ROOT_PASSWORD : bigbigred
+      TZ: 'Asia/Seoul'
+  gerrit:
+    image: gerritcodereview/gerrit
+    user: root
+    ports:
+      - "29418:29418"
+      - "8081:8080"
+    container_name: gerrit
+    depends_on:
+      - ldap
+    volumes:
+      - /var/gerrit/etc:/var/gerrit/etc
+      - /var/gerrit/git:/var/gerrit/git
+      - /var/gerrit/db:/var/gerrit/db
+      - /var/gerrit/index:/var/gerrit/index
+      - /var/gerrit/cache:/var/gerrit/cache
+    environment:
+      - CANONICAL_WEB_URL=http://j9c208.p.ssafy.io:8081
+    #command: init
+  ldap:
+    image: osixia/openldap
+    ports:
+      - "389:389"
+      - "636:636"
+    container_name: ldap
+    environment:
+      - LDAP_ADMIN_PASSWORD=bigbigred
+    volumes:
+      - /var/gerrit/ldap/var:/var/lib/ldap
+      - /var/gerrit/ldap/etc:/etc/ldap/slapd.d
+  ldap-admin:
+    image: osixia/phpldapadmin
+    ports:
+      - "6443:443"
+    container_name: ldapadmin
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=ldap
