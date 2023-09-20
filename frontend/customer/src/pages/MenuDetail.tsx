@@ -5,8 +5,7 @@ import { RootState } from '../store/store';
 import styled from 'styled-components';
 import FoodCount from '../components/menu/FoodCount';
 import Button from '../components/Button';
-import CartIcon from '../assets/imgs/shoppingcart.svg';
-import BackarrowIcon from '../assets/imgs/backarrow.svg';
+import FixedHeaderComponent from '../components/menu/FixedHeaderComponent'; // 적절한 경로로 수정
 
 const FoodPhoto = styled.div`
 	width: 390px;
@@ -56,56 +55,11 @@ const FoodWrapper = styled.div`
 	height: 70px;
 `;
 
-const CartButton = styled.button`
-	position: absolute;
-	top: 0;
-	right: 0;
-	background-color: transparent;
-	border: none;
-	margin-top: 20px;
-	margin-right: 10px;
-	z-index: 3;
-`;
-
-const BackButton = styled.button`
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: transparent;
-	border: none;
-	margin-top: 25px;
-	margin-left: 10px;
-	z-index: 3;
-`;
-
-const FixedHeader = styled.div`
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	width: 390px;
-	margin: auto;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: transparent;
-	z-index: 1000;
-`;
-
-const CenterContainer = styled.div`
-	position: absolute;
-	font-size: 24px;
-	width: 100%;
-	text-align: center;
-	z-index: 2;
-	top: 20px;
-`;
-
 const MenuDetail = () => {
-	// const { menuId } = useParams<{ menuId: string }>();
 	const selectedMenu = useSelector((state: RootState) => state.menu);
 	const [quantity, setQuantity] = useState(1);
 	const [totalPrice, setTotalPrice] = useState(0);
+
 	const navigate = useNavigate();
 	const navigateToPreviousPage = () => {
 		navigate(-1);
@@ -121,17 +75,7 @@ const MenuDetail = () => {
 
 	return (
 		<div>
-			<FixedHeader>
-				<BackButton onClick={navigateToPreviousPage}>
-					<img src={BackarrowIcon} alt="Go back" />
-				</BackButton>
-
-				<CenterContainer>{selectedMenu.name} 상세 조회</CenterContainer>
-
-				<CartButton>
-					<img src={CartIcon} alt="Share" />
-				</CartButton>
-			</FixedHeader>
+			<FixedHeaderComponent selectedMenuName={selectedMenu.name} onBackClick={navigateToPreviousPage} />
 
 			<FoodPhoto>
 				<FoodImage src={selectedMenu.menuPictureUrl} alt={selectedMenu.name} />
