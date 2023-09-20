@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import TagIcon from '../assets/imgs/tag.svg';
-// import Keyword from '../components/Carousel/Carousel';
+import TagIcon from '../../assets/imgs/tag.svg';
 
 const TrendKeywordContainer = styled.div`
 	position: relative;
-	height: 52px;
+	height: 82px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -16,7 +15,7 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-left: 5px;
+	margin: 10px;
 `;
 
 const TrendName = styled.div`
@@ -28,7 +27,9 @@ const TrendName = styled.div`
 const TrendList = styled.div`
 	font-size: 18px;
 	position: relative;
-	margin-left: 36px;
+	margin-left: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 `;
 
 const TrendKeyword = () => {
