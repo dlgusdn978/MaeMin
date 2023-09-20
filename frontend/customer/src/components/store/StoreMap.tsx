@@ -20,7 +20,7 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-left: 5px;
+	margin: 10px;
 `;
 
 const NavidName = styled.div`
@@ -40,6 +40,7 @@ const Navi = styled.div`
 const NaviInfor = styled.div`
 	text-align: center;
 	color: rgba(0, 0, 0, 0.5);
+	margin-bottom: 5px;
 `;
 
 const StoreMap = (props: StoreMapProps) => {

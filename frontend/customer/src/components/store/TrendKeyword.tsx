@@ -4,7 +4,7 @@ import TagIcon from '../../assets/imgs/tag.svg';
 
 const TrendKeywordContainer = styled.div`
 	position: relative;
-	height: 62px;
+	height: 82px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -15,7 +15,7 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-left: 5px;
+	margin: 10px;
 `;
 
 const TrendName = styled.div`
@@ -39,7 +39,6 @@ const TrendKeyword = () => {
 				<img src={TagIcon} alt="Tag" />
 				<TrendName>트렌드 키워드</TrendName>
 			</ContentContainer>
-
 			<TrendList>키워드 들어올곳~</TrendList>
 		</TrendKeywordContainer>
 	);
