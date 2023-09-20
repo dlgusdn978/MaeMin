@@ -64,6 +64,7 @@ const MethodContentBox = styled.div`
 		border: thin solid black;
 	}
 `;
+
 const MethodContentItem = styled.div`
 	width: 40%;
 `;
@@ -81,7 +82,7 @@ function PaySelect() {
 		<Container>
 			<Navigation title={'결제'}></Navigation>
 			<MenuBox>
-				<TitleItem>내 결제항목</TitleItem>
+				<TitleItem>내 결제항목.</TitleItem>
 				<MenuInfoBox>
 					{myMenuList.map((item, index: number) => (
 						<MenuInfoItem key={index}>{item.menuName}</MenuInfoItem>
