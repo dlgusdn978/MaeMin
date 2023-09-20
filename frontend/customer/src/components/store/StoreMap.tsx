@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import StoreMapIcon from '../assets/imgs/storemap.svg';
+import StoreMapIcon from '../../assets/imgs/storemap.svg';
+
+interface StoreMapProps {
+	address: string;
+}
 
 const StoreMapContainer = styled.div`
 	position: relative;
@@ -16,7 +20,7 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-left: 5px;
+	margin: 10px;
 `;
 
 const NavidName = styled.div`
@@ -36,9 +40,10 @@ const Navi = styled.div`
 const NaviInfor = styled.div`
 	text-align: center;
 	color: rgba(0, 0, 0, 0.5);
+	margin-bottom: 5px;
 `;
 
-const StoreMap = () => {
+const StoreMap = (props: StoreMapProps) => {
 	return (
 		<div>
 			<StoreMapContainer>
@@ -47,7 +52,7 @@ const StoreMap = () => {
 					<NavidName>위치정보</NavidName>
 				</ContentContainer>
 				<Navi></Navi>
-				<NaviInfor>광주광역시 광산구~~</NaviInfor>
+				<NaviInfor>{props.address}</NaviInfor>
 			</StoreMapContainer>
 		</div>
 	);

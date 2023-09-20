@@ -3,17 +3,23 @@ import styled from 'styled-components';
 import Button from '../../components/Button';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useNavigate } from 'react-router-dom';
 const BasketPayBtnContainer = styled.div`
 	width: 90%;
 	margin: 0 auto 20px auto;
 `;
-function BasketPayBtn() {
+interface ButtonProps {
+	label: string;
+	url: string;
+}
+function BasketPayBtn({ label, url }: ButtonProps) {
 	const basketTotal = useSelector((state: RootState) => state.basket.totalPrice);
+	const navigate = useNavigate();
 	console.log(basketTotal);
 	return (
-		<BasketPayBtnContainer>
+		<BasketPayBtnContainer onClick={() => navigate(url)}>
 			<Button
-				label={'주문 결제하기'}
+				label={label}
 				width={'100%'}
 				margin={'0px auto'}
 				backgroundColor={'#FFB649'}

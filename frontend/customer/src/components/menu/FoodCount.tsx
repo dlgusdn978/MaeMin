@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from './Button';
+import Button from '../Button';
 
 interface FoodCountProps {
 	quantity: number;
@@ -28,6 +28,7 @@ const CountBox = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-right: 20px;
 `;
 
 const FoodCount = ({ quantity, setQuantity }: FoodCountProps) => {

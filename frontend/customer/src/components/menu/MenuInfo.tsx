@@ -7,7 +7,7 @@ const MenuInfoContainer = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	margin: 10px;
+	margin-bottom: 5px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
@@ -20,12 +20,13 @@ const MenuDetail = styled.div`
 
 const MenuName = styled.div`
 	font-size: 15px;
+	margin: 10px;
 `;
 
 const MenuPrice = styled.div`
 	font-size: 15px;
 	color: rgba(0, 0, 0, 0.5);
-	margin-top: 10px;
+	margin-left: 1px;
 `;
 
 const MenuImage = styled.img`
@@ -34,7 +35,7 @@ const MenuImage = styled.img`
 	object-fit: cover;
 	border-radius: 25px;
 	align-self: center;
-	margin-left: 200px;
+	margin-left: 240px;
 	margin-bottom: 10px;
 `;
 
@@ -48,18 +49,19 @@ interface MenuInfoProps {
 
 const MenuInfo = (props: MenuInfoProps) => {
 	const { name, price, imageUrl, menuId, onClick } = props;
+	const formattedPrice = parseInt(price.replace(/,/g, ''), 10).toLocaleString() + '원';
 	const navigate = useNavigate();
 
 	const handleCombinedClick = () => {
-		onClick(); // Redux action을 호출
-		navigate(`/menu-detail/${menuId}`); // 메뉴 상세 페이지로 이동
+		onClick();
+		navigate(`/menu-detail/${menuId}`);
 	};
 
 	return (
 		<MenuInfoContainer onClick={handleCombinedClick}>
 			<MenuDetail>
 				<MenuName>{name}</MenuName>
-				<MenuPrice>{price}</MenuPrice>
+				<MenuPrice>{formattedPrice}</MenuPrice>
 			</MenuDetail>
 			<MenuImage src={imageUrl} alt={name} />
 		</MenuInfoContainer>
