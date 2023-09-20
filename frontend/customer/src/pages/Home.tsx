@@ -7,7 +7,7 @@ import { Container } from '../components/layout/common';
 // import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 // import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
 // import Search from '../components/Search';
-import Basket from '../pages/Basket';
+import PaySelect from '../pages/PaySelect';
 // type directionType = {
 // 	dir: string;
 // };
@@ -20,7 +20,7 @@ import Basket from '../pages/Basket';
 const Home = () => {
 	return (
 		<Container>
-			<Basket></Basket>
+			<PaySelect></PaySelect>
 			{/* <Search placeholder="배고프니까 일단 검색!!!" />
 			<HomeBox dir="column">
 				<Card

@@ -13,7 +13,6 @@ import BasketAddBtn from '../components/basket/BasketAddBtn';
 
 const PaymentContainer = styled.div`
 	width: 100%;
-
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
