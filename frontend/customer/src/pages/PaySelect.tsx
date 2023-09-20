@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import BasketTotalResult from '../components/basket/BasketTotalResult';
 import Input from '../components/Input';
 import Kakao from '../assets/imgs/payment_icon_yellow_medium.png';
+import Naver from '../assets/imgs/NaverLogo.png';
 const Container = styled.div`
 	width: 100%;
 `;
@@ -41,12 +42,23 @@ const RequestContentItem = styled.div`
 `;
 const MethodBox = styled.div`
 	width: 100%;
+	margin: 5% 0;
 `;
 const ImgBox = styled.div`
-	width: 100%;
+	width: 80%;
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+	padding: 10px;
+	justify-content: center;
 `;
 const ImgItem = styled.img`
 	width: 50px;
+`;
+const ImgContentItem = styled.div`
+	width: 30%;
+	font-weight: bold;
 `;
 function PaySelect() {
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
@@ -85,6 +97,11 @@ function PaySelect() {
 			<MethodBox>
 				<ImgBox>
 					<ImgItem src={Kakao} />
+					<ImgContentItem>카카오 페이</ImgContentItem>
+				</ImgBox>
+				<ImgBox color={''}>
+					<ImgItem src={Naver} />
+					<ImgContentItem>네이버 페이</ImgContentItem>
 				</ImgBox>
 			</MethodBox>
 		</Container>
