@@ -41,7 +41,8 @@ const MenuList = ({ menu, title, iconSrc, popularity }: MenuListProps) => {
 	const dispatch = useDispatch();
 
 	const handleMenuClick = (menu: MenuData) => {
-		dispatch(setMenu({ name: menu.name, price: menu.price.toString(), menuPictureUrl: menu.menuPictureUrl }));
+		const formattedPrice = parseInt(menu.price.toString().replace(/,/g, ''), 10).toLocaleString();
+		dispatch(setMenu({ name: menu.name, price: formattedPrice, menuPictureUrl: menu.menuPictureUrl }));
 	};
 
 	return (

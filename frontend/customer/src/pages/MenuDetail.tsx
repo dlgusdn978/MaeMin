@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import styled from 'styled-components';
@@ -11,14 +11,14 @@ import BackarrowIcon from '../assets/imgs/backarrow.svg';
 const FoodPhoto = styled.div`
 	width: 390px;
 	height: 304px;
-	position: relative; // 위치를 상대적으로 지정
+	position: relative;
 `;
 
 const FoodImage = styled.img`
-	width: 100%; // 부모 컨테이너인 FoodPhoto의 너비에 맞춤
-	height: 100%; // 부모 컨테이너인 FoodPhoto의 높이에 맞춤
-	object-fit: cover; // 이미지 비율을 유지하면서 꽉 차게 표시
-	position: absolute; // 부모 컨테이너인 FoodPhoto에 대해 절대 위치 지정
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
 	top: 0;
 	left: 0;
 `;
@@ -27,12 +27,20 @@ const FoodName = styled.div`
 	font-size: 24px;
 	position: relative;
 	margin-left: 10px;
+	margin-bottom: 10px;
+`;
+
+const PriceName = styled.div`
+	font-size: 24px;
+	position: relative;
+	margin-left: 10px;
 `;
 
 const FoodPrice = styled.div`
 	font-size: 15px;
 	position: relative;
-	margin-left: 36px;
+	margin-left: 300px;
+	margin-top: -15px;
 	color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -44,6 +52,8 @@ const ButtonWrapper = styled.div`
 
 const FoodWrapper = styled.div`
 	background-color: white;
+	margin-bottom: 20px;
+	height: 70px;
 `;
 
 const CartButton = styled.button`
@@ -68,8 +78,31 @@ const BackButton = styled.button`
 	z-index: 3;
 `;
 
+const FixedHeader = styled.div`
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 390px;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: transparent;
+	z-index: 1000;
+`;
+
+const CenterContainer = styled.div`
+	position: absolute;
+	font-size: 24px;
+	width: 100%;
+	text-align: center;
+	z-index: 2;
+	top: 20px;
+`;
+
 const MenuDetail = () => {
-	const { menuId } = useParams<{ menuId: string }>();
+	// const { menuId } = useParams<{ menuId: string }>();
 	const selectedMenu = useSelector((state: RootState) => state.menu);
 	const [quantity, setQuantity] = useState(1);
 	const [totalPrice, setTotalPrice] = useState(0);
@@ -88,23 +121,30 @@ const MenuDetail = () => {
 
 	return (
 		<div>
-			<BackButton onClick={navigateToPreviousPage}>
-				<img src={BackarrowIcon} alt="Go back" />
-			</BackButton>
+			<FixedHeader>
+				<BackButton onClick={navigateToPreviousPage}>
+					<img src={BackarrowIcon} alt="Go back" />
+				</BackButton>
 
-			<h1>해당 메뉴 상세페이지 메뉴id:{menuId}</h1>
+				<CenterContainer>{selectedMenu.name} 상세 조회</CenterContainer>
+
+				<CartButton>
+					<img src={CartIcon} alt="Share" />
+				</CartButton>
+			</FixedHeader>
 
 			<FoodPhoto>
 				<FoodImage src={selectedMenu.menuPictureUrl} alt={selectedMenu.name} />
 			</FoodPhoto>
-
-			<CartButton>
-				<img src={CartIcon} alt="Share" />
-			</CartButton>
+			{/* <h1>해당 메뉴 상세페이지 메뉴id:{menuId}</h1> */}
 
 			<FoodWrapper>
 				<FoodName>{selectedMenu.name}</FoodName>
-				<FoodPrice>{selectedMenu.price}</FoodPrice>
+
+				<PriceName>가격</PriceName>
+				<FoodPrice>
+					{parseInt(selectedMenu.price.replace(/,/g, '').replace('원', ''), 10).toLocaleString()}원
+				</FoodPrice>
 			</FoodWrapper>
 
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />

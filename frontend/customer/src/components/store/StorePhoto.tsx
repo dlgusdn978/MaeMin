@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import BackarrowIcon from '../../assets/imgs/backarrow.svg';
 import SharboxIcon from '../../assets/imgs/sharebox.svg';
 
-// 컴포넌트의 Props 타입을 정의합니다.
 interface StorePhotoProps {
 	name: string;
 	pictureUrl: string;
@@ -12,7 +11,7 @@ interface StorePhotoProps {
 
 const StorePhotoContainer = styled.div`
 	position: relative;
-	height: 224px;
+	height: 274px;
 	background-color: white;
 	display: flex;
 	flex-direction: row;
@@ -53,6 +52,7 @@ const StoreName = styled.div`
 	bottom: 0;
 	transform: translateX(-50%);
 	text-align: center;
+	margin-bottom: 18px;
 `;
 
 const StorePhoto = (props: StorePhotoProps) => {

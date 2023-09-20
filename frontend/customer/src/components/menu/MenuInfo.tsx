@@ -48,18 +48,19 @@ interface MenuInfoProps {
 
 const MenuInfo = (props: MenuInfoProps) => {
 	const { name, price, imageUrl, menuId, onClick } = props;
+	const formattedPrice = parseInt(price.replace(/,/g, ''), 10).toLocaleString() + '원';
 	const navigate = useNavigate();
 
 	const handleCombinedClick = () => {
-		onClick(); // Redux action을 호출
-		navigate(`/menu-detail/${menuId}`); // 메뉴 상세 페이지로 이동
+		onClick();
+		navigate(`/menu-detail/${menuId}`);
 	};
 
 	return (
 		<MenuInfoContainer onClick={handleCombinedClick}>
 			<MenuDetail>
 				<MenuName>{name}</MenuName>
-				<MenuPrice>{price}</MenuPrice>
+				<MenuPrice>{formattedPrice}</MenuPrice>
 			</MenuDetail>
 			<MenuImage src={imageUrl} alt={name} />
 		</MenuInfoContainer>

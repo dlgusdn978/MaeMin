@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';  // 또는 사용하고 있는 HTTP 클라이언트
+// import axios from 'axios';
 import StorePhoto from '../components/store/StorePhoto';
 import StoreMap from '../components/store/StoreMap';
 import MenuList from '../components/store/MenuList';
@@ -7,7 +7,6 @@ import MedalIcon from '../assets/imgs/medal.svg';
 import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
 import TrendKeyword from './../components/store/TrendKeyword';
 
-// 백엔드로부터 받을 데이터의 타입을 정의
 interface StoreDetailData {
 	ownerId: number;
 	name: string;
@@ -38,12 +37,11 @@ const StoreDetail = () => {
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);
 
-	// useEffect를 사용하여 컴포넌트가 마운트될 때 데이터를 가져옵니다.
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				// 백엔드로부터 데이터를 가져옵니다.
-				// const response = await axios.get('/api/store-detail');  // API 엔드포인트를 적절하게 수정해주세요.
+				// const response = await axios.get('/api/store-detail');
 
 				// 더미 데이터 설정
 				const dummyData: StoreDetailData = {
@@ -80,7 +78,8 @@ const StoreDetail = () => {
 						category: [1],
 						name: '음식1',
 						price: 14000,
-						menuPictureUrl: '이미지 주소',
+						menuPictureUrl:
+							'https://search.pstatic.net/sunny/?src=https%3A%2F%2Fcdn.crowdpic.net%2Fdetail-thumb%2Fthumb_d_6E5CFD478A64807DB737AA9FB14BBCE4.png&type=a340',
 						popularity: 1,
 					},
 				];
@@ -98,7 +97,6 @@ const StoreDetail = () => {
 
 	return (
 		<div>
-			{/* StorePhoto 컴포넌트에 props로 name과 pictureUrl을 전달 */}
 			{storeData && <StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} />}
 			<TrendKeyword />
 			{storeData && <StoreMap address={storeData.address} />}

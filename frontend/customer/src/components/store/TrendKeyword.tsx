@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-// import TagIcon from '../assets/imgs/tag.svg';
-// import Keyword from '../components/Carousel/Carousel';
 import TagIcon from '../../assets/imgs/tag.svg';
 
 const TrendKeywordContainer = styled.div`
 	position: relative;
-	height: 52px;
+	height: 62px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -29,7 +27,9 @@ const TrendName = styled.div`
 const TrendList = styled.div`
 	font-size: 18px;
 	position: relative;
-	margin-left: 36px;
+	margin-left: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 `;
 
 const TrendKeyword = () => {
@@ -39,6 +39,7 @@ const TrendKeyword = () => {
 				<img src={TagIcon} alt="Tag" />
 				<TrendName>트렌드 키워드</TrendName>
 			</ContentContainer>
+
 			<TrendList>키워드 들어올곳~</TrendList>
 		</TrendKeywordContainer>
 	);

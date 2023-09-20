@@ -28,6 +28,7 @@ const CountBox = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	margin-right: 20px;
 `;
 
 const FoodCount = ({ quantity, setQuantity }: FoodCountProps) => {
