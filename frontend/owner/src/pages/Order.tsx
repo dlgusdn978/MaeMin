@@ -3,6 +3,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import TodoList from '../components/dnd/TodoList';
 import { nanoid } from 'nanoid';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { HomeTitle } from '../components/text';
 
 const Order = () => {
 	const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
@@ -73,7 +74,7 @@ const Order = () => {
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<div className="dnd-container">
-				<h1>{storeName}</h1>
+				<HomeTitle>{storeName}</HomeTitle>
 				<TodoList
 					todos={todos}
 					setTodos={setTodos}

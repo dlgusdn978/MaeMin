@@ -1,5 +1,19 @@
 import styled from 'styled-components';
 
+export const HomeTitle = styled.span`
+	color: #000;
+	text-align: center;
+	font-feature-settings:
+		'clig' off,
+		'liga' off;
+	font-size: '32px';
+	font-weight: 600;
+	line-height: 20px; /* 83.333% */
+	letter-spacing: -0.5px;
+	display: inline-block;
+	margin-top: 15px;
+	margin-left: 10px;
+`;
 export const HomeCardTitle = styled.span<FontSizeProps>`
 	color: #000;
 	text-align: center;

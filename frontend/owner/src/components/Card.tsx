@@ -10,12 +10,17 @@ const Card = ({ width, height, title, content, titleSize, imgSrc }: CardProps) =
 				<HomeCardTitle fontSize={titleSize}>{title}</HomeCardTitle>
 				<HomeCardContent>{content}</HomeCardContent>
 			</CardTextBox>
-			<ImgBox>
-				<img src={imgSrc} alt="test" width={100} height={60} />
-			</ImgBox>
-			<BtnBox>
-				<Button label="품절" margin="10px" />
-			</BtnBox>
+
+			{imgSrc ? (
+				<>
+					<ImgBox>
+						<img src={imgSrc} alt="test" width={100} height={60} />
+					</ImgBox>
+					<BtnBox>
+						<Button label="품절" margin="10px" />
+					</BtnBox>
+				</>
+			) : null}
 		</CardContainer>
 	);
 };
