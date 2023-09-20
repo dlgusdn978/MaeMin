@@ -1,16 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setMenu } from '../store/menuSlice';
-import MedalIcon from '../assets/imgs/medal.svg';
+import { setMenu } from '../../store/menuSlice';
 import styled from 'styled-components';
-import MenuInfo from './MenuInfo';
-import { MenuData } from '../pages/StoreDetail';
+import MenuInfo from '../menu/MenuInfo';
+import { MenuData } from '../../pages/StoreDetail';
 
-interface StoreMenuProps {
+interface MenuListProps {
 	menu: MenuData[];
+	title: string;
+	iconSrc: string;
+	popularity: number;
 }
 
-const StoreMenuContainer = styled.div`
+const MenuContainer = styled.div<{ popularity: number }>`
 	position: relative;
 	height: auto;
 	background-color: white;
@@ -18,7 +20,7 @@ const StoreMenuContainer = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	margin-top: 20px;
-	border: 3px solid rgba(255, 182, 73, 1);
+	border: ${(props) => (props.popularity === 1 ? '3px solid rgba(255, 182, 73, 1)' : 'none')};
 `;
 
 const ContentContainer = styled.div`
@@ -29,31 +31,24 @@ const ContentContainer = styled.div`
 	margin-left: 4px;
 `;
 
-const StoreMenuName = styled.div`
+const MenuName = styled.div`
 	font-size: 24px;
 	position: relative;
 	margin-left: 10px;
 `;
 
-const StoreMenu = ({ menu }: StoreMenuProps) => {
+const MenuList = ({ menu, title, iconSrc, popularity }: MenuListProps) => {
 	const dispatch = useDispatch();
 
 	const handleMenuClick = (menu: MenuData) => {
-		dispatch(
-			setMenu({
-				name: menu.name,
-				price: menu.price.toString(),
-				menuPictureUrl: menu.menuPictureUrl,
-			}),
-		);
-		console.log(menu);
+		dispatch(setMenu({ name: menu.name, price: menu.price.toString(), menuPictureUrl: menu.menuPictureUrl }));
 	};
 
 	return (
-		<StoreMenuContainer>
+		<MenuContainer popularity={popularity}>
 			<ContentContainer>
-				<img src={MedalIcon} alt="아이콘" />
-				<StoreMenuName>트렌드 메뉴</StoreMenuName>
+				<img src={iconSrc} alt="아이콘" />
+				<MenuName>{title}</MenuName>
 			</ContentContainer>
 			{menu.map((item, index) => (
 				<MenuInfo
@@ -65,8 +60,8 @@ const StoreMenu = ({ menu }: StoreMenuProps) => {
 					onClick={() => handleMenuClick(item)}
 				/>
 			))}
-		</StoreMenuContainer>
+		</MenuContainer>
 	);
 };
 
-export default StoreMenu;
+export default MenuList;

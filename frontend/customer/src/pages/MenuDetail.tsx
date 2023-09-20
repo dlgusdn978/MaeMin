@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import styled from 'styled-components';
-import FoodCount from '../components/FoodCount';
+import FoodCount from '../components/menu/FoodCount';
 import Button from '../components/Button';
 import CartIcon from '../assets/imgs/shoppingcart.svg';
 import BackarrowIcon from '../assets/imgs/backarrow.svg';

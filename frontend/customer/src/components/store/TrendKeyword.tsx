@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import TagIcon from '../assets/imgs/tag.svg';
+// import TagIcon from '../assets/imgs/tag.svg';
 // import Keyword from '../components/Carousel/Carousel';
+import TagIcon from '../../assets/imgs/tag.svg';
 
 const TrendKeywordContainer = styled.div`
 	position: relative;

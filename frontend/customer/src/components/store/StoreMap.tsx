@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import StoreMapIcon from '../assets/imgs/storemap.svg';
+import StoreMapIcon from '../../assets/imgs/storemap.svg';
 
 interface StoreMapProps {
 	address: string;

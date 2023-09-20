@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 // import axios from 'axios';  // 또는 사용하고 있는 HTTP 클라이언트
-import StorePhoto from '../components/StorePhoto';
-import TrendKeyword from '../components/TrendKeyword';
-import StoreMap from '../components/StoreMap';
-import StoreMenu from '../components/StoreMenu';
-import OtherMenu from '../components/OtherMenu';
+import StorePhoto from '../components/store/StorePhoto';
+import StoreMap from '../components/store/StoreMap';
+import MenuList from '../components/store/MenuList';
+import MedalIcon from '../assets/imgs/medal.svg';
+import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
+import TrendKeyword from './../components/store/TrendKeyword';
 
 // 백엔드로부터 받을 데이터의 타입을 정의
 interface StoreDetailData {
@@ -101,8 +102,8 @@ const StoreDetail = () => {
 			{storeData && <StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} />}
 			<TrendKeyword />
 			{storeData && <StoreMap address={storeData.address} />}
-			<StoreMenu menu={trendMenus} />
-			<OtherMenu menu={otherMenus} />
+			<MenuList menu={trendMenus} title="트렌드 메뉴" iconSrc={MedalIcon} popularity={1} />
+			<MenuList menu={otherMenus} title="다른 메뉴" iconSrc={MenuBoardIcon} popularity={0} />
 		</div>
 	);
 };

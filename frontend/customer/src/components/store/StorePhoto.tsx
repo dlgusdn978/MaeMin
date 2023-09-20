@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import BackarrowIcon from '../assets/imgs/backarrow.svg';
-import SharboxIcon from '../assets/imgs/sharebox.svg';
+import BackarrowIcon from '../../assets/imgs/backarrow.svg';
+import SharboxIcon from '../../assets/imgs/sharebox.svg';
 
 // 컴포넌트의 Props 타입을 정의합니다.
 interface StorePhotoProps {
