@@ -23,93 +23,99 @@ const TodoList = ({
 }: Props) => {
 	return (
 		<OrderListContainer>
-			<OrderListBox>
+			<FlexBox dir="col">
 				<OrderBoxTitle>결제 완료</OrderBoxTitle>
-				<Droppable droppableId="inbox-column">
-					{(provided) => (
-						<div ref={provided.innerRef} {...provided.droppableProps}>
-							<ul className="todo-list -inbox">
-								{todos.length === 0 ? (
-									<p className="placeholder">There are no tasks yet</p>
-								) : (
-									todos.map((todo, index) => (
-										<TodoItem
-											index={index}
-											todo={todo}
-											key={todo.id}
-											todos={todos}
-											setTodos={setTodos}
-											inbox={todos}
-											completed={completedTodos}
-											setInbox={setTodos}
-											setCompleted={setCompletedTodos}
-										/>
-									))
-								)}
-								{provided.placeholder}
-							</ul>
-						</div>
-					)}
-				</Droppable>
-			</OrderListBox>
-			<OrderListBox>
+				<OrderListBox>
+					<Droppable droppableId="inbox-column">
+						{(provided) => (
+							<div ref={provided.innerRef} {...provided.droppableProps}>
+								<ul className="todo-list -inbox">
+									{todos.length === 0 ? (
+										<p className="placeholder">There are no tasks yet</p>
+									) : (
+										todos.map((todo, index) => (
+											<TodoItem
+												index={index}
+												todo={todo}
+												key={todo.id}
+												todos={todos}
+												setTodos={setTodos}
+												inbox={todos}
+												completed={completedTodos}
+												setInbox={setTodos}
+												setCompleted={setCompletedTodos}
+											/>
+										))
+									)}
+									{provided.placeholder}
+								</ul>
+							</div>
+						)}
+					</Droppable>
+				</OrderListBox>
+			</FlexBox>
+			<FlexBox dir="col">
 				<OrderBoxTitle>조리중</OrderBoxTitle>
-				<Droppable droppableId="inprogress-column">
-					{(provided) => (
-						<FlexBox dir="row" ref={provided.innerRef} {...provided.droppableProps}>
-							<ul className="todo-list -inprogress">
-								{inProgressTodos.length === 0 ? (
-									<p className="placeholder">There are no tasks yet</p>
-								) : (
-									inProgressTodos.map((todo, index) => (
-										<TodoItem
-											index={index}
-											todo={todo}
-											key={todo.id}
-											todos={inProgressTodos}
-											setTodos={setInProgressTodos}
-											inbox={todos}
-											completed={completedTodos}
-											setInbox={setTodos}
-											setCompleted={setCompletedTodos}
-										/>
-									))
-								)}
-								{provided.placeholder}
-							</ul>
-						</FlexBox>
-					)}
-				</Droppable>
-			</OrderListBox>
-			<OrderListBox>
+				<OrderListBox>
+					<Droppable droppableId="inprogress-column">
+						{(provided) => (
+							<FlexBox dir="row" ref={provided.innerRef} {...provided.droppableProps}>
+								<ul className="todo-list -inprogress">
+									{inProgressTodos.length === 0 ? (
+										<p className="placeholder">There are no tasks yet</p>
+									) : (
+										inProgressTodos.map((todo, index) => (
+											<TodoItem
+												index={index}
+												todo={todo}
+												key={todo.id}
+												todos={inProgressTodos}
+												setTodos={setInProgressTodos}
+												inbox={todos}
+												completed={completedTodos}
+												setInbox={setTodos}
+												setCompleted={setCompletedTodos}
+											/>
+										))
+									)}
+									{provided.placeholder}
+								</ul>
+							</FlexBox>
+						)}
+					</Droppable>
+				</OrderListBox>
+			</FlexBox>
+			<FlexBox dir="col">
 				<OrderBoxTitle>완료</OrderBoxTitle>
-				<Droppable droppableId="completed-column">
-					{(provided) => (
-						<div ref={provided.innerRef} {...provided.droppableProps}>
-							<ul className="todo-list -completed">
-								{completedTodos.length === 0 ? (
-									<p className="placeholder">There are no tasks yet</p>
-								) : (
-									completedTodos.map((todo, index) => (
-										<TodoItem
-											index={index}
-											todo={todo}
-											key={todo.id}
-											todos={completedTodos}
-											setTodos={setCompletedTodos}
-											inbox={todos}
-											completed={completedTodos}
-											setInbox={setTodos}
-											setCompleted={setCompletedTodos}
-										/>
-									))
-								)}
-								{provided.placeholder}
-							</ul>
-						</div>
-					)}
-				</Droppable>
-			</OrderListBox>
+				<OrderListBox>
+					<Droppable droppableId="completed-column">
+						{(provided) => (
+							<div ref={provided.innerRef} {...provided.droppableProps}>
+								<ul className="todo-list -completed">
+									{completedTodos.length === 0 ? (
+										<p className="placeholder">There are no tasks yet</p>
+									) : (
+										completedTodos.map((todo, index) => (
+											<TodoItem
+												index={index}
+												todo={todo}
+												key={todo.id}
+												todos={completedTodos}
+												setTodos={setCompletedTodos}
+												inbox={todos}
+												completed={completedTodos}
+												setInbox={setTodos}
+												setCompleted={setCompletedTodos}
+											/>
+										))
+									)}
+									{provided.placeholder}
+								</ul>
+							</div>
+						)}
+					</Droppable>
+				</OrderListBox>
+			</FlexBox>
 		</OrderListContainer>
 	);
 };
