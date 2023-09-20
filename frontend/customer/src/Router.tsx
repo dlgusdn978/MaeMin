@@ -8,6 +8,7 @@ import Trend from './pages/Trend';
 import StoreDetail from './pages/StoreDetail';
 import SearchHistory from './pages/SearchHistory';
 import MenuDetail from './pages/MenuDetail';
+import QrCodeReader from './components/QrScan';
 
 /** Router */
 export function MainRoutes() {
@@ -37,6 +38,10 @@ export function MainRoutes() {
 		{
 			path: '/search',
 			element: <SearchHistory />,
+		},
+		{
+			path: '/qr',
+			element: <QrCodeReader />,
 		},
 		{
 			path: '/store-detail/:storeId',

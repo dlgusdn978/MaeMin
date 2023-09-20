@@ -10,7 +10,6 @@ import Search from '../components/Search';
 import { useDispatch } from 'react-redux';
 import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
-// import { navigate } from '../hooks/constant';
 
 type directionType = {
 	dir: string;
@@ -42,7 +41,6 @@ const Home = () => {
 					icon={(props) => <RedArrowIcon {...props} />}
 					iconSize={90}
 					titleSize="24px"
-					// onClick={() => navigate('/trend')}
 				/>
 				<Card
 					content="원하는 매장에 예약해보세요"
