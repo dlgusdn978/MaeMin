@@ -13,6 +13,7 @@ interface ButtonComponentProps {
 	disabled?: boolean;
 	border?: string;
 	borderColor?: string;
+	padding?: string;
 }
 
 const Button: React.FC<ButtonComponentProps> = ({
@@ -26,8 +27,9 @@ const Button: React.FC<ButtonComponentProps> = ({
 	height,
 	onClick,
 	disabled,
-	borderColor,
 	border,
+	borderColor,
+	padding,
 }) => {
 	return (
 		<button
@@ -39,6 +41,7 @@ const Button: React.FC<ButtonComponentProps> = ({
 				color: textColor,
 				width: width,
 				height: height,
+				padding: padding,
 				border:
 					`${border}` === 'none' ? 'none' : borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
 			}}

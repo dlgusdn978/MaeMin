@@ -6,6 +6,12 @@ interface CardProps {
 	title?: string;
 	content?: string;
 	titleSize?: string;
+	imgSrc?: string;
+}
+
+interface IconProps {
+	iconSize?: number;
+	icon: IconType;
 }
 
 type FontSizeProps = {

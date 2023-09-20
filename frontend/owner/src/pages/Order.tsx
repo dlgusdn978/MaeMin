@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import TodoList from '../components/dnd/TodoList';
 import { nanoid } from 'nanoid';

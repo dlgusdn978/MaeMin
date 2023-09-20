@@ -2,6 +2,25 @@ import React from 'react';
 import Card from '../components/Card';
 import { Container, FlexBox } from '../components/style/common';
 
+const foodList = [
+	{
+		storeId: 1,
+		category: [1],
+		name: '라구파스타',
+		price: 13000,
+		menuPictureUrl: '이미지 주소',
+		popularity: 0,
+	},
+	{
+		storeId: 1,
+		category: [1],
+		name: '라구파스타',
+		price: 13000,
+		menuPictureUrl: '이미지 주소',
+		popularity: 0,
+	},
+];
+
 const StoreMenu = () => {
 	return (
 		<Container>
@@ -10,9 +29,17 @@ const StoreMenu = () => {
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">
-					<Card title="1번 테이블" content="라구파스타 13000원" titleSize="24px" width={200} />
-					<Card title="1번 테이블" content="라구파스타 13000원" titleSize="24px" width={200} />
-					<Card title="1번 테이블" content="라구파스타 13000원" titleSize="24px" width={200} />
+					{foodList.map((item) => {
+						return (
+							<Card
+								title={item.name}
+								content={`${item.price} 원`}
+								titleSize="24px"
+								imgSrc={item.menuPictureUrl}
+								width={200}
+							/>
+						);
+					})}
 				</FlexBox>
 			</FlexBox>
 		</Container>
