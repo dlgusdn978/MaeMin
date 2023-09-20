@@ -82,7 +82,7 @@ function Payment() {
 				</PaymentMenuInfoBox>
 				<BasketTotalResult></BasketTotalResult>
 				<BasketAddBtn></BasketAddBtn>
-				<BasketPayBtn></BasketPayBtn>
+				<BasketPayBtn label={'주문하기'} url={'/paySelect'}></BasketPayBtn>
 			</PaymentBox>
 		</PaymentContainer>
 	);
