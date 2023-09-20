@@ -7,6 +7,7 @@ import PageNotFound from './pages/PageNotFound';
 import Order from './pages/Order';
 import StoreManagement from './pages/StoreManagement';
 import StoreAnalysis from './pages/StoreAnalysis';
+import StoreMenu from './pages/StoreMenu';
 
 /** Router */
 export function MainRoutes() {
@@ -40,6 +41,10 @@ export function MainRoutes() {
 		{
 			path: '/store-analysis',
 			element: <StoreAnalysis />,
+		},
+		{
+			path: '/store-menu',
+			element: <StoreMenu />,
 		},
 		{ path: '*', element: <PageNotFound /> },
 	]);

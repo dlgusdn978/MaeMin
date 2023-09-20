@@ -6,7 +6,7 @@ const StoreManagement = () => {
 	return (
 		<Container>
 			<FlexBox dir="row">
-				<div>가게 관리</div>
+				<div>가게 현황</div>
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import TodoItem from './TodoItem';
-import { FlexBox } from './style/common';
-import { OrderBoxTitle, OrderListBox, OrderListContainer } from './style/order';
+import { FlexBox } from '../style/common';
+import { OrderBoxTitle, OrderListBox, OrderListContainer } from '../style/order';
 
 interface Props {
 	todos: Todo[];

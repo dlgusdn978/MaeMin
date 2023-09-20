@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { FiX } from 'react-icons/fi';
 import { BsFillCheckSquareFill, BsSquare } from 'react-icons/bs';
 import { Draggable } from 'react-beautiful-dnd';
-import { CardContainer } from './style/card';
+import { CardContainer } from '../style/card';
 
 interface Props {
 	index: number;

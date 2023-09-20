@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import TodoList from '../components/TodoList';
+import TodoList from '../components/dnd/TodoList';
 import { nanoid } from 'nanoid';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const Order = () => {
-	const [todo, setTodo] = useState<string>('');
 	const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
 	const [inProgressTodos, setInProgressTodos] = useLocalStorage<Todo[]>('inprogress', []);
 	const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completed', []);
@@ -34,7 +33,6 @@ const Order = () => {
 		if (dummyList) {
 			setTodos(dummyList);
 			// setTodos([...todos, { id: nanoid(), todo, isDone: false }]);
-			setTodo('');
 		}
 		console.log(todos);
 	}, []);
