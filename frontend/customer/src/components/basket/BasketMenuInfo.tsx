@@ -4,12 +4,16 @@ import styled from 'styled-components';
 import type { AppDispatch } from '../../store/store';
 import { basketActions } from '../../store/basketSlice';
 
+import Button from '../../components/Button';
+import BasketMenuDetailPrice from '../../components/basket/BasketMenuDetailPrice';
 interface MenuInfoProps {
 	menuId: string;
 	menuName: string;
 	menuPrice: number;
 	menuImg: string;
 	menuCount: number;
+	menuPayerList: string[];
+	index: number;
 }
 const PayMenuContainer = styled.div`
 	width: 90%;
@@ -35,11 +39,9 @@ const PayMenuTitleBtn = styled.div`
 const PayMenuInfoBox = styled.div`
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 `;
-const PayMenuImgItem = styled.div`
-	width: 30%;
-	padding: 15px;
-`;
+
 const PayMenuImg = styled.img`
 	width: 60px;
 	height: 60px;
@@ -47,16 +49,20 @@ const PayMenuImg = styled.img`
 	object-fit: contains;
 `;
 const PayMenuInfoItem = styled.div`
-	width: 70%;
+	width: 100%;
 	padding: 10px;
+	display: flex;
+	justify-content: space-between;
 `;
 const PayMenuOption = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	width: 100%;
 	& > div:first-child {
 		margin-bottom: 20px;
 	}
+	margin-left: 10px;
 `;
 const PayMenuName = styled.div`
 	display: flex;
@@ -83,20 +89,30 @@ const PayMenuCountBtn = styled.button`
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	padding: 6px;
 `;
-const PayMenuPrice = styled.div`
+const PayMenuPriceItem = styled.div`
 	display: flex;
 	padding-top: 10px;
 	justify-content: flex-end;
-	font-weight: bold;
 `;
-const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsWithChildren<MenuInfoProps>) => {
+const PayMenuInfo = ({
+	menuId,
+	menuName,
+	menuPrice,
+	menuImg,
+	menuCount,
+	menuPayerList,
+	index,
+}: PropsWithChildren<MenuInfoProps>) => {
 	const [count, setCount] = useState<number>(menuCount);
 	const [totalPrice, setTotalPrice] = useState<number>(menuPrice * menuCount);
+	const [payerIndex, setPayerIndex] = useState(menuPayerList.indexOf('나'));
+	const payerCheck = payerIndex === -1;
 	const dispatch: AppDispatch = useDispatch();
 	// 수량 추가
 	const addCount = () => {
 		setCount(count + 1);
-		dispatch(basketActions.addTotalPrice(menuPrice));
+		dispatch(basketActions.addMenuCount(index));
+		dispatch(basketActions.setTotalPrice(menuPrice));
 	};
 	// 수량 제거
 	const subtractCount = () => {
@@ -105,32 +121,57 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 			return;
 		}
 		setCount(count - 1);
-		dispatch(basketActions.addTotalPrice(-menuPrice));
+		dispatch(basketActions.subMenuCount(index));
+		dispatch(basketActions.setTotalPrice(-menuPrice));
 	};
 	// 가격 세자리마다 쉼표 추가 ex) 1,000원
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
-	const deleteMenu = () => {};
+	const deleteMenu = (index: number) => {
+		console.log('전달 index' + index);
+		dispatch(basketActions.deleteMenu(index));
+	};
+	const toggleParticipant = () => {
+		console.log('asdf');
+		if (payerIndex === -1) dispatch(basketActions.addParticipant(index));
+		else dispatch(basketActions.deleteParticipant(index));
+	};
 	useEffect(() => {
 		setTotalPrice(count * menuPrice);
 	}, [count]);
 	useEffect(() => {
-		dispatch(basketActions.addTotalPrice(totalPrice));
+		dispatch(basketActions.setTotalPrice(totalPrice));
 	}, []);
+	useEffect(() => {
+		setPayerIndex(menuPayerList.indexOf('나'));
+	});
 	return (
 		<PayMenuContainer>
 			<PayMenuTitleBox>
 				<PayMenuTitleItem>
 					{menuName}({menuId})
 				</PayMenuTitleItem>
-				<PayMenuTitleBtn onClick={() => deleteMenu()}>✖</PayMenuTitleBtn>
+				<Button
+					label={payerCheck ? '참여하기' : '참여중'}
+					fontSize={'8px'}
+					width={'60px'}
+					padding={'5px'}
+					borderRadius={'5px'}
+					border={'solid'}
+					fontWeight={'bold'}
+					backgroundColor={payerCheck ? '' : 'rgba(123,160,255, 1)'}
+					borderColor={payerCheck ? 'rgba(123,160,255, 1)' : 'white'}
+					textColor={payerCheck ? 'rgba(123,160,255, 1)' : 'white'}
+					onClick={() => {
+						toggleParticipant();
+					}}
+				></Button>
+				<PayMenuTitleBtn onClick={() => deleteMenu(index)}>✖</PayMenuTitleBtn>
 			</PayMenuTitleBox>
 			<PayMenuInfoBox>
-				<PayMenuImgItem>
-					<PayMenuImg src={menuImg} alt="이미지 없음"></PayMenuImg>
-				</PayMenuImgItem>
 				<PayMenuInfoItem>
+					<PayMenuImg src={menuImg} alt="이미지 없음"></PayMenuImg>
 					<PayMenuOption>
 						<PayMenuName>옵션(기본) : {addRest(menuPrice)}</PayMenuName>
 						<PayMenuCount>
@@ -139,8 +180,10 @@ const PayMenuInfo = ({ menuId, menuName, menuPrice, menuImg, menuCount }: PropsW
 							<PayMenuCountBtn onClick={() => addCount()}>+</PayMenuCountBtn>
 						</PayMenuCount>
 					</PayMenuOption>
-					<PayMenuPrice>{addRest(totalPrice)}</PayMenuPrice>
 				</PayMenuInfoItem>
+				<PayMenuPriceItem>
+					<BasketMenuDetailPrice index={index}></BasketMenuDetailPrice>
+				</PayMenuPriceItem>
 			</PayMenuInfoBox>
 		</PayMenuContainer>
 	);
