@@ -60,10 +60,13 @@ const Order = () => {
 
 		if (destination.droppableId === 'inbox-column') {
 			inbox.splice(destination.index, 0, { ...add, isDone: false });
+			console.log('api호출로 주문상태 변경하기 - 결제 완료(주문 대기)');
 		} else if (destination.droppableId === 'inprogress-column') {
 			inprogress.splice(destination.index, 0, { ...add, isDone: false });
+			console.log('조리중');
 		} else {
 			completed.splice(destination.index, 0, { ...add, isDone: true });
+			console.log('완료');
 		}
 
 		setTodos(inbox);
