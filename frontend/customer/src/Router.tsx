@@ -8,6 +8,7 @@ import Trend from './pages/Trend';
 import StoreDetail from './pages/StoreDetail';
 import SearchHistory from './pages/SearchHistory';
 import MenuDetail from './pages/MenuDetail';
+import Basket from './pages/Basket';
 
 /** Router */
 export function MainRoutes() {
@@ -45,6 +46,10 @@ export function MainRoutes() {
 		{
 			path: '/menu-detail/:menuId',
 			element: <MenuDetail />,
+		},
+		{
+			path: '/basket',
+			element: <Basket />,
 		},
 
 		{ path: '*', element: <PageNotFound /> },
