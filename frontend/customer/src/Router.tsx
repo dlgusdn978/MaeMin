@@ -8,7 +8,8 @@ import Trend from './pages/Trend';
 import StoreDetail from './pages/StoreDetail';
 import SearchHistory from './pages/SearchHistory';
 import MenuDetail from './pages/MenuDetail';
-
+import Basket from './pages/Basket';
+import PaySelect from './pages/PaySelect';
 /** Router */
 export function MainRoutes() {
 	return useRoutes([
@@ -45,6 +46,14 @@ export function MainRoutes() {
 		{
 			path: '/menu-detail/:menuId',
 			element: <MenuDetail />,
+		},
+		{
+			path: '/basket',
+			element: <Basket />,
+		},
+		{
+			path: '/paySelect',
+			element: <PaySelect />,
 		},
 
 		{ path: '*', element: <PageNotFound /> },

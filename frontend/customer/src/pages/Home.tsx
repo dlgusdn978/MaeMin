@@ -7,10 +7,10 @@ import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.sv
 import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
 import Search from '../components/Search';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
-// import { navigate } from '../hooks/constant';
+import { RootState } from '../store/store';
 
 type directionType = {
 	dir: string;
@@ -24,6 +24,7 @@ const HomeBox = styled.div<directionType>`
 const Home = () => {
 	const dispatch = useDispatch();
 	const location = useGeolocation();
+	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
 	console.log(location.coordinates);
 	const locationInfo = location.coordinates;
 	const myLocation = {
@@ -42,7 +43,7 @@ const Home = () => {
 					icon={(props) => <RedArrowIcon {...props} />}
 					iconSize={90}
 					titleSize="24px"
-					// onClick={() => navigate('/trend')}
+					url={'trend'}
 				/>
 				<Card
 					content="원하는 매장에 예약해보세요"
@@ -59,6 +60,8 @@ const Home = () => {
 					width={160}
 					icon={(props) => <CartIcon {...props} />}
 					iconSize={40}
+					url={'basket'}
+					count={menuCount}
 				/>
 				<Card
 					title="QR 촬영"
