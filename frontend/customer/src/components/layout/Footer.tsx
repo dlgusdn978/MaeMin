@@ -39,7 +39,7 @@ const Footer = () => {
 			<div onClick={() => moveTo('log')}>
 				<IconBox icon={(props) => <LogIcon {...props} />} iconSize={25} />
 			</div>
-			<div onClick={() => moveTo('myPage')}>
+			<div onClick={() => moveTo('login')}>
 				<IconBox icon={(props) => <MyIcon {...props} />} iconSize={25} />
 			</div>
 		</FooterContainer>
