@@ -7,11 +7,12 @@ import SharboxIcon from '../../assets/imgs/sharebox.svg';
 interface StorePhotoProps {
 	name: string;
 	pictureUrl: string;
+	rating: number;
 }
 
 const StorePhotoContainer = styled.div`
 	position: relative;
-	height: 274px;
+	height: 284px;
 	background-color: white;
 	display: flex;
 	flex-direction: row;
@@ -45,14 +46,25 @@ const FixedSizeImage = styled.img`
 	object-fit: cover;
 	border-radius: 40px;
 `;
-const StoreName = styled.div`
-	font-size: 24px;
+
+const StoreInfoContainer = styled.div`
 	position: absolute;
-	left: 50%;
 	bottom: 0;
+	left: 50%;
 	transform: translateX(-50%);
 	text-align: center;
-	margin-bottom: 18px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const StoreName = styled.div`
+	font-size: 24px;
+	margin-bottom: 8px; // 간격을 조절하면 이름과 평점 사이의 간격이 조정됩니다.
+`;
+
+const Rating = styled.div`
+	font-size: 24px;
 `;
 
 const StorePhoto = (props: StorePhotoProps) => {
@@ -67,9 +79,11 @@ const StorePhoto = (props: StorePhotoProps) => {
 			<BackButton onClick={navigateToPreviousPage}>
 				<img src={BackarrowIcon} alt="Go back" />
 			</BackButton>
-			{/* 이미지 URL과 가게 이름을 사용 */}
 			<FixedSizeImage src={props.pictureUrl} alt={props.name} />
-			<StoreName>{props.name}</StoreName>
+			<StoreInfoContainer>
+				<StoreName>{props.name}</StoreName>
+				<Rating>{props.rating}점</Rating>
+			</StoreInfoContainer>
 			<ShareButton>
 				<img src={SharboxIcon} alt="Share" />
 			</ShareButton>

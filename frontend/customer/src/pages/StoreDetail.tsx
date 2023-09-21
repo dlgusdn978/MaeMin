@@ -97,7 +97,9 @@ const StoreDetail = () => {
 
 	return (
 		<div>
-			{storeData && <StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} />}
+			{storeData && (
+				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
+			)}
 			<TrendKeyword />
 			{storeData && <StoreMap address={storeData.address} />}
 			<MenuList menu={trendMenus} title="트렌드 메뉴" iconSrc={MedalIcon} popularity={1} />
