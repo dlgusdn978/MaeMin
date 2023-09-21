@@ -4,6 +4,19 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import styled from 'styled-components';
 
+const ButtonWrapper = styled.div``;
+
+const InputWrapper = styled.div`
+	margin-bottom: 40px;
+`;
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-end;
+	height: 90vh;
+`;
+
 const Login = () => {
 	const navigate = useNavigate();
 
@@ -26,19 +39,6 @@ const Login = () => {
 	const handleSignup = () => {
 		navigate('/signup');
 	};
-
-	const ButtonWrapper = styled.div``;
-
-	const InputWrapper = styled.div`
-		margin-bottom: 40px;
-	`;
-	const Container = styled.div`
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: flex-end;
-		height: 90vh;
-	`;
 
 	return (
 		<Container>
