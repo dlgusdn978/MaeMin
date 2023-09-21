@@ -24,76 +24,85 @@ const Login = () => {
 	};
 
 	const handleSignup = () => {
-		// 회원가입 로직
 		navigate('/signup');
 	};
 
-	const ButtonWrapper = styled.div`
-		position: absolute;
-		left: 21px;
-		top: 704px;
+	const ButtonWrapper = styled.div``;
+
+	const InputWrapper = styled.div`
+		margin-bottom: 40px;
+	`;
+	const Container = styled.div`
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: flex-end;
+		height: 90vh;
 	`;
 
 	return (
-		<div style={{ paddingLeft: '15px' }}>
-			<div>
-				<Input
-					value={id}
-					placeholder="ID"
-					type="text"
-					onChange={handleIdChange}
-					width={300}
-					height={64}
-					borderRadius="20px"
-					border="white"
-					margin="10px"
-					paddingLeft="30px"
-				/>
-			</div>
-			<div>
-				<Input
-					value={password}
-					placeholder="PW"
-					type="password"
-					onChange={handlePasswordChange}
-					width={300}
-					height={64}
-					borderRadius="20px"
-					border="white"
-					margin="10px"
-					paddingLeft="30px"
-				/>
-			</div>
+		<Container>
+			<InputWrapper>
+				<div>
+					<Input
+						value={id}
+						placeholder="ID"
+						type="text"
+						onChange={handleIdChange}
+						width={300}
+						height={64}
+						borderRadius="20px"
+						border="white"
+						margin="10px"
+						paddingLeft="30px"
+					/>
+				</div>
+				<div>
+					<Input
+						value={password}
+						placeholder="PW"
+						type="password"
+						onChange={handlePasswordChange}
+						width={300}
+						height={64}
+						borderRadius="20px"
+						border="white"
+						margin="10px"
+						paddingLeft="30px"
+					/>
+				</div>
+			</InputWrapper>
 			<div>
 				{/* 로그인 */}
-				<ButtonWrapper></ButtonWrapper>
-				<Button
-					label="로그인"
-					onClick={handleLogin}
-					backgroundColor="rgba(255, 182, 73, 1)"
-					fontSize="16px"
-					margin="10px"
-					textColor="white"
-					borderRadius="100px"
-					width={344}
-					height={64}
-					borderColor="rgb(240, 240, 240)"
-				/>
-				{/* 회원가입 */}
-				<Button
-					label="회원가입"
-					onClick={handleSignup}
-					backgroundColor="rgba(255, 182, 73, 1)"
-					fontSize="16px"
-					margin="10px"
-					textColor="white"
-					borderRadius="100px"
-					width={344}
-					height={64}
-					borderColor="rgb(240, 240, 240)"
-				/>
+				<ButtonWrapper>
+					<Button
+						label="로그인"
+						onClick={handleLogin}
+						backgroundColor="rgba(255, 182, 73, 1)"
+						fontSize="16px"
+						margin="10px"
+						textColor="white"
+						borderRadius="100px"
+						width={380}
+						height={64}
+						borderColor="rgb(240, 240, 240)"
+					/>
+					{/* 회원가입 */}
+					<Button
+						label="회원가입"
+						onClick={handleSignup}
+						backgroundColor="rgba(255, 182, 73, 1)"
+						fontSize="16px"
+						margin="10px"
+						textColor="white"
+						borderRadius="100px"
+						width={380}
+						height={64}
+						borderColor="rgb(240, 240, 240)"
+					/>
+				</ButtonWrapper>
 			</div>
-		</div>
+		</Container>
 	);
 };
 
