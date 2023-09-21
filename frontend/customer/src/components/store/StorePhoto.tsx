@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import BackarrowIcon from '../../assets/imgs/backarrow.svg';
 import SharboxIcon from '../../assets/imgs/sharebox.svg';
+import StarRate from './StarRate';
 
 interface StorePhotoProps {
 	name: string;
@@ -12,7 +13,7 @@ interface StorePhotoProps {
 
 const StorePhotoContainer = styled.div`
 	position: relative;
-	height: 284px;
+	height: 300px;
 	background-color: white;
 	display: flex;
 	flex-direction: row;
@@ -82,7 +83,9 @@ const StorePhoto = (props: StorePhotoProps) => {
 			<FixedSizeImage src={props.pictureUrl} alt={props.name} />
 			<StoreInfoContainer>
 				<StoreName>{props.name}</StoreName>
-				<Rating>{props.rating}점</Rating>
+				<Rating>
+					<StarRate rating={props.rating} />
+				</Rating>
 			</StoreInfoContainer>
 			<ShareButton>
 				<img src={SharboxIcon} alt="Share" />
