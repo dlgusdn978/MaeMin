@@ -23,6 +23,7 @@ const QrCodeReader = () => {
 						console.info(error);
 					}
 				}}
+				constraints={{ facingMode: 'environment' }}
 				// constraints={constraints}
 				// style={{ width: '100%' }}
 			/>
