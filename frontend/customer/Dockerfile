@@ -5,4 +5,4 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-COPY /app/build /var/www/html
+COPY /var/www/html /app/build
