@@ -23,16 +23,6 @@ interface StoreDetailData {
 	reviewCount: number;
 }
 
-export interface MenuData {
-	menuId: number;
-	storeId: number;
-	category: number[];
-	name: string;
-	price: number;
-	menuPictureUrl: string;
-	popularity: number;
-}
-
 const StoreDetail = () => {
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);

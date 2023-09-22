@@ -85,3 +85,13 @@ interface LaMa {
 	La: number | undefined;
 	Ma: number | undefined;
 }
+
+interface MenuData {
+	menuId: number;
+	storeId: number;
+	category: number[];
+	name: string;
+	price: number;
+	menuPictureUrl: string;
+	popularity: number;
+}
