@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const FlexBox = styled.div<directionType>`
 	display: flex;
 	flex-direction: ${(props) => (props.dir === 'row' ? 'row' : 'column')};
+	align-items: center;
 `;
 
 export const HoverPointerBox = styled.div<HoverProps>`

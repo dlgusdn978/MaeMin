@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, FlexBox } from '../components/style/common';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
-import Card from '../components/Card';
 import { CardContainer } from '../components/style/card';
 
 const data = [
