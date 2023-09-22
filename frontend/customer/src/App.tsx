@@ -5,7 +5,7 @@ import Layout from './components/layout/Layout';
 
 function App() {
 	return (
-		<Router basename="customer">
+		<Router>
 			<Layout>
 				<MainRoutes />
 			</Layout>
