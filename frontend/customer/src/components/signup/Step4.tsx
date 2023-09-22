@@ -4,9 +4,9 @@ import Button from '../../components/Button';
 interface Step4Props {
 	gender: string;
 	handleGenderSelect: (gender: string) => void;
-	selectedAgeGroup: string | null;
+	selectedAgeGroup: number | null;
 	toggleDrawer: () => void;
-	handleAgeGroupSelect: (ageGroup: string) => void;
+	handleAgeGroupSelect: (ageGroup: number) => void;
 	handleSubmit: () => void;
 	drawerOpen: boolean;
 }
@@ -51,7 +51,7 @@ const Step4 = ({
 			</div>
 			<div>
 				<Button label="나이 선택" onClick={toggleDrawer} width={150} height={40} margin="10px" />
-				{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}</span>}
+				{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}대</span>}
 				<div
 					style={{
 						display: drawerOpen ? 'block' : 'none',
@@ -61,8 +61,8 @@ const Step4 = ({
 						border: '1px solid black',
 					}}
 				>
-					{['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대', '90대'].map((ageGroup) => (
-						<div key={ageGroup} onClick={() => handleAgeGroupSelect(ageGroup)}>
+					{['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대'].map((ageGroup) => (
+						<div key={ageGroup} onClick={() => handleAgeGroupSelect(Number(ageGroup.slice(0, -1)))}>
 							{ageGroup}
 						</div>
 					))}

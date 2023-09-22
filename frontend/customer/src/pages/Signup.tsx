@@ -6,6 +6,7 @@ import Step1 from '../components/signup/Step1';
 import Step2 from '../components/signup/Step2';
 import Step3 from '../components/signup/Step3';
 import Step4 from '../components/signup/Step4';
+import { signUp } from '../api/user';
 
 const Signup = () => {
 	const [id, setId] = useState<string>('');
@@ -13,10 +14,11 @@ const Signup = () => {
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
 	const [phone, setPhone] = useState<string>('');
 	const [verificationCode, setVerificationCode] = useState<string>('');
+	const [username, setUsername] = useState<string>('');
 	const [nickname, setNickname] = useState<string>('');
 	const [gender, setGender] = useState<string>('');
 	const [isPasswordMismatch, setIsPasswordMismatch] = useState<boolean>(false);
-	const [selectedAgeGroup, setSelectedAgeGroup] = useState<string | null>(null);
+	const [selectedAgeGroup, setSelectedAgeGroup] = useState<number>(0);
 	const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 	const [timer, setTimer] = useState<number | null>(null);
 	const [countdown, setCountdown] = useState<number>(180);
@@ -97,7 +99,7 @@ const Signup = () => {
 		setDrawerOpen(!drawerOpen);
 	};
 
-	const handleAgeGroupSelect = (ageGroup: string) => {
+	const handleAgeGroupSelect = (ageGroup: number) => {
 		setSelectedAgeGroup(ageGroup);
 		toggleDrawer();
 	};
@@ -125,16 +127,32 @@ const Signup = () => {
 			alert('사용 가능한 닉네임입니다.');
 		}
 	};
-	const handleSubmit = () => {
-		console.log({ id, password, phone, nickname, gender, selectedAgeGroup });
+
+	const handleSubmit = async () => {
+		// e.preventDefault();
 		if (isPasswordMismatch) {
 			alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 			return;
 		}
+		try {
+			await signUp({
+				loginId: id,
+				loginPw: password,
+				userName: username,
+				nickName: nickname,
+				phone: phone,
+				sex: false, //-> False=남자 / True=여자
+				age: selectedAgeGroup,
+				role: 'ROLE_CUSTOMER', // ROLE_CUSTOMER or ROLE_OWNER
+			});
+			// navigate('/login');
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	return (
-		<div style={{ paddingLeft: '15px' }}>
+		<form style={{ paddingLeft: '15px' }}>
 			{step === 1 && (
 				<Step1
 					id={id}
@@ -163,6 +181,8 @@ const Signup = () => {
 			)}
 			{step === 3 && (
 				<Step3
+					username={username}
+					setUsername={setUsername}
 					nickname={nickname}
 					setNickname={setNickname}
 					nextStep={nextStep}
@@ -181,7 +201,7 @@ const Signup = () => {
 					drawerOpen={drawerOpen}
 				/>
 			)}
-		</div>
+		</form>
 	);
 };
 
