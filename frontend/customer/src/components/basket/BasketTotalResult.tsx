@@ -1,26 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-
 import BasketTotalPrice from './BasketTotalPrice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { BasketTotalContainer, BasketTotalTitleBox } from '../style/basket';
 
-const BasketTotalContainer = styled.div`
-	width: 90%;
-	margin: 10% auto 0 auto;
-	background-color: white;
-	border-radius: 5px;
-`;
-const BasketTotalTitleBox = styled.div`
-	width: 90%;
-	margin: 0 auto;
-	padding: 10px 0;
-	font-weight: bold;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`;
-// const BasketTotalContentBox = styled.div`
-// 	width: 100%;
-// `;
 function BasketTotalResult() {
 	const basketTotal = useSelector((state: RootState) => state.basket.totalPrice);
 	const pickedMenuPrice = useSelector((state: RootState) => state.basket.pickedMenuPrice);

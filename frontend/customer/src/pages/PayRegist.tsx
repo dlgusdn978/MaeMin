@@ -1,44 +1,18 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Select from '../components/Select';
 import Input from '../components/Input';
-const PayRegistContainer = styled.div`
-	width: 90%;
-	background-color: white;
-	& div {
-		margin-bottom: 10px;
-	}
-`;
-const PayRegistContentBox = styled.div`
-	width: 80%;
-	margin: 10px auto;
-`;
-const PayRegistTitleItem = styled.div`
-	font-weight: bold;
-	font-size: 14px;
-`;
-const PayRegistInputItem = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-left: 6%;
-	margin: auto;
-`;
-const PayRegistButtonItem = styled.button`
-	width: 100%;
-	margin: 30% 0 10% 0;
-	padding: 10px;
-	border-radius: 5px;
-	border: none;
-	background-color: rgba(255, 182, 73, 0.9);
-	color: white;
-	font-weight: bold;
-`;
-const cardList = ['삼성카드', '현대카드', '롯데카드'];
-const monthList = ['1월', '2월', '3월', '4월', '5월', '6월'];
-const yearList = ['2023년', '2024년', '2025년', '2026년', '2027년', '2028년'];
+import {
+	PayRegistContainer,
+	PayRegistContentBox,
+	PayRegistTitleItem,
+	PayRegistInputItem,
+	PayRegistButtonItem,
+} from '../components/style/payment';
 const PayRegist = () => {
+	const cardList = ['삼성카드', '현대카드', '롯데카드'];
+	const monthList = ['1월', '2월', '3월', '4월', '5월', '6월'];
+	const yearList = ['2023년', '2024년', '2025년', '2026년', '2027년', '2028년'];
 	const [cardNumFirst, setCardNumFirst] = useState('');
 	const [cardNumSecond, setCardNumSecond] = useState('');
 	const [cardNumThird, setCardNumThird] = useState('');

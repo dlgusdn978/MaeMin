@@ -1,27 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const NavigationContainer = styled.div`
-	width: 90%;
-	margin: 3% 5%;
+import { useNavigate } from 'react-router-dom';
+const NavContainer = styled.div`
+	margin: 0 0 3% 0;
 	padding: 2%;
 	display: flex;
 	justify-content: space-between;
 	background-color: white;
 `;
-const NavigationTitleBox = styled.div`
+const NavTitleBox = styled.div`
 	font-weight: bold;
 `;
-const NavigationIconBox = styled.div`
+const NavIconBox = styled.div`
 	width: 20%;
 `;
 const Navigation = ({ title }: NavigationProps) => {
+	const navigate = useNavigate();
 	return (
-		<NavigationContainer>
-			<NavigationIconBox>{'<-'}</NavigationIconBox>
-			<NavigationTitleBox>{title}</NavigationTitleBox>
-			<NavigationIconBox></NavigationIconBox>
-		</NavigationContainer>
+		<NavContainer>
+			<NavIconBox
+				onClick={() => {
+					navigate(-1);
+				}}
+			>
+				{'<-'}
+			</NavIconBox>
+			<NavTitleBox>{title}</NavTitleBox>
+			<NavIconBox></NavIconBox>
+		</NavContainer>
 	);
 };
 export default Navigation;

@@ -2,6 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 interface InputComponentProps {
 	value: string;
+	name?: string;
 	placeholder?: string;
 	type?: string;
 	onChange: (value: string) => void;
@@ -33,6 +34,7 @@ const Input = React.forwardRef(
 		paddingLeft,
 		padding,
 		inputRef,
+		name,
 	}: InputComponentProps): React.ReactElement => {
 		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 			onChange(e.target.value);
@@ -45,6 +47,7 @@ const Input = React.forwardRef(
 				value={value}
 				placeholder={placeholder}
 				onChange={handleChange}
+				name={name}
 				style={{
 					backgroundColor,
 					fontSize,

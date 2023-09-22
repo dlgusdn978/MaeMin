@@ -1,47 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import styled from 'styled-components';
-
-const PayPasswordContainer = styled.div`
-	width: 90%;
-	min-height: calc(1000vh - 80px);
-	background-color: white;
-`;
-const PayPasswordInputBox = styled.div`
-	display: flex;
-	justify-content: center;
-	font-size: 32px;
-	margin-top: 40%;
-`;
-const PayPasswordInputItem = styled.div`
-	opacity: 0.2;
-	&.active {
-		opacity: 1;
-	}
-`;
-const PayPasswordButtonBox = styled.div`
-	margin-top: 50%;
-	display: grid;
-	grid-template-rows: repeat(4, 25%);
-	grid-template-columns: repeat(3, 33%);
-	align-items: center;
-	justify-items: center;
-`;
-const PayPasswordButtonItem = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	padding: 15% 0;
-	cursor: pointer;
-`;
-
+import {
+	PayPasswordContainer,
+	PayPasswordInputBox,
+	PayPasswordInputItem,
+	PayPasswordButtonBox,
+	PayPasswordButtonItem,
+} from '../components/style/payment';
 function PayPassword() {
 	const [num, setNum] = useState('');
-	const [upperBtns, setUpperBtns] = useState(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
+	const [upperBtns, setUpperBtns] = useState<string[]>([]);
 	const activeRef = useRef<HTMLDivElement[] | null[]>([]);
 	// 무작위 키패드
-	const shuffle = (array: string[]) => {
-		return array.sort(() => Math.random() - 0.5);
+	const shuffle = () => {
+		const arr: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+		const reset = '초기화';
+		const clear = '지우기';
+		const sortArr = arr.sort(() => Math.random() - 0.5);
+		const newArr = [...sortArr.slice(0, 9), reset, ...sortArr.slice(9), clear];
+		setUpperBtns(newArr);
 	};
 	// 비밀번호 입력, 지우기, 초기화
 	const setPassword = (item: string) => {
@@ -65,15 +42,25 @@ function PayPassword() {
 		}
 		return result;
 	};
+	const pwCheck = () => {
+		// api 연결 후 수정.
+		if (num === '123456')
+			setTimeout(() => {
+				alert('ㅈ');
+			}, 1000);
+		else setNum('');
+	};
 	// 무작위 키패드 생성 1회
 	useEffect(() => {
-		const newArr: string[] = shuffle(upperBtns);
-		setUpperBtns([...newArr.slice(0, 9), '초기화', ...newArr.slice(9), '지우기']);
+		shuffle();
 	}, []);
-
+	// 입력 감지
+	useEffect(() => {
+		if (num.length == 6) pwCheck();
+	}, [num]);
 	return (
 		<PayPasswordContainer>
-			<Navigation title={'간편결제 비밀번호 등록'}></Navigation>
+			<Navigation title={'간편결제 비밀번호 입력'}></Navigation>
 			<PayPasswordInputBox>{passwordRender()}</PayPasswordInputBox>
 
 			<PayPasswordButtonBox>

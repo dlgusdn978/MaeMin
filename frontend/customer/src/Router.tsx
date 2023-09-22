@@ -9,7 +9,10 @@ import StoreDetail from './pages/StoreDetail';
 import SearchHistory from './pages/SearchHistory';
 import MenuDetail from './pages/MenuDetail';
 import Basket from './pages/Basket';
-import PaySelect from './pages/PaySelect';
+import Payment from './pages/Payment';
+import MyPay from './pages/MyPay';
+import PayPassword from './pages/PayPassword';
+import PayComplete from './pages/PayComplete';
 /** Router */
 export function MainRoutes() {
 	return useRoutes([
@@ -48,12 +51,29 @@ export function MainRoutes() {
 			element: <MenuDetail />,
 		},
 		{
-			path: '/basket',
-			element: <Basket />,
-		},
-		{
-			path: '/paySelect',
-			element: <PaySelect />,
+			path: '',
+			children: [
+				{
+					path: '/basket',
+					element: <Basket />,
+				},
+				{
+					path: '/payment',
+					element: <Payment />,
+				},
+				{
+					path: '/myPay',
+					element: <MyPay />,
+				},
+				{
+					path: '/payPassword',
+					element: <PayPassword />,
+				},
+				{
+					path: '/payComplete',
+					element: <PayComplete />,
+				},
+			],
 		},
 
 		{ path: '*', element: <PageNotFound /> },

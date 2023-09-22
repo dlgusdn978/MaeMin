@@ -30,7 +30,7 @@ const initialState: basketState = {
 			menuCount: 1,
 			menuImg: rose,
 			menuPicker: '나',
-			menuPayerList: ['나'],
+			menuPayerList: ['나', '박씨'],
 			index: 0,
 		},
 		{
@@ -40,7 +40,7 @@ const initialState: basketState = {
 			menuCount: 2,
 			menuImg: pollack,
 			menuPicker: '나',
-			menuPayerList: ['나'],
+			menuPayerList: ['나', '정씨'],
 			index: 1,
 		},
 		{
@@ -50,7 +50,7 @@ const initialState: basketState = {
 			menuCount: 2,
 			menuImg: rose,
 			menuPicker: '나',
-			menuPayerList: ['김씨', '김씨', '김씨', '김씨', '김씨', '김씨'],
+			menuPayerList: ['김씨', '이씨', '김씨', '김씨', '김씨', '김씨'],
 			index: 2,
 		},
 	],

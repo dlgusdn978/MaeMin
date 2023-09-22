@@ -1,13 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
 import Button from '../../components/Button';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { useNavigate } from 'react-router-dom';
-const BasketPayBtnContainer = styled.div`
-	width: 90%;
-	margin: 0 auto 20px auto;
-`;
+import { BasketPayBtnContainer } from '../style/basket';
 interface ButtonProps {
 	label: string;
 	url: string;
