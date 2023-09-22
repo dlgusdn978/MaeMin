@@ -1,13 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import MenuPhoto from '../components/MenuPhoto';
 import styled from 'styled-components';
-import FoodCount from '../components/FoodCount';
+import FoodCount from '../components/menu/FoodCount';
 import Button from '../components/Button';
+import FixedHeaderComponent from '../components/menu/FixedHeaderComponent'; // 적절한 경로로 수정
+
+const FoodPhoto = styled.div`
+	width: 390px;
+	height: 304px;
+	position: relative;
+`;
+
+const FoodImage = styled.img`
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	position: absolute;
+	top: 0;
+	left: 0;
+`;
 
 const FoodName = styled.div`
+	font-size: 24px;
+	position: relative;
+	margin-left: 10px;
+	margin-bottom: 10px;
+`;
+
+const PriceName = styled.div`
 	font-size: 24px;
 	position: relative;
 	margin-left: 10px;
@@ -16,7 +38,8 @@ const FoodName = styled.div`
 const FoodPrice = styled.div`
 	font-size: 15px;
 	position: relative;
-	margin-left: 36px;
+	margin-left: 300px;
+	margin-top: -15px;
 	color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -28,15 +51,19 @@ const ButtonWrapper = styled.div`
 
 const FoodWrapper = styled.div`
 	background-color: white;
-	/* margin-top: 20px;
-	margin-bottom: 20px; */
+	margin-bottom: 20px;
+	height: 70px;
 `;
 
 const MenuDetail = () => {
-	const { menuId } = useParams<{ menuId: string }>();
 	const selectedMenu = useSelector((state: RootState) => state.menu);
 	const [quantity, setQuantity] = useState(1);
 	const [totalPrice, setTotalPrice] = useState(0);
+
+	const navigate = useNavigate();
+	const navigateToPreviousPage = () => {
+		navigate(-1);
+	};
 
 	useEffect(() => {
 		console.log({ quantity, selectedMenu });
@@ -48,14 +75,24 @@ const MenuDetail = () => {
 
 	return (
 		<div>
-			<h1>해당 메뉴 상세페이지 메뉴id:{menuId}</h1>
-			<MenuPhoto />
-			{/* 감싸기 */}
+			<FixedHeaderComponent selectedMenuName={selectedMenu.name} onBackClick={navigateToPreviousPage} />
+
+			<FoodPhoto>
+				<FoodImage src={selectedMenu.menuPictureUrl} alt={selectedMenu.name} />
+			</FoodPhoto>
+			{/* <h1>해당 메뉴 상세페이지 메뉴id:{menuId}</h1> */}
+
 			<FoodWrapper>
 				<FoodName>{selectedMenu.name}</FoodName>
-				<FoodPrice>{selectedMenu.price}</FoodPrice>
+
+				<PriceName>가격</PriceName>
+				<FoodPrice>
+					{parseInt(selectedMenu.price.replace(/,/g, '').replace('원', ''), 10).toLocaleString()}원
+				</FoodPrice>
 			</FoodWrapper>
+
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />
+
 			<ButtonWrapper>
 				<Button
 					label={`${totalPrice}원 담기`}

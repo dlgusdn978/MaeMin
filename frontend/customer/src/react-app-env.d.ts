@@ -14,12 +14,14 @@ interface IconProps {
 }
 
 interface CardProps {
+	url?: string;
 	width?: number;
 	height?: number;
 	title?: string;
 	content?: string;
 	titleSize?: string;
 	onClick?: React.MouseEventHandler<HTMLElement>;
+	count?: number;
 }
 
 type FontSizeProps = {

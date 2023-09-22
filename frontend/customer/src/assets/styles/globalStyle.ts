@@ -55,8 +55,12 @@ const GlobalStyle = createGlobalStyle`
 	`}
 
 	.slick-slide div {
-    outline: none;
-}
+    	outline: none;
+	}
+	#canvas {
+  		border: 2px blue solid;
+  		display: none;
+	}
 `;
 
 export default GlobalStyle;

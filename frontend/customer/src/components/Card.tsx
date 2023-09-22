@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { HomeCardContent, HomeCardTitle } from './text';
+import { useNavigate } from 'react-router-dom';
 
 const CardContainer = styled.div<CardProps>`
 	display: flex;
@@ -17,6 +18,7 @@ const CardContainer = styled.div<CardProps>`
 	:hover {
 		cursor: pointer;
 	}
+	position: relative;
 `;
 
 const CardTextBox = styled.div`
@@ -32,15 +34,35 @@ const ImgBox = styled.div`
 	padding-right: 15px;
 	padding-bottom: 10px;
 `;
-
-const Card = ({ icon, iconSize, width, height, title, content, titleSize }: IconProps & CardProps) => {
+const AlertBox = styled.div`
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	position: absolute;
+	right: -5px;
+	border-radius: 100%;
+	top: -5px;
+	display: flex;
+	justify-content: center;
+	color: rgba(255, 255, 255, 1);
+`;
+const Card = ({ icon, iconSize, width, height, title, content, titleSize, url, count }: IconProps & CardProps) => {
+	const navigate = useNavigate();
+	const alertBasket = url == 'basket';
 	return (
-		<CardContainer width={width} height={height}>
+		<CardContainer
+			width={width}
+			height={height}
+			onClick={() => {
+				navigate(`${url}`);
+			}}
+		>
 			<CardTextBox>
 				<HomeCardTitle fontSize={titleSize}>{title}</HomeCardTitle>
 				<HomeCardContent>{content}</HomeCardContent>
 			</CardTextBox>
 			<ImgBox>{React.createElement(icon, { width: iconSize, height: iconSize })}</ImgBox>
+			{alertBasket ? <AlertBox>{count}</AlertBox> : ''}
 		</CardContainer>
 	);
 };
