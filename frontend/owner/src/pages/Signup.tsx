@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { signUp } from '../api/user';
 
 const Signup = () => {
 	const [id, setId] = useState<string>('');
@@ -89,23 +90,27 @@ const Signup = () => {
 		}
 	};
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
+		// e.preventDefault();
 		if (isPasswordMismatch) {
 			alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 			return;
 		}
-
-		// 회원가입 로직
-		console.log({
-			id,
-			password,
-			confirmPassword,
-			phone,
-			verificationCode,
-			nickname,
-			gender,
-			selectedAgeGroup,
-		});
+		try {
+			await signUp({
+				loginId: id,
+				loginPw: password,
+				userName: '김아무개',
+				nickName: nickname,
+				phone: phone,
+				sex: false, //-> False=남자 / True=여자
+				age: 20,
+				role: 'ROLE_OWNER', // ROLE_CUSTOMER or ROLE_OWNER
+			});
+			// navigate('/login');
+		} catch (e) {
+			console.log(e);
+		}
 	};
 
 	return (
@@ -258,7 +263,7 @@ const Signup = () => {
 				<div>
 					<Button
 						label="회원가입"
-						onClick={handleSubmit}
+						onClick={() => handleSubmit()}
 						backgroundColor="rgba(255, 182, 73, 1)"
 						fontSize="16px"
 						margin="10px"

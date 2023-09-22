@@ -36,3 +36,25 @@ interface Todo {
 interface DragItemList {
 	dragItems: DragItem[];
 }
+
+interface SignupForm {
+	loginId: string;
+	loginPw: string;
+	userName: string;
+	nickName: string;
+	phone: string;
+	sex: boolean; //-> False=남자 / True=여자
+	age: Int;
+	role: string; // ROLE_CUSTOMER or ROLE_OWNER
+}
+
+interface User {
+	memberId: number;
+	username: string;
+	nickname: string;
+}
+
+interface LoginForm {
+	username: string;
+	password: string;
+}
