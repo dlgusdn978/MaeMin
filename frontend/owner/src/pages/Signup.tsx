@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import Input from '../components/Input';
-// import Button from '../components/Button';
-// import axios from 'axios';
-import Step1 from '../components/signup/Step1';
-import Step2 from '../components/signup/Step2';
-import Step3 from '../components/signup/Step3';
-import Step4 from '../components/signup/Step4';
+import { Step1, Step2, Step3, Step4 } from '../components/signup';
 import { signUp } from '../api/user';
 
 const Signup = () => {
