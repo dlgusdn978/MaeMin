@@ -1,8 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import BackarrowIcon from '../../assets/imgs/backarrow.svg';
-import SharboxIcon from '../../assets/imgs/sharebox.svg';
 import StarRate from './StarRate';
 
 interface StorePhotoProps {
@@ -19,26 +16,6 @@ const StorePhotoContainer = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-`;
-
-const BackButton = styled.button`
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: white;
-	border: none;
-	margin-top: 25px;
-	margin-left: 10px;
-`;
-
-const ShareButton = styled.button`
-	position: absolute;
-	top: 0;
-	right: 0;
-	background-color: white;
-	border: none;
-	margin-top: 25px;
-	margin-right: 10px;
 `;
 
 const FixedSizeImage = styled.img`
@@ -73,17 +50,8 @@ const StoreName = styled.div`
 `;
 
 const StorePhoto = (props: StorePhotoProps) => {
-	const navigate = useNavigate();
-
-	const navigateToPreviousPage = () => {
-		navigate(-1);
-	};
-
 	return (
 		<StorePhotoContainer>
-			<BackButton onClick={navigateToPreviousPage}>
-				<img src={BackarrowIcon} alt="Go back" />
-			</BackButton>
 			<FixedSizeImage src={props.pictureUrl} alt={props.name} />
 			<StoreInfoContainer>
 				<RatingContainer>
@@ -92,9 +60,6 @@ const StorePhoto = (props: StorePhotoProps) => {
 				</RatingContainer>
 				<StoreName>{props.name}</StoreName>
 			</StoreInfoContainer>
-			<ShareButton>
-				<img src={SharboxIcon} alt="Share" />
-			</ShareButton>
 		</StorePhotoContainer>
 	);
 };

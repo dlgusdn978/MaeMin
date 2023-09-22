@@ -7,6 +7,7 @@ import MedalIcon from '../assets/imgs/medal.svg';
 import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
 import TrendKeyword from './../components/store/TrendKeyword';
 import StoreInfo from './../components/store/StoreInfo';
+import StoreTopButton from '../components/store/StoreTopButton';
 
 interface StoreDetailData {
 	ownerId: number;
@@ -98,6 +99,7 @@ const StoreDetail = () => {
 
 	return (
 		<div>
+			<StoreTopButton />
 			{storeData && (
 				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
 			)}
