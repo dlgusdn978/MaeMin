@@ -21,13 +21,17 @@ export const BasketStoreInfoBox = styled.div<{ basketCheck: boolean }>`
 	margin: 0 auto;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 	background-color: white;
-	border-radius: ${(props) => (props.basketCheck ? '5px' : '5px 5px 0 0;')};
 `;
 export const BasketMenuListInfoBox = styled.div`
 	margin: 0 auto;
 	margin-bottom: 10px;
 	background-color: white;
-	border-radius: 0 0 5px 5px;
+	& > div {
+		margin: 0 10px;
+	}
+	& > :not(:last-child) {
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
 `;
 // basket 메뉴 추가 컴포넌트
 export const BasketAddContainer = styled.div`
@@ -112,19 +116,14 @@ export const BasketDetailPayerResult = styled.div`
 `;
 
 // BasketMenuInfo
-
-export const BasketMenuContainer = styled.div`
-	width: 90%;
-	margin: auto;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`;
+export const BasketMenuContainer = styled.div``;
 export const BasketMenuTitleBox = styled.div`
-	width: 100%;
 	font-size: 16px;
 	font-weight: bold;
 	padding: 10px 0px;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 `;
 export const BasketMenuTitleItem = styled.div`
 	width: 80%;
@@ -215,13 +214,12 @@ export const BasketPriceBox = styled.div`
 
 // BasketTotalResult
 export const BasketTotalContainer = styled.div`
-	width: 90%;
-	margin: 10% auto 0 auto;
 	background-color: white;
-	border-radius: 5px;
+	& > :first-child {
+		margin: 0 10px;
+	}
 `;
 export const BasketTotalTitleBox = styled.div`
-	width: 90%;
 	margin: 0 auto;
 	padding: 10px 0;
 	font-weight: bold;

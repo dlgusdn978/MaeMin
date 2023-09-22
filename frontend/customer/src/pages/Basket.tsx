@@ -7,7 +7,7 @@ import BasketTotalResult from '../components/basket/BasketTotalResult';
 import BasketPayBtn from '../components/basket/BasketPayBtn';
 import BasketAddBtn from '../components/basket/BasketAddBtn';
 import { BasketContainer, BasketBox, BasketStoreInfoBox, BasketMenuListInfoBox } from '../components/style/basket';
-function Basket() {
+const Basket = () => {
 	// const dispatch = useDispatch();
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
 	const basketCheck = menuList.length === 0;
@@ -39,10 +39,10 @@ function Basket() {
 				</BasketMenuListInfoBox>
 				<BasketTotalResult></BasketTotalResult>
 				<BasketAddBtn></BasketAddBtn>
-				<BasketPayBtn label={'주문하기'} url={'/paySelect'}></BasketPayBtn>
+				<BasketPayBtn label={'주문하기'} url={'/payment'} basketCheck={basketCheck}></BasketPayBtn>
 			</BasketBox>
 		</BasketContainer>
 	);
-}
+};
 
 export default Basket;

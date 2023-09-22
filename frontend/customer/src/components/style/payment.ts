@@ -1,22 +1,20 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 // Payment
 export const PaymentContainer = styled.div`
-	width: 100%;
+	& > div:nth-child(n + 1) > div:first-child {
+		margin: 0 10px;
+	}
 `;
 export const PaymentTitleItem = styled.div`
-	width: 90%;
-	margin: 0 auto;
 	padding: 10px 0;
 	font-weight: bold;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 export const PaymentMenuBox = styled.div`
-	width: 90%;
 	background-color: white;
 	margin: 0 auto;
 `;
 export const PaymentMenuInfoBox = styled.div`
-	width: 100%;
 	margin: 0 auto;
 	margin-bottom: 10px;
 	background-color: white;
@@ -31,29 +29,23 @@ export const PaymentMenuInfoItem = styled.div`
 export const PaymentMenuInfo = styled.div``;
 
 export const PaymentRequestBox = styled.div`
-	width: 90%;
-	margin: 0 auto;
+	margin: 10px auto;
 	background-color: white;
 `;
 export const PaymentRequestContentItem = styled.div`
-	width: 100%;
 	padding: 10px;
 `;
 
 export const PaymentMethodBox = styled.div`
-	width: 90%;
 	background-color: white;
-	margin: 5% auto;
+	margin: 10px auto;
 `;
 
 export const PaymentMethodContentBox = styled.div<{ selected: boolean }>`
-	width: 80%;
-	margin: 0 auto;
 	display: flex;
 	align-items: center;
-	border-radius: 10px;
-	padding: 10px;
-	background-color: ${(props) => (props.selected ? 'rgba(0, 0, 0, 0.1)' : 'white')};
+	padding: 15px 10px;
+	background-color: ${(props) => (props.selected ? 'rgba(100, 100, 0, 0.2)' : 'white')};
 	justify-content: center;
 	transition: background-color 0.2s ease-in-out;
 	& > :first-child {
@@ -66,6 +58,7 @@ export const PaymentMethodContentItem = styled.div`
 `;
 export const PaymentMethodContentImg = styled.img`
 	width: 50px;
+	height: 20px;
 	margin-right: 10px;
 `;
 
@@ -105,15 +98,26 @@ export const PayRegistButtonItem = styled.button`
 
 // PayPassword
 export const PayPasswordContainer = styled.div`
-	width: 90%;
+	display: flex;
+	height: 90vh;
+	flex-direction: column;
+	justify-content: space-between;
 	background-color: white;
-	margin: 0 auto;
 `;
-export const PayPasswordInputBox = styled.div`
+const newAnimation = () => keyframes`
+	50%{
+		transform: translateX(10px);
+	}
+	100%{
+		transform: translateX(-10px);
+	}
+`;
+export const PayPasswordInputBox = styled.div<{ check: boolean }>`
 	display: flex;
 	justify-content: center;
 	font-size: 32px;
-	margin-top: 40%;
+	margin: 16px 0;
+	animation: ${(props) => (props.check ? '' : newAnimation)} 0.1s 2;
 `;
 export const PayPasswordInputItem = styled.div`
 	opacity: 0.2;
@@ -121,8 +125,16 @@ export const PayPasswordInputItem = styled.div`
 		opacity: 1;
 	}
 `;
+
+export const PayPasswordMessageBox = styled.div<{ check: boolean }>`
+	display: flex;
+	justify-content: center;
+	color: rgba(255, 0, 0, 0.6);
+	visibility: ${(props) => (props.check ? 'hidden' : 'visible')};
+`;
+
 export const PayPasswordButtonBox = styled.div`
-	margin-top: 50%;
+	bottom: 0;
 	display: grid;
 	grid-template-rows: repeat(4, 25%);
 	grid-template-columns: repeat(3, 33%);
@@ -140,13 +152,12 @@ export const PayPasswordButtonItem = styled.div`
 //MyPay
 export const MyPayContainer = styled.div``;
 export const MyPayBox = styled.div`
-	width: 90%;
-	margin: 0 auto;
 	height: 80vh;
 	background-color: black;
 	& * {
 		padding: 5px 0;
 	}
+	position: relative;
 `;
 export const MyPayDateBox = styled.div`
 	display: flex;
@@ -156,10 +167,13 @@ export const MyPayDateBox = styled.div`
 	padding-top: 150px;
 `;
 export const MyPayImgBox = styled.div`
+	max-width: 390px;
+	width: auto;
 	display: flex;
+	overflow-x: scroll;
 	padding: 5%;
-	justify-content: center;
 `;
+export const MyPayImgItem = styled.div``;
 export const MyPayImg = styled.img`
 	width: 300px;
 `;

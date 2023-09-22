@@ -4,13 +4,15 @@ import {
 	PayPasswordContainer,
 	PayPasswordInputBox,
 	PayPasswordInputItem,
+	PayPasswordMessageBox,
 	PayPasswordButtonBox,
 	PayPasswordButtonItem,
 } from '../components/style/payment';
-function PayPassword() {
+const PayPassword = () => {
 	const [num, setNum] = useState('');
 	const [upperBtns, setUpperBtns] = useState<string[]>([]);
 	const activeRef = useRef<HTMLDivElement[] | null[]>([]);
+	const [pwChecker, setPwChecker] = useState(true);
 	// 무작위 키패드
 	const shuffle = () => {
 		const arr: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
@@ -46,9 +48,16 @@ function PayPassword() {
 		// api 연결 후 수정.
 		if (num === '123456')
 			setTimeout(() => {
+				// 페이지 넘기는 로직
 				alert('ㅈ');
 			}, 1000);
-		else setNum('');
+		else {
+			setNum('');
+			setPwChecker(false);
+			setTimeout(() => {
+				setPwChecker(true);
+			}, 1000);
+		}
 	};
 	// 무작위 키패드 생성 1회
 	useEffect(() => {
@@ -61,8 +70,8 @@ function PayPassword() {
 	return (
 		<PayPasswordContainer>
 			<Navigation title={'간편결제 비밀번호 입력'}></Navigation>
-			<PayPasswordInputBox>{passwordRender()}</PayPasswordInputBox>
-
+			<PayPasswordInputBox check={pwChecker}>{passwordRender()}</PayPasswordInputBox>
+			<PayPasswordMessageBox check={pwChecker}>비밀번호가 일치하지 않습니다.</PayPasswordMessageBox>
 			<PayPasswordButtonBox>
 				{upperBtns.map((item, index) => (
 					<PayPasswordButtonItem
@@ -77,5 +86,5 @@ function PayPassword() {
 			</PayPasswordButtonBox>
 		</PayPasswordContainer>
 	);
-}
+};
 export default React.memo(PayPassword);

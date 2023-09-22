@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
@@ -30,7 +30,7 @@ const PaySelect = () => {
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
 	const myMenuList = menuList.filter((item) => item.menuPayerList.some((el) => el === '나') == true);
 	const [selectedMethod, setSelectedMethod] = useState(-1);
-
+	const userRequest = useRef<HTMLInputElement>(null);
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
@@ -48,6 +48,10 @@ const PaySelect = () => {
 			name: '푸렌딩페이',
 		},
 	];
+	const clickArea = (index: number) => {
+		setSelectedMethod(index);
+	};
+
 	return (
 		<PaymentContainer>
 			<Navigation title={'결제'}></Navigation>
@@ -78,7 +82,7 @@ const PaySelect = () => {
 						borderRadius={'5px'}
 						onChange={() => {}}
 						placeholder={'예) 맵지 않게 해주세요'}
-						value={''}
+						inputRef={userRequest}
 					></Input>
 				</PaymentRequestContentItem>
 			</PaymentRequestBox>
@@ -86,21 +90,18 @@ const PaySelect = () => {
 			<PaymentMethodBox>
 				<PaymentTitleItem>결제 수단 선택</PaymentTitleItem>
 				{payMethodList.map((item: payMethod, index: number) => (
-					<PaymentMethodContentBox selected={index == selectedMethod}>
-						<Input
-							type="radio"
-							value={item.name}
-							name={'payMethod'}
-							onChange={() => {
-								setSelectedMethod(index);
-							}}
-						/>
+					<PaymentMethodContentBox
+						onClick={() => {
+							clickArea(index);
+						}}
+						selected={index == selectedMethod}
+					>
 						<PaymentMethodContentImg src={item.src}></PaymentMethodContentImg>
 						<PaymentMethodContentItem>{item.name}</PaymentMethodContentItem>
 					</PaymentMethodContentBox>
 				))}
 			</PaymentMethodBox>
-			<BasketPayBtn label={'결제하기'} url={selectedMethod == 2 ? '/myPay' : '/'}></BasketPayBtn>
+			<BasketPayBtn label={'결제하기'} url={selectedMethod !== -1 ? '/myPay' : '/payment'}></BasketPayBtn>
 		</PaymentContainer>
 	);
 };

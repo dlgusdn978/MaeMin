@@ -15,6 +15,7 @@ import {
 	MyPayInfoTitle,
 	MyPayInfoValue,
 	MyPayButtonBox,
+	MyPayImgItem,
 } from '../components/style/payment';
 const MyPay = () => {
 	const today = new Date().toLocaleDateString().replaceAll('.', '').split(' ');
@@ -28,8 +29,14 @@ const MyPay = () => {
 			<MyPayBox>
 				<MyPayDateBox>{todayFormat}</MyPayDateBox>
 				<MyPayImgBox>
-					<MyPayImg src={cardImg}></MyPayImg>
+					<MyPayImgItem>
+						<MyPayImg src={cardImg}></MyPayImg>
+					</MyPayImgItem>
+					<MyPayImgItem>
+						<MyPayImg src={cardImg}></MyPayImg>
+					</MyPayImgItem>
 				</MyPayImgBox>
+
 				<MyPayInfoBox>
 					<MyPayInfoItem>
 						<MyPayInfoTitle>가게명</MyPayInfoTitle>
