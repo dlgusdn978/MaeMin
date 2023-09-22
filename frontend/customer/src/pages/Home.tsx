@@ -69,6 +69,7 @@ const Home = () => {
 					width={160}
 					icon={(props) => <QrIcon {...props} />}
 					iconSize={40}
+					url={'qr'}
 				/>
 			</HomeBox>
 		</Container>
