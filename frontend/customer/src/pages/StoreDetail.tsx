@@ -6,6 +6,7 @@ import MenuList from '../components/store/MenuList';
 import MedalIcon from '../assets/imgs/medal.svg';
 import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
 import TrendKeyword from './../components/store/TrendKeyword';
+import StoreInfo from './../components/store/StoreInfo';
 
 interface StoreDetailData {
 	ownerId: number;
@@ -101,6 +102,7 @@ const StoreDetail = () => {
 				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
 			)}
 			<TrendKeyword />
+			{storeData && <StoreInfo phone={storeData.phone} operationHours={storeData.operationHours} />}
 			{storeData && <StoreMap address={storeData.address} />}
 			<MenuList menu={trendMenus} title="트렌드 메뉴" iconSrc={MedalIcon} popularity={1} />
 			<MenuList menu={otherMenus} title="다른 메뉴" iconSrc={MenuBoardIcon} popularity={0} />

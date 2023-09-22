@@ -13,7 +13,7 @@ interface StorePhotoProps {
 
 const StorePhotoContainer = styled.div`
 	position: relative;
-	height: 300px;
+	height: 350px;
 	background-color: white;
 	display: flex;
 	flex-direction: row;
@@ -46,11 +46,12 @@ const FixedSizeImage = styled.img`
 	height: 156px;
 	object-fit: cover;
 	border-radius: 40px;
+	margin-bottom: 60px;
 `;
 
 const StoreInfoContainer = styled.div`
 	position: absolute;
-	bottom: 0;
+	bottom: 20px;
 	left: 50%;
 	transform: translateX(-50%);
 	text-align: center;
@@ -59,13 +60,16 @@ const StoreInfoContainer = styled.div`
 	align-items: center;
 `;
 
-const StoreName = styled.div`
+const RatingContainer = styled.div`
+	display: flex;
+	align-items: center;
 	font-size: 24px;
-	margin-bottom: 8px; // 간격을 조절하면 이름과 평점 사이의 간격이 조정됩니다.
 `;
 
-const Rating = styled.div`
+const StoreName = styled.div`
 	font-size: 24px;
+	font-weight: 1000;
+	margin: 10px;
 `;
 
 const StorePhoto = (props: StorePhotoProps) => {
@@ -82,10 +86,11 @@ const StorePhoto = (props: StorePhotoProps) => {
 			</BackButton>
 			<FixedSizeImage src={props.pictureUrl} alt={props.name} />
 			<StoreInfoContainer>
-				<StoreName>{props.name}</StoreName>
-				<Rating>
+				<RatingContainer>
 					<StarRate rating={props.rating} />
-				</Rating>
+					<span style={{ marginLeft: '5px', marginTop: '104px' }}>{props.rating}</span>
+				</RatingContainer>
+				<StoreName>{props.name}</StoreName>
 			</StoreInfoContainer>
 			<ShareButton>
 				<img src={SharboxIcon} alt="Share" />
