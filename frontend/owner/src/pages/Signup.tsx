@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Input from '../components/Input';
-import Button from '../components/Button';
+// import Input from '../components/Input';
+// import Button from '../components/Button';
+// import axios from 'axios';
+import Step1 from '../components/signup/Step1';
+import Step2 from '../components/signup/Step2';
+import Step3 from '../components/signup/Step3';
+import Step4 from '../components/signup/Step4';
 import { signUp } from '../api/user';
 
 const Signup = () => {
@@ -9,19 +14,53 @@ const Signup = () => {
 	const [confirmPassword, setConfirmPassword] = useState<string>('');
 	const [phone, setPhone] = useState<string>('');
 	const [verificationCode, setVerificationCode] = useState<string>('');
+	const [username, setUsername] = useState<string>('');
 	const [nickname, setNickname] = useState<string>('');
 	const [gender, setGender] = useState<string>('');
 	const [isPasswordMismatch, setIsPasswordMismatch] = useState<boolean>(false);
-	const [selectedAgeGroup, setSelectedAgeGroup] = useState<string | null>(null);
+	const [selectedAgeGroup, setSelectedAgeGroup] = useState<number>(0);
 	const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 	const [timer, setTimer] = useState<number | null>(null);
 	const [countdown, setCountdown] = useState<number>(180);
+	const [step, setStep] = useState(1);
 
+	const nextStep = () => {
+		if (step === 1) {
+			if (!id || !password || !confirmPassword) {
+				alert('아이디와 비밀번호를 모두 입력해주세요.');
+				return;
+			}
+			if (isPasswordMismatch) {
+				alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+				return;
+			}
+		}
+		if (step === 2) {
+			if (!phone || !verificationCode) {
+				alert('전화번호와 인증번호를 모두 입력해주세요.');
+				return;
+			}
+		}
+		if (step === 3) {
+			if (!nickname) {
+				alert('닉네임을 입력해주세요.');
+				return;
+			}
+		}
+		if (step === 4) {
+			if (!gender || !selectedAgeGroup) {
+				alert('성별과 나이를 선택해주세요.');
+				return;
+			}
+		}
+		setStep(step + 1);
+	};
+	const prevStep = () => setStep(step - 1);
 	const handleGenderSelect = (selectedGender: string) => {
 		setGender(selectedGender);
 	};
 	useEffect(() => {
-		let timerId: NodeJS.Timeout;
+		let timerId: ReturnType<typeof setTimeout>; // 타입 수정
 		if (timer !== null) {
 			timerId = setInterval(() => {
 				setCountdown((prevCountdown) => {
@@ -42,7 +81,6 @@ const Signup = () => {
 	const startTimer = () => {
 		setTimer(Date.now());
 	};
-
 	const displayTime = () => {
 		const minutes = Math.floor(countdown / 60);
 		const seconds = countdown % 60;
@@ -61,7 +99,7 @@ const Signup = () => {
 		setDrawerOpen(!drawerOpen);
 	};
 
-	const handleAgeGroupSelect = (ageGroup: string) => {
+	const handleAgeGroupSelect = (ageGroup: number) => {
 		setSelectedAgeGroup(ageGroup);
 		toggleDrawer();
 	};
@@ -78,11 +116,11 @@ const Signup = () => {
 		}
 	};
 	// 닉네임 중복검사
+
 	const checkNicknameDuplicate = () => {
 		// 임시로 랜덤한 방법으로 중복을 확인합니다.
 		// 실제로는 서버에 요청을 보내서 중복을 확인해야 합니다.
 		const isDuplicate = Math.random() > 0.5;
-
 		if (isDuplicate) {
 			alert('이미 사용 중인 닉네임입니다.');
 		} else {
@@ -100,12 +138,12 @@ const Signup = () => {
 			await signUp({
 				loginId: id,
 				loginPw: password,
-				userName: '김아무개',
+				userName: username,
 				nickName: nickname,
 				phone: phone,
 				sex: false, //-> False=남자 / True=여자
-				age: 20,
-				role: 'ROLE_OWNER', // ROLE_CUSTOMER or ROLE_OWNER
+				age: selectedAgeGroup,
+				role: 'ROLE_CUSTOMER', // ROLE_CUSTOMER or ROLE_OWNER
 			});
 			// navigate('/login');
 		} catch (e) {
@@ -114,168 +152,56 @@ const Signup = () => {
 	};
 
 	return (
-		<div style={{ paddingLeft: '15px' }}>
-			<h1>회원가입</h1>
-			<div>
-				{/* 아이디 */}
-				<Input
-					value={id}
-					placeholder="ID"
-					type="text"
-					onChange={setId}
-					width={270}
-					height={40}
-					borderRadius="100px"
-					border="white"
-					margin="10px"
-					paddingLeft="30px"
+		<form style={{ paddingLeft: '15px' }}>
+			{step === 1 && (
+				<Step1
+					id={id}
+					setId={setId}
+					password={password}
+					setPassword={setPassword}
+					confirmPassword={confirmPassword}
+					setConfirmPassword={setConfirmPassword}
+					isPasswordMismatch={isPasswordMismatch}
+					nextStep={nextStep}
+					checkIdDuplicate={checkIdDuplicate}
 				/>
-				<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkIdDuplicate} />
-			</div>
-			<div>
-				{/* 비밀번호 */}
-				<Input
-					value={password}
-					placeholder="PW"
-					type="password"
-					onChange={setPassword}
-					border={isPasswordMismatch ? '2px solid red' : '1px solid white'}
-					width={270}
-					height={40}
-					borderRadius="100px"
-					margin="10px"
-					paddingLeft="30px"
+			)}
+			{step === 2 && (
+				<Step2
+					phone={phone}
+					setPhone={setPhone}
+					verificationCode={verificationCode}
+					setVerificationCode={setVerificationCode}
+					timer={timer}
+					startTimer={startTimer}
+					displayTime={displayTime}
+					nextStep={nextStep}
+					prevStep={prevStep}
 				/>
-			</div>
-			<div>
-				{/* 비밀번호 확인 */}
-				<Input
-					value={confirmPassword}
-					placeholder="PW 확인"
-					type="password"
-					onChange={setConfirmPassword}
-					border={isPasswordMismatch ? '2px solid red' : '1px solid white'}
-					width={270}
-					height={40}
-					borderRadius="100px"
-					margin="10px"
-					paddingLeft="30px"
+			)}
+			{step === 3 && (
+				<Step3
+					username={username}
+					setUsername={setUsername}
+					nickname={nickname}
+					setNickname={setNickname}
+					nextStep={nextStep}
+					prevStep={prevStep}
+					checkNicknameDuplicate={checkNicknameDuplicate}
 				/>
-			</div>
-			{isPasswordMismatch && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
-			<div>
-				{/* 전화번호 */}
-				<Input
-					value={phone}
-					placeholder="Phone"
-					type="tel"
-					onChange={setPhone}
-					width={270}
-					height={40}
-					borderRadius="100px"
-					border="white"
-					margin="10px"
-					paddingLeft="30px"
+			)}
+			{step === 4 && (
+				<Step4
+					gender={gender}
+					handleGenderSelect={handleGenderSelect}
+					selectedAgeGroup={selectedAgeGroup}
+					toggleDrawer={toggleDrawer}
+					handleAgeGroupSelect={handleAgeGroupSelect}
+					handleSubmit={handleSubmit}
+					drawerOpen={drawerOpen}
 				/>
-				<Button label="인증번호 발송" fontSize="10px" width={81} height={26} onClick={startTimer} />
-			</div>
-			<div>
-				{/* 인증번호 */}
-				<Input
-					value={verificationCode}
-					placeholder="인증번호"
-					type="text"
-					onChange={setVerificationCode}
-					width={270}
-					height={40}
-					borderRadius="100px"
-					border="white"
-					margin="10px"
-					paddingLeft="30px"
-				/>
-				<Button label="인증번호 확인" fontSize="10px" width={81} height={26} />
-				{timer && <div>남은 시간: {displayTime()}</div>}
-			</div>
-			{/* 닉네임 */}
-			<div>
-				<Input
-					value={nickname}
-					placeholder="닉네임"
-					type="text"
-					onChange={setNickname}
-					width={270}
-					height={40}
-					borderRadius="100px"
-					border="white"
-					margin="10px"
-					paddingLeft="30px"
-				/>
-				<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkNicknameDuplicate} />
-			</div>
-			{/* 성별 */}
-			<div>
-				<Button
-					label="남자"
-					fontSize="16px"
-					width={150}
-					height={40}
-					margin="10px"
-					backgroundColor={gender === 'male' ? 'rgba(255, 182, 73, 1)' : 'grey'}
-					textColor="white"
-					borderRadius="100px"
-					borderColor="rgb(240, 240, 240)"
-					onClick={() => handleGenderSelect('male')}
-				/>
-				<Button
-					label="여자"
-					fontSize="16px"
-					width={150}
-					height={40}
-					margin="10px"
-					backgroundColor={gender === 'female' ? 'rgba(255, 182, 73, 1)' : 'grey'}
-					textColor="white"
-					borderRadius="100px"
-					borderColor="rgb(240, 240, 240)"
-					onClick={() => handleGenderSelect('female')}
-				/>
-			</div>
-
-			{/* 나이 */}
-			<div>
-				<Button label="나이 선택" onClick={toggleDrawer} width={150} height={40} margin="10px" />
-				{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}</span>}
-
-				<div
-					style={{
-						display: drawerOpen ? 'block' : 'none',
-						position: 'absolute',
-						width: '200px',
-						background: 'white',
-						border: '1px solid black',
-					}}
-				>
-					{['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대', '90대'].map((ageGroup) => (
-						<div key={ageGroup} onClick={() => handleAgeGroupSelect(ageGroup)}>
-							{ageGroup}
-						</div>
-					))}
-				</div>
-				<div>
-					<Button
-						label="회원가입"
-						onClick={() => handleSubmit()}
-						backgroundColor="rgba(255, 182, 73, 1)"
-						fontSize="16px"
-						margin="10px"
-						textColor="white"
-						borderRadius="100px"
-						borderColor="rgb(240, 240, 240)"
-						width={344}
-						height={64}
-					/>
-				</div>
-			</div>
-		</div>
+			)}
+		</form>
 	);
 };
 

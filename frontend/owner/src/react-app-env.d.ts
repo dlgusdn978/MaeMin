@@ -44,17 +44,17 @@ interface SignupForm {
 	nickName: string;
 	phone: string;
 	sex: boolean; //-> False=남자 / True=여자
-	age: Int;
+	age: number;
 	role: string; // ROLE_CUSTOMER or ROLE_OWNER
 }
 
 interface User {
-	memberId: number;
 	username: string;
 	nickname: string;
+	role: string;
 }
 
 interface LoginForm {
-	username: string;
-	password: string;
+	loginId: string;
+	loginPw: string;
 }
