@@ -13,6 +13,7 @@ interface InputComponentProps {
 	height?: string | number;
 	border?: string;
 	paddingLeft?: string;
+	padding?: string;
 	inputRef?: React.ForwardedRef<HTMLInputElement>;
 }
 
@@ -30,6 +31,7 @@ const Input = React.forwardRef(
 		height,
 		border,
 		paddingLeft,
+		padding,
 		inputRef,
 	}: InputComponentProps): React.ReactElement => {
 		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,8 +53,10 @@ const Input = React.forwardRef(
 					width,
 					height,
 					border,
+					padding,
 					paddingLeft: paddingLeft ? paddingLeft : '10px',
 				}}
+				autoComplete={type === 'password' ? 'off' : 'on'}
 			/>
 		);
 	},

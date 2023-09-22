@@ -37,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
 				}
 			}
 		}
+		::-webkit-scrollbar {
+			display: none;
+		}
+
 		select {
 			-webkit-appearance: none;
 			-moz-appearance: none;

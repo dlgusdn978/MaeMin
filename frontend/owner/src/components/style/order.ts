@@ -23,10 +23,13 @@ export const OrderListBox = styled.div`
 	justify-content: flex-start;
 	align-items: center;
 	height: 500px;
+	width: 250px;
+	overflow: scroll;
 	background-color: ${theme.color.main};
 `;
 
 export const OrderBoxTitle = styled.span`
 	font-size: 24px;
 	font-weight: 600;
+	margin-bottom: 10px;
 `;

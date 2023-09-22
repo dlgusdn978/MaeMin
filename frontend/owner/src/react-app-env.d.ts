@@ -6,6 +6,12 @@ interface CardProps {
 	title?: string;
 	content?: string;
 	titleSize?: string;
+	imgSrc?: string;
+}
+
+interface IconProps {
+	iconSize?: number;
+	icon: IconType;
 }
 
 type FontSizeProps = {
@@ -29,4 +35,26 @@ interface Todo {
 
 interface DragItemList {
 	dragItems: DragItem[];
+}
+
+interface SignupForm {
+	loginId: string;
+	loginPw: string;
+	userName: string;
+	nickName: string;
+	phone: string;
+	sex: boolean; //-> False=남자 / True=여자
+	age: number;
+	role: string; // ROLE_CUSTOMER or ROLE_OWNER
+}
+
+interface User {
+	username: string;
+	nickname: string;
+	role: string;
+}
+
+interface LoginForm {
+	loginId: string;
+	loginPw: string;
 }

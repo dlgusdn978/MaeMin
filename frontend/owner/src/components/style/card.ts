@@ -7,7 +7,7 @@ const CardContainer = styled.div<CardProps>`
 	background-color: white;
 	box-shadow: 1 1;
 	width: ${({ width }) => (width ? `${width}px` : '345px')};
-	height: ${({ height }) => (height ? `${height}px` : '160px')};
+	height: ${({ height }) => (height ? `${height}px` : '170px')};
 	border-radius: 10px;
 	background: #fff;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -31,4 +31,9 @@ const ImgBox = styled.div`
 	padding-bottom: 10px;
 `;
 
-export { CardContainer, CardTextBox, ImgBox };
+const BtnBox = styled.div`
+	display: flex;
+	justify-content: end;
+`;
+
+export { CardContainer, CardTextBox, ImgBox, BtnBox };

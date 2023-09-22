@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import TodoList from '../components/TodoList';
+import TodoList from '../components/dnd/TodoList';
 import { nanoid } from 'nanoid';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { HomeTitle } from '../components/text';
 
 const Order = () => {
-	const [todo, setTodo] = useState<string>('');
 	const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
 	const [inProgressTodos, setInProgressTodos] = useLocalStorage<Todo[]>('inprogress', []);
 	const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completed', []);
@@ -34,7 +34,6 @@ const Order = () => {
 		if (dummyList) {
 			setTodos(dummyList);
 			// setTodos([...todos, { id: nanoid(), todo, isDone: false }]);
-			setTodo('');
 		}
 		console.log(todos);
 	}, []);
@@ -61,10 +60,13 @@ const Order = () => {
 
 		if (destination.droppableId === 'inbox-column') {
 			inbox.splice(destination.index, 0, { ...add, isDone: false });
+			console.log('api호출로 주문상태 변경하기 - 결제 완료(주문 대기)');
 		} else if (destination.droppableId === 'inprogress-column') {
 			inprogress.splice(destination.index, 0, { ...add, isDone: false });
+			console.log('조리중');
 		} else {
 			completed.splice(destination.index, 0, { ...add, isDone: true });
+			console.log('완료');
 		}
 
 		setTodos(inbox);
@@ -75,7 +77,7 @@ const Order = () => {
 	return (
 		<DragDropContext onDragEnd={onDragEnd}>
 			<div className="dnd-container">
-				<h1>{storeName}</h1>
+				<HomeTitle>{storeName}</HomeTitle>
 				<TodoList
 					todos={todos}
 					setTodos={setTodos}
