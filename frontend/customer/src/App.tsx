@@ -6,7 +6,7 @@ import Layout from './components/layout/Layout';
 function App() {
 	return (
 		// <Router basename="/customer">
-		<Router>
+		<Router basename="/customer">
 			<Layout>
 				<MainRoutes />
 			</Layout>
