@@ -64,7 +64,6 @@
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.0.3"
   },
-//  "homepage": "/customer"
   "homepage": "."
 }
 
