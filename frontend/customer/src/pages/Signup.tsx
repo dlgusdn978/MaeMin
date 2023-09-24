@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import Input from '../components/Input';
-// import Button from '../components/Button';
 // import axios from 'axios';
 import Step1 from '../components/signup/Step1';
 import Step2 from '../components/signup/Step2';

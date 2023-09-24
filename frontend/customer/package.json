@@ -12,6 +12,7 @@
     "jsqr": "^1.4.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-devtools": "^4.28.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
     "react-router-dom": "^6.16.0",
@@ -64,5 +65,5 @@
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.0.3"
   },
-  "homepage": "."
+  "homepage": "/customer"
 }
