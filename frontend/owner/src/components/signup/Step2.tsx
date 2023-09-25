@@ -7,11 +7,12 @@ interface Step2Props {
 	setPhone: (value: string) => void;
 	verificationCode: string;
 	setVerificationCode: (value: string) => void;
-	startTimer: () => void;
+	startTimer: (e: React.SyntheticEvent) => void;
 	displayTime: () => string;
 	prevStep: () => void;
 	nextStep: () => void;
 	timer: number | null;
+	check: (e: React.SyntheticEvent) => void;
 }
 
 const Step2 = ({
@@ -23,6 +24,7 @@ const Step2 = ({
 	displayTime,
 	prevStep,
 	nextStep,
+	check,
 }: Step2Props): JSX.Element => {
 	return (
 		<div>
@@ -52,7 +54,7 @@ const Step2 = ({
 				margin="10px"
 				paddingLeft="30px"
 			/>
-			<Button label="인증번호 확인" fontSize="10px" width={81} height={26} />
+			<Button label="인증번호 확인" fontSize="10px" width={81} height={26} onClick={check} />
 			<div>남은 시간: {displayTime()}</div>
 			<Button label="이전" onClick={prevStep} />
 			<Button label="다음" onClick={nextStep} />

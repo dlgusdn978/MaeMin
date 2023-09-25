@@ -72,7 +72,8 @@ const Signup = () => {
 		};
 	}, [timer]);
 
-	const startTimer = () => {
+	const startTimer = (e: React.SyntheticEvent) => {
+		e.preventDefault();
 		setTimer(Date.now());
 	};
 	const displayTime = () => {
@@ -89,16 +90,18 @@ const Signup = () => {
 		}
 	}, [password, confirmPassword]);
 
-	const toggleDrawer = () => {
+	const toggleDrawer = (e: React.SyntheticEvent) => {
+		e.preventDefault();
 		setDrawerOpen(!drawerOpen);
 	};
 
 	const handleAgeGroupSelect = (ageGroup: number) => {
 		setSelectedAgeGroup(ageGroup);
-		toggleDrawer();
+		setDrawerOpen(!drawerOpen);
 	};
 	// 아이디 중복검사
-	const checkIdDuplicate = () => {
+	const checkIdDuplicate = (e: React.SyntheticEvent) => {
+		e.preventDefault();
 		// 임시로 랜덤한 방법으로 중복을 확인합니다.
 		// 실제로는 서버에 요청을 보내서 중복을 확인해야 합니다.
 		const isDuplicate = Math.random() > 0.5;
@@ -109,9 +112,10 @@ const Signup = () => {
 			alert('사용 가능한 아이디입니다.');
 		}
 	};
-	// 닉네임 중복검사
 
-	const checkNicknameDuplicate = () => {
+	// 닉네임 중복검사
+	const checkNicknameDuplicate = (e: React.SyntheticEvent) => {
+		e.preventDefault();
 		// 임시로 랜덤한 방법으로 중복을 확인합니다.
 		// 실제로는 서버에 요청을 보내서 중복을 확인해야 합니다.
 		const isDuplicate = Math.random() > 0.5;
@@ -122,8 +126,13 @@ const Signup = () => {
 		}
 	};
 
-	const handleSubmit = async () => {
-		// e.preventDefault();
+	const checkLogic = (e: React.SyntheticEvent) => {
+		e.preventDefault();
+		console.log('인증번호 확인 메서드');
+	};
+
+	const handleSubmit = async (e: React.SyntheticEvent) => {
+		e.preventDefault();
 		if (isPasswordMismatch) {
 			alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 			return;
@@ -171,6 +180,7 @@ const Signup = () => {
 					displayTime={displayTime}
 					nextStep={nextStep}
 					prevStep={prevStep}
+					check={checkLogic}
 				/>
 			)}
 			{step === 3 && (

@@ -5,9 +5,9 @@ interface Step4Props {
 	gender: string;
 	handleGenderSelect: (gender: string) => void;
 	selectedAgeGroup: number | null;
-	toggleDrawer: () => void;
+	toggleDrawer: (e: React.SyntheticEvent) => void;
 	handleAgeGroupSelect: (ageGroup: number) => void;
-	handleSubmit: () => void;
+	handleSubmit: (e: React.SyntheticEvent) => void;
 	drawerOpen: boolean;
 }
 
@@ -34,7 +34,10 @@ const Step4 = ({
 					textColor="white"
 					borderRadius="100px"
 					borderColor="rgb(240, 240, 240)"
-					onClick={() => handleGenderSelect('male')}
+					onClick={(e: React.SyntheticEvent) => {
+						e.preventDefault();
+						handleGenderSelect('male');
+					}}
 				/>
 				<Button
 					label="여자"
@@ -46,7 +49,10 @@ const Step4 = ({
 					textColor="white"
 					borderRadius="100px"
 					borderColor="rgb(240, 240, 240)"
-					onClick={() => handleGenderSelect('female')}
+					onClick={(e: React.SyntheticEvent) => {
+						e.preventDefault();
+						handleGenderSelect('female');
+					}}
 				/>
 			</div>
 			<div>
@@ -62,7 +68,12 @@ const Step4 = ({
 					}}
 				>
 					{['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대'].map((ageGroup) => (
-						<div key={ageGroup} onClick={() => handleAgeGroupSelect(Number(ageGroup.slice(0, -1)))}>
+						<div
+							key={ageGroup}
+							onClick={() => {
+								handleAgeGroupSelect(Number(ageGroup.slice(0, -1)));
+							}}
+						>
 							{ageGroup}
 						</div>
 					))}
