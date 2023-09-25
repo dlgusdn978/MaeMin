@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
+import encrypt from '../components/Encrypto';
+
 import {
 	PayPasswordContainer,
 	PayPasswordInputBox,
@@ -58,6 +60,7 @@ const PayPassword = () => {
 				setPwChecker(true);
 			}, 1000);
 		}
+		encrypt(num);
 	};
 	// 무작위 키패드 생성 1회
 	useEffect(() => {

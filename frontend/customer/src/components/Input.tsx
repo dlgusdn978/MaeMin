@@ -16,6 +16,7 @@ interface InputComponentProps {
 	paddingLeft?: string;
 	padding?: string;
 	inputRef?: React.ForwardedRef<HTMLInputElement>;
+	max?: string;
 }
 
 const Input = React.forwardRef(
@@ -35,6 +36,7 @@ const Input = React.forwardRef(
 		padding,
 		inputRef,
 		name,
+		max,
 	}: InputComponentProps): React.ReactElement => {
 		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 			onChange(e.target.value);
@@ -48,6 +50,7 @@ const Input = React.forwardRef(
 				placeholder={placeholder}
 				onChange={handleChange}
 				name={name}
+				max={max}
 				style={{
 					backgroundColor,
 					fontSize,

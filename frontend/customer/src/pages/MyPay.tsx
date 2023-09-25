@@ -1,41 +1,73 @@
+import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import cardImg from '../assets/imgs/cardImg.png';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
+import Carousel from '../components/Carousel/Carousel';
+import cardPlus from '../assets/imgs/cardPlus.svg';
+import { userPayCheck } from '../api/pay';
 import {
 	MyPayContainer,
 	MyPayBox,
 	MyPayDateBox,
-	MyPayImgBox,
 	MyPayImg,
 	MyPayInfoBox,
 	MyPayInfoItem,
 	MyPayInfoTitle,
 	MyPayInfoValue,
 	MyPayButtonBox,
-	MyPayImgItem,
 } from '../components/style/payment';
 const MyPay = () => {
+	interface payProps {
+		payId: number;
+		company: string;
+		basicInfo: string;
+		nickName: string;
+	}
 	const today = new Date().toLocaleDateString().replaceAll('.', '').split(' ');
 	today[1] = today[1].padStart(2, '0');
 	const todayFormat = today.join('-');
 	const price = useSelector((state: RootState) => state.basket.pickedMenuPrice);
 	const navigate = useNavigate();
+	const [userPayList, setUserPayList] = useState<payProps[]>([]);
+	const userCardList = [
+		{
+			src: cardImg,
+		},
+		{
+			src: cardImg,
+		},
+		{
+			src: cardPlus,
+		},
+	];
+	const addCard = () => {
+		navigate('/payRegist');
+	};
+	useEffect(() => {
+		userPayCheck()
+			.then((response) => setUserPayList(response.data))
+			.catch((response) => console.log(response.data));
+		console.log(userPayList);
+	}, []);
 	return (
 		<MyPayContainer>
-			<Navigation></Navigation>
+			<Navigation title={'페이 카드 선택'}></Navigation>
 			<MyPayBox>
 				<MyPayDateBox>{todayFormat}</MyPayDateBox>
-				<MyPayImgBox>
-					<MyPayImgItem>
-						<MyPayImg src={cardImg}></MyPayImg>
-					</MyPayImgItem>
-					<MyPayImgItem>
-						<MyPayImg src={cardImg}></MyPayImg>
-					</MyPayImgItem>
-				</MyPayImgBox>
+				<Carousel dots={true} slideToShow={1} background={'black'} autoplay={false} loop={false}>
+					{userCardList.map((item, index: number) => (
+						<MyPayImg
+							src={item.src}
+							key={index}
+							onClick={() => {
+								index == userCardList.length - 1 ? addCard() : '';
+							}}
+						></MyPayImg>
+					))}
+				</Carousel>
 
 				<MyPayInfoBox>
 					<MyPayInfoItem>

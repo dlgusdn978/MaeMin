@@ -43,7 +43,10 @@ interface SliderProps {
 	speed?: number;
 	/** 반복 여부 */
 	loop?: boolean;
-	keyword: string;
+	keyword?: string;
+	slideToShow?: number;
+	background?: string;
+	dots?: boolean;
 }
 
 interface CarouselProps {

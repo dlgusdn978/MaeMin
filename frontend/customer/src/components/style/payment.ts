@@ -64,7 +64,6 @@ export const PaymentMethodContentImg = styled.img`
 
 // PayRegist
 export const PayRegistContainer = styled.div`
-	width: 90%;
 	background-color: white;
 	& div {
 		margin-bottom: 10px;
@@ -80,10 +79,24 @@ export const PayRegistTitleItem = styled.div`
 `;
 export const PayRegistInputItem = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
 	margin-left: 6%;
 	margin: auto;
+	& input[type='number']::-webkit-outer-spin-button,
+	input[type='number']::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	& input:nth-child(n) {
+		margin: 0 5px;
+	}
+	& input:first-child {
+		margin-left: 0;
+	}
+	& input:last-child {
+		margin-right: 0;
+	}
 `;
 export const PayRegistButtonItem = styled.button`
 	width: 100%;
@@ -152,7 +165,7 @@ export const PayPasswordButtonItem = styled.div`
 //MyPay
 export const MyPayContainer = styled.div``;
 export const MyPayBox = styled.div`
-	height: 80vh;
+	height: 85vh;
 	background-color: black;
 	& * {
 		padding: 5px 0;
@@ -170,12 +183,20 @@ export const MyPayImgBox = styled.div`
 	max-width: 390px;
 	width: auto;
 	display: flex;
-	overflow-x: scroll;
-	padding: 5%;
+	overflow: scroll;
+	padding: 5% 0;
+	white-space: no-wrap;
 `;
-export const MyPayImgItem = styled.div``;
+export const MyPayImgItem = styled.div`
+	margin: 0 12%;
+	width: 100%;
+`;
 export const MyPayImg = styled.img`
-	width: 300px;
+	background-color: black;
+	padding: 0 60px;
+	width: 50px;
+	max-height: 170px;
+	max-width: 390px;
 `;
 
 export const MyPayInfoBox = styled.div`

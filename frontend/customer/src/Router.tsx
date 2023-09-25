@@ -14,6 +14,7 @@ import Payment from './pages/Payment';
 import MyPay from './pages/MyPay';
 import PayPassword from './pages/PayPassword';
 import PayComplete from './pages/PayComplete';
+import PayRegist from './pages/PayRegist';
 /** Router */
 export function MainRoutes() {
 	return useRoutes([
@@ -77,6 +78,10 @@ export function MainRoutes() {
 				{
 					path: '/payComplete',
 					element: <PayComplete />,
+				},
+				{
+					path: '/payRegist',
+					element: <PayRegist />,
 				},
 			],
 		},
