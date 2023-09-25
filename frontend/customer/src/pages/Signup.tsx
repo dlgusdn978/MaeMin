@@ -5,20 +5,7 @@ import Step2 from '../components/signup/Step2';
 import Step3 from '../components/signup/Step3';
 import Step4 from '../components/signup/Step4';
 import { signUp } from '../api/user';
-import styled from 'styled-components';
-
-const SlideContainer = styled.div<{ step: number }>`
-	display: flex;
-	flex-direction: column;
-	transition: transform 0.5s ease-in-out;
-	transform: translateY(-${(props) => props.step * 25}%);
-`;
-
-const StepWrapper = styled.div`
-	width: 100%;
-	height: 100vh;
-	overflow: hidden;
-`;
+import { SlideContainer, StepWrapper } from '../components/style/signupStyles';
 
 const Signup = () => {
 	const [id, setId] = useState<string>('');

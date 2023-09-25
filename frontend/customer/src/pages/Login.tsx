@@ -2,30 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import Logo from '../assets/imgs/logo.jpg';
 import { login } from '../api/user';
 import jwt from '../common/jwt';
-
-const LogoWrapper = styled.div`
-	margin-bottom: 30px;
-	img {
-		border-radius: 30%;
-	}
-`;
-
-const ButtonWrapper = styled.div``;
-
-const InputWrapper = styled.div`
-	margin-bottom: 40px;
-`;
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-end;
-	height: 90vh;
-`;
+import { LogoWrapper, ButtonWrapper, InputWrapper, Container } from '../components/style/loginStyles';
 
 const Login = () => {
 	const navigate = useNavigate();
