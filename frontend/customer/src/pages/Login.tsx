@@ -4,6 +4,8 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import styled from 'styled-components';
 import Logo from '../assets/imgs/logo.jpg';
+import { login } from '../api/user';
+import jwt from '../common/jwt';
 
 const LogoWrapper = styled.div`
 	margin-bottom: 30px;
@@ -39,9 +41,22 @@ const Login = () => {
 		setPassword(value);
 	};
 
-	const handleLogin = () => {
-		// 로그인 로직
-		console.log('Logged in with ID:', id, 'Password:', password);
+	const handleLogin = async () => {
+		try {
+			const response = await login({
+				loginId: id,
+				loginPw: password,
+			});
+			console.log('로그인성공');
+			const { token, expiredTime } = response;
+
+			jwt.saveToken(token);
+			jwt.saveExpiredTime(expiredTime);
+			navigate('/');
+		} catch (e) {
+			console.log(e);
+			alert('로그인에 실패하였습니다.');
+		}
 	};
 
 	const handleSignup = () => {

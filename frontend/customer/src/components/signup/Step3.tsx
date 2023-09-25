@@ -14,7 +14,8 @@ interface Step3Props {
 	username: string;
 	setNickname: (value: string) => void;
 	setUsername: (value: string) => void;
-	checkNicknameDuplicate: () => void;
+	// checkNicknameDuplicate: () => void;
+	checkNicknameDuplicate: (e: React.SyntheticEvent) => void;
 	prevStep: () => void;
 	nextStep: () => void;
 }
