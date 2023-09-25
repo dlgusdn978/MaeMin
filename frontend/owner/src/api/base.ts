@@ -2,10 +2,8 @@ import axios, { AxiosResponse } from 'axios';
 
 const API = axios.create({
 	baseURL: process.env.REACT_APP_BASE_URL,
+	withCredentials: true,
 });
-
-axios.defaults.baseURL = 'https://j9c208.p.ssafy.io';
-axios.defaults.withCredentials = true;
 
 const accessToken = localStorage.getItem('access_token');
 const expiredTime = localStorage.getItem('expired_token');
