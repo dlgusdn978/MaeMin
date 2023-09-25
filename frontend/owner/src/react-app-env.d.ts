@@ -58,3 +58,12 @@ interface LoginForm {
 	loginId: string;
 	loginPw: string;
 }
+
+interface LoginRes {
+	code: string;
+	message: string;
+	data: {
+		accessToken: string;
+		expiredTime: string;
+	};
+}

@@ -9,6 +9,7 @@
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.5.0",
+    "http-proxy-middleware": "^2.0.6",
     "nanoid": "^5.0.1",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
@@ -55,5 +56,6 @@
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.0.3"
   },
-  "homepage": "/owner"
+  "homepage": "/owner",
+  "proxy": "https://j9c208.p.ssafy.io"
 }
