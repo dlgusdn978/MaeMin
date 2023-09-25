@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { login, reissue } from '../api/user';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Login = () => {
 
 	const handleLogin = () => {
 		// 로그인 로직
+		login({ loginId: id, loginPw: password });
 		console.log('Logged in with ID:', id, 'Password:', password);
 	};
 
@@ -85,6 +87,7 @@ const Login = () => {
 					borderColor="rgb(240, 240, 240)"
 				/>
 			</div>
+			<button onClick={reissue}>reissue test</button>
 		</div>
 	);
 };
