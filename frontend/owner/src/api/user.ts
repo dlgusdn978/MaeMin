@@ -18,7 +18,7 @@ export const login = async (loginData: LoginForm) => {
 	}
 };
 
-export const logout = () => API.post('/user-service/users/logout').then((res) => console.log(res.data));
+export const logout = () => API.post('/user-service/auth/logout').then((res) => console.log(res.data));
 
 export const reissue = () =>
 	axios
