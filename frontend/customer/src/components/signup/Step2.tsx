@@ -1,6 +1,13 @@
 import React from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import styled from 'styled-components';
+
+const Font = styled.div`
+	font-size: 25px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+`;
 
 interface Step2Props {
 	phone: string;
@@ -21,12 +28,12 @@ const Step2 = ({
 	setVerificationCode,
 	startTimer,
 	displayTime,
-	prevStep,
+	// prevStep,
 	nextStep,
 }: Step2Props): JSX.Element => {
 	return (
 		<div>
-			<h1>전화번호,인증번호 입력</h1>
+			<Font>전화번호,인증번호 입력</Font>
 			<Input
 				value={phone}
 				placeholder="Phone"
@@ -54,8 +61,17 @@ const Step2 = ({
 			/>
 			<Button label="인증번호 확인" fontSize="10px" width={81} height={26} />
 			<div>남은 시간: {displayTime()}</div>
-			<Button label="이전" onClick={prevStep} />
-			<Button label="다음" onClick={nextStep} />
+			{/* <Button label="이전" onClick={prevStep} /> */}
+			<Button
+				label="다음 (2/4)"
+				onClick={nextStep}
+				borderRadius="20px"
+				height={54}
+				width={350}
+				textColor="white"
+				margintop="20px"
+				backgroundColor="rgba(255, 182, 73, 1)"
+			/>
 		</div>
 	);
 };

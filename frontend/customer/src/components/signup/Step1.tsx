@@ -1,6 +1,13 @@
 import React from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import styled from 'styled-components';
+
+const Font = styled.div`
+	font-size: 25px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+`;
 
 interface Step1Props {
 	id: string;
@@ -27,7 +34,7 @@ const Step1 = ({
 }: Step1Props): JSX.Element => {
 	return (
 		<div>
-			<h1>아이디,비밀번호입력</h1>
+			<Font>아이디,비밀번호입력</Font>
 			<Input
 				value={id}
 				placeholder="ID"
@@ -66,7 +73,16 @@ const Step1 = ({
 				paddingLeft="30px"
 			/>
 			{isPasswordMismatch && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
-			<Button label="다음" onClick={nextStep} />
+			<Button
+				label="다음 (1/4)"
+				onClick={nextStep}
+				borderRadius="20px"
+				height={54}
+				width={350}
+				margintop="20px"
+				textColor="white"
+				backgroundColor="rgba(255, 182, 73, 1)"
+			/>
 		</div>
 	);
 };

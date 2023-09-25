@@ -1,5 +1,12 @@
 import React from 'react';
 import Button from '../../components/Button';
+import styled from 'styled-components';
+
+const Font = styled.div`
+	font-size: 25px;
+	margin-bottom: 20px;
+	margin-left: 20px;
+`;
 
 interface Step4Props {
 	gender: string;
@@ -23,7 +30,7 @@ const Step4 = ({
 	return (
 		<div>
 			<div>
-				<h1>성별,나이선택</h1>
+				<Font>성별,나이선택</Font>
 				<Button
 					label="남자"
 					fontSize="16px"
@@ -50,7 +57,14 @@ const Step4 = ({
 				/>
 			</div>
 			<div>
-				<Button label="나이 선택" onClick={toggleDrawer} width={150} height={40} margin="10px" />
+				<Button
+					label="나이 선택"
+					onClick={toggleDrawer}
+					width={150}
+					height={40}
+					margin="10px"
+					margintop="20px"
+				/>
 				{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}대</span>}
 				<div
 					style={{
@@ -78,6 +92,7 @@ const Step4 = ({
 					borderColor="rgb(240, 240, 240)"
 					width={344}
 					height={64}
+					margintop="20px"
 				/>
 			</div>
 		</div>

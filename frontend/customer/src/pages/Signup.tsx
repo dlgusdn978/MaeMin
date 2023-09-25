@@ -5,6 +5,20 @@ import Step2 from '../components/signup/Step2';
 import Step3 from '../components/signup/Step3';
 import Step4 from '../components/signup/Step4';
 import { signUp } from '../api/user';
+import styled from 'styled-components';
+
+const SlideContainer = styled.div<{ step: number }>`
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.5s ease-in-out;
+	transform: translateY(-${(props) => props.step * 25}%);
+`;
+
+const StepWrapper = styled.div`
+	width: 100%;
+	height: 100vh; // or you can set a fixed height
+	overflow: hidden; // to ensure content does not spill over
+`;
 
 const Signup = () => {
 	const [id, setId] = useState<string>('');
@@ -24,10 +38,10 @@ const Signup = () => {
 
 	const nextStep = () => {
 		if (step === 1) {
-			if (!id || !password || !confirmPassword) {
-				alert('아이디와 비밀번호를 모두 입력해주세요.');
-				return;
-			}
+			// if (!id || !password || !confirmPassword) {
+			// 	alert('아이디와 비밀번호를 모두 입력해주세요.');
+			// 	return;
+			// }
 			if (isPasswordMismatch) {
 				alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 				return;
@@ -146,60 +160,64 @@ const Signup = () => {
 			// navigate('/login');
 		} catch (e) {
 			console.log(e);
+			console.log(id);
+			console.log(password);
 		}
 	};
 
 	return (
-		<form style={{ paddingLeft: '15px' }}>
-			{step === 1 && (
-				<Step1
-					id={id}
-					setId={setId}
-					password={password}
-					setPassword={setPassword}
-					confirmPassword={confirmPassword}
-					setConfirmPassword={setConfirmPassword}
-					isPasswordMismatch={isPasswordMismatch}
-					nextStep={nextStep}
-					checkIdDuplicate={checkIdDuplicate}
-				/>
-			)}
-			{step === 2 && (
-				<Step2
-					phone={phone}
-					setPhone={setPhone}
-					verificationCode={verificationCode}
-					setVerificationCode={setVerificationCode}
-					timer={timer}
-					startTimer={startTimer}
-					displayTime={displayTime}
-					nextStep={nextStep}
-					prevStep={prevStep}
-				/>
-			)}
-			{step === 3 && (
-				<Step3
-					username={username}
-					setUsername={setUsername}
-					nickname={nickname}
-					setNickname={setNickname}
-					nextStep={nextStep}
-					prevStep={prevStep}
-					checkNicknameDuplicate={checkNicknameDuplicate}
-				/>
-			)}
-			{step === 4 && (
-				<Step4
-					gender={gender}
-					handleGenderSelect={handleGenderSelect}
-					selectedAgeGroup={selectedAgeGroup}
-					toggleDrawer={toggleDrawer}
-					handleAgeGroupSelect={handleAgeGroupSelect}
-					handleSubmit={handleSubmit}
-					drawerOpen={drawerOpen}
-				/>
-			)}
-		</form>
+		<div style={{ paddingLeft: '15px', overflow: 'hidden' }}>
+			<SlideContainer step={step - 1}>
+				<StepWrapper>
+					<Step1
+						id={id}
+						setId={setId}
+						password={password}
+						setPassword={setPassword}
+						confirmPassword={confirmPassword}
+						setConfirmPassword={setConfirmPassword}
+						isPasswordMismatch={isPasswordMismatch}
+						nextStep={nextStep}
+						checkIdDuplicate={checkIdDuplicate}
+					/>
+				</StepWrapper>
+				<StepWrapper>
+					<Step2
+						phone={phone}
+						setPhone={setPhone}
+						verificationCode={verificationCode}
+						setVerificationCode={setVerificationCode}
+						timer={timer}
+						startTimer={startTimer}
+						displayTime={displayTime}
+						nextStep={nextStep}
+						prevStep={prevStep}
+					/>
+				</StepWrapper>
+				<StepWrapper>
+					<Step3
+						username={username}
+						setUsername={setUsername}
+						nickname={nickname}
+						setNickname={setNickname}
+						nextStep={nextStep}
+						prevStep={prevStep}
+						checkNicknameDuplicate={checkNicknameDuplicate}
+					/>
+				</StepWrapper>
+				<StepWrapper>
+					<Step4
+						gender={gender}
+						handleGenderSelect={handleGenderSelect}
+						selectedAgeGroup={selectedAgeGroup}
+						toggleDrawer={toggleDrawer}
+						handleAgeGroupSelect={handleAgeGroupSelect}
+						handleSubmit={handleSubmit}
+						drawerOpen={drawerOpen}
+					/>
+				</StepWrapper>
+			</SlideContainer>
+		</div>
 	);
 };
 
