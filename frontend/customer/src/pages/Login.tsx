@@ -3,8 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import styled from 'styled-components';
-import { login } from '../api/user';
-import jwt from '../common/jwt';
+import Logo from '../assets/imgs/logo.jpg';
+
+const LogoWrapper = styled.div`
+	margin-bottom: 30px;
+	img {
+		border-radius: 30%;
+	}
+`;
 
 const ButtonWrapper = styled.div``;
 
@@ -33,20 +39,9 @@ const Login = () => {
 		setPassword(value);
 	};
 
-	const handleLogin = async () => {
-		try {
-			const response = await login({
-				loginId: id,
-				loginPw: password,
-			});
-			const { token, expiredTime } = response.data;
-
-			jwt.saveToken(token); // 토큰 저장
-			jwt.saveExpiredTime(expiredTime); // 만료시간 저장
-			navigate('/'); // 메인 페이지로 이동
-		} catch (e) {
-			console.log(e);
-		}
+	const handleLogin = () => {
+		// 로그인 로직
+		console.log('Logged in with ID:', id, 'Password:', password);
 	};
 
 	const handleSignup = () => {
@@ -55,6 +50,9 @@ const Login = () => {
 
 	return (
 		<Container>
+			<LogoWrapper>
+				<img src={Logo} alt="Logo" width="250" height="250" />
+			</LogoWrapper>
 			<InputWrapper>
 				<div>
 					<Input
