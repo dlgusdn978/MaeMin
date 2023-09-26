@@ -31,7 +31,7 @@ const TodoList = ({
 							<div ref={provided.innerRef} {...provided.droppableProps}>
 								<ul className="todo-list -inbox">
 									{todos.length === 0 ? (
-										<p className="placeholder">There are no tasks yet</p>
+										<p className="placeholder">주문 정보가 존재하지 않습니다</p>
 									) : (
 										todos.map((todo, index) => (
 											<TodoItem
@@ -62,7 +62,7 @@ const TodoList = ({
 							<FlexBox dir="row" ref={provided.innerRef} {...provided.droppableProps}>
 								<ul className="todo-list -inprogress">
 									{inProgressTodos.length === 0 ? (
-										<p className="placeholder">There are no tasks yet</p>
+										<p className="placeholder">주문 정보가 존재하지 않습니다</p>
 									) : (
 										inProgressTodos.map((todo, index) => (
 											<TodoItem
@@ -93,7 +93,7 @@ const TodoList = ({
 							<div ref={provided.innerRef} {...provided.droppableProps}>
 								<ul className="todo-list -completed">
 									{completedTodos.length === 0 ? (
-										<p className="placeholder">There are no tasks yet</p>
+										<p className="placeholder">주문 정보가 존재하지 않습니다</p>
 									) : (
 										completedTodos.map((todo, index) => (
 											<TodoItem

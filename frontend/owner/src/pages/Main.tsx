@@ -20,7 +20,7 @@ const Main = () => {
 	};
 	return (
 		<Container>
-			<BoldText>Trend Food Fighter</BoldText>
+			<BoldText>Foorending</BoldText>
 			<Button label={`${logined ? 'logout' : 'login'}`} onClick={toggleLogin} />
 			{logined ? (
 				<Order />

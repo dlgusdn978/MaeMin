@@ -23,7 +23,7 @@ export const OrderListBox = styled.div`
 	justify-content: flex-start;
 	align-items: center;
 	height: 500px;
-	width: 250px;
+	width: 300px;
 	overflow: scroll;
 	background-color: ${theme.color.main};
 `;

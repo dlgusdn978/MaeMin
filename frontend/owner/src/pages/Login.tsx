@@ -23,7 +23,7 @@ const Login = () => {
 		login({ loginId: id, loginPw: password });
 		console.log('Logged in with ID:', id, 'Password:', password);
 		// 로그인 성공여부에따라 redirect다르게
-		// localStorage.getItem('access_token') ? navigate('/order') : alert('다시 로그인 해주쉠');
+		localStorage.getItem('access_token') ? navigate('/order') : alert('다시 로그인 해주쉠');
 	};
 
 	const handleSignup = () => {

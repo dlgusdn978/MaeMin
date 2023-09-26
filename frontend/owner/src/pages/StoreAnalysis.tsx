@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, FlexBox } from '../components/style/common';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { CardContainer } from '../components/style/card';
@@ -44,12 +44,19 @@ const data = [
 ];
 
 const StoreAnalysis = () => {
+	const noUser = () => {
+		alert('로그인 정보가 존재하지 않습니다.');
+		window.location.href = '/owner';
+	};
+	useEffect(() => {
+		!localStorage.getItem('access_token') && noUser();
+	}, []);
 	return (
 		<Container>
 			<FlexBox dir="row">
 				<div>
 					매장 정보(분석 예정)
-					{localStorage.getItem('access_token') && <button onClick={() => logout}>로그아웃</button>}
+					{localStorage.getItem('access_token') && <button onClick={logout}>로그아웃</button>}
 				</div>
 			</FlexBox>
 			<CardContainer width={800} height={300}>

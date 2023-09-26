@@ -27,6 +27,7 @@ export const logout = () =>
 			console.log(res.data);
 			localStorage.removeItem('access_token');
 			localStorage.removeItem('expired_time');
+			location.href = '/owner';
 		})
 		.catch((err) => console.log(err));
 
