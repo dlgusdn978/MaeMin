@@ -11,6 +11,7 @@ import MenuDetail from './pages/MenuDetail';
 import QrCodeReader from './components/QrScan';
 import Basket from './pages/Basket';
 import PaySelect from './pages/PaySelect';
+import Log from './pages/Log';
 
 export function MainRoutes() {
 	return useRoutes([
@@ -59,6 +60,10 @@ export function MainRoutes() {
 		{
 			path: '/paySelect',
 			element: <PaySelect />,
+		},
+		{
+			path: '/log',
+			element: <Log />,
 		},
 
 		{ path: '*', element: <PageNotFound /> },
