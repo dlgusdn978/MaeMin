@@ -17,14 +17,13 @@ const Log = () => {
 	{
 		menus &&
 			menus.map((item: OrderMenu) => {
-				return <div>{item.name}</div>;
+				return <div key={item.menuId}>{item.name}</div>;
 			});
 	}
 
 	return (
 		<Container>
 			<div>
-				현 주문현황
 				<Card
 					title="현재 주문현황"
 					content={orderState}

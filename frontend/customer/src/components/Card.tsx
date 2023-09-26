@@ -73,7 +73,7 @@ const Card = ({
 				<HomeCardContent>{content}</HomeCardContent>
 				{menus?.map((item: OrderMenu) => {
 					return (
-						<div>
+						<div key={item.menuId}>
 							<HomeCardContent>이름 :{item.name}</HomeCardContent>
 							<HomeCardContent>가격 : {item.price}</HomeCardContent>
 						</div>
