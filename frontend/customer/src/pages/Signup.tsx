@@ -64,10 +64,6 @@ const Signup = () => {
 		}
 		setStep(step + 1);
 		setAllowScroll(true);
-
-		setTimeout(() => {
-			setAllowScroll(false);
-		}, 600);
 	};
 	const prevStep = () => setStep(step - 1);
 	const handleGenderSelect = (selectedGender: string) => {
@@ -119,7 +115,6 @@ const Signup = () => {
 
 	const handleAgeGroupSelect = (ageGroup: number) => {
 		setSelectedAgeGroup(ageGroup);
-		// toggleDrawer();
 		setDrawerOpen(!drawerOpen);
 	};
 	// 아이디 중복검사
