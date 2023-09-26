@@ -61,7 +61,8 @@ interface LoginForm {
 
 interface LoginRes {
 	code: string;
-	message: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	userInfo: any;
 	data: {
 		accessToken: string;
 		expiredTime: string;

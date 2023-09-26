@@ -11,6 +11,8 @@ export const login = async (loginData: LoginForm) => {
 
 		localStorage.setItem('access_token', tokenData.accessToken);
 		localStorage.setItem('expired_time', tokenData.expiredTime);
+
+		return res.data.userInfo;
 	} catch (error) {
 		// 에러 핸들링을 여기에 추가할 수 있습니다.
 		console.error('로그인에 실패했습니다.', error);

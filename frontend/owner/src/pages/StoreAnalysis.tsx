@@ -56,7 +56,11 @@ const StoreAnalysis = () => {
 			<FlexBox dir="row">
 				<div>
 					매장 정보(분석 예정)
-					{localStorage.getItem('access_token') && <button onClick={logout}>로그아웃</button>}
+					{localStorage.getItem('access_token') && (
+						<div>
+							<button onClick={logout}>로그아웃</button>
+						</div>
+					)}
 				</div>
 			</FlexBox>
 			<CardContainer width={800} height={300}>

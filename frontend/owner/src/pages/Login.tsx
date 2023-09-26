@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import { login, reissue } from '../api/user';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/userSlice';
 
 const Login = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -18,10 +21,11 @@ const Login = () => {
 		setPassword(value);
 	};
 
-	const handleLogin = () => {
+	const handleLogin = async () => {
 		// 로그인 로직
-		login({ loginId: id, loginPw: password });
-		console.log('Logged in with ID:', id, 'Password:', password);
+		const userInfo = await login({ loginId: id, loginPw: password });
+		console.log('Logged in with ID:', id, 'Password:', password, 'userInfo', userInfo);
+		dispatch(setUser(userInfo)); // 로그인 반환 데이터에서 유저 정보 redux에 저장
 		// 로그인 성공여부에따라 redirect다르게
 		localStorage.getItem('access_token') ? navigate('/order') : alert('다시 로그인 해주쉠');
 	};
