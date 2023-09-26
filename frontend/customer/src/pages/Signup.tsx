@@ -23,6 +23,15 @@ const Signup = () => {
 	const [countdown, setCountdown] = useState<number>(180);
 	const [step, setStep] = useState(1);
 	const navigate = useNavigate();
+	const [allowScroll, setAllowScroll] = useState(false);
+
+	useEffect(() => {
+		if (allowScroll) {
+			document.body.style.overflow = 'unset';
+		} else {
+			document.body.style.overflow = 'hidden';
+		}
+	}, [allowScroll]);
 
 	const nextStep = () => {
 		if (step === 1) {
@@ -54,11 +63,17 @@ const Signup = () => {
 			}
 		}
 		setStep(step + 1);
+		setAllowScroll(true);
+
+		setTimeout(() => {
+			setAllowScroll(false);
+		}, 600);
 	};
 	const prevStep = () => setStep(step - 1);
 	const handleGenderSelect = (selectedGender: string) => {
 		setGender(selectedGender);
 	};
+
 	useEffect(() => {
 		let timerId: ReturnType<typeof setTimeout>;
 		if (timer !== null) {
@@ -166,7 +181,7 @@ const Signup = () => {
 	};
 
 	return (
-		<div style={{ paddingLeft: '15px', overflow: 'hidden' }}>
+		<div style={{ paddingLeft: '15px', overflow: 'hidden', height: '50vh' }}>
 			<SlideContainer step={step - 1}>
 				<StepWrapper>
 					<Step1
