@@ -107,3 +107,13 @@ interface LoginForm {
 	loginId: string;
 	loginPw: string;
 }
+
+interface LoginRes {
+	code: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	userInfo: any;
+	data: {
+		accessToken: string;
+		expiredTime: string;
+	};
+}
