@@ -69,6 +69,8 @@ interface SearchProps {
 interface SelectProps {
 	list?: string[];
 	width?: string;
+	onChange?: (selectOpt: string) => void;
+	selectRef?: React.ForwardRef<HTMLSelectElement>;
 }
 
 interface NavigationProps {

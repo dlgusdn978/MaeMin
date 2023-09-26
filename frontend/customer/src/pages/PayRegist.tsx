@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import Select from '../components/Select';
 import Input from '../components/Input';
-// import encrypt from '../components/Encrypto';
+import encrypt from '../components/Encrypto';
+import { useNavigate } from 'react-router';
+import { userPayRegist } from '../api/pay';
 import {
 	PayRegistContainer,
 	PayRegistContentBox,
@@ -11,22 +12,42 @@ import {
 	PayRegistButtonItem,
 } from '../components/style/payment';
 const PayRegist = () => {
+	const navigate = useNavigate();
 	// const cardList = ['삼성카드', '현대카드', '롯데카드'];
-	const monthList = ['1월', '2월', '3월', '4월', '5월', '6월'];
-	const yearList = ['2023년', '2024년', '2025년', '2026년', '2027년', '2028년'];
+	const cardNumFirstRef = useRef<HTMLInputElement>(null);
 	const [cardNumFirst, setCardNumFirst] = useState('');
 	const [cardNumSecond, setCardNumSecond] = useState('');
 	const [cardNumThird, setCardNumThird] = useState('');
 	const [cardNumFourth, setCardNumFourth] = useState('');
 	const [cardPassword, setCardPassword] = useState('');
 	const [cardCVC, setCardCVC] = useState('');
-	// const yearRef = useRef<HTMLOptionElement | null>(null);
-	// const monthRef = useRef<HTMLOptionElement | null>(null);
-	// 검증 로직
+	const [cardYear, setCardYear] = useState('');
+	const [cardMonth, setCardMonth] = useState('');
+	// 검증 후 axios 요청
 	const regist = () => {
-		// const userCardNum = encrypt(cardNumFirst + cardNumSecond + cardNumThird + cardNumFourth);
-		// const userCardPw = encrypt(cardPassword);
-		// const userCvc = encrypt(cardCVC);
+		if (!checker(cardNumFirst, 4)) return false;
+		if (!checker(cardNumSecond, 4)) return false;
+		if (!checker(cardNumThird, 4)) return false;
+		if (!checker(cardNumFourth, 4)) return false;
+		if (!checker(cardPassword, 2)) return false;
+		if (!checker(cardCVC, 3)) return false;
+		if (!checker(cardMonth, 2)) {
+			if (cardMonth.length == 1 || Number(cardMonth) > 13) return false;
+		}
+		if (!checker(cardYear, 2)) {
+			if (cardYear.length == 1 || Number(cardYear) < 0 || Number(cardYear) > 99) return false;
+		}
+		const cardNumber = encrypt(cardNumFirst + cardNumSecond + cardNumThird + cardNumFourth);
+		const cardExpireDate = encrypt(cardMonth + cardYear);
+		const cvc = encrypt(cardCVC);
+		const cardPw = encrypt(cardPassword);
+		userPayRegist(cardNumber, cardExpireDate, cvc, cardPw);
+		navigate('/myPay');
+	};
+
+	const checker = (value: string, length: number) => {
+		if (value.length != length) return false;
+		else return true;
 	};
 	return (
 		<PayRegistContainer>
@@ -50,6 +71,7 @@ const PayRegist = () => {
 						backgroundColor="rgba(0, 0, 0, 0.05)"
 						border="none"
 						padding="10px"
+						ref={cardNumFirstRef}
 					/>
 					-
 					<Input
@@ -102,8 +124,7 @@ const PayRegist = () => {
 						type={'password'}
 						value={cardPassword}
 						onChange={(value) => {
-							if (Number(value) < 100) setCardPassword(value);
-							console.log(value);
+							if (Number(value) < 99) setCardPassword(value);
 						}}
 						width="20%"
 						borderRadius="5px"
@@ -134,8 +155,33 @@ const PayRegist = () => {
 			<PayRegistContentBox>
 				<PayRegistTitleItem>유효기간</PayRegistTitleItem>
 				<PayRegistInputItem>
-					<Select list={monthList} width={'35%'}></Select>
-					<Select list={yearList} width={'35%'}></Select>
+					<Input
+						type={'number'}
+						value={cardMonth}
+						onChange={(value) => {
+							if (Number(value) < 99 || value.length < 3) setCardMonth(value);
+						}}
+						width="20%"
+						borderRadius="5px"
+						backgroundColor="rgba(0, 0, 0, 0.05)"
+						border="none"
+						padding="10px"
+						placeholder={'MM'}
+					/>
+					/
+					<Input
+						type={'number'}
+						value={cardYear}
+						onChange={(value) => {
+							if (Number(value) < 100) setCardYear(value);
+						}}
+						width="20%"
+						borderRadius="5px"
+						backgroundColor="rgba(0, 0, 0, 0.05)"
+						border="none"
+						padding="10px"
+						placeholder={'YY'}
+					/>
 				</PayRegistInputItem>
 			</PayRegistContentBox>
 			<PayRegistContentBox>

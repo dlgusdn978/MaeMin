@@ -12,8 +12,7 @@ const encrypt = (text: string) => {
 		mode: CryptoJS.mode.CFB,
 		padding: CryptoJS.pad.AnsiX923,
 	});
-	console.log(encrypt);
-	console.log(encrypt.toString());
+	console.log(encrypted.toString());
 
 	// AES 복호화 코드
 	const decrypted = CryptoJS.AES.decrypt(encrypted, key, {
@@ -23,7 +22,7 @@ const encrypt = (text: string) => {
 	});
 	console.log(decrypted.toString(CryptoJS.enc.Utf8));
 
-	return encrypted;
+	return encrypted.toString();
 };
 
 export default encrypt;
