@@ -2,20 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import styled from 'styled-components';
-
-const ButtonWrapper = styled.div``;
-
-const InputWrapper = styled.div`
-	margin-bottom: 40px;
-`;
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-end;
-	height: 90vh;
-`;
+import Logo from '../assets/imgs/logo.jpg';
+import { login } from '../api/user';
+import jwt from '../common/jwt';
+import { LogoWrapper, ButtonWrapper, InputWrapper, Container } from '../components/style/loginStyles';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -31,9 +21,22 @@ const Login = () => {
 		setPassword(value);
 	};
 
-	const handleLogin = () => {
-		// 로그인 로직
-		console.log('Logged in with ID:', id, 'Password:', password);
+	const handleLogin = async () => {
+		try {
+			const response = await login({
+				loginId: id,
+				loginPw: password,
+			});
+			console.log('로그인성공');
+			const { token, expiredTime } = response;
+
+			jwt.saveToken(token);
+			jwt.saveExpiredTime(expiredTime);
+			navigate('/');
+		} catch (e) {
+			console.log(e);
+			alert('로그인에 실패하였습니다.');
+		}
 	};
 
 	const handleSignup = () => {
@@ -42,6 +45,9 @@ const Login = () => {
 
 	return (
 		<Container>
+			<LogoWrapper>
+				<img src={Logo} alt="Logo" width="250" height="250" />
+			</LogoWrapper>
 			<InputWrapper>
 				<div>
 					<Input

@@ -56,6 +56,7 @@ const Input = React.forwardRef(
 					padding,
 					paddingLeft: paddingLeft ? paddingLeft : '10px',
 				}}
+				autoComplete={type === 'password' ? 'off' : 'on'}
 			/>
 		);
 	},
