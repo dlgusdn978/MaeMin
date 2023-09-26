@@ -18,7 +18,14 @@ export const login = async (loginData: LoginForm) => {
 	}
 };
 
-export const logout = () => API.post('/user-service/auth/logout').then((res) => console.log(res.data));
+export const logout = () =>
+	API.post('/user-service/auth/logout', {
+		headers: {
+			'X-AUTH-TOKEN': `${localStorage.getItem('access_token')}`,
+		},
+	})
+		.then((res) => console.log(res.data))
+		.catch((err) => console.log(err));
 
 export const reissue = async () => {
 	try {

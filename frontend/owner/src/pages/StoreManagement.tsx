@@ -1,12 +1,14 @@
 import React from 'react';
 import Card from '../components/Card';
 import { Container, FlexBox } from '../components/style/common';
+import { logout } from '../api/user';
 
 const StoreManagement = () => {
 	return (
 		<Container>
 			<FlexBox dir="row">
 				<div>가게 현황</div>
+				<button onClick={logout}>로그아웃</button>
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">

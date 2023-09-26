@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Step1, Step2, Step3, Step4 } from '../components/signup';
 import { signUp } from '../api/user';
+import { useNavigate } from 'react-router';
 
 const Signup = () => {
 	const [id, setId] = useState<string>('');
@@ -17,6 +18,7 @@ const Signup = () => {
 	const [timer, setTimer] = useState<number | null>(null);
 	const [countdown, setCountdown] = useState<number>(180);
 	const [step, setStep] = useState(1);
+	const navigate = useNavigate();
 
 	const nextStep = () => {
 		if (step === 1) {
@@ -148,7 +150,7 @@ const Signup = () => {
 				age: selectedAgeGroup,
 				role: 'ROLE_CUSTOMER', // ROLE_CUSTOMER or ROLE_OWNER
 			});
-			// navigate('/login');
+			navigate('/login');
 		} catch (e) {
 			console.log(e);
 		}
