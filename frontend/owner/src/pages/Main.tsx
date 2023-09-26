@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Order from './Order';
 
 const Main = () => {
-	const [logined, setLogined] = useState(false);
+	const [logined, setLogined] = useState(false); // 로그인 여부 redux로 빼야함
 	const navigate = useNavigate();
 	const goLogin = () => {
 		navigate('/login');

@@ -8,7 +8,7 @@ const StoreManagement = () => {
 		<Container>
 			<FlexBox dir="row">
 				<div>가게 현황</div>
-				<button onClick={logout}>로그아웃</button>
+				{localStorage.getItem('access_token') && <button onClick={logout}>로그아웃</button>}
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">
@@ -20,11 +20,6 @@ const StoreManagement = () => {
 					<Card title="4번 테이블" content="음식 이름" titleSize="24px" width={200} />
 					<Card title="5번 테이블" content="음식 이름" titleSize="24px" width={200} />
 					<Card title="6번 테이블" content="음식 이름" titleSize="24px" width={200} />
-				</FlexBox>
-				<FlexBox dir="row">
-					<Card title="7번 테이블" content="음식 이름" titleSize="24px" width={200} />
-					<Card title="8번 테이블" content="음식 이름" titleSize="24px" width={200} />
-					<Card title="9번 테이블" content="음식 이름" titleSize="24px" width={200} />
 				</FlexBox>
 			</FlexBox>
 		</Container>

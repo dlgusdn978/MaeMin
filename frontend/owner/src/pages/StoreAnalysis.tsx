@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, FlexBox } from '../components/style/common';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { CardContainer } from '../components/style/card';
+import { logout } from '../api/user';
 
 const data = [
 	{
@@ -46,7 +47,10 @@ const StoreAnalysis = () => {
 	return (
 		<Container>
 			<FlexBox dir="row">
-				<div>가게 분석</div>
+				<div>
+					매장 정보(분석 예정)
+					{localStorage.getItem('access_token') && <button onClick={() => logout}>로그아웃</button>}
+				</div>
 			</FlexBox>
 			<CardContainer width={800} height={300}>
 				<LineChart width={750} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>

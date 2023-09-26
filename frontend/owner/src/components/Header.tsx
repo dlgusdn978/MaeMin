@@ -8,7 +8,7 @@ const Header = () => {
 		{ name: '주문 접수', url: '/order' },
 		{ name: '매장 관리', url: '/store-management' },
 		{ name: '메뉴 관리', url: '/store-menu' },
-		{ name: '매장 분석', url: '/store-analysis' },
+		{ name: '매장 정보', url: '/store-analysis' },
 	];
 	const navigate = useNavigate();
 	return (

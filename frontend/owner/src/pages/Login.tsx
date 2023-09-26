@@ -22,7 +22,8 @@ const Login = () => {
 		// 로그인 로직
 		login({ loginId: id, loginPw: password });
 		console.log('Logged in with ID:', id, 'Password:', password);
-		navigate('/order');
+		// 로그인 성공여부에따라 redirect다르게
+		// localStorage.getItem('access_token') ? navigate('/order') : alert('다시 로그인 해주쉠');
 	};
 
 	const handleSignup = () => {

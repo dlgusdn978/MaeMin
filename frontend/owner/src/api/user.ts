@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import API from './base';
 
 export const signUp = (signUpData: SignupForm) =>
@@ -24,7 +23,11 @@ export const logout = () =>
 			'X-AUTH-TOKEN': `${localStorage.getItem('access_token')}`,
 		},
 	})
-		.then((res) => console.log(res.data))
+		.then((res) => {
+			console.log(res.data);
+			localStorage.removeItem('access_token');
+			localStorage.removeItem('expired_time');
+		})
 		.catch((err) => console.log(err));
 
 export const reissue = async () => {
