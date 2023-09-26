@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Container } from '../components/layout/common';
 import Card from '../components/Card';
 import { ReactComponent as LogBook } from '../assets/imgs/logbook.svg';
-import { dummyMenuData } from '../assets/dummy';
+import { dummyOrderData } from '../assets/dummy';
 
-const menus = dummyMenuData;
+const orderData = dummyOrderData;
+const menus = orderData[0].menus;
 
 const Log = () => {
 	const [orderState, setOrderState] = useState('');
@@ -13,24 +14,25 @@ const Log = () => {
 		setOrderState('조리중...');
 	}, []);
 
+	{
+		menus &&
+			menus.map((item: OrderMenu) => {
+				return <div>{item.name}</div>;
+			});
+	}
+
 	return (
 		<Container>
 			<div>
 				현 주문현황
 				<Card
-					title="주문현황"
+					title="현재 주문현황"
 					content={orderState}
-					height={50}
 					icon={(props) => <LogBook {...props} />}
 					iconSize={100}
 				/>
-				{menus &&
-					menus.map((item: MenuData) => {
-						return <div>{item.name}</div>;
-					})}
+				<Card title="과거 주문내역" menus={menus} icon={(props) => <LogBook {...props} />} iconSize={100} />
 			</div>
-
-			<div>log</div>
 		</Container>
 	);
 };

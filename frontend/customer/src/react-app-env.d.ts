@@ -22,6 +22,7 @@ interface CardProps {
 	titleSize?: string;
 	onClick?: React.MouseEventHandler<HTMLElement>;
 	count?: number;
+	menus?: OrderMenu[];
 }
 
 type FontSizeProps = {
@@ -94,4 +95,28 @@ interface MenuData {
 	price: number;
 	menuPictureUrl: string;
 	popularity: number;
+}
+
+interface OrderMenu {
+	menuId: number;
+	name: string;
+	price: number;
+	quantity: number;
+	menuOptions: MenuOption[];
+}
+
+type MenuOption = {
+	option: string;
+	price: number;
+};
+
+interface OrderData {
+	orderId: number;
+	storeId: number;
+	userId: number;
+	paymentMethod: number;
+	totalPrice: number;
+	requests: string;
+	createdDate: string;
+	menus: OrderMenu[];
 }

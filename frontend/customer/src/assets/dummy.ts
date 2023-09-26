@@ -20,3 +20,48 @@ export const dummyMenuData: MenuData[] = [
 		popularity: 1,
 	},
 ];
+export const dummyOrderData: OrderData[] = [
+	{
+		orderId: 1,
+		storeId: 1,
+		userId: 1,
+		paymentMethod: 1,
+		totalPrice: 10000,
+		requests: '요청사항...',
+		createdDate: 'yyyy-mm-dd?',
+		menus: [
+			{
+				menuId: 1,
+				name: '메뉴1',
+				price: 5000,
+				quantity: 2,
+				menuOptions: [
+					{
+						option: '곱빼기',
+						price: 1000,
+					},
+					{
+						option: '더 맵게',
+						price: 0,
+					},
+				],
+			},
+			{
+				menuId: 2,
+				name: '메뉴2',
+				price: 3000,
+				quantity: 1,
+				menuOptions: [
+					{
+						option: '곱빼기',
+						price: 1000,
+					},
+					{
+						option: '더 맵게',
+						price: 0,
+					},
+				],
+			},
+		],
+	},
+];
