@@ -22,6 +22,7 @@ const Login = () => {
 		// 로그인 로직
 		login({ loginId: id, loginPw: password });
 		console.log('Logged in with ID:', id, 'Password:', password);
+		navigate('/order');
 	};
 
 	const handleSignup = () => {
