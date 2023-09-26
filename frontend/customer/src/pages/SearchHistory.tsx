@@ -91,7 +91,7 @@ const SearchHistory = () => {
 	};
 
 	const inputRef = useRef<HTMLInputElement>(null);
-	console.log(inputRef);
+
 	useEffect(() => {
 		inputRef.current?.focus();
 	}, []);
