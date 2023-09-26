@@ -19,7 +19,7 @@ export const login = async (loginData: LoginForm) => {
 };
 
 export const logout = () =>
-	API.post('/user-service/auth/logout', {
+	API.post('/user-service/auth/logout', '', {
 		headers: {
 			'X-AUTH-TOKEN': `${localStorage.getItem('access_token')}`,
 		},
