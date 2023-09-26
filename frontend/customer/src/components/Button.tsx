@@ -15,6 +15,7 @@ interface ButtonComponentProps {
 	borderColor?: string;
 	padding?: string;
 	fontWeight?: string;
+	margintop?: string | number;
 }
 
 const Button = (props: ButtonComponentProps) => {
@@ -33,6 +34,7 @@ const Button = (props: ButtonComponentProps) => {
 		borderColor,
 		padding,
 		fontWeight,
+		margintop,
 	} = props;
 
 	return (
@@ -49,6 +51,7 @@ const Button = (props: ButtonComponentProps) => {
 				fontWeight: fontWeight,
 				border:
 					`${border}` === 'none' ? 'none' : borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
+				marginTop: margintop,
 			}}
 			onClick={onClick}
 			disabled={disabled}

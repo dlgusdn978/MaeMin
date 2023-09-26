@@ -120,3 +120,35 @@ interface OrderData {
 	createdDate: string;
 	menus: OrderMenu[];
 }
+
+interface SignupForm {
+	loginId: string;
+	loginPw: string;
+	userName: string;
+	nickName: string;
+	phone: string;
+	sex: boolean; //-> False=남자 / True=여자
+	age: number;
+	role: string; // ROLE_CUSTOMER or ROLE_OWNER
+}
+
+interface User {
+	username: string;
+	nickname: string;
+	role: string;
+}
+
+interface LoginForm {
+	loginId: string;
+	loginPw: string;
+}
+
+interface LoginRes {
+	code: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	userInfo: any;
+	data: {
+		accessToken: string;
+		expiredTime: string;
+	};
+}
