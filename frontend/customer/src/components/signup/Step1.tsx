@@ -17,7 +17,6 @@ interface Step1Props {
 	confirmPassword: string;
 	setConfirmPassword: (value: string) => void;
 	isPasswordMismatch: boolean;
-	// checkIdDuplicate: () => void;
 	checkIdDuplicate: (e: React.SyntheticEvent) => void;
 	nextStep: () => void;
 }

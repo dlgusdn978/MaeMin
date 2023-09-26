@@ -26,10 +26,10 @@ const Signup = () => {
 
 	const nextStep = () => {
 		if (step === 1) {
-			// if (!id || !password || !confirmPassword) {
-			// 	alert('아이디와 비밀번호를 모두 입력해주세요.');
-			// 	return;
-			// }
+			if (!id || !password || !confirmPassword) {
+				alert('아이디와 비밀번호를 모두 입력해주세요.');
+				return;
+			}
 			if (isPasswordMismatch) {
 				alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 				return;
@@ -60,14 +60,14 @@ const Signup = () => {
 		setGender(selectedGender);
 	};
 	useEffect(() => {
-		let timerId: ReturnType<typeof setTimeout>; // 타입 수정
+		let timerId: ReturnType<typeof setTimeout>;
 		if (timer !== null) {
 			timerId = setInterval(() => {
 				setCountdown((prevCountdown) => {
 					if (prevCountdown === 0) {
 						clearInterval(timerId);
 						setTimer(null);
-						return 180; // 초기값으로 설정
+						return 180;
 					}
 					return prevCountdown - 1;
 				});
