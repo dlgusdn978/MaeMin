@@ -5,12 +5,13 @@ import { RootState } from '../store/store';
 import styled from 'styled-components';
 import FoodCount from '../components/menu/FoodCount';
 import Button from '../components/Button';
-import FixedHeaderComponent from '../components/menu/FixedHeaderComponent'; // 적절한 경로로 수정
+import FixedHeaderComponent from '../components/menu/FixedHeaderComponent';
 
 const FoodPhoto = styled.div`
 	width: 390px;
 	height: 304px;
 	position: relative;
+	margin-top: 20px;
 `;
 
 const FoodImage = styled.img`
@@ -47,6 +48,7 @@ const ButtonWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: 20px;
 `;
 
 const FoodWrapper = styled.div`
@@ -57,6 +59,7 @@ const FoodWrapper = styled.div`
 
 const MenuDetail = () => {
 	const selectedMenu = useSelector((state: RootState) => state.menu);
+	const menuList = useSelector((state: RootState) => state.basket.menuList);
 	const [quantity, setQuantity] = useState(1);
 	const [totalPrice, setTotalPrice] = useState(0);
 
@@ -75,12 +78,14 @@ const MenuDetail = () => {
 
 	return (
 		<div>
-			<FixedHeaderComponent selectedMenuName={selectedMenu.name} onBackClick={navigateToPreviousPage} />
-
+			<FixedHeaderComponent
+				selectedMenuName={selectedMenu.name}
+				onBackClick={navigateToPreviousPage}
+				itemCount={menuList.length}
+			/>
 			<FoodPhoto>
 				<FoodImage src={selectedMenu.menuPictureUrl} alt={selectedMenu.name} />
 			</FoodPhoto>
-			{/* <h1>해당 메뉴 상세페이지 메뉴id:{menuId}</h1> */}
 
 			<FoodWrapper>
 				<FoodName>{selectedMenu.name}</FoodName>
