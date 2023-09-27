@@ -52,3 +52,7 @@ export const reissue = async () => {
 		console.error('로그인에 실패했습니다.', error);
 	}
 };
+
+//storedetail get
+export const getStoreDetail = (storeId: number) =>
+	API.get(`/store-service/customer/stores/${storeId}`).then((res) => res.data);

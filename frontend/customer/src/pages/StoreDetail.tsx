@@ -75,7 +75,6 @@ const StoreDetail = () => {
 			{storeData && (
 				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
 			)}
-
 			{storeData && <TrendKeyword content={storeData.content} />}
 			{storeData && <StoreInfo phone={storeData.phone} operationHours={storeData.operationHours} />}
 			{storeData && <StoreMap address={storeData.address} />}
