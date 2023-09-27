@@ -38,7 +38,7 @@ const MenuImage = styled.img`
 	object-fit: cover;
 	border-radius: 25px;
 	align-self: center;
-	margin-left: 240px;
+	margin-left: 200px;
 	margin-bottom: 10px;
 `;
 

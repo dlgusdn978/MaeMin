@@ -26,20 +26,30 @@ interface StoreDetailData {
 	reviewCount: number;
 }
 
+export interface MenuData {
+	menuId: number;
+	storeId: number;
+	category: number[];
+	name: string;
+	price: number;
+	menuPictureUrl: string;
+	popularity: number;
+}
+
 const StoreDetail = () => {
-	const { storeId } = useParams<{ storeId: string }>(); //
+	const { storeId } = useParams<{ storeId: string }>();
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getStoreDetail(Number(storeId)); //
+				const data = await getStoreDetail(Number(storeId));
 				setStoreData({
 					ownerId: data.ownerId,
 					name: data.name,
 					category: data.category,
-					pictureUrl: data.pictureUrl[0]?.storePicureUrl, // 첫 번째 이미지 URL만 사용
+					pictureUrl: data.pictureUrl[0]?.storePicureUrl,
 					address: data.address,
 					areaCode: data.area,
 					phone: data.phone,
