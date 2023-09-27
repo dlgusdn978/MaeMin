@@ -25,13 +25,13 @@ const Home = () => {
 	const dispatch = useDispatch();
 	const location = useGeolocation();
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
-	console.log(location.coordinates);
+	// console.log(location.coordinates);
 	const locationInfo = location.coordinates;
 	const myLocation = {
 		lat: locationInfo?.lat,
 		lng: locationInfo?.lng,
 	};
-	console.log(myLocation);
+	// console.log(myLocation);
 	dispatch(locationActions.setLocation(myLocation));
 	return (
 		<Container>
@@ -40,14 +40,16 @@ const Home = () => {
 				<Card
 					title="트렌드"
 					content="현재 핫 토픽 키워드는?"
+					height={160}
 					icon={(props) => <RedArrowIcon {...props} />}
 					iconSize={90}
 					titleSize="24px"
 					url={'trend'}
 				/>
 				<Card
-					content="원하는 매장에 예약해보세요"
 					title="예약하기"
+					content="원하는 매장에 예약해보세요"
+					height={160}
 					icon={(props) => <ReservationIcon {...props} />}
 					iconSize={60}
 					titleSize="24px"
@@ -58,6 +60,7 @@ const Home = () => {
 					title="내 주문 현황"
 					content="현재 함께 주문확인"
 					width={160}
+					height={160}
 					icon={(props) => <CartIcon {...props} />}
 					iconSize={40}
 					url={'basket'}
@@ -67,6 +70,7 @@ const Home = () => {
 					title="QR 촬영"
 					content="QR로 주문을 시작해보세요!"
 					width={160}
+					height={160}
 					icon={(props) => <QrIcon {...props} />}
 					iconSize={40}
 					url={'qr'}

@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { setMenu } from '../../store/menuSlice';
 import styled from 'styled-components';
 import MenuInfo from '../menu/MenuInfo';
-import { MenuData } from '../../pages/StoreDetail';
 
 interface MenuListProps {
 	menu: MenuData[];

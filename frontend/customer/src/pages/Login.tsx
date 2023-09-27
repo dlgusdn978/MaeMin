@@ -25,11 +25,19 @@ const Login = () => {
 
 	const handleLogin = async () => {
 		// 로그인 로직
-		const userInfo = await login({ loginId: id, loginPw: password });
-		console.log('Logged in with ID:', id, 'Password:', password, 'userInfo', userInfo);
-		dispatch(setUser(userInfo)); // 로그인 반환 데이터에서 유저 정보 redux에 저장
-		// 로그인 성공여부에따라 redirect다르게
-		localStorage.getItem('access_token') ? navigate('/') : alert('로그인에 실패하였습니다.');
+		if (!id) {
+			alert('id를 입력해주세요!');
+			return;
+		} else if (!password) {
+			alert('password를 입력해주세요!');
+			return;
+		} else {
+			const userInfo = await login({ loginId: id, loginPw: password });
+			console.log('Logged in with ID:', id, 'Password:', password, 'userInfo', userInfo);
+			dispatch(setUser(userInfo)); // 로그인 반환 데이터에서 유저 정보 redux에 저장
+			// 로그인 성공여부에따라 redirect다르게
+			localStorage.getItem('access_token') ? navigate('/') : alert('로그인에 실패하였습니다.');
+		}
 	};
 
 	const handleSignup = () => {
