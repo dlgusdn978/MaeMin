@@ -5,27 +5,37 @@ import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 import { CarouselTitle } from '../text';
 
-const CarouselWrapper = styled.section`
+const CarouselWrapper = styled.section<{ background: string | undefined }>`
 	position: relative;
-	background: #fff;
+	background: ${(props) => (!props.background ? '#fff' : props.background)};
 	width: 390px;
 	margin: 15px 0;
 	padding-bottom: 10px;
 `;
 
-const Carousel = ({ children, keyword, className, autoplay = true, speed = 300, loop = true }: SliderProps) => {
+const Carousel = ({
+	children,
+	keyword,
+	className,
+	autoplay = true,
+	speed = 300,
+	loop = true,
+	slideToShow,
+	background,
+	dots,
+}: SliderProps) => {
 	const settings = {
-		dots: false,
+		dots: !dots ? false : true,
 		infinite: loop,
 		speed: speed,
-		slidesToShow: 2,
+		slidesToShow: !slideToShow ? 2 : slideToShow,
 		autoplay: Boolean(autoplay),
 		autoplaySpeed: typeof autoplay === 'boolean' ? 3000 : autoplay,
 	};
 
 	return (
-		<CarouselWrapper className={className}>
-			<CarouselTitle>#{keyword}</CarouselTitle>
+		<CarouselWrapper className={className} background={background}>
+			<CarouselTitle>{!keyword ? keyword : `#${keyword}`}</CarouselTitle>
 			<Slider {...settings}>{children}</Slider>
 		</CarouselWrapper>
 	);

@@ -1,11 +1,24 @@
-import React, { useState, useEffect, PropsWithChildren } from 'react';
+import { useState, useEffect, PropsWithChildren } from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import type { AppDispatch } from '../../store/store';
 import { basketActions } from '../../store/basketSlice';
 
 import Button from '../../components/Button';
 import BasketMenuDetailPrice from '../../components/basket/BasketMenuDetailPrice';
+import {
+	BasketMenuContainer,
+	BasketMenuTitleBox,
+	BasketMenuTitleItem,
+	BasketMenuTitleBtn,
+	BasketMenuInfoBox,
+	BasketMenuImg,
+	BasketMenuInfoItem,
+	BasketMenuOption,
+	BasketMenuName,
+	BasketMenuCount,
+	BasketMenuCountBtn,
+	BasketMenuPriceItem,
+} from '../style/basket';
 interface MenuInfoProps {
 	menuId: string;
 	menuName: string;
@@ -15,86 +28,8 @@ interface MenuInfoProps {
 	menuPayerList: string[];
 	index: number;
 }
-const PayMenuContainer = styled.div`
-	width: 90%;
-	margin: auto;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-`;
-const PayMenuTitleBox = styled.div`
-	width: 100%;
-	font-size: 16px;
-	font-weight: bold;
-	padding: 10px 0px;
-	display: flex;
-	justify-content: center;
-`;
-const PayMenuTitleItem = styled.div`
-	width: 80%;
-`;
-const PayMenuTitleBtn = styled.div`
-	width: 20%;
-	display: flex;
-	justify-content: flex-end;
-`;
-const PayMenuInfoBox = styled.div`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-`;
 
-const PayMenuImg = styled.img`
-	width: 60px;
-	height: 60px;
-	border-radius: 5px;
-	object-fit: contains;
-`;
-const PayMenuInfoItem = styled.div`
-	width: 100%;
-	padding: 10px;
-	display: flex;
-	justify-content: space-between;
-`;
-const PayMenuOption = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 100%;
-	& > div:first-child {
-		margin-bottom: 20px;
-	}
-	margin-left: 10px;
-`;
-const PayMenuName = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	width: 80%;
-	font-size: 14px;
-`;
-const PayMenuCount = styled.div`
-	display: flex;
-	justify-content: flex-end;
-	font-size: 12px;
-	align-items: center;
-`;
-const PayMenuCountBtn = styled.button`
-	border: none;
-	display: flex;
-	justify-content: flex-end;
-	font-size: 8px;
-	font-color: blue;
-	background-color: blue;
-	align-items: center;
-	background-color: white;
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	padding: 6px;
-`;
-const PayMenuPriceItem = styled.div`
-	display: flex;
-	padding-top: 10px;
-	justify-content: flex-end;
-`;
-const PayMenuInfo = ({
+const BasketMenuInfo = ({
 	menuId,
 	menuName,
 	menuPrice,
@@ -147,11 +82,11 @@ const PayMenuInfo = ({
 		setPayerIndex(menuPayerList.indexOf('나'));
 	});
 	return (
-		<PayMenuContainer>
-			<PayMenuTitleBox>
-				<PayMenuTitleItem>
+		<BasketMenuContainer>
+			<BasketMenuTitleBox>
+				<BasketMenuTitleItem>
 					{menuName}({menuId})
-				</PayMenuTitleItem>
+				</BasketMenuTitleItem>
 				<Button
 					label={payerCheck ? '참여하기' : '참여중'}
 					fontSize={'8px'}
@@ -167,26 +102,26 @@ const PayMenuInfo = ({
 						toggleParticipant();
 					}}
 				></Button>
-				<PayMenuTitleBtn onClick={() => deleteMenu(index)}>✖</PayMenuTitleBtn>
-			</PayMenuTitleBox>
-			<PayMenuInfoBox>
-				<PayMenuInfoItem>
-					<PayMenuImg src={menuImg} alt="이미지 없음"></PayMenuImg>
-					<PayMenuOption>
-						<PayMenuName>옵션(기본) : {addRest(menuPrice)}</PayMenuName>
-						<PayMenuCount>
-							<PayMenuCountBtn onClick={() => subtractCount()}>-</PayMenuCountBtn>
-							<PayMenuCountBtn>{count}</PayMenuCountBtn>
-							<PayMenuCountBtn onClick={() => addCount()}>+</PayMenuCountBtn>
-						</PayMenuCount>
-					</PayMenuOption>
-				</PayMenuInfoItem>
-				<PayMenuPriceItem>
+				<BasketMenuTitleBtn onClick={() => deleteMenu(index)}>✖</BasketMenuTitleBtn>
+			</BasketMenuTitleBox>
+			<BasketMenuInfoBox>
+				<BasketMenuInfoItem>
+					<BasketMenuImg src={menuImg} alt="이미지 없음"></BasketMenuImg>
+					<BasketMenuOption>
+						<BasketMenuName>옵션(기본) : {addRest(menuPrice)}</BasketMenuName>
+						<BasketMenuCount>
+							<BasketMenuCountBtn onClick={() => subtractCount()}>-</BasketMenuCountBtn>
+							<BasketMenuCountBtn>{count}</BasketMenuCountBtn>
+							<BasketMenuCountBtn onClick={() => addCount()}>+</BasketMenuCountBtn>
+						</BasketMenuCount>
+					</BasketMenuOption>
+				</BasketMenuInfoItem>
+				<BasketMenuPriceItem>
 					<BasketMenuDetailPrice index={index}></BasketMenuDetailPrice>
-				</PayMenuPriceItem>
-			</PayMenuInfoBox>
-		</PayMenuContainer>
+				</BasketMenuPriceItem>
+			</BasketMenuInfoBox>
+		</BasketMenuContainer>
 	);
 };
 
-export default PayMenuInfo;
+export default BasketMenuInfo;

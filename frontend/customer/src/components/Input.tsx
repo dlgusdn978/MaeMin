@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react';
 
 interface InputComponentProps {
-	value: string;
+	value?: string;
+	name?: string;
 	placeholder?: string;
 	type?: string;
 	onChange: (value: string) => void;
@@ -15,6 +16,7 @@ interface InputComponentProps {
 	paddingLeft?: string;
 	padding?: string;
 	inputRef?: React.ForwardedRef<HTMLInputElement>;
+	max?: string;
 }
 
 const Input = React.forwardRef(
@@ -33,6 +35,8 @@ const Input = React.forwardRef(
 		paddingLeft,
 		padding,
 		inputRef,
+		name,
+		max,
 	}: InputComponentProps): React.ReactElement => {
 		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 			onChange(e.target.value);
@@ -46,6 +50,8 @@ const Input = React.forwardRef(
 				value={value}
 				placeholder={placeholder}
 				onChange={handleChange}
+				name={name}
+				max={max}
 				style={{
 					backgroundColor,
 					fontSize,
@@ -57,7 +63,6 @@ const Input = React.forwardRef(
 					padding,
 					paddingLeft: paddingLeft ? paddingLeft : '10px',
 				}}
-				autoComplete={type === 'password' ? 'off' : 'on'}
 			/>
 		);
 	},
