@@ -44,7 +44,7 @@ const Input = React.forwardRef(
 
 		return (
 			<input
-				autoFocus
+				// autoFocus
 				ref={inputRef}
 				type={type || 'text'}
 				value={value}

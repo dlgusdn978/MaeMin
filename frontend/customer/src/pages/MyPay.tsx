@@ -30,8 +30,10 @@ const MyPay = () => {
 	today[1] = today[1].padStart(2, '0');
 	const todayFormat = today.join('-');
 	const price = useSelector((state: RootState) => state.basket.pickedMenuPrice);
+	const userInfo = useSelector((state: RootState) => state.user);
 	const navigate = useNavigate();
 	const [userPayList, setUserPayList] = useState<payProps[]>([]);
+	console.log(userPayList);
 	const userCardList = [
 		{
 			src: cardImg,
@@ -51,7 +53,7 @@ const MyPay = () => {
 		userPayCheck()
 			.then((response) => setUserPayList(response.data))
 			.catch((response) => console.log(response.data));
-		console.log(userPayList);
+		if (!userInfo.pay) navigate('/payPassword');
 	}, []);
 	return (
 		<MyPayContainer>

@@ -3,7 +3,7 @@ import Navigation from '../components/Navigation';
 import Input from '../components/Input';
 import encrypt from '../components/Encrypto';
 import { useNavigate } from 'react-router';
-import { userPayRegist } from '../api/pay';
+import { userPayCardRegist } from '../api/pay';
 import {
 	PayRegistContainer,
 	PayRegistContentBox,
@@ -41,7 +41,7 @@ const PayRegist = () => {
 		const cardExpireDate = encrypt(cardMonth + cardYear);
 		const cvc = encrypt(cardCVC);
 		const cardPw = encrypt(cardPassword);
-		userPayRegist(cardNumber, cardExpireDate, cvc, cardPw);
+		userPayCardRegist(cardNumber, cardExpireDate, cvc, cardPw);
 		navigate('/myPay');
 	};
 

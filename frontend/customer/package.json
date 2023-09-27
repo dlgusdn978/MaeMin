@@ -70,6 +70,6 @@
     "prettier": "^3.0.3"
   },
   "homepage": "/customer",
-  "proxy":"https://j9c208.p.ssafy.io/customer"
+  "proxy":"https://j9c208.p.ssafy.io"
 }
 
