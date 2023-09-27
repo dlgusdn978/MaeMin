@@ -4,11 +4,13 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import Logo from '../assets/imgs/logo.jpg';
 import { login } from '../api/user';
-import jwt from '../common/jwt';
 import { LogoWrapper, ButtonWrapper, InputWrapper, Container } from '../components/style/loginStyles';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../store/userSlice';
 
 const Login = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -22,20 +24,19 @@ const Login = () => {
 	};
 
 	const handleLogin = async () => {
-		try {
-			const response = await login({
-				loginId: id,
-				loginPw: password,
-			});
-			console.log('로그인성공');
-			const { token, expiredTime } = response;
-
-			jwt.saveToken(token);
-			jwt.saveExpiredTime(expiredTime);
-			navigate('/');
-		} catch (e) {
-			console.log(e);
-			alert('로그인에 실패하였습니다.');
+		// 로그인 로직
+		if (!id) {
+			alert('id를 입력해주세요!');
+			return;
+		} else if (!password) {
+			alert('password를 입력해주세요!');
+			return;
+		} else {
+			const userInfo = await login({ loginId: id, loginPw: password });
+			console.log('Logged in with ID:', id, 'Password:', password, 'userInfo', userInfo);
+			dispatch(setUser(userInfo)); // 로그인 반환 데이터에서 유저 정보 redux에 저장
+			// 로그인 성공여부에따라 redirect다르게
+			localStorage.getItem('access_token') ? navigate('/') : alert('로그인에 실패하였습니다.');
 		}
 	};
 

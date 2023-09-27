@@ -10,7 +10,7 @@ const CardContainer = styled.div<CardProps>`
 	background-color: white;
 	box-shadow: 1 1;
 	width: ${({ width }) => (width ? `${width}px` : '345px')};
-	height: 160px;
+	height: ${({ height }) => (height ? `${height}px` : '100%')};
 	border-radius: 10px;
 	background: #fff;
 	box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -46,7 +46,18 @@ const AlertBox = styled.div`
 	justify-content: center;
 	color: rgba(255, 255, 255, 1);
 `;
-const Card = ({ icon, iconSize, width, height, title, content, titleSize, url, count }: IconProps & CardProps) => {
+const Card = ({
+	icon,
+	iconSize,
+	width,
+	height,
+	title,
+	content,
+	titleSize,
+	url,
+	count,
+	menus,
+}: IconProps & CardProps) => {
 	const navigate = useNavigate();
 	const alertBasket = url == 'basket';
 	return (
@@ -60,6 +71,14 @@ const Card = ({ icon, iconSize, width, height, title, content, titleSize, url, c
 			<CardTextBox>
 				<HomeCardTitle fontSize={titleSize}>{title}</HomeCardTitle>
 				<HomeCardContent>{content}</HomeCardContent>
+				{menus?.map((item: OrderMenu) => {
+					return (
+						<div key={item.menuId}>
+							<HomeCardContent>이름 :{item.name}</HomeCardContent>
+							<HomeCardContent>가격 : {item.price}</HomeCardContent>
+						</div>
+					);
+				})}
 			</CardTextBox>
 			<ImgBox>{React.createElement(icon, { width: iconSize, height: iconSize })}</ImgBox>
 			{alertBasket ? <AlertBox>{count}</AlertBox> : ''}

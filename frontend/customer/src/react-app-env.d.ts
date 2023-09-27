@@ -22,6 +22,7 @@ interface CardProps {
 	titleSize?: string;
 	onClick?: React.MouseEventHandler<HTMLElement>;
 	count?: number;
+	menus?: OrderMenu[];
 }
 
 type FontSizeProps = {
@@ -86,6 +87,40 @@ interface LaMa {
 	Ma: number | undefined;
 }
 
+interface MenuData {
+	menuId: number;
+	storeId: number;
+	category: number[];
+	name: string;
+	price: number;
+	menuPictureUrl: string;
+	popularity: number;
+}
+
+interface OrderMenu {
+	menuId: number;
+	name: string;
+	price: number;
+	quantity: number;
+	menuOptions: MenuOption[];
+}
+
+type MenuOption = {
+	option: string;
+	price: number;
+};
+
+interface OrderData {
+	orderId: number;
+	storeId: number;
+	userId: number;
+	paymentMethod: number;
+	totalPrice: number;
+	requests: string;
+	createdDate: string;
+	menus: OrderMenu[];
+}
+
 interface SignupForm {
 	loginId: string;
 	loginPw: string;
@@ -106,4 +141,14 @@ interface User {
 interface LoginForm {
 	loginId: string;
 	loginPw: string;
+}
+
+interface LoginRes {
+	code: string;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	userInfo: any;
+	data: {
+		accessToken: string;
+		expiredTime: string;
+	};
 }
