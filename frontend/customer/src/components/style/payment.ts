@@ -65,13 +65,16 @@ export const PaymentMethodContentImg = styled.img`
 // PayRegist
 export const PayRegistContainer = styled.div`
 	background-color: white;
-	& div {
-		margin-bottom: 10px;
+	& > :nth-child(n + 2) > * {
+		margin: 15px 0;
+	}
+	& > :last-child {
+		margin-top: 150px;
 	}
 `;
 export const PayRegistContentBox = styled.div`
 	width: 80%;
-	margin: 10px auto;
+	margin: 1px auto;
 `;
 export const PayRegistTitleItem = styled.div`
 	font-weight: bold;

@@ -43,6 +43,7 @@ const MyPay = () => {
 			src: cardPlus,
 		},
 	];
+
 	const addCard = () => {
 		navigate('/payRegist');
 	};

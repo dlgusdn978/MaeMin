@@ -36,7 +36,7 @@ const PayPassword = () => {
 		for (let i = 1; i <= 6; i++) {
 			result.push(
 				<PayPasswordInputItem
-					ref={(ref) => (activeRef.current[i] = ref)}
+					ref={(ref: HTMLDivElement) => (activeRef.current[i] = ref)}
 					key={i}
 					className={num.length >= i ? 'active' : ''}
 				>

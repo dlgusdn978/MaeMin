@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import downT from '../assets/imgs/down triangle.png';
 
 const SelectDiv = styled.div<SelectProps>`
-	width: ${({ width }) => (width ? `${width}` : '100%')};
+	width: ${(props) => (props.width ? `${props.width}` : '100%')};
 	display: flex;
 	flex-direction: column;
 `;

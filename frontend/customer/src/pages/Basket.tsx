@@ -20,7 +20,7 @@ const Basket = () => {
 						{'장바구니에 추가된 메뉴가 없어요'}
 					</BasketStoreInfoBox>
 				) : (
-					<BasketStoreInfoBox basketCheck={basketCheck}>가게명</BasketStoreInfoBox>
+					<BasketStoreInfoBox basketCheck={basketCheck}>a파스타</BasketStoreInfoBox>
 				)}
 
 				<BasketMenuListInfoBox>

@@ -37,6 +37,7 @@ export const BasketMenuListInfoBox = styled.div`
 export const BasketAddContainer = styled.div`
 	width: 90%;
 	margin: 0 auto;
+	margin-top: 15px;
 `;
 // basket 메뉴 상세 가격
 export const BasketDetailContainer = styled.div`

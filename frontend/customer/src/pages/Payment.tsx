@@ -6,6 +6,7 @@ import BasketTotalResult from '../components/basket/BasketTotalResult';
 import Input from '../components/Input';
 import Kakao from '../assets/imgs/payment_icon_yellow_medium.png';
 import Naver from '../assets/imgs/NaverLogo.png';
+import Foorending from '../assets/imgs/Foorending.png';
 import BasketPayBtn from '../components/basket/BasketPayBtn';
 import {
 	PaymentContainer,
@@ -44,7 +45,7 @@ const PaySelect = () => {
 			name: '네이버페이',
 		},
 		{
-			src: '',
+			src: Foorending,
 			name: '푸렌딩페이',
 		},
 	];
