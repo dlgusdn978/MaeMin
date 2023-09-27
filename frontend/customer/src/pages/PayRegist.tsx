@@ -1,74 +1,87 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import Select from '../components/Select';
 import Input from '../components/Input';
-const PayRegistContainer = styled.div`
-	width: 90%;
-	background-color: white;
-	& div {
-		margin-bottom: 10px;
-	}
-`;
-const PayRegistContentBox = styled.div`
-	width: 80%;
-	margin: 10px auto;
-`;
-const PayRegistTitleItem = styled.div`
-	font-weight: bold;
-	font-size: 14px;
-`;
-const PayRegistInputItem = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-left: 6%;
-	margin: auto;
-`;
-const PayRegistButtonItem = styled.button`
-	width: 100%;
-	margin: 30% 0 10% 0;
-	padding: 10px;
-	border-radius: 5px;
-	border: none;
-	background-color: rgba(255, 182, 73, 0.9);
-	color: white;
-	font-weight: bold;
-`;
-const cardList = ['삼성카드', '현대카드', '롯데카드'];
-const monthList = ['1월', '2월', '3월', '4월', '5월', '6월'];
-const yearList = ['2023년', '2024년', '2025년', '2026년', '2027년', '2028년'];
+import encrypt from '../components/Encrypto';
+import { useNavigate } from 'react-router';
+import { userPayCardRegist } from '../api/pay';
+import {
+	PayRegistContainer,
+	PayRegistContentBox,
+	PayRegistTitleItem,
+	PayRegistInputItem,
+	PayRegistButtonItem,
+} from '../components/style/payment';
 const PayRegist = () => {
+	const navigate = useNavigate();
+	// const cardList = ['삼성카드', '현대카드', '롯데카드'];
+	const cardNumFirstRef = useRef<HTMLInputElement>(null);
 	const [cardNumFirst, setCardNumFirst] = useState('');
 	const [cardNumSecond, setCardNumSecond] = useState('');
 	const [cardNumThird, setCardNumThird] = useState('');
 	const [cardNumFourth, setCardNumFourth] = useState('');
 	const [cardPassword, setCardPassword] = useState('');
 	const [cardCVC, setCardCVC] = useState('');
+	const [cardYear, setCardYear] = useState('');
+	const [cardMonth, setCardMonth] = useState('');
+	// 검증 후 axios 요청
+	const regist = () => {
+		if (!checker(cardNumFirst, 4)) return false;
+		if (!checker(cardNumSecond, 4)) return false;
+		if (!checker(cardNumThird, 4)) return false;
+		if (!checker(cardNumFourth, 4)) return false;
+		if (!checker(cardPassword, 2)) return false;
+		if (!checker(cardCVC, 3)) return false;
+		if (!checker(cardMonth, 2)) {
+			if (cardMonth.length == 1 || Number(cardMonth) > 13) return false;
+		}
+		if (!checker(cardYear, 2)) {
+			if (cardYear.length == 1 || Number(cardYear) < 0 || Number(cardYear) > 99) return false;
+		}
+		const cardNumber = encrypt(cardNumFirst + cardNumSecond + cardNumThird + cardNumFourth);
+		const cardExpireDate = encrypt(cardMonth + cardYear);
+		const cvc = encrypt(cardCVC);
+		const cardPw = encrypt(cardPassword);
+		userPayCardRegist(cardNumber, cardExpireDate, cvc, cardPw);
+		navigate('/myPay');
+	};
+
+	const checker = (value: string, length: number) => {
+		if (value.length != length) return false;
+		else return true;
+	};
 	return (
 		<PayRegistContainer>
 			<Navigation title={'간편결제 등록'}></Navigation>
-			<PayRegistContentBox>
+			{/* <PayRegistContentBox>
 				<PayRegistTitleItem>카드사 선택</PayRegistTitleItem>
 				<Select list={cardList}></Select>
-			</PayRegistContentBox>
+			</PayRegistContentBox> */}
 			<PayRegistContentBox>
 				<PayRegistTitleItem>카드 번호 입력</PayRegistTitleItem>
 				<PayRegistInputItem>
 					<Input
+						type={'number'}
+						max={'9999'}
 						value={cardNumFirst}
-						onChange={setCardNumFirst}
-						width="18%"
+						onChange={(value) => {
+							if (Number(value) < 10000) setCardNumFirst(value);
+						}}
+						width="20%"
 						borderRadius="5px"
 						backgroundColor="rgba(0, 0, 0, 0.05)"
 						border="none"
 						padding="10px"
+						ref={cardNumFirstRef}
 					/>
 					-
 					<Input
+						type={'password'}
+						max={'9999'}
 						value={cardNumSecond}
-						onChange={setCardNumSecond}
-						width="18%"
+						onChange={(value) => {
+							if (Number(value) < 10000) setCardNumSecond(value);
+						}}
+						width="20%"
 						borderRadius="5px"
 						backgroundColor="rgba(0, 0, 0, 0.05)"
 						border="none"
@@ -76,9 +89,13 @@ const PayRegist = () => {
 					/>
 					-
 					<Input
+						type={'password'}
+						max={'9999'}
 						value={cardNumThird}
-						onChange={setCardNumThird}
-						width="18%"
+						onChange={(value) => {
+							if (Number(value) < 10000) setCardNumThird(value);
+						}}
+						width="20%"
 						borderRadius="5px"
 						backgroundColor="rgba(0, 0, 0, 0.05)"
 						border="none"
@@ -86,9 +103,13 @@ const PayRegist = () => {
 					/>
 					-
 					<Input
+						type={'number'}
+						max={'9999'}
 						value={cardNumFourth}
-						onChange={setCardNumFourth}
-						width="18%"
+						onChange={(value) => {
+							if (Number(value) < 10000) setCardNumFourth(value);
+						}}
+						width="20%"
 						borderRadius="5px"
 						backgroundColor="rgba(0, 0, 0, 0.05)"
 						border="none"
@@ -100,23 +121,30 @@ const PayRegist = () => {
 				<PayRegistTitleItem>비밀번호 입력</PayRegistTitleItem>
 				<PayRegistInputItem>
 					<Input
+						type={'password'}
 						value={cardPassword}
-						onChange={setCardPassword}
-						width="100%"
+						onChange={(value) => {
+							if (Number(value) < 99) setCardPassword(value);
+						}}
+						width="20%"
 						borderRadius="5px"
 						backgroundColor="rgba(0, 0, 0, 0.05)"
 						border="none"
 						padding="10px"
 					/>
+					**
 				</PayRegistInputItem>
 			</PayRegistContentBox>
 			<PayRegistContentBox>
 				<PayRegistTitleItem>CVC</PayRegistTitleItem>
 				<PayRegistInputItem>
 					<Input
+						type={'password'}
 						value={cardCVC}
-						onChange={setCardCVC}
-						width="100%"
+						onChange={(value) => {
+							if (Number(value) < 1000) setCardCVC(value);
+						}}
+						width="20%"
 						borderRadius="5px"
 						backgroundColor="rgba(0, 0, 0, 0.05)"
 						border="none"
@@ -127,12 +155,43 @@ const PayRegist = () => {
 			<PayRegistContentBox>
 				<PayRegistTitleItem>유효기간</PayRegistTitleItem>
 				<PayRegistInputItem>
-					<Select list={monthList} width={'50%'}></Select>
-					<Select list={yearList} width={'50%'}></Select>
+					<Input
+						type={'number'}
+						value={cardMonth}
+						onChange={(value) => {
+							if (Number(value) < 99 || value.length < 3) setCardMonth(value);
+						}}
+						width="20%"
+						borderRadius="5px"
+						backgroundColor="rgba(0, 0, 0, 0.05)"
+						border="none"
+						padding="10px"
+						placeholder={'MM'}
+					/>
+					/
+					<Input
+						type={'number'}
+						value={cardYear}
+						onChange={(value) => {
+							if (Number(value) < 100) setCardYear(value);
+						}}
+						width="20%"
+						borderRadius="5px"
+						backgroundColor="rgba(0, 0, 0, 0.05)"
+						border="none"
+						padding="10px"
+						placeholder={'YY'}
+					/>
 				</PayRegistInputItem>
 			</PayRegistContentBox>
 			<PayRegistContentBox>
-				<PayRegistButtonItem>페이 등록</PayRegistButtonItem>
+				<PayRegistButtonItem
+					onClick={() => {
+						regist();
+					}}
+				>
+					페이 등록
+				</PayRegistButtonItem>
 			</PayRegistContentBox>
 		</PayRegistContainer>
 	);
