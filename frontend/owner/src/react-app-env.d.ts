@@ -7,6 +7,7 @@ interface CardProps {
 	content?: string;
 	titleSize?: string;
 	imgSrc?: string;
+	flag?: boolean;
 }
 
 interface IconProps {

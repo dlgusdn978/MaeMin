@@ -33,3 +33,7 @@ export const OrderBoxTitle = styled.span`
 	font-weight: 600;
 	margin-bottom: 10px;
 `;
+
+export const NoOrderText = styled.p`
+	margin-top: 15px;
+`;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import TodoItem from './TodoItem';
 import { FlexBox } from '../style/common';
-import { OrderBoxTitle, OrderListBox, OrderListContainer } from '../style/order';
+import { NoOrderText, OrderBoxTitle, OrderListBox, OrderListContainer } from '../style/order';
 
 interface Props {
 	todos: Todo[];
@@ -31,7 +31,7 @@ const TodoList = ({
 							<div ref={provided.innerRef} {...provided.droppableProps}>
 								<ul className="todo-list -inbox">
 									{todos.length === 0 ? (
-										<p className="placeholder">주문 정보가 존재하지 않습니다</p>
+										<NoOrderText>주문 정보가 존재하지 않습니다</NoOrderText>
 									) : (
 										todos.map((todo, index) => (
 											<TodoItem
@@ -62,7 +62,7 @@ const TodoList = ({
 							<FlexBox dir="row" ref={provided.innerRef} {...provided.droppableProps}>
 								<ul className="todo-list -inprogress">
 									{inProgressTodos.length === 0 ? (
-										<p className="placeholder">주문 정보가 존재하지 않습니다</p>
+										<NoOrderText>주문 정보가 존재하지 않습니다</NoOrderText>
 									) : (
 										inProgressTodos.map((todo, index) => (
 											<TodoItem
@@ -93,7 +93,7 @@ const TodoList = ({
 							<div ref={provided.innerRef} {...provided.droppableProps}>
 								<ul className="todo-list -completed">
 									{completedTodos.length === 0 ? (
-										<p className="placeholder">주문 정보가 존재하지 않습니다</p>
+										<NoOrderText>주문 정보가 존재하지 않습니다</NoOrderText>
 									) : (
 										completedTodos.map((todo, index) => (
 											<TodoItem

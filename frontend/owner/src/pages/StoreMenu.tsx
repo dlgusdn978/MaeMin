@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from '../components/Card';
 import { Container, FlexBox } from '../components/style/common';
+import testImg from '../assets/imgs/pastatest.png';
+import { HomeTitle } from '../components/text';
 
 const foodList = [
 	{
@@ -8,7 +10,7 @@ const foodList = [
 		category: [1],
 		name: '라구파스타',
 		price: 13000,
-		menuPictureUrl: '이미지 주소',
+		menuPictureUrl: testImg,
 		popularity: 0,
 	},
 	{
@@ -16,7 +18,7 @@ const foodList = [
 		category: [1],
 		name: '라구파스타',
 		price: 13000,
-		menuPictureUrl: '이미지 주소',
+		menuPictureUrl: testImg,
 		popularity: 0,
 	},
 ];
@@ -25,7 +27,7 @@ const StoreMenu = () => {
 	return (
 		<Container>
 			<FlexBox dir="row">
-				<div>메뉴 리스트</div>
+				<HomeTitle>메뉴 리스트</HomeTitle>
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">
@@ -40,6 +42,14 @@ const StoreMenu = () => {
 							/>
 						);
 					})}
+					<Card
+						title="구라파스타"
+						content="1234 원"
+						titleSize="24px"
+						imgSrc={testImg}
+						width={200}
+						flag={true}
+					/>
 				</FlexBox>
 			</FlexBox>
 		</Container>
