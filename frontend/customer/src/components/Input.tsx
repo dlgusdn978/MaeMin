@@ -40,7 +40,7 @@ const Input = React.forwardRef(
 
 		return (
 			<input
-				autoFocus
+				// autoFocus 맨 아래 input으로 커서이동됨 -> 회원가입 폼에 영향있어 지워둠
 				ref={inputRef}
 				type={type || 'text'}
 				value={value}
