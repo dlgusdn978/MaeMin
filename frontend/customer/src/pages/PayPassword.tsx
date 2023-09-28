@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { userPayRegist } from '../api/pay';
+import Modal from '../components/Modal';
 import {
 	PayPasswordContainer,
 	PayPasswordInputBox,
@@ -15,12 +16,13 @@ import {
 } from '../components/style/payment';
 const PayPassword = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [num, setNum] = useState('');
 	const [numCheck, setNumCheck] = useState('');
 	const [upperBtns, setUpperBtns] = useState<string[]>([]);
 	const activeRef = useRef<HTMLDivElement[] | null[]>([]);
 	const [pwChecker, setPwChecker] = useState(true);
-	const dispatch = useDispatch();
+	const [isOpen, setIsOpen] = useState(false);
 	const userpayRegInfo = useSelector((state: RootState) => state.user.pay);
 	const navTitle = !userpayRegInfo
 		? numCheck.length == 0
@@ -60,13 +62,14 @@ const PayPassword = () => {
 	};
 	const pwCheck = () => {
 		// api 연결 후 수정.
-		if (num === '123456')
+		if (num === '123456') {
+			setIsOpen(true);
 			setTimeout(() => {
 				// 페이지 넘기는 로직
-				alert('ㅈ');
+
 				navigate('/home');
-			}, 1000);
-		else {
+			}, 3000);
+		} else {
 			setNum('');
 			setPwChecker(false);
 			setTimeout(() => {
@@ -79,14 +82,16 @@ const PayPassword = () => {
 			setNumCheck(num);
 			setNum('');
 		} else {
+			console.log(num, numCheck);
 			if (num == numCheck) {
+				setNum('');
 				userPayRegist(numCheck);
 				dispatch(setPay(true));
+				setIsOpen(true);
 				setTimeout(() => {
 					// 페이지 넘기는 로직
-					alert('설정 완료');
 					navigate('/myPay');
-				}, 1000);
+				}, 3000);
 			} else {
 				alert('설정 실패');
 				setNum('');
@@ -118,6 +123,7 @@ const PayPassword = () => {
 					</PayPasswordButtonItem>
 				))}
 			</PayPasswordButtonBox>
+			{isOpen && <Modal isOpen={isOpen} />}
 		</PayPasswordContainer>
 	);
 };

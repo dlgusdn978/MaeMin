@@ -11,7 +11,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
 import { RootState } from '../store/store';
-import Modal from '../components/Modal';
 type directionType = {
 	dir: string;
 };
@@ -39,7 +38,6 @@ const Home = () => {
 	dispatch(locationActions.setLocation(myLocation));
 	return (
 		<Container>
-			<Modal></Modal>
 			<Search placeholder="배고프니까 일단 검색!!!" />
 			<HomeBox dir="column">
 				<Card
