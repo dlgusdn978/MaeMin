@@ -34,13 +34,36 @@ const ModalTitleItem = styled.div`
 	font-weight: bold;
 `;
 const ModalContentItem = styled.div`
-	margin-bottom: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 10px 50px 10px;
+	white-space: pre-wrap;
 `;
 interface booleanProps {
 	isOpen: boolean;
+	title: string;
 }
-const Modal = ({ isOpen }: booleanProps) => {
+const Modal = ({ isOpen, title }: booleanProps) => {
 	const [modalState, setModalState] = useState<boolean>(isOpen);
+	const modalList = [
+		{
+			code: 'noPay',
+			title: '페이 미등록',
+			content: '간편 페이 미등록 상태입니다.\n 등록 페이지로 이동합니다.',
+		},
+		{
+			code: 'payRegist',
+			title: '페이 등록 완료',
+			content: '간편 페이 가입이 완료되었습니다.',
+		},
+		{
+			code: 'paymentComplete',
+			title: '결제 완료',
+			content: '결제가 완료되었습니다.',
+		},
+	];
+	const codeNum = modalList.findIndex((item) => item.code == title);
 	useEffect(() => {
 		setModalState(true);
 		setTimeout(() => {
@@ -53,11 +76,11 @@ const Modal = ({ isOpen }: booleanProps) => {
 			{modalState && (
 				<ModalContainer>
 					<ModalContentBox>
-						<ModalTitleItem>결제 완료</ModalTitleItem>
+						<ModalTitleItem>{modalList[codeNum].title}</ModalTitleItem>
 						<ModalImgItem>
 							<ModalImg src={checkIcon}></ModalImg>
 						</ModalImgItem>
-						<ModalContentItem>결제가 완료되었습니다.</ModalContentItem>
+						<ModalContentItem>{modalList[codeNum].content}</ModalContentItem>
 					</ModalContentBox>
 				</ModalContainer>
 			)}

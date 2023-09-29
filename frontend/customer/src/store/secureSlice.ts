@@ -6,12 +6,12 @@ export interface secureState {
 }
 
 const initialState: secureState = {
-	random: 0,
+	random: Math.random(),
 	key: '',
 };
 
-export const userSlice = createSlice({
-	name: 'user',
+export const secureSlice = createSlice({
+	name: 'secure',
 	initialState,
 	reducers: {
 		setUser: (state, action: PayloadAction<secureState>) => {
@@ -21,6 +21,6 @@ export const userSlice = createSlice({
 	},
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser } = secureSlice.actions;
 
-export default userSlice.reducer;
+export default secureSlice.reducer;
