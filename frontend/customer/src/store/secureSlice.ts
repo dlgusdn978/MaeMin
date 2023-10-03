@@ -2,8 +2,8 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState: secureState = {
 	index: 0,
-	publicKey: '',
-	validTime: '',
+	publicKey: '0',
+	validTime: '0',
 };
 
 export const secureSlice = createSlice({

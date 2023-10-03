@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
 import { Container } from '../components/layout/common';
@@ -12,9 +12,7 @@ import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
 import { RootState } from '../store/store';
 import { getPublicKey } from '../api/crypto';
-import Input from '../components/Input';
-import Button from '../components/Button';
-import axios from 'axios';
+
 import { secureActions } from '../store/secureSlice';
 type directionType = {
 	dir: string;
@@ -27,6 +25,7 @@ const HomeBox = styled.div<directionType>`
 
 const Home = () => {
 	const dispatch = useDispatch();
+
 	const location = useGeolocation();
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
 	// console.log(location.coordinates);
@@ -35,68 +34,20 @@ const Home = () => {
 		lat: locationInfo?.lat,
 		lng: locationInfo?.lng,
 	};
-	const [keyword, setKeyword] = useState<string>('');
-	// console.log(myLocation);
-	// useEffect ,[] 난수 생성
-	// back으로부터 response로 public key 받음.
-	// 암호화는 public key만
-	const changeValue = (e: string) => {
-		setKeyword(e);
-		console.log(keyword);
-	};
 
+	// 초기 암호키 상태 세팅
+	const initSecureState = ({ index, publicKey, validTime }: secureState) => {
+		dispatch(secureActions.setKey({ index, publicKey, validTime }));
+	};
 	useEffect(() => {
 		getPublicKey().then((response) => {
 			const index = response.data.key;
 			const publicKey = response.data.value;
 			const validTime = response.data.validTime;
-			const secureState: secureState = { index, publicKey, validTime };
-			dispatch(secureActions.setKey(secureState));
+			initSecureState({ index, publicKey, validTime });
 		});
 	}, []);
-	console.log(useSelector((state: RootState) => state.secure.index));
-	interface storeProps {
-		address_name: string;
-		category_group_code: string;
-		category_group_name: string;
-		category_name: string;
-		distance: string;
-		id: number;
-		phone: string;
-		place_name: string;
-		place_url: string;
-		road_address_name: string;
-		x: string;
-		y: string;
-	}
-	const search = () => {
-		console.log(keyword);
 
-		for (let i = 1; i <= 3; i++) {
-			let str = '';
-			let storeList = '';
-			axios
-				.get(
-					`https://dapi.kakao.com/v2/local/search/keyword?query=${keyword}&category_group_code=FD6&page=${i}`,
-					{
-						headers: {
-							Authorization: 'KakaoAK 3f332958ca50f86368db003e5f9f532d',
-							'Content-Type': 'application/json;charset=UTF-8',
-						},
-					},
-				)
-				.then((response) => {
-					const getData = response.data.documents;
-					getData.map((item: storeProps) => {
-						str += 'insert into store(address, category, latitude, longitude, name, owner_id, phone)';
-						str += `values('${item.address_name}', 1, '${item.y}', '${item.x}', '${item.place_name}', ${item.id}, '${item.phone}');\n`;
-						storeList += `${item.place_name}\n`;
-					});
-					console.log(str);
-					console.log(storeList);
-				});
-		}
-	};
 	dispatch(locationActions.setLocation(myLocation));
 	return (
 		<Container>
@@ -141,8 +92,6 @@ const Home = () => {
 					url={'qr'}
 				/>
 			</HomeBox>
-			<Input onChange={(e) => changeValue(e)}></Input>
-			<Button label="검색" onClick={() => search()}></Button>
 		</Container>
 	);
 };

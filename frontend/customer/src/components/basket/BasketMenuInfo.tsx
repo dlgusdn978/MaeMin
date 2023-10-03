@@ -20,7 +20,7 @@ import {
 	BasketMenuPriceItem,
 } from '../style/basket';
 interface MenuInfoProps {
-	menuId: string;
+	menuId: number;
 	menuName: string;
 	menuPrice: number;
 	menuImg: string;

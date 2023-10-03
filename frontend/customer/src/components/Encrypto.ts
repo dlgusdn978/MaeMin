@@ -1,24 +1,25 @@
-import * as CryptoJS from 'crypto-js';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
-// TODO : AES를 RSA 형식으로 변경
+import JSEncrypt from 'jsencrypt';
+import store from '../store/store';
+// TODO
 // APP 처음 실행 시 GET 요청. RETURN으로 INDEX, PUBLIC KEY
 // PUBLIC KEY로 데이터 암호화 하고, 암호화 값과 INDEX를 서버에 전송.
-const RSAKey = useSelector((state: RootState) => state.secure.publicKey);
+
 const encrypt = (text: string) => {
-	// AES 암호화 코드
+	// RSA Key
+	const secureState = store.getState().secure;
+	const key = secureState.publicKey;
+	const index = secureState.index;
+	// RSA 세팅
+	const encrypt = new JSEncrypt();
+	encrypt.setKey(key);
+
 	const plainText = text;
-	const key = CryptoJS.enc.Utf8.parse(RSAKey);
-	const iv = CryptoJS.enc.Hex.parse('0000000000000000');
+	const encryptedText = encrypt.encrypt(plainText);
 
-	const encrypted = CryptoJS.AES.encrypt(plainText, key, {
-		iv: iv,
-		mode: CryptoJS.mode.CFB,
-		padding: CryptoJS.pad.AnsiX923,
-	});
-	console.log(encrypted.toString());
-
-	return encrypted.toString();
+	return {
+		index: index,
+		encryptedText: encryptedText.toString(),
+	};
 };
 
 export default encrypt;

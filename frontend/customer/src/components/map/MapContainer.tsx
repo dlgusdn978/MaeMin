@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
 import { getCurLoc } from '../../api/map';
 import { locationActions } from '../../store/locationSlice';
+import { getStoreList } from '../../api/store';
+import { OverlayContainer, OverlayTitleBox } from '../CustomOverlay';
+import { useNavigate } from 'react-router';
 const { kakao } = window;
 
 declare global {
@@ -17,17 +20,8 @@ const MapContainer = () => {
 	const location = useSelector((state: RootState) => state.location);
 	const [curAddress, setCurAddress] = useState<string>('');
 	const dispatch = useDispatch();
-
-	useEffect(() => {
-		const lng = location.lng ? location.lng : 127.0495556;
-		const lat = location.lat ? location.lat : 37.514575;
-		dispatch(locationActions.setLocation(location));
-		getCurLoc(lng, lat)
-			.then((response) => setCurAddress(response.data.documents[0].address_name))
-			.catch((response) => console.log(response.data));
-	}, []);
-	const markers: any[] = [
-		// trend단어선택시 리스트 변경되야댐
+	const navigate = useNavigate();
+	const [markerList, setMarketList] = useState<any[]>([
 		{
 			latlng: new window.kakao.maps.LatLng(33.45023, 126.572965),
 			title: 'test1',
@@ -36,47 +30,93 @@ const MapContainer = () => {
 			latlng: new window.kakao.maps.LatLng(33.455529, 126.561838),
 			title: 'test2',
 		},
-	];
+	]);
+	// 현 위치 세팅
+	useEffect(() => {
+		const lng = location.lng ? location.lng : 127.0495556;
+		const lat = location.lat ? location.lat : 37.514575;
+		dispatch(locationActions.setLocation(location));
+		getCurLoc(lng, lat)
+			.then((response) =>
+				setCurAddress(response.data.documents[0].address_name.split(' ').splice(0, 2).join(' ')),
+			)
+			.catch((response) => console.log(response.data));
+	}, []);
+
+	// 현 위치 기준 가게 리스트 마커 세팅
+	useEffect(() => {
+		getStoreList(curAddress)
+			.then((response) => {
+				console.log(response.data);
+				const getList: any[] = response.data.map((item: storeProps) => ({
+					latlng: new window.kakao.maps.LatLng(Number(item.latitude), Number(item.longitude)),
+					title: item.name,
+					storeId: item.storeId,
+					content: item.content,
+					phone: item.phone,
+				}));
+				setMarketList(getList);
+				console.log(curAddress);
+			})
+			.catch((response) => console.log(response.data));
+	}, [curAddress]);
+
+	// const markers: any[] = [
+	// 	// trend단어선택시 리스트 변경되야댐
+	// 	{
+	// 		latlng: new window.kakao.maps.LatLng(33.45023, 126.572965),
+	// 		title: 'test1',
+	// 	},
+	// 	{
+	// 		latlng: new window.kakao.maps.LatLng(33.455529, 126.561838),
+	// 		title: 'test2',
+	// 	},
+	// ];
 
 	const setMarkers = (map: any) => {
-		markers.forEach((obj) => {
-			const marker = new window.kakao.maps.Marker({
+		markerList.forEach((obj) => {
+			const marker = new kakao.maps.Marker({
 				map: map,
 				position: obj.latlng,
 				title: obj.title,
+				clickable: true,
+				state: true,
 			});
 			// 마커에 표시할 인포윈도우를 생성합니다
-			const infowindow = new kakao.maps.InfoWindow({
-				content: obj.title, // 인포윈도우에 표시할 내용
+
+			const overlay = new window.kakao.maps.CustomOverlay({
+				content:
+					`<div class="wrap" style="${OverlayContainer(obj.title)}" onClick="${
+						obj.storeId && moveToStore(obj.storeId)
+					}"` +
+					`        <div class="title" style="${OverlayTitleBox}">` +
+					`${obj.title}` +
+					'        </div>' +
+					'</div>',
+				// 인포윈도우에 표시할 내용
+				removable: true,
+				position: marker.getPosition(),
 			});
 
 			// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
 			// 이벤트 리스너로는 클로저를 만들어 등록합니다
 			// 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-			kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-			kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+			// kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+			window.kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, overlay));
+			// kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 		});
 	};
 
-	// 인포윈도우를 표시하는 클로저를 만드는 함수입니다
-	function makeOverListener(map: any, marker: any, infowindow: any) {
+	// 인포윈도우 클릭하여 표시하는 함수
+	function makeClickListener(map: any, marker: any, overlay: any) {
 		return function () {
-			infowindow.open(map, marker);
+			!marker.state ? overlay.setMap(map) : overlay.setMap(null);
+			marker.state = !marker.state;
 		};
 	}
-
-	// 인포윈도우를 닫는 클로저를 만드는 함수입니다
-	function makeOutListener(infowindow: any) {
-		return function () {
-			infowindow.close();
-		};
+	function moveToStore(storeId: number) {
+		navigate(`/store-detail/${storeId}`);
 	}
-	const init = (map: any) => {
-		window.kakao.maps.event.addListener(map, 'click', function (mouseEvent: any) {
-			// 클릭한 위치에 마커를 표시합니다
-			console.log(mouseEvent.latLng);
-		});
-	};
 
 	useEffect(() => {
 		const container = document.getElementById('map');
@@ -95,10 +135,9 @@ const MapContainer = () => {
 
 		const map = new kakao.maps.Map(container, options);
 
-		init(map);
 		mainMarker.setMap(map); // 메인 위치 set
 		setMarkers(map); // 마커 배열 set
-	}, [location]);
+	});
 
 	return (
 		<div className="kakaomap">

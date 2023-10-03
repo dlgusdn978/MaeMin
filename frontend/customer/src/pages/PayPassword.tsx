@@ -14,6 +14,7 @@ import {
 	PayPasswordButtonBox,
 	PayPasswordButtonItem,
 } from '../components/style/payment';
+import encrypt from '../components/Encrypto';
 const PayPassword = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -87,7 +88,8 @@ const PayPassword = () => {
 			console.log(num, numCheck);
 			if (num === numCheck) {
 				setNum('');
-				userPayRegist(numCheck);
+				const encrypted = encrypt(numCheck);
+				userPayRegist(encrypted);
 				dispatch(setPay(true));
 				setIsOpen(true);
 				setModalTitle('payRegist');

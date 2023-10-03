@@ -1,17 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import pollack from '../../src/assets/imgs/pollack.jpg';
-import rose from '../../src/assets/imgs/rose.jpg';
-export interface menuState {
-	// menuOptionId
-	menuId: string;
-	menuName: string;
-	menuPrice: number;
-	menuCount: number; // quantity
-	menuImg: string;
-	menuPicker: string;
-	menuPayerList: string[];
-	index: number;
-}
+
 export interface basketState {
 	// orderId, userId, storeId, paymentMethod, requests, table
 	totalPrice: number;
@@ -22,38 +10,7 @@ export interface basketState {
 const initialState: basketState = {
 	totalPrice: 0,
 	pickedMenuPrice: 0,
-	menuList: [
-		{
-			menuId: '1',
-			menuName: '로제 파스타',
-			menuPrice: 8900,
-			menuCount: 1,
-			menuImg: rose,
-			menuPicker: '나',
-			menuPayerList: ['나', '박씨'],
-			index: 0,
-		},
-		{
-			menuId: '2',
-			menuName: '명란 파스타',
-			menuPrice: 7900,
-			menuCount: 2,
-			menuImg: pollack,
-			menuPicker: '나',
-			menuPayerList: ['나', '정씨'],
-			index: 1,
-		},
-		{
-			menuId: '3',
-			menuName: '오일 파스타',
-			menuPrice: 7900,
-			menuCount: 2,
-			menuImg: rose,
-			menuPicker: '나',
-			menuPayerList: ['김씨', '이씨', '김씨', '김씨', '김씨', '김씨'],
-			index: 2,
-		},
-	],
+	menuList: [],
 };
 
 export const basketSlice = createSlice({
@@ -115,6 +72,9 @@ export const basketSlice = createSlice({
 					state.pickedMenuPrice +=
 						Math.floor((menu.menuPrice * menu.menuCount) / menu.menuPayerList.length / 10) * 10;
 			});
+		},
+		addMenu: (state, action: PayloadAction<menuState>) => {
+			state.menuList.push(action.payload);
 		},
 	},
 });
