@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { sendSms, verifySms } from '../../api/signup';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import styled from 'styled-components';
@@ -39,18 +40,29 @@ const Step2 = ({
 	setPhone,
 	verificationCode,
 	setVerificationCode,
-	startTimer,
+	// startTimer,
 	displayTime,
 	nextStep,
-	check,
 }: Step2Props): JSX.Element => {
 	const [isPhoneValid, setIsPhoneValid] = useState(true);
 	const [validationMessage, setValidationMessage] = useState('');
 
 	const handlePhoneChange = (value: string) => {
-		setPhone(value);
-		const regex = /^[0-9]+$/;
-		if (!regex.test(value) || value.length !== 11) {
+		// 숫자만 남기고 모든 비숫자 문자를 제거합니다.
+		const onlyNums = value.replace(/[^\d]/g, '');
+		// XXX-XXXX-XXXX 형태로 변환합니다.
+		let formattedPhone;
+		if (onlyNums.length <= 3) {
+			formattedPhone = onlyNums;
+		} else if (onlyNums.length <= 7) {
+			formattedPhone = `${onlyNums.slice(0, 3)}-${onlyNums.slice(3)}`;
+		} else {
+			formattedPhone = `${onlyNums.slice(0, 3)}-${onlyNums.slice(3, 7)}-${onlyNums.slice(7, 11)}`;
+		}
+		setPhone(formattedPhone);
+
+		const regex = /^\d{3}-\d{4}-\d{4}$/;
+		if (!regex.test(formattedPhone) || onlyNums.length !== 11) {
 			setIsPhoneValid(false);
 			setValidationMessage('전화번호를 제대로 입력해주세요.');
 		} else {
@@ -67,6 +79,38 @@ const Step2 = ({
 		}
 	};
 
+	const handleSendSmsClick = async () => {
+		try {
+			const plainPhone = phone.replace(/-/g, '');
+			const response = await sendSms(plainPhone);
+			console.log(response.data);
+
+			if (response.data.statusName === 'success') {
+				alert('인증번호가 발송되었습니다.');
+			} else {
+				alert('인증번호 발송에 실패했습니다.');
+			}
+		} catch (error) {
+			alert('인증번호 발송에 실패했습니다.');
+			console.error('인증번호 발송 중 에러:', error);
+		}
+	};
+
+	const handleVerifySmsClick = async () => {
+		try {
+			const response = await verifySms(phone, verificationCode);
+			if (response.data.message === 'SUCCESS') {
+				console.log('인증번호 확인 성공');
+				alert('인증번호 확인이 완료되었습니다.');
+				nextStep();
+			} else {
+				alert('인증번호 확인에 실패했습니다.');
+			}
+		} catch (error) {
+			console.error('인증번호 확인 과정에서 에러 발생:', error);
+			alert('인증번호 확인에 실패했습니다.');
+		}
+	};
 	return (
 		<div>
 			<Font>전화번호,인증번호 입력</Font>
@@ -83,7 +127,7 @@ const Step2 = ({
 					margin="10px"
 					paddingLeft="30px"
 				/>
-				<Button label="인증번호 발송" fontSize="10px" width={81} height={26} onClick={startTimer} />
+				<Button label="인증번호 발송" fontSize="10px" width={81} height={26} onClick={handleSendSmsClick} />
 			</InputButtonContainer>
 			<ValidationError>{validationMessage}</ValidationError>
 			<InputButtonContainer>
@@ -99,7 +143,7 @@ const Step2 = ({
 					margin="10px"
 					paddingLeft="30px"
 				/>
-				<Button label="인증번호 확인" fontSize="10px" width={81} height={26} onClick={check} />
+				<Button label="인증번호 확인" fontSize="10px" width={81} height={26} onClick={handleVerifySmsClick} />
 			</InputButtonContainer>
 			<div>남은 시간: {displayTime()}</div>
 			<Button
