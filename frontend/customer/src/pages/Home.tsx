@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
 import { Container } from '../components/layout/common';
@@ -11,9 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
 import { RootState } from '../store/store';
+import { getPublicKey } from '../api/crypto';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import axios from 'axios';
+import { secureActions } from '../store/secureSlice';
 type directionType = {
 	dir: string;
 };
@@ -42,6 +44,17 @@ const Home = () => {
 		setKeyword(e);
 		console.log(keyword);
 	};
+
+	useEffect(() => {
+		getPublicKey().then((response) => {
+			const index = response.data.key;
+			const publicKey = response.data.value;
+			const validTime = response.data.validTime;
+			const secureState: secureState = { index, publicKey, validTime };
+			dispatch(secureActions.setKey(secureState));
+		});
+	}, []);
+	console.log(useSelector((state: RootState) => state.secure.index));
 	interface storeProps {
 		address_name: string;
 		category_group_code: string;

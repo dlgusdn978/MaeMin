@@ -161,3 +161,8 @@ interface LoginRes {
 interface booleanState {
 	checker: boolean;
 }
+interface secureState {
+	index: number;
+	publicKey: string;
+	validTime: string;
+}

@@ -2,7 +2,7 @@ import { API } from './index';
 
 // 자체 페이 가입(간편 비밀번호 등록)
 export const userPayRegist = (payPw) => {
-	return API.post('pay/user', { payPw });
+	return API.post('/pay/user', { payPw });
 };
 // 자체 페이 조회
 export const userPayCheck = () => {

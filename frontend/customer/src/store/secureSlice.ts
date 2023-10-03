@@ -1,26 +1,21 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-export interface secureState {
-	random: number;
-	key: string;
-}
-
 const initialState: secureState = {
-	random: Math.random(),
-	key: '',
+	index: 0,
+	publicKey: '',
+	validTime: '',
 };
 
 export const secureSlice = createSlice({
 	name: 'secure',
 	initialState,
 	reducers: {
-		setUser: (state, action: PayloadAction<secureState>) => {
-			state.random = action.payload.random;
-			state.key = action.payload.key;
+		setKey: (state, action: PayloadAction<secureState>) => {
+			state.index = action.payload.index;
+			state.publicKey = action.payload.publicKey;
+			state.validTime = action.payload.validTime;
 		},
 	},
 });
 
-export const { setUser } = secureSlice.actions;
-
-export default secureSlice.reducer;
+export const secureActions = secureSlice.actions;

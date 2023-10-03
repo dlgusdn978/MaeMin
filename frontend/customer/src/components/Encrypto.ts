@@ -1,10 +1,14 @@
 import * as CryptoJS from 'crypto-js';
-
-const aesKey = '0t0r0e0n0d0f0o0o0d0f0i0g0h0t0e0r';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+// TODO : AES를 RSA 형식으로 변경
+// APP 처음 실행 시 GET 요청. RETURN으로 INDEX, PUBLIC KEY
+// PUBLIC KEY로 데이터 암호화 하고, 암호화 값과 INDEX를 서버에 전송.
+const RSAKey = useSelector((state: RootState) => state.secure.publicKey);
 const encrypt = (text: string) => {
 	// AES 암호화 코드
 	const plainText = text;
-	const key = CryptoJS.enc.Utf8.parse(aesKey);
+	const key = CryptoJS.enc.Utf8.parse(RSAKey);
 	const iv = CryptoJS.enc.Hex.parse('0000000000000000');
 
 	const encrypted = CryptoJS.AES.encrypt(plainText, key, {
@@ -13,14 +17,6 @@ const encrypt = (text: string) => {
 		padding: CryptoJS.pad.AnsiX923,
 	});
 	console.log(encrypted.toString());
-
-	// AES 복호화 코드
-	const decrypted = CryptoJS.AES.decrypt(encrypted, key, {
-		iv: iv,
-		mode: CryptoJS.mode.CFB,
-		padding: CryptoJS.pad.AnsiX923,
-	});
-	console.log(decrypted.toString(CryptoJS.enc.Utf8));
 
 	return encrypted.toString();
 };

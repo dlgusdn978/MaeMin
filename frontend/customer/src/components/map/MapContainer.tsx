@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
-
+import { getCurLoc } from '../../api/map';
+import { locationActions } from '../../store/locationSlice';
 const { kakao } = window;
 
 declare global {
@@ -14,8 +15,17 @@ declare global {
 
 const MapContainer = () => {
 	const location = useSelector((state: RootState) => state.location);
-	console.log(location);
+	const [curAddress, setCurAddress] = useState<string>('');
+	const dispatch = useDispatch();
 
+	useEffect(() => {
+		const lng = location.lng ? location.lng : 127.0495556;
+		const lat = location.lat ? location.lat : 37.514575;
+		dispatch(locationActions.setLocation(location));
+		getCurLoc(lng, lat)
+			.then((response) => setCurAddress(response.data.documents[0].address_name))
+			.catch((response) => console.log(response.data));
+	}, []);
 	const markers: any[] = [
 		// trend단어선택시 리스트 변경되야댐
 		{
@@ -92,6 +102,7 @@ const MapContainer = () => {
 
 	return (
 		<div className="kakaomap">
+			<div>현 위치 : {curAddress} </div>
 			<div id="map" style={{ width: '390px', height: '300px' }} />
 		</div>
 	);
