@@ -1,47 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Navigation from '../components/Navigation';
-import styled from 'styled-components';
-
-const PayPasswordContainer = styled.div`
-	width: 90%;
-	min-height: calc(1000vh - 80px);
-	background-color: white;
-`;
-const PayPasswordInputBox = styled.div`
-	display: flex;
-	justify-content: center;
-	font-size: 32px;
-	margin-top: 40%;
-`;
-const PayPasswordInputItem = styled.div`
-	opacity: 0.2;
-	&.active {
-		opacity: 1;
-	}
-`;
-const PayPasswordButtonBox = styled.div`
-	margin-top: 50%;
-	display: grid;
-	grid-template-rows: repeat(4, 25%);
-	grid-template-columns: repeat(3, 33%);
-	align-items: center;
-	justify-items: center;
-`;
-const PayPasswordButtonItem = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	padding: 15% 0;
-	cursor: pointer;
-`;
-
-function PayPassword() {
+import { setPay } from '../store/userSlice';
+import { useNavigate } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../store/store';
+import { userPayRegist } from '../api/pay';
+import {
+	PayPasswordContainer,
+	PayPasswordInputBox,
+	PayPasswordInputItem,
+	PayPasswordMessageBox,
+	PayPasswordButtonBox,
+	PayPasswordButtonItem,
+} from '../components/style/payment';
+const PayPassword = () => {
+	const navigate = useNavigate();
 	const [num, setNum] = useState('');
-	const [upperBtns, setUpperBtns] = useState(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
+	const [numCheck, setNumCheck] = useState('');
+	const [upperBtns, setUpperBtns] = useState<string[]>([]);
 	const activeRef = useRef<HTMLDivElement[] | null[]>([]);
+	const [pwChecker, setPwChecker] = useState(true);
+	const dispatch = useDispatch();
+	const userpayRegInfo = useSelector((state: RootState) => state.user.pay);
+	const navTitle = !userpayRegInfo
+		? numCheck.length == 0
+			? '간편결제 비밀번호 등록'
+			: '간편결제 비밀번호 확인'
+		: '간편결제 비밀번호 입력';
 	// 무작위 키패드
-	const shuffle = (array: string[]) => {
-		return array.sort(() => Math.random() - 0.5);
+	const shuffle = () => {
+		const arr: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+		const reset = '초기화';
+		const clear = '지우기';
+		const sortArr = arr.sort(() => Math.random() - 0.5);
+		const newArr = [...sortArr.slice(0, 9), reset, ...sortArr.slice(9), clear];
+		setUpperBtns(newArr);
 	};
 	// 비밀번호 입력, 지우기, 초기화
 	const setPassword = (item: string) => {
@@ -55,7 +48,7 @@ function PayPassword() {
 		for (let i = 1; i <= 6; i++) {
 			result.push(
 				<PayPasswordInputItem
-					ref={(ref) => (activeRef.current[i] = ref)}
+					ref={(ref: HTMLDivElement) => (activeRef.current[i] = ref)}
 					key={i}
 					className={num.length >= i ? 'active' : ''}
 				>
@@ -65,17 +58,54 @@ function PayPassword() {
 		}
 		return result;
 	};
+	const pwCheck = () => {
+		// api 연결 후 수정.
+		if (num === '123456')
+			setTimeout(() => {
+				// 페이지 넘기는 로직
+				alert('ㅈ');
+				navigate('/home');
+			}, 1000);
+		else {
+			setNum('');
+			setPwChecker(false);
+			setTimeout(() => {
+				setPwChecker(true);
+			}, 1000);
+		}
+	};
+	const pwRegCheck = () => {
+		if (numCheck == '') {
+			setNumCheck(num);
+			setNum('');
+		} else {
+			if (num == numCheck) {
+				userPayRegist(numCheck);
+				dispatch(setPay(true));
+				setTimeout(() => {
+					// 페이지 넘기는 로직
+					alert('설정 완료');
+					navigate('/myPay');
+				}, 1000);
+			} else {
+				alert('설정 실패');
+				setNum('');
+			}
+		}
+	};
 	// 무작위 키패드 생성 1회
 	useEffect(() => {
-		const newArr: string[] = shuffle(upperBtns);
-		setUpperBtns([...newArr.slice(0, 9), '초기화', ...newArr.slice(9), '지우기']);
+		shuffle();
 	}, []);
-
+	// 입력 감지
+	useEffect(() => {
+		if (num.length == 6) !userpayRegInfo ? pwRegCheck() : pwCheck();
+	}, [num]);
 	return (
 		<PayPasswordContainer>
-			<Navigation title={'간편결제 비밀번호 등록'}></Navigation>
-			<PayPasswordInputBox>{passwordRender()}</PayPasswordInputBox>
-
+			<Navigation title={navTitle}></Navigation>
+			<PayPasswordInputBox check={pwChecker}>{passwordRender()}</PayPasswordInputBox>
+			<PayPasswordMessageBox check={pwChecker}>비밀번호가 일치하지 않습니다.</PayPasswordMessageBox>
 			<PayPasswordButtonBox>
 				{upperBtns.map((item, index) => (
 					<PayPasswordButtonItem
@@ -90,5 +120,5 @@ function PayPassword() {
 			</PayPasswordButtonBox>
 		</PayPasswordContainer>
 	);
-}
+};
 export default React.memo(PayPassword);

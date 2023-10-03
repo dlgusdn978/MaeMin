@@ -1,10 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
 import Button from '../Button';
-const BasketAddContainer = styled.div`
-	width: 90%;
-	margin: 0 auto;
-`;
+import { BasketAddContainer } from '../style/basket';
+
 function BasketAddBtn() {
 	return (
 		<BasketAddContainer>

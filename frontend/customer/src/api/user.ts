@@ -1,5 +1,5 @@
 import API from './base';
-
+import { setUser } from '../store/userSlice';
 export const signUp = (signUpData: SignupForm) =>
 	API.post<User>('/user-service/users/join', signUpData).then((res) => console.log(res.data));
 
@@ -7,9 +7,10 @@ export const login = async (loginData: LoginForm) => {
 	try {
 		const res = await API.post<LoginRes>('/user-service/login', loginData);
 		const tokenData = res.data.data;
-		console.log(res);
+		console.log(res.data.userInfo);
 		console.log(tokenData);
 
+		setUser(res.data.userInfo);
 		localStorage.setItem('access_token', tokenData.accessToken);
 		localStorage.setItem('expired_time', tokenData.expiredTime);
 

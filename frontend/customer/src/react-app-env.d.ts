@@ -44,7 +44,10 @@ interface SliderProps {
 	speed?: number;
 	/** 반복 여부 */
 	loop?: boolean;
-	keyword: string;
+	keyword?: string;
+	slideToShow?: number;
+	background?: string;
+	dots?: boolean;
 }
 
 interface CarouselProps {
@@ -67,6 +70,8 @@ interface SearchProps {
 interface SelectProps {
 	list?: string[];
 	width?: string;
+	onChange?: (selectOpt: string) => void;
+	selectRef?: React.ForwardRef<HTMLSelectElement>;
 }
 
 interface NavigationProps {
@@ -151,4 +156,8 @@ interface LoginRes {
 		accessToken: string;
 		expiredTime: string;
 	};
+}
+
+interface booleanState {
+	checker: boolean;
 }
