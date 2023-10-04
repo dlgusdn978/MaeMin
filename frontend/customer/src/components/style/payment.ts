@@ -128,12 +128,12 @@ const newAnimation = () => keyframes`
 		transform: translateX(-10px);
 	}
 `;
-export const PayPasswordInputBox = styled.div<{ check: boolean }>`
+export const PayPasswordInputBox = styled.div<{ checker: boolean }>`
 	display: flex;
 	justify-content: center;
 	font-size: 32px;
 	margin: 16px 0;
-	animation: ${(props) => (props.check ? '' : newAnimation)} 0.1s 2;
+	animation: ${(props) => (props.checker ? '' : newAnimation)} 0.1s 2;
 `;
 export const PayPasswordInputItem = styled.div`
 	opacity: 0.2;
@@ -142,11 +142,11 @@ export const PayPasswordInputItem = styled.div`
 	}
 `;
 
-export const PayPasswordMessageBox = styled.div<{ check: boolean }>`
+export const PayPasswordMessageBox = styled.div<{ checker: boolean }>`
 	display: flex;
 	justify-content: center;
 	color: rgba(255, 0, 0, 0.6);
-	visibility: ${(props) => (props.check ? 'hidden' : 'visible')};
+	visibility: ${(props) => (props.checker ? 'hidden' : 'visible')};
 `;
 
 export const PayPasswordButtonBox = styled.div`

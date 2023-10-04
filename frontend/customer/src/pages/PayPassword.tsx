@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import { userPayRegist } from '../api/pay';
+import Modal from '../components/Modal';
 import {
 	PayPasswordContainer,
 	PayPasswordInputBox,
@@ -13,20 +14,23 @@ import {
 	PayPasswordButtonBox,
 	PayPasswordButtonItem,
 } from '../components/style/payment';
+import encrypt from '../components/Encrypto';
 const PayPassword = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [num, setNum] = useState('');
 	const [numCheck, setNumCheck] = useState('');
 	const [upperBtns, setUpperBtns] = useState<string[]>([]);
 	const activeRef = useRef<HTMLDivElement[] | null[]>([]);
-	const [pwChecker, setPwChecker] = useState(true);
-	const dispatch = useDispatch();
+	const [pwChecker, setPwChecker] = useState<boolean>(true);
+	const [isOpen, setIsOpen] = useState(false);
 	const userpayRegInfo = useSelector((state: RootState) => state.user.pay);
 	const navTitle = !userpayRegInfo
 		? numCheck.length == 0
 			? '간편결제 비밀번호 등록'
 			: '간편결제 비밀번호 확인'
 		: '간편결제 비밀번호 입력';
+	const [modalTitle, setModalTitle] = useState<string>('');
 	// 무작위 키패드
 	const shuffle = () => {
 		const arr: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
@@ -60,13 +64,15 @@ const PayPassword = () => {
 	};
 	const pwCheck = () => {
 		// api 연결 후 수정.
-		if (num === '123456')
+		if (num === '123456') {
+			setIsOpen(true);
+			setModalTitle('paymentComplete');
 			setTimeout(() => {
 				// 페이지 넘기는 로직
-				alert('ㅈ');
+
 				navigate('/home');
-			}, 1000);
-		else {
+			}, 3000);
+		} else {
 			setNum('');
 			setPwChecker(false);
 			setTimeout(() => {
@@ -79,14 +85,18 @@ const PayPassword = () => {
 			setNumCheck(num);
 			setNum('');
 		} else {
-			if (num == numCheck) {
-				userPayRegist(numCheck);
+			console.log(num, numCheck);
+			if (num === numCheck) {
+				setNum('');
+				const encrypted = encrypt(numCheck);
+				userPayRegist(encrypted);
 				dispatch(setPay(true));
+				setIsOpen(true);
+				setModalTitle('payRegist');
 				setTimeout(() => {
 					// 페이지 넘기는 로직
-					alert('설정 완료');
 					navigate('/myPay');
-				}, 1000);
+				}, 3000);
 			} else {
 				alert('설정 실패');
 				setNum('');
@@ -104,8 +114,8 @@ const PayPassword = () => {
 	return (
 		<PayPasswordContainer>
 			<Navigation title={navTitle}></Navigation>
-			<PayPasswordInputBox check={pwChecker}>{passwordRender()}</PayPasswordInputBox>
-			<PayPasswordMessageBox check={pwChecker}>비밀번호가 일치하지 않습니다.</PayPasswordMessageBox>
+			<PayPasswordInputBox checker={pwChecker}>{passwordRender()}</PayPasswordInputBox>
+			<PayPasswordMessageBox checker={pwChecker}>비밀번호가 일치하지 않습니다.</PayPasswordMessageBox>
 			<PayPasswordButtonBox>
 				{upperBtns.map((item, index) => (
 					<PayPasswordButtonItem
@@ -118,6 +128,7 @@ const PayPassword = () => {
 					</PayPasswordButtonItem>
 				))}
 			</PayPasswordButtonBox>
+			{isOpen && <Modal isOpen={isOpen} title={modalTitle} />}
 		</PayPasswordContainer>
 	);
 };

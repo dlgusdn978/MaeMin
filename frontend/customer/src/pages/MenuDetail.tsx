@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import styled from 'styled-components';
 import FoodCount from '../components/menu/FoodCount';
 import Button from '../components/Button';
 import FixedHeaderComponent from '../components/menu/FixedHeaderComponent'; // 적절한 경로로 수정
+import { basketActions } from '../store/basketSlice';
 
 const FoodPhoto = styled.div`
 	width: 390px;
@@ -57,19 +58,37 @@ const FoodWrapper = styled.div`
 
 const MenuDetail = () => {
 	const selectedMenu = useSelector((state: RootState) => state.menu);
+	const menuList = useSelector((state: RootState) => state.basket.menuList);
+	console.log(menuList);
 	const [quantity, setQuantity] = useState(1);
 	const [totalPrice, setTotalPrice] = useState(0);
-
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const navigateToPreviousPage = () => {
 		navigate(-1);
 	};
-
+	const addMenuList = () => {
+		const lastIndex = menuList.length != 0 ? menuList[menuList.length - 1].index + 1 : 0;
+		const selectMenu: menuState = {
+			menuId: selectedMenu.menuId,
+			menuName: selectedMenu.name,
+			menuPrice: selectedMenu.price,
+			menuCount: quantity,
+			menuImg: selectedMenu.menuPictureUrl,
+			menuPicker: '나',
+			menuPayerList: ['나'],
+			index: lastIndex,
+		};
+		dispatch(basketActions.addMenu(selectMenu));
+	};
+	// 가격 세자리마다 쉼표 추가 ex) 1,000원
+	const addRest = (price: number) => {
+		return price.toLocaleString('ko-KR') + '원';
+	};
 	useEffect(() => {
 		console.log({ quantity, selectedMenu });
 		if (selectedMenu && selectedMenu.price) {
-			const priceAsNumber = parseInt(selectedMenu.price.replace(/,/g, '').replace('원', ''), 10);
-			setTotalPrice(quantity * priceAsNumber);
+			setTotalPrice(quantity * selectedMenu.price);
 		}
 	}, [quantity, selectedMenu]);
 
@@ -86,9 +105,7 @@ const MenuDetail = () => {
 				<FoodName>{selectedMenu.name}</FoodName>
 
 				<PriceName>가격</PriceName>
-				<FoodPrice>
-					{parseInt(selectedMenu.price.replace(/,/g, '').replace('원', ''), 10).toLocaleString()}원
-				</FoodPrice>
+				<FoodPrice>{addRest(selectedMenu.price)}원</FoodPrice>
 			</FoodWrapper>
 
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />
@@ -104,6 +121,7 @@ const MenuDetail = () => {
 					width={344}
 					height={64}
 					borderColor="rgb(240, 240, 240)"
+					onClick={() => addMenuList()}
 				/>
 			</ButtonWrapper>
 		</div>
