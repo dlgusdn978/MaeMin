@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Carousel from '../components/Carousel/Carousel';
 import cardPlus from '../assets/imgs/cardPlus.svg';
 import { userPayCheck } from '../api/pay';
+import Modal from '../components/Modal';
 import {
 	MyPayContainer,
 	MyPayBox,
@@ -19,6 +20,7 @@ import {
 	MyPayInfoValue,
 	MyPayButtonBox,
 } from '../components/style/payment';
+import { AxiosResponse } from 'axios';
 const MyPay = () => {
 	interface payProps {
 		payId: number;
@@ -26,6 +28,7 @@ const MyPay = () => {
 		basicInfo: string;
 		nickName: string;
 	}
+	const [isOpen, setIsOpen] = useState(false);
 	const today = new Date().toLocaleDateString().replaceAll('.', '').split(' ');
 	today[1] = today[1].padStart(2, '0');
 	const todayFormat = today.join('-');
@@ -50,13 +53,24 @@ const MyPay = () => {
 		navigate('/payRegist');
 	};
 	useEffect(() => {
+		console.log(userInfo, ' userInfo');
 		userPayCheck()
-			.then((response) => setUserPayList(response.data))
-			.catch((response) => console.log(response.data));
-		if (!userInfo.pay) navigate('/payPassword');
+			.then((response: AxiosResponse) => setUserPayList(response.data))
+			.catch((response: AxiosResponse) => console.log(response.data));
+		if (userInfo.pay) {
+			setIsOpen(false);
+			// navigate('/payPassword');
+		} else {
+			setIsOpen(true);
+			setTimeout(() => {
+				setIsOpen(true);
+				return navigate('/payPassword');
+			}, 3000);
+		}
 	}, []);
 	return (
 		<MyPayContainer>
+			{isOpen && <Modal isOpen={isOpen} title={'noPay'}></Modal>}
 			<Navigation title={'페이 카드 선택'}></Navigation>
 			<MyPayBox>
 				<MyPayDateBox>{todayFormat}</MyPayDateBox>

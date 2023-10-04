@@ -41,7 +41,7 @@ const MenuImage = styled.img`
 
 interface MenuInfoProps {
 	name: string;
-	price: string;
+	price: number;
 	imageUrl: string;
 	menuId: string;
 	onClick: () => void;
@@ -49,9 +49,11 @@ interface MenuInfoProps {
 
 const MenuInfo = (props: MenuInfoProps) => {
 	const { name, price, imageUrl, menuId, onClick } = props;
-	const formattedPrice = parseInt(price.replace(/,/g, ''), 10).toLocaleString() + '원';
 	const navigate = useNavigate();
-
+	// 가격 세자리마다 쉼표 추가 ex) 1,000원
+	const addRest = (price: number) => {
+		return price.toLocaleString('ko-KR') + '원';
+	};
 	const handleCombinedClick = () => {
 		onClick();
 		navigate(`/menu-detail/${menuId}`);
@@ -61,7 +63,7 @@ const MenuInfo = (props: MenuInfoProps) => {
 		<MenuInfoContainer onClick={handleCombinedClick}>
 			<MenuDetail>
 				<MenuName>{name}</MenuName>
-				<MenuPrice>{formattedPrice}</MenuPrice>
+				<MenuPrice>{addRest(price)}</MenuPrice>
 			</MenuDetail>
 			<MenuImage src={imageUrl} alt={name} />
 		</MenuInfoContainer>

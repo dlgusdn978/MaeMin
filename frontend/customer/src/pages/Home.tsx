@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
 import { Container } from '../components/layout/common';
@@ -11,7 +11,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
 import { RootState } from '../store/store';
-import Modal from '../components/Modal';
+import { getPublicKey } from '../api/crypto';
+
+import { secureActions } from '../store/secureSlice';
 type directionType = {
 	dir: string;
 };
@@ -23,6 +25,7 @@ const HomeBox = styled.div<directionType>`
 
 const Home = () => {
 	const dispatch = useDispatch();
+
 	const location = useGeolocation();
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
 	// console.log(location.coordinates);
@@ -31,15 +34,23 @@ const Home = () => {
 		lat: locationInfo?.lat,
 		lng: locationInfo?.lng,
 	};
-	// console.log(myLocation);
-	// useEffect ,[] 난수 생성
-	// back으로부터 response로 public key 받음.
-	// 암호화는 public key만
+
+	// 초기 암호키 상태 세팅
+	const initSecureState = ({ index, publicKey, validTime }: secureState) => {
+		dispatch(secureActions.setKey({ index, publicKey, validTime }));
+	};
+	useEffect(() => {
+		getPublicKey().then((response) => {
+			const index = response.data.key;
+			const publicKey = response.data.value;
+			const validTime = response.data.validTime;
+			initSecureState({ index, publicKey, validTime });
+		});
+	}, []);
 
 	dispatch(locationActions.setLocation(myLocation));
 	return (
 		<Container>
-			<Modal></Modal>
 			<Search placeholder="배고프니까 일단 검색!!!" />
 			<HomeBox dir="column">
 				<Card

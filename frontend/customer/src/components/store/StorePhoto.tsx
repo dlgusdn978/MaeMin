@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import StarRate from './StarRate';
-
+import subStore from '../../assets/imgs/subs-store.png';
 interface StorePhotoProps {
 	name: string;
 	pictureUrl: string;
@@ -21,7 +21,7 @@ const StorePhotoContainer = styled.div`
 const FixedSizeImage = styled.img`
 	width: 236px;
 	height: 156px;
-	object-fit: cover;
+	object-fit: contain;
 	border-radius: 40px;
 	margin-bottom: 60px;
 `;
@@ -52,7 +52,7 @@ const StoreName = styled.div`
 const StorePhoto = (props: StorePhotoProps) => {
 	return (
 		<StorePhotoContainer>
-			<FixedSizeImage src={props.pictureUrl} alt={props.name} />
+			<FixedSizeImage src={props.pictureUrl.length != 0 ? props.pictureUrl : subStore} alt={props.name} />
 			<StoreInfoContainer>
 				<RatingContainer>
 					<StarRate rating={props.rating} />
