@@ -21,7 +21,6 @@ export const userSlice = createSlice({
 		setUser: (state, action: PayloadAction<userState>) => {
 			state.loginId = action.payload.loginId;
 			state.userName = action.payload.userName;
-			state.loginId = action.payload.loginId;
 			state.pay = action.payload.pay;
 		},
 		setPay: (state, action: PayloadAction<boolean>) => {

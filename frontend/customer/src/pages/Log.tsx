@@ -9,18 +9,18 @@ const orderData = dummyOrderData;
 const menus = orderData[0].menus;
 
 const Log = () => {
-	const socket = new SockJS('https://j9c208.p.ssafy.io/customer/cart');
+	const socket = new SockJS('/cart');
 	const stompClient = Stomp.over(socket);
 	console.log(stompClient);
 	stompClient.connect({}, () => {
-		stompClient.subscribe('/topic/cart', (message) => {
+		stompClient.subscribe(`/topic/${1}`, (message) => {
 			const cartUpdate = JSON.parse(message.body);
 			console.log(cartUpdate);
 		});
 	});
-	useEffect(() => {
-		stompClient.send('/app/cart/1', { name: 'asdf', message: 'hi' });
-	}, []);
+	// useEffect(() => {
+	// 	stompClient.send(`/app/cart/${1}`, { name: 'asdf', message: 'hi' });
+	// }, []);
 	// topic일 때는 subscribe
 	// app일 때는 publish
 	// const client = new Client({

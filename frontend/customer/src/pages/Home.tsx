@@ -25,7 +25,8 @@ const HomeBox = styled.div<directionType>`
 
 const Home = () => {
 	const dispatch = useDispatch();
-
+	const date = new Date();
+	console.log(date);
 	const location = useGeolocation();
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
 	// console.log(location.coordinates);

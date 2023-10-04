@@ -25,7 +25,7 @@ const MyPay = () => {
 		payId: number;
 		company: string;
 		basicInfo: string;
-		nickName: string;
+		nickname: string;
 	}
 	const [isOpen, setIsOpen] = useState(false);
 	const today = new Date().toLocaleDateString().replaceAll('.', '').split(' ');
@@ -36,15 +36,14 @@ const MyPay = () => {
 	const navigate = useNavigate();
 	const [userPayList, setUserPayList] = useState<payProps[]>([]);
 	console.log(userPayList);
+	console.log(cardImg);
+
 	const userCardList = [
 		{
-			src: cardImg,
-		},
-		{
-			src: cardImg,
-		},
-		{
-			src: cardPlus,
+			basicInfo: '',
+			company: '',
+			nickname: '',
+			payId: 0,
 		},
 	];
 
@@ -75,14 +74,14 @@ const MyPay = () => {
 				<MyPayDateBox>{todayFormat}</MyPayDateBox>
 				<Carousel dots={true} slideToShow={1} background={'black'} autoplay={false} loop={false}>
 					{userCardList.map((item, index: number) => (
-						<MyPayImg
-							src={item.src}
-							key={index}
-							onClick={() => {
-								index == userCardList.length - 1 ? addCard() : '';
-							}}
-						></MyPayImg>
+						<MyPayImg src={cardImg} key={index}></MyPayImg>
 					))}
+					<MyPayImg
+						src={cardPlus}
+						onClick={() => {
+							addCard();
+						}}
+					></MyPayImg>
 				</Carousel>
 
 				<MyPayInfoBox>
