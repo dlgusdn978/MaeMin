@@ -7,6 +7,7 @@ import { locationActions } from '../../store/locationSlice';
 import { getStoreList } from '../../api/store';
 import { OverlayContainer, OverlayTitleBox } from '../CustomOverlay';
 import { useNavigate } from 'react-router';
+
 const { kakao } = window;
 
 declare global {
@@ -21,6 +22,11 @@ const MapContainer = () => {
 	const [curAddress, setCurAddress] = useState<string>('');
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	function moveToStore(storeId: number) {
+		navigate(`/store-detail/${storeId}`);
+	}
+
 	const [markerList, setMarketList] = useState<any[]>([
 		{
 			latlng: new window.kakao.maps.LatLng(33.45023, 126.572965),
@@ -56,22 +62,10 @@ const MapContainer = () => {
 					phone: item.phone,
 				}));
 				setMarketList(getList);
-				console.log(curAddress);
+				console.log(markerList);
 			})
 			.catch((response) => console.log(response.data));
 	}, [curAddress]);
-
-	// const markers: any[] = [
-	// 	// trend단어선택시 리스트 변경되야댐
-	// 	{
-	// 		latlng: new window.kakao.maps.LatLng(33.45023, 126.572965),
-	// 		title: 'test1',
-	// 	},
-	// 	{
-	// 		latlng: new window.kakao.maps.LatLng(33.455529, 126.561838),
-	// 		title: 'test2',
-	// 	},
-	// ];
 
 	const setMarkers = (map: any) => {
 		markerList.forEach((obj) => {
@@ -84,13 +78,17 @@ const MapContainer = () => {
 			});
 			// 마커에 표시할 인포윈도우를 생성합니다
 
+			const url = `https://j9c208.p.ssafy.io/customer/store-detail/${obj.storeId}`;
+
 			const overlay = new window.kakao.maps.CustomOverlay({
 				content:
-					`<div class="wrap" style="${OverlayContainer(obj.title)}" onClick="${
-						obj.storeId && moveToStore(obj.storeId)
-					}"` +
+					`<div class="wrap" style="${OverlayContainer}" 
+					onClick="${() => moveToStore(obj.storeId)}">` +
 					`        <div class="title" style="${OverlayTitleBox}">` +
 					`${obj.title}` +
+					`<a href=${url} >` +
+					obj.title +
+					'</a>' +
 					'        </div>' +
 					'</div>',
 				// 인포윈도우에 표시할 내용
@@ -114,9 +112,6 @@ const MapContainer = () => {
 			marker.state = !marker.state;
 		};
 	}
-	function moveToStore(storeId: number) {
-		navigate(`/store-detail/${storeId}`);
-	}
 
 	useEffect(() => {
 		const container = document.getElementById('map');
@@ -137,7 +132,7 @@ const MapContainer = () => {
 
 		mainMarker.setMap(map); // 메인 위치 set
 		setMarkers(map); // 마커 배열 set
-	});
+	}, [location, markerList]);
 
 	return (
 		<div className="kakaomap">
