@@ -12,6 +12,7 @@ import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
 import { RootState } from '../store/store';
 import { getPublicKey } from '../api/crypto';
+import moment from 'moment';
 
 import { secureActions } from '../store/secureSlice';
 type directionType = {
@@ -25,31 +26,36 @@ const HomeBox = styled.div<directionType>`
 
 const Home = () => {
 	const dispatch = useDispatch();
-	const date = new Date();
-	console.log(date);
-	const location = useGeolocation();
+
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
-	// console.log(location.coordinates);
+	const secure = useSelector((state: RootState) => state.secure);
+	const location = useGeolocation();
 	const locationInfo = location.coordinates;
 	const myLocation = {
 		lat: locationInfo?.lat,
 		lng: locationInfo?.lng,
 	};
+	useEffect(() => {
+		dispatch(locationActions.setLocation(myLocation));
+	}, [location]);
 
 	// 초기 암호키 상태 세팅
 	const initSecureState = ({ index, publicKey, validTime }: secureState) => {
 		dispatch(secureActions.setKey({ index, publicKey, validTime }));
 	};
 	useEffect(() => {
-		getPublicKey().then((response) => {
-			const index = response.data.key;
-			const publicKey = response.data.value;
-			const validTime = response.data.validTime;
-			initSecureState({ index, publicKey, validTime });
-		});
+		const curValidTime = secure.validTime;
+		const diff = moment.duration(moment(curValidTime).diff(moment())).asSeconds();
+		if (diff <= 90) {
+			getPublicKey().then((response) => {
+				const index = response.data.key;
+				const publicKey = response.data.value;
+				const validTime = response.data.validTime;
+				initSecureState({ index, publicKey, validTime });
+			});
+		}
 	}, []);
 
-	dispatch(locationActions.setLocation(myLocation));
 	return (
 		<Container>
 			<Search placeholder="배고프니까 일단 검색!!!" />
