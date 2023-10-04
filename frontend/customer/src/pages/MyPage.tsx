@@ -41,8 +41,9 @@ const MyPage = () => {
 					return (
 						<CardContainer key={i}>
 							<div>매장 이름 : {item.storeName}</div>
-							<div>매장 이름 : {item.paymentMethod}</div>
-							<div>매장 이름 : {item.totalPrice}</div>
+							<div>결제 수단 : {item.paymentMethod}</div>
+							<div>결제 금액 : {item.totalPrice}</div>
+							<p>주문 일시 : {item.createdDate.toString()}</p>
 						</CardContainer>
 					);
 				})}

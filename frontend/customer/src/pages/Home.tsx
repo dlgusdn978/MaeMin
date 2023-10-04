@@ -30,13 +30,11 @@ const Home = () => {
 	const secure = useSelector((state: RootState) => state.secure);
 	const location = useGeolocation();
 	const locationInfo = location.coordinates;
-	// console.log(locationInfo);
 	const myLocation = {
 		lat: locationInfo?.lat,
 		lng: locationInfo?.lng,
 	};
 	useEffect(() => {
-		// console.log(location);
 		dispatch(locationActions.setLocation(myLocation));
 	}, [location]);
 
