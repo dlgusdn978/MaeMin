@@ -20,7 +20,6 @@ import {
 	MyPayInfoValue,
 	MyPayButtonBox,
 } from '../components/style/payment';
-import { AxiosResponse } from 'axios';
 const MyPay = () => {
 	interface payProps {
 		payId: number;
@@ -55,8 +54,8 @@ const MyPay = () => {
 	useEffect(() => {
 		console.log(userInfo, ' userInfo');
 		userPayCheck()
-			.then((response: AxiosResponse) => setUserPayList(response.data))
-			.catch((response: AxiosResponse) => console.log(response.data));
+			.then((response) => setUserPayList(response.data))
+			.catch((response) => console.log(response.data));
 		if (userInfo.pay) {
 			setIsOpen(false);
 			// navigate('/payPassword');

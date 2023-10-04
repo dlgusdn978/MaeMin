@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import Input from '../components/Input';
-import encrypt from '../components/Encrypto';
+import { encrypt } from '../components/Encrypto';
 import { useNavigate } from 'react-router';
 import { userPayCardRegist } from '../api/pay';
 import {

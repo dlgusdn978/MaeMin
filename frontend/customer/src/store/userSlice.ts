@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 export interface userState {
 	loginId: string;
 	userName: string;
+	nickName: string;
 	role?: string;
 	pay?: boolean;
 }
@@ -10,6 +11,7 @@ export interface userState {
 const initialState: userState = {
 	loginId: '',
 	userName: '',
+	nickName: '',
 };
 
 export const userSlice = createSlice({
@@ -17,6 +19,7 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser: (state, action: PayloadAction<userState>) => {
+			state.loginId = action.payload.loginId;
 			state.userName = action.payload.userName;
 			state.loginId = action.payload.loginId;
 			state.pay = action.payload.pay;
