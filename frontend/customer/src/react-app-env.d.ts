@@ -110,6 +110,15 @@ interface OrderMenu {
 	menuOptions?: MenuOption[];
 }
 
+type MyOrder = {
+	storeName: string;
+	paymentMethod: string; // "TFT_PAY",
+	totalPrice: number;
+	requests: string;
+	createdDate: Date;
+	menuList: [];
+};
+
 type MenuOption = {
 	option: string;
 	price: number;
