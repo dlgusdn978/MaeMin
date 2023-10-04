@@ -3,7 +3,6 @@ import { Container } from '../components/layout/common';
 import Card from '../components/Card';
 import { ReactComponent as LogBook } from '../assets/imgs/logbook.svg';
 import { dummyOrderData } from '../assets/dummy';
-import { getOrderLog } from '../api/user';
 
 const orderData = dummyOrderData;
 const menus = orderData[0].menus;
@@ -13,7 +12,6 @@ const Log = () => {
 
 	useEffect(() => {
 		setOrderState('조리중...');
-		getOrderLog();
 	}, []);
 
 	{

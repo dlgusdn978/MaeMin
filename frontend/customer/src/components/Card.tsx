@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { HomeCardContent, HomeCardTitle } from './text';
 import { useNavigate } from 'react-router-dom';
 
-const CardContainer = styled.div<CardProps>`
+export const CardContainer = styled.div<CardProps>`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

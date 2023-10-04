@@ -54,15 +54,6 @@ export const reissue = async () => {
 	}
 };
 
-export const getOrderLog = async () => {
-	try {
-		const res = await API.get('/user-service/users/bills');
-
-		const data = res.data;
-
-		console.log(data);
-		return data;
-	} catch (error) {
-		console.error('권한 없슴?');
-	}
+export const getMyLog = () => {
+	return API.get('/user-service/users/bills');
 };
