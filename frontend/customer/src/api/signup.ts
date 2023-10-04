@@ -13,15 +13,18 @@ export const sendSms = async (phoneNumber: string) => {
 };
 
 export const verifySms = async (phoneNumber: string, checkNum: string) => {
+	console.log(phoneNumber);
 	try {
-		const response = await API.post('/user-service/sms/send/auth', {
+		const response = await API.post('/user-service/sms/auth', {
 			to: phoneNumber,
 			checkNum: checkNum,
 		});
 		if (response.data.success) {
 			console.log('인증번호 확인 성공');
 		} else {
+			console.log(response.data);
 			console.log('인증번호 확인 실패');
+			console.log(response);
 		}
 		return response;
 	} catch (error) {

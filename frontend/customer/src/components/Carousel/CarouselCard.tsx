@@ -3,11 +3,6 @@ import Carousel from './Carousel';
 import { StoreName } from '../text';
 import { useNavigate } from 'react-router';
 
-interface itemsProps {
-	item: string;
-	name: string;
-}
-
 const SliderItem = styled.div`
 	width: 100%;
 	padding-left: 12px;
@@ -17,36 +12,31 @@ const SliderItem = styled.div`
 	}
 `;
 
-const items: itemsProps[] = [
-	{
-		item: 'http://placehold.it/170x150',
-		name: '이미지01',
-	},
-	{
-		item: 'http://placehold.it/170x150/ff0000',
-		name: '이미지02',
-	},
-	{
-		item: 'http://placehold.it/170x150/00ffff',
-		name: '이미지03',
-	},
-];
+interface StoreData {
+	storeId: number;
+	name: string;
+	pictureUrl: { storeImageId: number; storePicureUrl: string }[];
+}
 
-function CarouselCard({ trendword }: CarouselProps) {
+interface CarouselProps {
+	trendword: string;
+	storeData: StoreData | null;
+}
+
+function CarouselCard({ trendword, storeData }: CarouselProps) {
 	const navigate = useNavigate();
 
 	return (
 		<Carousel keyword={trendword}>
-			{items.map((item, index) => (
+			{storeData?.pictureUrl?.map((item, index) => (
 				<SliderItem
 					key={index}
 					onClick={() => {
-						// navigate(`${item.name}`);
-						navigate(`/store-detail/${item.name}`);
+						navigate(`/store-detail/${storeData.storeId}`);
 					}}
 				>
-					<img src={item.item} alt={item.name} />
-					<StoreName>{item.name}</StoreName>
+					<img src={item.storePicureUrl} alt={storeData.name} />
+					<StoreName>{storeData.name}</StoreName>
 				</SliderItem>
 			))}
 		</Carousel>

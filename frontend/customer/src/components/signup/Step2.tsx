@@ -48,9 +48,7 @@ const Step2 = ({
 	const [validationMessage, setValidationMessage] = useState('');
 
 	const handlePhoneChange = (value: string) => {
-		// 숫자만 남기고 모든 비숫자 문자를 제거합니다.
 		const onlyNums = value.replace(/[^\d]/g, '');
-		// XXX-XXXX-XXXX 형태로 변환합니다.
 		let formattedPhone;
 		if (onlyNums.length <= 3) {
 			formattedPhone = onlyNums;
@@ -98,7 +96,8 @@ const Step2 = ({
 
 	const handleVerifySmsClick = async () => {
 		try {
-			const response = await verifySms(phone, verificationCode);
+			const plainPhone = phone.replace(/-/g, '');
+			const response = await verifySms(plainPhone, verificationCode);
 			if (response.data.message === 'SUCCESS') {
 				console.log('인증번호 확인 성공');
 				alert('인증번호 확인이 완료되었습니다.');
