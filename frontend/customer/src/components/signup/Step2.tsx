@@ -40,12 +40,13 @@ const Step2 = ({
 	setPhone,
 	verificationCode,
 	setVerificationCode,
-	// startTimer,
+	startTimer,
 	displayTime,
 	nextStep,
 }: Step2Props): JSX.Element => {
 	const [isPhoneValid, setIsPhoneValid] = useState(true);
 	const [validationMessage, setValidationMessage] = useState('');
+	const [isVerified, setIsVerified] = useState(false);
 
 	const handlePhoneChange = (value: string) => {
 		const onlyNums = value.replace(/[^\d]/g, '');
@@ -77,7 +78,7 @@ const Step2 = ({
 		}
 	};
 
-	const handleSendSmsClick = async () => {
+	const handleSendSmsClick = async (e: React.SyntheticEvent) => {
 		try {
 			const plainPhone = phone.replace(/-/g, '');
 			const response = await sendSms(plainPhone);
@@ -85,6 +86,7 @@ const Step2 = ({
 
 			if (response.data.statusName === 'success') {
 				alert('인증번호가 발송되었습니다.');
+				startTimer(e); // 인증번호 발송 후 타이머 시작
 			} else {
 				alert('인증번호 발송에 실패했습니다.');
 			}
@@ -101,13 +103,16 @@ const Step2 = ({
 			if (response.data.message === 'SUCCESS') {
 				console.log('인증번호 확인 성공');
 				alert('인증번호 확인이 완료되었습니다.');
+				setIsVerified(true); // 인증 성공 시 isVerified 상태를 true로 설정
 				nextStep();
 			} else {
 				alert('인증번호 확인에 실패했습니다.');
+				setIsVerified(false); // 인증 실패 시 isVerified 상태를 false로 설정
 			}
 		} catch (error) {
 			console.error('인증번호 확인 과정에서 에러 발생:', error);
 			alert('인증번호 확인에 실패했습니다.');
+			setIsVerified(false); // 예외 발생 시 isVerified 상태를 false로 설정
 		}
 	};
 	return (
@@ -154,6 +159,7 @@ const Step2 = ({
 				textColor="white"
 				margintop="20px"
 				backgroundColor="rgba(255, 182, 73, 1)"
+				disabled={!isVerified}
 			/>
 		</div>
 	);

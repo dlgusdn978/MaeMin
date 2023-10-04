@@ -2,6 +2,7 @@ import React from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import styled from 'styled-components';
+// import { checkIdDuplicate } from '../../api/signup';
 
 const Font = styled.div`
 	font-size: 25px;

@@ -32,3 +32,16 @@ export const verifySms = async (phoneNumber: string, checkNum: string) => {
 		throw error;
 	}
 };
+
+//아이디 중복검사
+export const checkIdDuplicate = async (checkId: string) => {
+	try {
+		const response = await API.post('/user-service/users/check', {
+			checkId: checkId,
+		});
+		return response;
+	} catch (error) {
+		console.error('아이디 중복 검사 실패:', error);
+		throw error;
+	}
+};

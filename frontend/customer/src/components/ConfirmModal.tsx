@@ -1,7 +1,8 @@
 // ConfirmModal.tsx
 import React from 'react';
 import styled from 'styled-components';
-import Button from './Button'; // 임포트 경로는 실제 파일 경로에 맞게 수정하세요.
+import Button from './Button';
+import signCheck from '../assets/imgs/sIgnCheck.svg';
 
 const ModalOverlay = styled.div`
 	position: fixed;
@@ -28,7 +29,7 @@ const ModalContainer = styled.div`
 `;
 
 const Message = styled.div`
-	flex-grow: 2;
+	flex-grow: 3;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -44,7 +45,9 @@ const ConfirmModal = ({ message, onConfirm, onCancel }: ConfirmModalProps) => {
 	return (
 		<ModalOverlay onClick={onCancel}>
 			<ModalContainer onClick={(e) => e.stopPropagation()}>
+				<img src={signCheck} alt="Check Sign" />
 				<Message>{message}</Message>
+
 				<Button
 					label="확인"
 					backgroundColor="#ffb649"
