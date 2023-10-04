@@ -6,8 +6,10 @@ import { RootState } from '../store/store';
 import BasketTotalResult from '../components/basket/BasketTotalResult';
 import BasketPayBtn from '../components/basket/BasketPayBtn';
 import BasketAddBtn from '../components/basket/BasketAddBtn';
+import { useNavigate } from 'react-router-dom';
 import { BasketContainer, BasketBox, BasketStoreInfoBox, BasketMenuListInfoBox } from '../components/style/basket';
 const Basket = () => {
+	const navigate = useNavigate();
 	// const dispatch = useDispatch();
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
 	const basketCheck = menuList.length === 0;
@@ -39,7 +41,11 @@ const Basket = () => {
 				</BasketMenuListInfoBox>
 				<BasketTotalResult></BasketTotalResult>
 				<BasketAddBtn></BasketAddBtn>
-				<BasketPayBtn label={'주문하기'} url={'/payment'} basketCheck={basketCheck}></BasketPayBtn>
+				<BasketPayBtn
+					label={'주문하기'}
+					onClick={() => navigate('/payment')}
+					basketCheck={basketCheck}
+				></BasketPayBtn>
 			</BasketBox>
 		</BasketContainer>
 	);
