@@ -8,6 +8,8 @@ import Kakao from '../assets/imgs/payment_icon_yellow_medium.png';
 import Naver from '../assets/imgs/NaverLogo.png';
 import Foorending from '../assets/imgs/Foorending.png';
 import BasketPayBtn from '../components/basket/BasketPayBtn';
+import { useNavigate } from 'react-router-dom';
+import { kakaoPayment } from '../api/pay';
 import {
 	PaymentContainer,
 	PaymentTitleItem,
@@ -32,6 +34,9 @@ const PaySelect = () => {
 	const myMenuList = menuList.filter((item) => item.menuPayerList.some((el) => el === '나') == true);
 	const [selectedMethod, setSelectedMethod] = useState(-1);
 	const userRequest = useRef<HTMLInputElement>(null);
+	const navigate = useNavigate();
+	// const storeInfo = useSelector((state: RootState) => state.basket);
+	// storeInfo.storeId 하면 데이터 꺼내올 수 있음.
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
@@ -52,7 +57,24 @@ const PaySelect = () => {
 	const clickArea = (index: number) => {
 		setSelectedMethod(index);
 	};
-
+	const selectPaymentMethod = () => {
+		if (selectedMethod == 0) {
+			// 카카오페이 요청 코드
+			//storeId, tableId, sessionId, requestId, store, amount
+			kakaoPayment(1, 1, 1, 1, '1', 1).then((response) => {
+				console.log(response.data);
+				// response.data.tid -> tid
+				// response.data.next_redirect_mobile_url -> next_redirect_mobile_url
+				// response.data.partner_order_id -> partner_order_id
+				// window.location.href = next_redirect_mobile_url
+			});
+		} else if (selectedMethod == 1) {
+			//네이버페이 요청 코드
+		} else {
+			// 자체 페이 이동
+			navigate('/myPay');
+		}
+	};
 	return (
 		<PaymentContainer>
 			<Navigation title={'결제'}></Navigation>
@@ -102,7 +124,7 @@ const PaySelect = () => {
 					</PaymentMethodContentBox>
 				))}
 			</PaymentMethodBox>
-			<BasketPayBtn label={'결제하기'} url={selectedMethod !== -1 ? '/myPay' : '/payment'}></BasketPayBtn>
+			<BasketPayBtn label={'결제하기'} onClick={() => selectPaymentMethod()}></BasketPayBtn>
 		</PaymentContainer>
 	);
 };
