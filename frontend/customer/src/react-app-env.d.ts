@@ -107,7 +107,7 @@ interface OrderMenu {
 	name: string;
 	price: number;
 	quantity: number;
-	menuOptions: MenuOption[];
+	menuOptions?: MenuOption[];
 }
 
 type MenuOption = {
@@ -160,4 +160,48 @@ interface LoginRes {
 
 interface booleanState {
 	checker: boolean;
+}
+interface secureState {
+	index: number;
+	publicKey: string;
+	validTime: string;
+}
+// 데이터 파싱용 props임. 나중에 삭제하면 됨.
+interface storeProps2 {
+	address_name: string;
+	category_group_code: string;
+	category_group_name: string;
+	category_name: string;
+	distance: string;
+	id: number;
+	phone: string;
+	place_name: string;
+	place_url: string;
+	road_address_name: string;
+	x: string;
+	y: string;
+}
+interface storeProps {
+	storeId: number;
+	address_name: string;
+	category_name: string;
+	id: number;
+	phone: string;
+	name: string;
+	place_url: string;
+	road_address_name: string;
+	latitude: string;
+	longitude: string;
+	content: string;
+}
+interface menuState {
+	// menuOptionId
+	menuId: number;
+	menuName: string;
+	menuPrice: number;
+	menuCount: number; // quantity
+	menuImg: string;
+	menuPicker: string;
+	menuPayerList: string[];
+	index: number;
 }

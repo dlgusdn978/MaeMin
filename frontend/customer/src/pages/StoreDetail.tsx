@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import StorePhoto from '../components/store/StorePhoto';
 import StoreMap from '../components/store/StoreMap';
 import MenuList from '../components/store/MenuList';
@@ -8,8 +7,8 @@ import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
 import TrendKeyword from './../components/store/TrendKeyword';
 import StoreInfo from './../components/store/StoreInfo';
 import StoreTopButton from '../components/store/StoreTopButton';
-import { getStoreDetail } from '../api/store';
-
+import { useParams } from 'react-router-dom';
+import { getStoreInfo } from '../api/store';
 interface StoreDetailData {
 	ownerId: number;
 	name: string;
@@ -37,37 +36,28 @@ export interface MenuData {
 }
 
 const StoreDetail = () => {
-	const { storeId } = useParams<{ storeId: string }>();
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);
+	const params = useParams();
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await getStoreDetail(Number(storeId));
-				setStoreData({
-					ownerId: data.ownerId,
-					name: data.name,
-					category: data.category,
-					pictureUrl: data.pictureUrl[0]?.storePicureUrl,
-					address: data.address,
-					areaCode: data.area,
-					phone: data.phone,
-					content: data.content,
-					operationHours: data.operationHours,
-					closedDays: data.closeDays,
-					rating: data.rating,
-					dibsCount: data.dibsCount,
-					reviewCount: data.reviewCount,
+				getStoreInfo(Number(params.storeId)).then((response) => {
+					console.log(response.data);
+					setStoreData(response.data);
+					setMenuData(response.data.menuList);
 				});
-				setMenuData(data.menuList);
 			} catch (error) {
 				console.error('There was an error fetching the data:', error);
 			}
 		};
 
 		fetchData();
-	}, [storeId]);
+	}, []);
+
+	const trendMenus = menuData.filter((menu) => menu.popularity === 1);
+	const otherMenus = menuData.filter((menu) => menu.popularity === 0);
 
 	return (
 		<div>
@@ -78,18 +68,8 @@ const StoreDetail = () => {
 			{storeData && <TrendKeyword content={storeData.content} />}
 			{storeData && <StoreInfo phone={storeData.phone} operationHours={storeData.operationHours} />}
 			{storeData && <StoreMap address={storeData.address} />}
-			<MenuList
-				menu={menuData.filter((menu) => menu.popularity === 1)}
-				title="트렌드 메뉴"
-				iconSrc={MedalIcon}
-				popularity={1}
-			/>
-			<MenuList
-				menu={menuData.filter((menu) => menu.popularity === 0)}
-				title="다른 메뉴"
-				iconSrc={MenuBoardIcon}
-				popularity={0}
-			/>
+			<MenuList menu={trendMenus} title="트렌드 메뉴" iconSrc={MedalIcon} popularity={1} />
+			<MenuList menu={otherMenus} title="다른 메뉴" iconSrc={MenuBoardIcon} popularity={0} />
 		</div>
 	);
 };
