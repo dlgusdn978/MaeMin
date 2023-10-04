@@ -54,6 +54,6 @@ export const reissue = async () => {
 	}
 };
 
-//storedetail get
-export const getStoreDetail = (storeId: number) =>
-	API.get(`/store-service/customer/stores/${storeId}`).then((res) => res.data);
+export const getMyLog = () => {
+	return API.get('/user-service/users/bills');
+};

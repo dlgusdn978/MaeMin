@@ -17,6 +17,7 @@ import PayPassword from './pages/PayPassword';
 import PayComplete from './pages/PayComplete';
 import PayRegist from './pages/PayRegist';
 import Log from './pages/Log';
+import MyPage from './pages/MyPage';
 /** Router */
 export function MainRoutes() {
 	return useRoutes([
@@ -33,6 +34,10 @@ export function MainRoutes() {
 		{
 			path: '/login',
 			element: <Login />,
+		},
+		{
+			path: '/mypage',
+			element: <MyPage />,
 		},
 		{
 			path: '/signup',
