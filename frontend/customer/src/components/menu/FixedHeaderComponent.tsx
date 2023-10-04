@@ -5,19 +5,19 @@ import styled from 'styled-components';
 import BackarrowIcon from '../../assets/imgs/backarrow.svg';
 import CartIcon from '../../assets/imgs/cart.svg';
 
-// const ItemCountSpan = styled.span`
-// 	width: 20px;
-// 	height: 20px;
-// 	background-color: red;
-// 	position: absolute;
-// 	right: -5px;
-// 	border-radius: 100%;
-// 	top: -5px;
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	color: rgba(255, 255, 255, 1);
-// `;
+const ItemCountSpan = styled.span`
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	position: absolute;
+	right: -5px;
+	border-radius: 100%;
+	top: -5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: rgba(255, 255, 255, 1);
+`;
 import { useNavigate } from 'react-router-dom';
 const FixedHeader = styled.div`
 	position: fixed;
@@ -67,10 +67,10 @@ const CartButton = styled.button`
 interface FixedHeaderProps {
 	selectedMenuName: string;
 	onBackClick: () => void;
-	// itemCount: number;
+	itemCount: number;
 }
 
-const FixedHeaderComponent = ({ selectedMenuName, onBackClick }: FixedHeaderProps) => {
+const FixedHeaderComponent = ({ selectedMenuName, onBackClick, itemCount }: FixedHeaderProps) => {
 	const navigate = useNavigate();
 	const moveToBasket = () => {
 		navigate('/basket');
@@ -83,7 +83,7 @@ const FixedHeaderComponent = ({ selectedMenuName, onBackClick }: FixedHeaderProp
 			<CenterContainer>{selectedMenuName} 상세 조회</CenterContainer>
 			<CartButton onClick={() => moveToBasket()}>
 				<img src={CartIcon} alt="Share" />
-				{/* {itemCount > 0 && <ItemCountSpan>{itemCount}</ItemCountSpan>} */}
+				{itemCount > 0 && <ItemCountSpan>{itemCount}</ItemCountSpan>}
 			</CartButton>
 		</FixedHeader>
 	);

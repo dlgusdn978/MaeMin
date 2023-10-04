@@ -3,7 +3,7 @@ import CarouselCard from '../components/Carousel/CarouselCard';
 import { Container } from '../components/layout/common';
 import Search from '../components/Search';
 import MapContainer from '../components/map/MapContainer';
-import { getStoreDetail } from '../api/store';
+import { getStoreInfo } from '../api/store';
 
 const Trend = () => {
 	const [storeData, setStoreData] = useState(null);
@@ -11,8 +11,8 @@ const Trend = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			const storeId = 1;
-			const response = await getStoreDetail(storeId);
-			setStoreData(response);
+			const response = await getStoreInfo(storeId);
+			setStoreData(response.data);
 		};
 
 		fetchData();

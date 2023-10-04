@@ -56,13 +56,16 @@ const StoreTopButton = () => {
 	const navigateToPreviousPage = () => {
 		navigate(-1);
 	};
+	const moveToBasket = () => {
+		navigate('/basket');
+	};
 
 	return (
 		<NavigationContainer>
 			<BackButton onClick={navigateToPreviousPage}>
 				<img src={BackarrowIcon} alt="Go back" />
 			</BackButton>
-			<CartButton>
+			<CartButton onClick={() => moveToBasket()}>
 				<img src={CartIcon} alt="Cart" />
 				{itemCount > 0 && <ItemCountSpan>{itemCount}</ItemCountSpan>}
 			</CartButton>
