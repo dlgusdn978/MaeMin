@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import BackarrowIcon from '../../assets/imgs/backarrow.svg';
 import CartIcon from '../../assets/imgs/cart.svg';
-
+import { useNavigate } from 'react-router-dom';
 const FixedHeader = styled.div`
 	position: fixed;
 	top: 0;
@@ -56,13 +56,17 @@ interface FixedHeaderProps {
 }
 
 const FixedHeaderComponent = ({ selectedMenuName, onBackClick }: FixedHeaderProps) => {
+	const navigate = useNavigate();
+	const moveToBasket = () => {
+		navigate('/basket');
+	};
 	return (
 		<FixedHeader>
 			<BackButton onClick={onBackClick}>
 				<img src={BackarrowIcon} alt="Go back" />
 			</BackButton>
 			<CenterContainer>{selectedMenuName} 상세 조회</CenterContainer>
-			<CartButton>
+			<CartButton onClick={() => moveToBasket()}>
 				<img src={CartIcon} alt="Share" />
 			</CartButton>
 		</FixedHeader>

@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { searchSlice } from './searchSlice';
 import { basketSlice } from './basketSlice';
 import { locationSlice } from './locationSlice';
+import { secureSlice } from './secureSlice';
 import menuReducer from './menuSlice';
 import userReducer from './userSlice';
 
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	menu: menuReducer,
 	location: locationSlice.reducer,
 	user: userReducer,
+	secure: secureSlice.reducer,
 });
 
 const store = configureStore({

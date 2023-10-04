@@ -38,10 +38,17 @@ const MenuName = styled.div`
 
 const MenuList = ({ menu, title, iconSrc, popularity }: MenuListProps) => {
 	const dispatch = useDispatch();
+	// 가격 세자리마다 쉼표 추가 ex) 1,000원
 
 	const handleMenuClick = (menu: MenuData) => {
-		const formattedPrice = parseInt(menu.price.toString().replace(/,/g, ''), 10).toLocaleString();
-		dispatch(setMenu({ name: menu.name, price: formattedPrice, menuPictureUrl: menu.menuPictureUrl }));
+		dispatch(
+			setMenu({
+				menuId: menu.menuId,
+				name: menu.name,
+				price: menu.price,
+				menuPictureUrl: menu.menuPictureUrl,
+			}),
+		);
 	};
 
 	return (
@@ -54,7 +61,7 @@ const MenuList = ({ menu, title, iconSrc, popularity }: MenuListProps) => {
 				<MenuInfo
 					key={index}
 					name={item.name}
-					price={item.price.toString()}
+					price={item.price}
 					imageUrl={item.menuPictureUrl}
 					menuId={item.menuId.toString()}
 					onClick={() => handleMenuClick(item)}
