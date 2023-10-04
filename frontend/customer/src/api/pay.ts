@@ -31,4 +31,18 @@ export const userPayCardAuthenticate = (payPw: string) => {
 };
 
 // 자체 페이 결제 요청 (PaymentReq)
-export const userPayment = () => {};
+export const userPayment = (requestId: number, store: string, amount: number, payId: number, code: string) => {
+	return API.post('/payment-service/payment', { requestId, store, amount, payId, code });
+};
+
+// 카카오 페이 결제 요청
+export const kakaoPayment = (
+	storeId: number,
+	tableId: number,
+	sessionId: number,
+	requestId: number,
+	store: string,
+	amount: number,
+) => {
+	return API.post('/payment-service/payment/kakao', { storeId, tableId, sessionId, requestId, store, amount });
+};
