@@ -26,6 +26,7 @@ const HomeBox = styled.div<directionType>`
 
 const Home = () => {
 	const dispatch = useDispatch();
+
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
 	const secure = useSelector((state: RootState) => state.secure);
 	const location = useGeolocation();

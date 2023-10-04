@@ -1,8 +1,10 @@
 import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import Input from '../components/Input';
-import encrypt from '../components/Encrypto';
+import { encrypt } from '../components/Encrypto';
 import { useNavigate } from 'react-router';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 import { userPayCardRegist } from '../api/pay';
 import {
 	PayRegistContainer,
@@ -13,6 +15,7 @@ import {
 } from '../components/style/payment';
 const PayRegist = () => {
 	const navigate = useNavigate();
+	const index = useSelector((state: RootState) => state.secure.index);
 	// const cardList = ['삼성카드', '현대카드', '롯데카드'];
 	const cardNumFirstRef = useRef<HTMLInputElement>(null);
 	const [cardNumFirst, setCardNumFirst] = useState('');
@@ -37,11 +40,12 @@ const PayRegist = () => {
 		if (!checker(cardYear, 2)) {
 			if (cardYear.length == 1 || Number(cardYear) < 0 || Number(cardYear) > 99) return false;
 		}
-		const cardNumber = encrypt(cardNumFirst + cardNumSecond + cardNumThird + cardNumFourth);
+
+		const cardNumber = encrypt(cardNumFirst + '-' + cardNumSecond + '-' + cardNumThird + '-' + cardNumFourth);
 		const cardExpireDate = encrypt(cardMonth + cardYear);
 		const cvc = encrypt(cardCVC);
 		const cardPw = encrypt(cardPassword);
-		userPayCardRegist(cardNumber, cardExpireDate, cvc, cardPw);
+		userPayCardRegist(cardNumber, cardExpireDate, cvc, cardPw, index);
 		navigate('/myPay');
 	};
 
