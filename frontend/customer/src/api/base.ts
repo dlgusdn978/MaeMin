@@ -17,9 +17,9 @@ API.interceptors.request.use(
 			/* 만료 체크 로직 */
 			if (moment(expiredTime).diff(moment()) <= 30) {
 				const newAccessToken = await reissue();
-				config.headers!.Authorization = `Bearer ${newAccessToken}`;
+				config.headers.Authorization = `Bearer ${newAccessToken}`;
 			} else {
-				config.headers!.Authorization = `Bearer ${accessToken}`;
+				config.headers.Authorization = `Bearer ${accessToken}`;
 			}
 		}
 		return config;
@@ -39,7 +39,7 @@ API.interceptors.response.use(
 		if (error.response.status === 401 && error.response.data.code === 'EXPIRED') {
 			try {
 				const newAccessToken = await reissue();
-				originalRequest.headers!.Authorization = `Bearer ${newAccessToken}`;
+				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 				return originalRequest;
 			} catch (err) {
 				alert('권한이 없습니다. 다시 로그인 해주세요');

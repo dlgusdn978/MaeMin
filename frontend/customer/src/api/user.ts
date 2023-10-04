@@ -53,3 +53,16 @@ export const reissue = async () => {
 		console.error('로그인에 실패했습니다.', error);
 	}
 };
+
+export const getOrderLog = async () => {
+	try {
+		const res = await API.get('/user-service/users/bills');
+
+		const data = res.data;
+
+		console.log(data);
+		return data;
+	} catch (error) {
+		console.error('권한 없슴?');
+	}
+};
