@@ -8,6 +8,9 @@ const Font = styled.div`
 	font-size: 25px;
 	margin-bottom: 20px;
 	margin-left: 20px;
+	margin-top: 20px;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+	font-weight: 700;
 `;
 
 const ValidationError = styled.div`

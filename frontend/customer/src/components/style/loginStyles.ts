@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LogoWrapper = styled.div`
 	margin-bottom: 30px;
 	img {
-		border-radius: 30%;
+		border-radius: 20%;
 	}
 `;
 
