@@ -99,11 +99,11 @@ interface OrderData {
 
 interface MenuState {
 	category: string;
-	menuId: number;
-	menuOptionList: [];
-	menuPictureUrl: string;
+	menuId?: number;
+	menuOptionList?: MenuOption[];
+	menuPictureUrl?: string;
 	name: string;
-	popularity: number;
+	popularity?: number;
 	price: number;
 	storeId: number;
 }
@@ -111,4 +111,10 @@ interface MenuState {
 interface OrderStatus {
 	orderId: number;
 	status: number;
+}
+
+interface MenuOption {
+	content: string;
+	option: string;
+	price: number;
 }

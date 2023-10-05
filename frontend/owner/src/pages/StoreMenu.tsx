@@ -1,36 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../components/Card';
 import { Container, FlexBox } from '../components/style/common';
 import testImg from '../assets/imgs/pastatest.png';
 import { HomeTitle } from '../components/text';
 import Button from '../components/Button';
-
-const foodList = [
-	{
-		storeId: 1,
-		category: [1],
-		name: '라구파스타',
-		price: 13000,
-		menuPictureUrl: testImg,
-		popularity: 0,
-	},
-	{
-		storeId: 1,
-		category: [1],
-		name: '라구파스타',
-		price: 13000,
-		menuPictureUrl: testImg,
-		popularity: 0,
-	},
-];
+import { RootState } from '../store/store';
+import { useSelector } from 'react-redux';
+import Modal from '../components/Modal';
 
 const StoreMenu = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const menuList = useSelector((state: RootState) => state.store.menuList);
+
 	const addMenu = () => {
 		// 메뉴추가
 		console.log('메뉴추가');
+		setIsOpen(!isOpen);
 	};
 	return (
 		<Container>
+			{isOpen && <Modal isOpen={isOpen} title={'ing'}></Modal>}
 			<FlexBox dir="row">
 				<HomeTitle>메뉴 리스트</HomeTitle>
 				<Button
@@ -42,13 +31,14 @@ const StoreMenu = () => {
 					textColor="white"
 					borderRadius="100px"
 					width={85}
-					height={55}
+					height={45}
+					marginTop={20}
 					borderColor="rgb(240, 240, 240)"
 				/>
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">
-					{foodList.map((item) => {
+					{menuList?.map((item) => {
 						return (
 							<Card
 								title={item.name}

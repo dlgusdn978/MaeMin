@@ -41,7 +41,7 @@ const Input = React.forwardRef(
 		return (
 			<input
 				ref={inputRef}
-				type={type || 'text'}
+				type={type ? type : 'text'}
 				value={value}
 				placeholder={placeholder}
 				onChange={handleChange}

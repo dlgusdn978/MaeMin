@@ -42,6 +42,7 @@ export const storeSlice = createSlice({
 			state.operationHours = action.payload.operationHours;
 			state.phone = action.payload.phone;
 			state.pictureUrl = action.payload.pictureUrl;
+			state.menuList = action.payload.menuList;
 		},
 	},
 });

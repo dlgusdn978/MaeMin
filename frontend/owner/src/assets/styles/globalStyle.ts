@@ -22,12 +22,12 @@ const GlobalStyle = createGlobalStyle`
 	}
 	${({ theme }) => css`
 		html {
-			height: 100%;
+			height: 100vh;
 			margin: 0 auto;
 			body {
 				display: flex;
 				flex-direction: column;
-				height: 100%;
+				height: 100vh;
 				margin: 0;
 				touch-action: pan-y;
 				#root {
