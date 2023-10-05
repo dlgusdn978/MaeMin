@@ -3,6 +3,7 @@ import Card from '../components/Card';
 import { Container, FlexBox } from '../components/style/common';
 import testImg from '../assets/imgs/pastatest.png';
 import { HomeTitle } from '../components/text';
+import Button from '../components/Button';
 
 const foodList = [
 	{
@@ -24,10 +25,26 @@ const foodList = [
 ];
 
 const StoreMenu = () => {
+	const addMenu = () => {
+		// 메뉴추가
+		console.log('메뉴추가');
+	};
 	return (
 		<Container>
 			<FlexBox dir="row">
 				<HomeTitle>메뉴 리스트</HomeTitle>
+				<Button
+					label="메뉴 추가"
+					onClick={addMenu}
+					backgroundColor="rgba(255, 182, 73, 1)"
+					fontSize="16px"
+					margin="10px"
+					textColor="white"
+					borderRadius="100px"
+					width={55}
+					height={55}
+					borderColor="rgb(240, 240, 240)"
+				/>
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">

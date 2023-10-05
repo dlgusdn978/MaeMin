@@ -69,3 +69,30 @@ interface LoginRes {
 		expiredTime: string;
 	};
 }
+
+interface MenuOption {
+	option: string;
+	price: number;
+}
+
+interface OrderMenu {
+	menuId: number;
+	name: string;
+	price: number;
+	quantity: number;
+	menuOptions?: MenuOption[];
+}
+
+interface OrderData {
+	status: number;
+	orderId: number;
+	storeId: number;
+	userId: number;
+	totalPrice: number;
+	requests: string;
+	createdDate: string;
+	menus: OrderMenu[];
+	id: string;
+	todo: string;
+	isDone: boolean;
+}

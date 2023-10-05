@@ -43,10 +43,31 @@ export const AlertBox = styled.div`
 	height: 20px;
 	background-color: #ff0808;
 	position: absolute;
-	right: 3px;
+	right: 15px;
 	border-radius: 100%;
-	top: 0px;
+	top: 10px;
 	display: flex;
 	justify-content: center;
 	color: rgba(255, 255, 255, 1);
+`;
+
+export const OrderPriceText = styled.span`
+	font-size: 16px;
+	font-weight: 600;
+	margin: 5px;
+`;
+
+export const OrderMenuText = styled.span`
+	font-size: 14px;
+	color: 'gray';
+`;
+
+export const OrderMenuBox = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-top: 1px solid rgb(200, 200, 200);
+	margin-top: 15px;
+	padding-top: 10px;
+	background-color: ${theme.color.sub};
 `;

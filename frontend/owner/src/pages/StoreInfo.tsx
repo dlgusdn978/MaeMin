@@ -6,6 +6,7 @@ import { logout } from '../api/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import styled from 'styled-components';
+import { getStoreInfo } from '../api/store';
 
 const data = [
 	{
@@ -65,6 +66,11 @@ const StoreInfo = () => {
 	console.log(userInfo);
 	useEffect(() => {
 		!localStorage.getItem('access_token') && noUser();
+
+		// getStoreInfo(userInfo.storeId)
+		getStoreInfo(1)
+			.then((res) => console.log(res.data))
+			.catch((err) => console.log(err));
 	}, []);
 	return (
 		<Container>

@@ -12,6 +12,9 @@ const GlobalStyle = createGlobalStyle`
         background: "#FFF";
         font-size: 16px;
         color: "#999";
+		:hover {
+			cursor: pointer;
+		}
     }
     * {
         box-sizing: border-box;

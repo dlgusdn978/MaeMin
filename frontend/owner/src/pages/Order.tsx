@@ -4,11 +4,15 @@ import TodoList from '../components/dnd/TodoList';
 import { nanoid } from 'nanoid';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { HomeTitle } from '../components/text';
+import { getOrderList } from '../api/order';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 const Order = () => {
-	const [todos, setTodos] = useLocalStorage<Todo[]>('todos', []);
-	const [inProgressTodos, setInProgressTodos] = useLocalStorage<Todo[]>('inprogress', []);
-	const [completedTodos, setCompletedTodos] = useLocalStorage<Todo[]>('completed', []);
+	const [todos, setTodos] = useLocalStorage<OrderData[]>('todos', []);
+	const [inProgressTodos, setInProgressTodos] = useLocalStorage<OrderData[]>('inprogress', []);
+	const [completedTodos, setCompletedTodos] = useLocalStorage<OrderData[]>('completed', []);
+	const storeId = useSelector((state: RootState) => state.user.storeId);
 
 	const storeName = 'OO 매장';
 
@@ -31,18 +35,33 @@ const Order = () => {
 	];
 
 	useEffect(() => {
-		if (dummyList) {
-			setTodos(dummyList);
-			// setTodos([...todos, { id: nanoid(), todo, isDone: false }]);
-		}
-		console.log(todos);
+		// if (dummyList) {
+		// 	setTodos(dummyList);
+		// 	// setTodos([...todos, { id: nanoid(), todo, isDone: false }]);
+		// }
+		// console.log(todos);
+		console.log(dummyList);
+		console.log(storeId);
+
+		getOrderList(1)
+			.then((res) => {
+				console.log(res.data);
+				res.data.map((item: OrderData) => {
+					item.id = nanoid();
+					item.todo = item.requests;
+					item.isDone = false;
+				});
+				setTodos(res.data);
+				console.log(todos);
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	const onDragEnd = (result: DropResult) => {
 		const { source, destination } = result;
 		if (!destination) return;
 		if (source.droppableId === destination.droppableId && source.index === destination.index) return;
-		let add: Todo;
+		let add: OrderData;
 		const inbox = todos;
 		const inprogress = inProgressTodos;
 		const completed = completedTodos;

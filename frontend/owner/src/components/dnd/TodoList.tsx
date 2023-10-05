@@ -5,12 +5,12 @@ import { FlexBox } from '../style/common';
 import { NoOrderText, OrderBoxTitle, OrderListBox, OrderListContainer } from '../style/order';
 
 interface Props {
-	todos: Todo[];
-	setTodos: (s: Todo[]) => void;
-	inProgressTodos: Todo[];
-	setInProgressTodos: (s: Todo[]) => void;
-	completedTodos: Todo[];
-	setCompletedTodos: (s: Todo[]) => void;
+	todos: OrderData[];
+	setTodos: (s: OrderData[]) => void;
+	inProgressTodos: OrderData[];
+	setInProgressTodos: (s: OrderData[]) => void;
+	completedTodos: OrderData[];
+	setCompletedTodos: (s: OrderData[]) => void;
 }
 
 const TodoList = ({
