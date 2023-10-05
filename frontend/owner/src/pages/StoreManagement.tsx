@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '../components/Card';
-import { Container, FlexBox } from '../components/style/common';
-import { logout } from '../api/user';
+import { BoldText, Container, FlexBox } from '../components/style/common';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { RootState } from '../store/store';
 
 const StoreManagement = () => {
+	const storeId = useSelector((state: RootState) => state.user.storeId);
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (!(storeId! > 0)) {
+			alert('등록된 매장이 없습니다');
+			navigate('/');
+		}
+	});
+
 	return (
 		<Container>
 			<FlexBox dir="row">
-				<div>가게 현황</div>
-				{localStorage.getItem('access_token') && <button onClick={logout}>로그아웃</button>}
+				<BoldText>가게 현황</BoldText>
 			</FlexBox>
 			<FlexBox dir="column">
 				<FlexBox dir="row">

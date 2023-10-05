@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BoldText, Container } from '../components/style/common';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import Order from './Order';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 const Main = () => {
-	const [logined, setLogined] = useState(false); // 로그인 여부 redux로 빼야함
+	const storeId = useSelector((state: RootState) => state.user.storeId);
 	const navigate = useNavigate();
 	const goLogin = () => {
 		navigate('/login');
@@ -15,14 +17,10 @@ const Main = () => {
 		navigate('/signup');
 	};
 
-	const toggleLogin = () => {
-		setLogined(!logined);
-	};
 	return (
 		<Container>
 			<BoldText>Foorending</BoldText>
-			<Button label={`${logined ? 'logout' : 'login'}`} onClick={toggleLogin} />
-			{logined ? (
+			{storeId ? (
 				<Order />
 			) : (
 				<div>

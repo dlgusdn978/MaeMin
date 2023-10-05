@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../components/Input';
 import Button from '../components/Button';
-import { login, reissue } from '../api/user';
+import { login } from '../api/user';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/userSlice';
+import { Container } from '../components/style/common';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Login = () => {
 	};
 
 	return (
-		<div style={{ paddingLeft: '15px' }}>
+		<Container>
 			<div>
 				<Input
 					value={id}
@@ -65,7 +66,7 @@ const Login = () => {
 					paddingLeft="30px"
 				/>
 			</div>
-			<div>
+			<Container>
 				{/* 로그인 */}
 				<Button
 					label="로그인"
@@ -92,9 +93,8 @@ const Login = () => {
 					height={64}
 					borderColor="rgb(240, 240, 240)"
 				/>
-			</div>
-			<button onClick={reissue}>reissue test</button>
-		</div>
+			</Container>
+		</Container>
 	);
 };
 

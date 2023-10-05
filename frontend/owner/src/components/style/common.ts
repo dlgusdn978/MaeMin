@@ -11,6 +11,7 @@ export const FlexBox = styled.div<directionType>`
 	display: flex;
 	flex-direction: ${(props) => (props.dir === 'row' ? 'row' : 'column')};
 	align-items: center;
+	justify-content: center;
 `;
 
 export const HoverPointerBox = styled.div<HoverProps>`

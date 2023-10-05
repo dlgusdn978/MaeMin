@@ -41,7 +41,7 @@ const StoreMenu = () => {
 					margin="10px"
 					textColor="white"
 					borderRadius="100px"
-					width={55}
+					width={85}
 					height={55}
 					borderColor="rgb(240, 240, 240)"
 				/>

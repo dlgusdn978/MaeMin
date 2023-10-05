@@ -4,17 +4,18 @@ import TodoList from '../components/dnd/TodoList';
 import { nanoid } from 'nanoid';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { HomeTitle } from '../components/text';
-import { getOrderList } from '../api/order';
+import { getOrderList, updateOrderStatus } from '../api/order';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import { useNavigate } from 'react-router';
 
 const Order = () => {
 	const [todos, setTodos] = useLocalStorage<OrderData[]>('todos', []);
 	const [inProgressTodos, setInProgressTodos] = useLocalStorage<OrderData[]>('inprogress', []);
 	const [completedTodos, setCompletedTodos] = useLocalStorage<OrderData[]>('completed', []);
 	const storeId = useSelector((state: RootState) => state.user.storeId);
-
-	const storeName = 'OO 매장';
+	const storeName = useSelector((state: RootState) => state.store.name);
+	const navigate = useNavigate();
 
 	const dummyList = [
 		{
@@ -42,6 +43,11 @@ const Order = () => {
 		// console.log(todos);
 		console.log(dummyList);
 		console.log(storeId);
+
+		if (!(storeId! > 0)) {
+			alert('등록된 매장이 없습니다');
+			navigate('/');
+		}
 
 		getOrderList(storeId!)
 			.then((res) => {
@@ -80,12 +86,19 @@ const Order = () => {
 		if (destination.droppableId === 'inbox-column') {
 			inbox.splice(destination.index, 0, { ...add, isDone: false });
 			console.log('api호출로 주문상태 변경하기 - 결제 완료(주문 대기)');
+			updateOrderStatus({ orderId: add.orderId, status: 1 })
+				.then((res) => console.log(res))
+				.catch((err) => console.log(err));
 		} else if (destination.droppableId === 'inprogress-column') {
 			inprogress.splice(destination.index, 0, { ...add, isDone: false });
-			console.log('조리중');
+			updateOrderStatus({ orderId: add.orderId, status: 2 })
+				.then((res) => console.log(res))
+				.catch((err) => console.log(err));
 		} else {
 			completed.splice(destination.index, 0, { ...add, isDone: true });
-			console.log('완료');
+			updateOrderStatus({ orderId: add.orderId, status: 3 })
+				.then((res) => console.log(res))
+				.catch((err) => console.log(err));
 		}
 
 		setTodos(inbox);

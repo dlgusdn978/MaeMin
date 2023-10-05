@@ -8,6 +8,7 @@ import { RootState } from '../store/store';
 import styled from 'styled-components';
 import { getStoreInfo } from '../api/store';
 import { setStore } from '../store/storeSlice';
+import Button from '../components/Button';
 
 const data = [
 	{
@@ -68,7 +69,7 @@ const StoreInfo = () => {
 	};
 	console.log(userInfo);
 	useEffect(() => {
-		!localStorage.getItem('access_token') && noUser();
+		!userInfo.nickName && noUser();
 
 		// getStoreInfo(userInfo.storeId)
 		getStoreInfo(userInfo.storeId!)
@@ -83,12 +84,21 @@ const StoreInfo = () => {
 		<Container>
 			<FlexBox dir="row">
 				<div>
-					<div>매장 정보</div>
+					<BoldText>매장 정보</BoldText>
 
 					{localStorage.getItem('access_token') && (
-						<div>
-							<button onClick={logout}>로그아웃</button>
-						</div>
+						<Button
+							label="로그아웃"
+							onClick={logout}
+							backgroundColor="#ffe07a"
+							fontSize="16px"
+							margin="10px"
+							textColor="white"
+							borderRadius="100px"
+							width={124}
+							height={64}
+							borderColor="rgb(240, 240, 240)"
+						/>
 					)}
 				</div>
 			</FlexBox>
