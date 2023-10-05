@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import checkIcon from '../assets/imgs/checkIcon.svg';
+import failIcon from '../assets/imgs/failIcon.svg';
 const ModalContainer = styled.div`
 	position: fixed;
 	display: flex;
@@ -62,6 +63,11 @@ const Modal = ({ isOpen, title }: booleanProps) => {
 			title: '결제 완료',
 			content: '결제가 완료되었습니다.',
 		},
+		{
+			code: 'paymentFail',
+			title: '결제 실패',
+			content: '결제 실패하였습니다.',
+		},
 	];
 	const codeNum = modalList.findIndex((item) => item.code == title);
 	useEffect(() => {
@@ -78,7 +84,7 @@ const Modal = ({ isOpen, title }: booleanProps) => {
 					<ModalContentBox>
 						<ModalTitleItem>{modalList[codeNum].title}</ModalTitleItem>
 						<ModalImgItem>
-							<ModalImg src={checkIcon}></ModalImg>
+							<ModalImg src={modalList[codeNum].code == 'paymentFail' ? failIcon : checkIcon}></ModalImg>
 						</ModalImgItem>
 						<ModalContentItem>{modalList[codeNum].content}</ModalContentItem>
 					</ModalContentBox>

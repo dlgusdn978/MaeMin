@@ -2,12 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface basketState {
 	// orderId, userId, storeId, paymentMethod, requests, table
+	store: string;
 	totalPrice: number;
 	menuList: menuState[];
 	pickedMenuPrice: number;
 }
+interface menuState {
+	// menuOptionId
+	menuId: number;
+	menuName: string;
+	menuPrice: number;
+	menuCount: number; // quantity
+	menuImg: string;
+	menuPicker: string;
+	menuPayerList: string[];
+	index: number;
+}
 
+// + 메뉴 개수 추가 제거, 메뉴 삭제
 const initialState: basketState = {
+	store: '',
 	totalPrice: 0,
 	pickedMenuPrice: 0,
 	menuList: [],
@@ -75,6 +89,15 @@ export const basketSlice = createSlice({
 		},
 		addMenu: (state, action: PayloadAction<menuState>) => {
 			state.menuList.push(action.payload);
+		},
+		setStore: (state, action: PayloadAction<string>) => {
+			state.store = action.payload;
+		},
+		initBasket: (state) => {
+			state.store = '';
+			state.totalPrice = 0;
+			state.pickedMenuPrice = 0;
+			state.menuList = [];
 		},
 	},
 });

@@ -6,6 +6,7 @@ export interface userState {
 	nickName: string;
 	role?: string;
 	pay?: boolean;
+	payId?: number;
 }
 
 const initialState: userState = {
@@ -27,9 +28,12 @@ export const userSlice = createSlice({
 		setPay: (state, action: PayloadAction<boolean>) => {
 			state.pay = action.payload;
 		},
+		setPayId: (state, action: PayloadAction<number>) => {
+			state.payId = action.payload;
+		},
 	},
 });
 
-export const { setUser, setPay } = userSlice.actions;
+export const { setUser, setPay, setPayId } = userSlice.actions;
 
 export default userSlice.reducer;

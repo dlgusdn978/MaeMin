@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import StoreMapIcon from '../../assets/imgs/storemap.svg';
-
+import MapStore from '../../components/map/MapStore';
 interface StoreMapProps {
+	latitude: string;
+	longitude: string;
 	address: string;
 }
 
 const StoreMapContainer = styled.div`
 	position: relative;
-	height: 176px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -20,21 +21,13 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin: 10px;
+	margin: 10px 20px;
 `;
 
 const NavidName = styled.div`
 	font-size: 24px;
 	position: relative;
 	margin-left: 10px;
-`;
-
-const Navi = styled.div`
-	width: 375px;
-	height: 102px;
-	background-image: url('지도 정보 들어갈곳');
-	background-size: cover;
-	background-position: center;
 `;
 
 const NaviInfor = styled.div`
@@ -44,6 +37,7 @@ const NaviInfor = styled.div`
 `;
 
 const StoreMap = (props: StoreMapProps) => {
+	console.log(props.latitude, props.longitude);
 	return (
 		<div>
 			<StoreMapContainer>
@@ -51,7 +45,7 @@ const StoreMap = (props: StoreMapProps) => {
 					<img src={StoreMapIcon} alt="Tag" />
 					<NavidName>위치정보</NavidName>
 				</ContentContainer>
-				<Navi></Navi>
+				<MapStore latitude={props.latitude} longitude={props.longitude}></MapStore>
 				<NaviInfor>{props.address}</NaviInfor>
 			</StoreMapContainer>
 		</div>

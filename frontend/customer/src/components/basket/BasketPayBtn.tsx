@@ -5,13 +5,14 @@ import { BasketPayBtnContainer } from '../style/basket';
 interface ButtonProps {
 	label: string;
 	basketCheck?: boolean;
-	onClick: () => void;
+	method?: number;
+	onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
-function BasketPayBtn({ label, basketCheck }: ButtonProps) {
+function BasketPayBtn({ label, basketCheck, onClick }: ButtonProps) {
 	const basketTotal = useSelector((state: RootState) => state.basket.totalPrice);
 	console.log(basketTotal);
 	return (
-		<BasketPayBtnContainer>
+		<BasketPayBtnContainer onClick={onClick}>
 			<Button
 				label={label}
 				width={'100%'}

@@ -3,7 +3,6 @@ import TagIcon from '../../assets/imgs/tag.svg';
 
 const TrendKeywordContainer = styled.div`
 	position: relative;
-	height: 82px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -14,7 +13,7 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin: 10px;
+	margin: 10px 20px;
 `;
 
 const TrendName = styled.div`
