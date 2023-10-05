@@ -4,6 +4,7 @@ import { MainRoutes } from './Router';
 import Header from './components/Header';
 import { Provider } from 'react-redux';
 import store from './store/store';
+import BadgeBtn from './components/BadgeBtn';
 
 function App() {
 	return (
@@ -11,6 +12,7 @@ function App() {
 			<Provider store={store}>
 				<Header />
 				<MainRoutes />
+				<BadgeBtn />
 			</Provider>
 		</Router>
 	);

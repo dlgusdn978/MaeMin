@@ -56,7 +56,7 @@ const TodoItem = ({ index, todo, todos, setTodos, inbox, completed, setInbox, se
 	};
 
 	return (
-		<Draggable draggableId={todo.id.toString()} index={index}>
+		<Draggable draggableId={todo.id.toString()} index={index} key={todo.id}>
 			{(provided) => (
 				<CardContainer
 					width={200}
@@ -96,7 +96,9 @@ const TodoItem = ({ index, todo, todos, setTodos, inbox, completed, setInbox, se
 						<OrderPriceText>주문 금액 : {todo.totalPrice}</OrderPriceText>
 						<OrderMenuBox>
 							{todo.menus.map((item) => (
-								<OrderMenuText>{item.name}</OrderMenuText>
+								<OrderMenuText>
+									{item.name} x {item.quantity}
+								</OrderMenuText>
 							))}
 						</OrderMenuBox>
 					</form>

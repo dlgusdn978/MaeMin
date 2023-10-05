@@ -71,7 +71,7 @@ const StoreInfo = () => {
 		!localStorage.getItem('access_token') && noUser();
 
 		// getStoreInfo(userInfo.storeId)
-		getStoreInfo(1)
+		getStoreInfo(userInfo.storeId!)
 			.then((res) => {
 				console.log(res.data);
 				dispatch(setStore(res.data));

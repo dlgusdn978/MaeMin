@@ -16,41 +16,44 @@ const Header = () => {
 	];
 	const navigate = useNavigate();
 	const storeId = useSelector((state: RootState) => state.user.storeId);
+	console.log(storeId);
 
 	useEffect(() => {
-		const eventSource = new EventSource(`https://j9c208.p.ssafy.io/cart-service/connect/${storeId}`);
+		if (storeId! > 0) {
+			const eventSource = new EventSource(`https://j9c208.p.ssafy.io/cart-service/connect/${storeId}`);
 
-		eventSource.onopen = () => {
-			// 연결 시 할 일
-			console.log('연결됨');
-		};
+			eventSource.onopen = () => {
+				// 연결 시 할 일
+				console.log('연결됨');
+			};
 
-		eventSource.onmessage = async (event) => {
-			console.log(event);
-			// setTest(JSON.parse(event.data));
-			// alert(test);
-		};
+			eventSource.onmessage = async (event) => {
+				console.log(event);
+				// setTest(JSON.parse(event.data));
+				// alert(test);
+			};
 
-		eventSource.addEventListener('order', (event) => {
-			console.log(event);
-		});
+			eventSource.addEventListener('order', (event) => {
+				console.log(event);
+			});
 
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		eventSource.onerror = (e: any) => {
-			console.log(e);
-			// 종료 또는 에러 발생 시 할 일
-			eventSource.close();
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			eventSource.onerror = (e: any) => {
+				console.log(e);
+				// 종료 또는 에러 발생 시 할 일
+				eventSource.close();
 
-			if (e.error) {
-				// 에러 발생 시 할 일
-			}
+				if (e.error) {
+					// 에러 발생 시 할 일
+				}
 
-			if (e.target.readyState === EventSource.CLOSED) {
-				// 종료 시 할 일
-				console.log('연결종료');
-			}
-		};
-	}, []);
+				if (e.target.readyState === EventSource.CLOSED) {
+					// 종료 시 할 일
+					console.log('연결종료');
+				}
+			};
+		}
+	}, [storeId]);
 
 	return (
 		<HeaderContainer>

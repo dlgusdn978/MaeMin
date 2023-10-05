@@ -43,7 +43,7 @@ const Order = () => {
 		console.log(dummyList);
 		console.log(storeId);
 
-		getOrderList(1)
+		getOrderList(storeId!)
 			.then((res) => {
 				console.log(res.data);
 				res.data.map((item: OrderData) => {

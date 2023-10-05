@@ -10,7 +10,7 @@ export interface userState {
 const initialState: userState = {
 	nickName: '',
 	userName: '',
-	storeId: 7,
+	storeId: 0,
 };
 
 export const userSlice = createSlice({
@@ -20,7 +20,7 @@ export const userSlice = createSlice({
 		setUser: (state, action: PayloadAction<userState>) => {
 			state.userName = action.payload.userName;
 			state.nickName = action.payload.nickName;
-			action.payload.storeId ? (state.storeId = action.payload.storeId) : (state.storeId = 7);
+			action.payload.storeId ? (state.storeId = action.payload.storeId) : (state.storeId = 0);
 		},
 	},
 });
