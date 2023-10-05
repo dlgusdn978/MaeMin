@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import placeholderImage from '../../assets/imgs/subs-store.png';
 
 interface StoreImageProps {
@@ -6,9 +7,15 @@ interface StoreImageProps {
 	altDescription?: string;
 }
 
+const StyledImage = styled.img`
+	width: 183px;
+	height: 183px;
+	object-fit: cover;
+`;
+
 const StoreImage = ({ imageUrl, altDescription }: StoreImageProps) => {
 	return (
-		<img
+		<StyledImage
 			src={imageUrl || placeholderImage}
 			alt={altDescription || 'Store Image'}
 			onError={(e) => {

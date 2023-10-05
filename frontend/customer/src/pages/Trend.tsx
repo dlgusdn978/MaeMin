@@ -22,7 +22,7 @@ const Trend = () => {
 				console.log('API Response:', allStoresData);
 
 				const fetchedData: Record<string, Store[]> = {};
-				const categories = ['한식', '치킨', '일식', '양식', '분식', '카페', '기타']; // 카테고리를 한글로 변경
+				const categories = ['한식', '치킨', '일식', '양식', '분식', '카페', '기타'];
 
 				categories.forEach((category) => {
 					fetchedData[category] = allStoresData.filter((store) => store.category === category);
