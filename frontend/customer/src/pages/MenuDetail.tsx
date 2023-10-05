@@ -5,13 +5,15 @@ import { RootState } from '../store/store';
 import styled from 'styled-components';
 import FoodCount from '../components/menu/FoodCount';
 import Button from '../components/Button';
-import FixedHeaderComponent from '../components/menu/FixedHeaderComponent'; // 적절한 경로로 수정
+import FixedHeaderComponent from '../components/menu/FixedHeaderComponent';
+import ConfirmModal from '../components/ConfirmModal';
 import { basketActions } from '../store/basketSlice';
 
 const FoodPhoto = styled.div`
 	width: 390px;
 	height: 304px;
 	position: relative;
+	margin-top: 20px;
 `;
 
 const FoodImage = styled.img`
@@ -48,6 +50,7 @@ const ButtonWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: 20px;
 `;
 
 const FoodWrapper = styled.div`
@@ -59,17 +62,15 @@ const FoodWrapper = styled.div`
 const MenuDetail = () => {
 	const selectedMenu = useSelector((state: RootState) => state.menu);
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
-	console.log(menuList);
 	const [quantity, setQuantity] = useState(1);
 	const [totalPrice, setTotalPrice] = useState(0);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const navigateToPreviousPage = () => {
-		navigate(-1);
-	};
+
 	const addMenuList = () => {
-		const lastIndex = menuList.length != 0 ? menuList[menuList.length - 1].index + 1 : 0;
-		const selectMenu: menuState = {
+		const lastIndex = menuList.length !== 0 ? menuList[menuList.length - 1].index + 1 : 0;
+		const selectMenu = {
 			menuId: selectedMenu.menuId,
 			menuName: selectedMenu.name,
 			menuPrice: selectedMenu.price,
@@ -81,12 +82,17 @@ const MenuDetail = () => {
 		};
 		dispatch(basketActions.addMenu(selectMenu));
 	};
-	// 가격 세자리마다 쉼표 추가 ex) 1,000원
+
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
+
+	const handleConfirm = () => {
+		addMenuList();
+		navigate(-1);
+	};
+
 	useEffect(() => {
-		console.log({ quantity, selectedMenu });
 		if (selectedMenu && selectedMenu.price) {
 			setTotalPrice(quantity * selectedMenu.price);
 		}
@@ -94,22 +100,20 @@ const MenuDetail = () => {
 
 	return (
 		<div>
-			<FixedHeaderComponent selectedMenuName={selectedMenu.name} onBackClick={navigateToPreviousPage} />
-
+			<FixedHeaderComponent
+				selectedMenuName={selectedMenu.name}
+				onBackClick={() => navigate(-1)}
+				itemCount={menuList.length}
+			/>
 			<FoodPhoto>
 				<FoodImage src={selectedMenu.menuPictureUrl} alt={selectedMenu.name} />
 			</FoodPhoto>
-			{/* <h1>해당 메뉴 상세페이지 메뉴id:{menuId}</h1> */}
-
 			<FoodWrapper>
 				<FoodName>{selectedMenu.name}</FoodName>
-
 				<PriceName>가격</PriceName>
 				<FoodPrice>{addRest(selectedMenu.price)}원</FoodPrice>
 			</FoodWrapper>
-
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />
-
 			<ButtonWrapper>
 				<Button
 					label={`${totalPrice}원 담기`}
@@ -121,9 +125,16 @@ const MenuDetail = () => {
 					width={344}
 					height={64}
 					borderColor="rgb(240, 240, 240)"
-					onClick={() => addMenuList()}
+					onClick={() => setIsModalOpen(true)}
 				/>
 			</ButtonWrapper>
+			{isModalOpen && (
+				<ConfirmModal
+					message="장바구니에 담겼습니다."
+					onConfirm={handleConfirm}
+					onCancel={() => setIsModalOpen(false)}
+				/>
+			)}
 		</div>
 	);
 };

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import TagIcon from '../../assets/imgs/tag.svg';
-
+//content로 변경해야함
+interface TrendKeywordProps {
+	content: string;
+}
 const TrendKeywordContainer = styled.div`
 	position: relative;
 	background-color: white;
@@ -30,14 +33,14 @@ const TrendList = styled.div`
 	margin-bottom: 10px;
 `;
 
-const TrendKeyword = () => {
+const TrendKeyword = (props: TrendKeywordProps) => {
 	return (
 		<TrendKeywordContainer>
 			<ContentContainer>
 				<img src={TagIcon} alt="Tag" />
-				<TrendName>트렌드 키워드</TrendName>
+				<TrendName>가게소개</TrendName>
 			</ContentContainer>
-			<TrendList>키워드 들어올곳~</TrendList>
+			<TrendList>{props.content}</TrendList>
 		</TrendKeywordContainer>
 	);
 };

@@ -37,6 +37,16 @@ const StoreDetailContainer = styled.div`
 		border-radius: 5px;
 	}
 `;
+export interface MenuData {
+	menuId: number;
+	storeId: number;
+	category: number[];
+	name: string;
+	price: number;
+	menuPictureUrl: string;
+	popularity: number;
+}
+
 const StoreDetail = () => {
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);
@@ -68,7 +78,7 @@ const StoreDetail = () => {
 			{storeData && (
 				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
 			)}
-			<TrendKeyword />
+			{storeData && <TrendKeyword content={storeData.content} />}
 			{storeData && <StoreInfo phone={storeData.phone} operationHours={storeData.operationHours} />}
 			{storeData && (
 				<StoreMap address={storeData.address} latitude={storeData.latitude} longitude={storeData.longitude} />

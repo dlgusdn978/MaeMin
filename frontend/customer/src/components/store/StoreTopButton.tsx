@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 import BackarrowIcon from '../../assets/imgs/backarrow.svg';
-import SharboxIcon from '../../assets/imgs/sharebox.svg';
+import CartIcon from '../../assets/imgs/cart.svg';
 
 const NavigationContainer = styled.div`
 	width: 390px;
@@ -17,22 +19,45 @@ const NavigationContainer = styled.div`
 	background-color: rgba(255, 255, 255, 0.7);
 	z-index: 10;
 `;
+const ItemCountSpan = styled.span`
+	width: 20px;
+	height: 20px;
+	background-color: red;
+	position: absolute;
+	right: -5px;
+	border-radius: 100%;
+	top: -5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: rgba(255, 255, 255, 1);
+`;
 
 const BackButton = styled.button`
 	background-color: transparent;
 	border: none;
 `;
 
-const ShareButton = styled.button`
+const CartButton = styled.button`
+	position: absolute;
+	top: 0;
+	right: 0;
 	background-color: transparent;
 	border: none;
+	margin-top: 20px;
+	margin-right: 10px;
 `;
 
 const StoreTopButton = () => {
 	const navigate = useNavigate();
+	const menuList = useSelector((state: RootState) => state.basket.menuList);
+	const itemCount = menuList.length;
 
 	const navigateToPreviousPage = () => {
 		navigate(-1);
+	};
+	const moveToBasket = () => {
+		navigate('/basket');
 	};
 
 	return (
@@ -40,9 +65,10 @@ const StoreTopButton = () => {
 			<BackButton onClick={navigateToPreviousPage}>
 				<img src={BackarrowIcon} alt="Go back" />
 			</BackButton>
-			<ShareButton>
-				<img src={SharboxIcon} alt="Share" />
-			</ShareButton>
+			<CartButton onClick={() => moveToBasket()}>
+				<img src={CartIcon} alt="Cart" />
+				{itemCount > 0 && <ItemCountSpan>{itemCount}</ItemCountSpan>}
+			</CartButton>
 		</NavigationContainer>
 	);
 };

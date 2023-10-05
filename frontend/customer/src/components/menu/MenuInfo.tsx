@@ -27,12 +27,16 @@ const MenuDetail = styled.div`
 
 const MenuName = styled.div`
 	font-size: 15px;
+	margin: 10px;
+	margin-bottom: 10px;
+	white-space: nowrap;
+	margin-left: 10px;
 `;
 
 const MenuPrice = styled.div`
 	font-size: 15px;
 	color: rgba(0, 0, 0, 0.5);
-	margin-left: 1px;
+	margin-left: 10px;
 `;
 const MenuImageBox = styled.div``;
 
@@ -41,6 +45,9 @@ const MenuImage = styled.img`
 	height: 68px;
 	object-fit: cover;
 	border-radius: 25px;
+	align-self: center;
+	margin-left: 200px;
+	margin-bottom: 10px;
 `;
 
 interface MenuInfoProps {
