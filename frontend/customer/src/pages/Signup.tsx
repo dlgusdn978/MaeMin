@@ -5,6 +5,7 @@ import Step2 from '../components/signup/Step2';
 import Step3 from '../components/signup/Step3';
 import Step4 from '../components/signup/Step4';
 import { signUp } from '../api/user';
+import { checkIdDuplicate as apiCheckIdDuplicate } from '../api/signup'; // 수정된 부분
 import { SlideContainer, StepWrapper } from '../components/style/signupStyles';
 
 const Signup = () => {
@@ -118,16 +119,13 @@ const Signup = () => {
 		setDrawerOpen(!drawerOpen);
 	};
 	// 아이디 중복검사
-	const checkIdDuplicate = (e: React.SyntheticEvent) => {
-		e.preventDefault();
-		// 임시로 랜덤한 방법으로 중복을 확인합니다.
-		// 실제로는 서버에 요청을 보내서 중복을 확인해야 합니다.
-		const isDuplicate = Math.random() > 0.5;
-
-		if (isDuplicate) {
-			alert('이미 사용 중인 아이디입니다.');
-		} else {
-			alert('사용 가능한 아이디입니다.');
+	const checkIdDuplicate = async (data: { checkId: string }) => {
+		try {
+			const response = await apiCheckIdDuplicate(data.checkId);
+			return response; // 서버 응답을 그대로 반환합니다.
+		} catch (error) {
+			alert('아이디 중복 검사 중 오류가 발생했습니다.');
+			throw error;
 		}
 	};
 	// 닉네임 중복검사
@@ -188,7 +186,7 @@ const Signup = () => {
 						setConfirmPassword={setConfirmPassword}
 						isPasswordMismatch={isPasswordMismatch}
 						nextStep={nextStep}
-						checkIdDuplicate={checkIdDuplicate}
+						checkIdDuplicate={checkIdDuplicate} // 수정된 부분
 					/>
 				</StepWrapper>
 				<StepWrapper>

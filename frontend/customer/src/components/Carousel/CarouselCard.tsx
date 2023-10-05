@@ -1,52 +1,65 @@
+import React from 'react';
 import styled from 'styled-components';
 import Carousel from './Carousel';
 import { StoreName } from '../text';
 import { useNavigate } from 'react-router';
-
-interface itemsProps {
-	item: string;
-	name: string;
-}
+import StoreImage from './StoreImage';
 
 const SliderItem = styled.div`
 	width: 100%;
 	padding-left: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
 	img {
 		max-width: 100%;
 		height: auto;
 	}
 `;
 
-const items: itemsProps[] = [
-	{
-		item: 'http://placehold.it/170x150',
-		name: '이미지01',
-	},
-	{
-		item: 'http://placehold.it/170x150/ff0000',
-		name: '이미지02',
-	},
-	{
-		item: 'http://placehold.it/170x150/00ffff',
-		name: '이미지03',
-	},
-];
+interface StoreData {
+	storeId: number;
+	name: string;
+	pictureUrl: { storeImageId: number; storePicureUrl: string }[];
+}
 
-function CarouselCard({ trendword }: CarouselProps) {
+interface CarouselProps {
+	trendword: string;
+	storeData: StoreData[] | null;
+}
+
+function CarouselCard({ trendword, storeData }: CarouselProps) {
 	const navigate = useNavigate();
 
+	console.log('Received storeData:', storeData);
+
+	if (!storeData || storeData.length === 0) {
+		return (
+			<Carousel keyword={trendword} storeDataLength={1}>
+				<SliderItem>
+					<StoreImage imageUrl="default_image_url" altDescription="default" />
+					<StoreName>가게없음</StoreName>
+				</SliderItem>
+			</Carousel>
+		);
+	}
+
 	return (
-		<Carousel keyword={trendword}>
-			{items.map((item, index) => (
+		<Carousel keyword={trendword} storeDataLength={storeData.length}>
+			{storeData.map((store, index) => (
 				<SliderItem
 					key={index}
 					onClick={() => {
-						// navigate(`${item.name}`);
-						navigate(`/store-detail/${item.name}`);
+						navigate(`/store-detail/${store.storeId}`);
 					}}
 				>
-					<img src={item.item} alt={item.name} />
-					<StoreName>{item.name}</StoreName>
+					<StoreImage
+						imageUrl={store.pictureUrl[0]?.storePicureUrl}
+						altDescription={store.name || 'Unnamed Store'}
+					/>
+					<StoreName>{store.name || 'Unnamed Store'}</StoreName>
 				</SliderItem>
 			))}
 		</Carousel>

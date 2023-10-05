@@ -21,6 +21,7 @@ const ContentContainer = styled.div`
 	flex-direction: row;
 	align-items: center;
 	margin: 10px;
+	margin-left: 10px;
 `;
 
 const NavidName = styled.div`
