@@ -10,9 +10,14 @@ export const HeaderContainer = styled.div`
 	height: 100px;
 `;
 
-export const HeaderDiv = styled.div`
+type HeaderProps = {
+	url: string;
+};
+
+export const HeaderDiv = styled.div<HeaderProps>`
 	position: relative;
 	background-color: gray;
+	background-color: ${(url) => (url ? 'gray' : 'blue')};
 	width: 100%;
 	height: 100px;
 	display: flex;

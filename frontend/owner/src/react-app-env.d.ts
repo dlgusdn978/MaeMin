@@ -96,3 +96,14 @@ interface OrderData {
 	todo: string;
 	isDone: boolean;
 }
+
+interface MenuState {
+	category: string;
+	menuId: number;
+	menuOptionList: [];
+	menuPictureUrl: string;
+	name: string;
+	popularity: number;
+	price: number;
+	storeId: number;
+}

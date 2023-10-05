@@ -7,7 +7,7 @@ import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
 
 const Header = () => {
-	const [test, setTest] = useState('');
+	const [selected, setSelected] = useState('');
 	const HeaderList = [
 		{ name: '주문 접수', url: '/order' },
 		{ name: '매장 관리', url: '/store-management' },
@@ -27,8 +27,8 @@ const Header = () => {
 
 		eventSource.onmessage = async (event) => {
 			console.log(event);
-			setTest(JSON.parse(event.data));
-			alert(test);
+			// setTest(JSON.parse(event.data));
+			// alert(test);
 		};
 
 		eventSource.addEventListener('order', (event) => {
@@ -59,8 +59,11 @@ const Header = () => {
 					<HeaderDiv
 						key={i}
 						onClick={() => {
+							setSelected(item.name);
 							navigate(item.url);
 						}}
+						// style={item.url === location.href && 'background: red'}
+						url={selected}
 					>
 						<BoldText>{item.name}</BoldText>
 						{i === 0 && <AlertBox>new</AlertBox>}

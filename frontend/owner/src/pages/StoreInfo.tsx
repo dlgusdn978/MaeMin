@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { Container, FlexBox } from '../components/style/common';
+import { BoldText, Container, FlexBox } from '../components/style/common';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { CardContainer } from '../components/style/card';
 import { logout } from '../api/user';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import styled from 'styled-components';
 import { getStoreInfo } from '../api/store';
+import { setStore } from '../store/storeSlice';
 
 const data = [
 	{
@@ -59,6 +60,8 @@ const UserInfoBox = styled.div`
 
 const StoreInfo = () => {
 	const userInfo = useSelector((state: RootState) => state.user);
+	const storeInfo = useSelector((state: RootState) => state.store);
+	const dispatch = useDispatch();
 	const noUser = () => {
 		alert('로그인 정보가 존재하지 않습니다.');
 		window.location.href = '/owner';
@@ -69,14 +72,19 @@ const StoreInfo = () => {
 
 		// getStoreInfo(userInfo.storeId)
 		getStoreInfo(1)
-			.then((res) => console.log(res.data))
+			.then((res) => {
+				console.log(res.data);
+				dispatch(setStore(res.data));
+				console.log(storeInfo);
+			})
 			.catch((err) => console.log(err));
 	}, []);
 	return (
 		<Container>
 			<FlexBox dir="row">
 				<div>
-					매장 정보
+					<div>매장 정보</div>
+
 					{localStorage.getItem('access_token') && (
 						<div>
 							<button onClick={logout}>로그아웃</button>
@@ -85,6 +93,13 @@ const StoreInfo = () => {
 				</div>
 			</FlexBox>
 			<UserInfoBox>
+				<BoldText>매장 이름 : {storeInfo.name}</BoldText>
+				<div>매장 주소 : {storeInfo.address}</div>
+				<div>카테고리 : {storeInfo.category}</div>
+				<div>전화번호 : {storeInfo.phone}</div>
+				<div>소개글 : {storeInfo.content}</div>
+				<div>운영 시간 : {storeInfo.operationHours}</div>
+
 				<div>닉네임 : {userInfo.nickName}</div>
 				<div>이름 : {userInfo.userName}</div>
 				<div>매장아이디 : {userInfo.storeId}</div>

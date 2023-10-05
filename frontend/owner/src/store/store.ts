@@ -2,11 +2,13 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import menuReducer from './menuSlice';
 import userReducer from './userSlice';
 import orderReducer from './orderSlice';
+import storeReducer from './storeSlice';
 
 const rootReducer = combineReducers({
 	menu: menuReducer,
 	user: userReducer,
 	order: orderReducer,
+	store: storeReducer,
 });
 
 const store = configureStore({
