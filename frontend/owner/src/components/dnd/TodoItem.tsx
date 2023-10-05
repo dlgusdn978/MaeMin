@@ -3,7 +3,7 @@ import { FiX } from 'react-icons/fi';
 import { BsFillCheckSquareFill, BsSquare } from 'react-icons/bs';
 import { Draggable } from 'react-beautiful-dnd';
 import { CardContainer } from '../style/card';
-import { OrderMenuBox, OrderMenuText, OrderPriceText } from '../style/order';
+import { OrderHeaderBox, OrderMenuBox, OrderMenuText, OrderPriceText } from '../style/order';
 
 interface Props {
 	index: number;
@@ -67,31 +67,33 @@ const TodoItem = ({ index, todo, todos, setTodos, inbox, completed, setInbox, se
 				>
 					<form className="edit-form" onSubmit={(e) => handleEdit(e, todo.id)}>
 						<div>
-							<span onClick={() => handleDone(todo.id)}>
-								{todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
-							</span>
-							{edit ? (
-								<textarea
-									className="ctetextarea"
-									ref={textareaRef}
-									onChange={(e) => {
-										e.target.style.height = e.target.scrollHeight + 'px';
-										setEditTodo(e.target.value);
-									}}
-									onBlur={(e) => handleEdit(e, todo.id)}
-									value={editTodo}
-								></textarea>
-							) : (
-								<span
-									className={`ctetext${todo.isDone ? ' -completed' : ''}`}
-									onClick={handleClickToEdit}
-								>
-									{todo.todo}
+							<OrderHeaderBox>
+								<span onClick={() => handleDone(todo.id)}>
+									{todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
 								</span>
-							)}
-							<button type="button" className="deletebtn" onClick={() => handleDelete(todo.id)}>
-								<FiX />
-							</button>
+								{edit ? (
+									<textarea
+										className="ctetextarea"
+										ref={textareaRef}
+										onChange={(e) => {
+											e.target.style.height = e.target.scrollHeight + 'px';
+											setEditTodo(e.target.value);
+										}}
+										onBlur={(e) => handleEdit(e, todo.id)}
+										value={editTodo}
+									></textarea>
+								) : (
+									<span
+										className={`ctetext${todo.isDone ? ' -completed' : ''}`}
+										onClick={handleClickToEdit}
+									>
+										{todo.todo}
+									</span>
+								)}
+								<button type="button" className="deletebtn" onClick={() => handleDelete(todo.id)}>
+									<FiX />
+								</button>
+							</OrderHeaderBox>
 						</div>
 						<OrderPriceText>주문 금액 : {todo.totalPrice}</OrderPriceText>
 						<OrderMenuBox>

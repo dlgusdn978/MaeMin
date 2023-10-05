@@ -107,3 +107,8 @@ interface MenuState {
 	price: number;
 	storeId: number;
 }
+
+interface OrderStatus {
+	orderId: number;
+	status: number;
+}

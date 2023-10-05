@@ -71,3 +71,9 @@ export const OrderMenuBox = styled.div`
 	padding-top: 10px;
 	background-color: ${theme.color.sub};
 `;
+
+export const OrderHeaderBox = styled.div`
+	display: flex;
+	justify-content: center;
+	text-align: center;
+`;
