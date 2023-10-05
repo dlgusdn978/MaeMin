@@ -23,7 +23,7 @@ const Main = () => {
 			{storeId ? (
 				<Order />
 			) : (
-				<div>
+				<Container>
 					<Button
 						label="로그인"
 						onClick={goLogin}
@@ -46,7 +46,7 @@ const Main = () => {
 						height={64}
 						borderColor="rgb(240, 240, 240)"
 					/>
-				</div>
+				</Container>
 			)}
 		</Container>
 	);

@@ -6,6 +6,7 @@ import { login } from '../api/user';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/userSlice';
 import { Container } from '../components/style/common';
+import { LoginContainer } from '../components/style/user';
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -23,10 +24,17 @@ const Login = () => {
 	};
 
 	const handleLogin = async () => {
+		if (!id || !password) {
+			alert('아이디와 비밀번호를 모두 입력해주세요.');
+			return;
+		}
+
 		// 로그인 로직
-		const userInfo = await login({ loginId: id, loginPw: password });
+		const userInfo = await login({ loginId: id, loginPw: password }).catch(() => navigate('/login'));
+
 		console.log('Logged in with ID:', id, 'Password:', password, 'userInfo', userInfo);
-		dispatch(setUser(userInfo)); // 로그인 반환 데이터에서 유저 정보 redux에 저장
+		userInfo && dispatch(setUser(userInfo)); // 로그인 반환 데이터에서 유저 정보 redux에 저장
+
 		// 로그인 성공여부에따라 redirect다르게
 		localStorage.getItem('access_token') ? navigate('/store-info') : alert('다시 로그인 해주쉠');
 	};
@@ -37,7 +45,7 @@ const Login = () => {
 	};
 
 	return (
-		<Container>
+		<LoginContainer>
 			<div>
 				<Input
 					value={id}
@@ -73,10 +81,10 @@ const Login = () => {
 					onClick={handleLogin}
 					backgroundColor="rgba(255, 182, 73, 1)"
 					fontSize="16px"
-					margin="10px"
+					margin="12px"
 					textColor="white"
 					borderRadius="100px"
-					width={344}
+					width={305}
 					height={64}
 					borderColor="rgb(240, 240, 240)"
 				/>
@@ -86,15 +94,15 @@ const Login = () => {
 					onClick={handleSignup}
 					backgroundColor="rgba(255, 182, 73, 1)"
 					fontSize="16px"
-					margin="10px"
+					margin="12px"
 					textColor="white"
 					borderRadius="100px"
-					width={344}
+					width={305}
 					height={64}
 					borderColor="rgb(240, 240, 240)"
 				/>
 			</Container>
-		</Container>
+		</LoginContainer>
 	);
 };
 

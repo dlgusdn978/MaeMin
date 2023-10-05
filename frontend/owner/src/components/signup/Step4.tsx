@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../../components/Button';
+import { StepContainer, StepRowBox } from '../style/user';
 
 interface Step4Props {
 	gender: string;
@@ -21,9 +22,8 @@ const Step4 = ({
 	drawerOpen,
 }: Step4Props): JSX.Element => {
 	return (
-		<div>
-			<div>
-				<h1>성별,나이선택</h1>
+		<StepContainer>
+			<StepRowBox>
 				<Button
 					label="남자"
 					fontSize="16px"
@@ -54,8 +54,8 @@ const Step4 = ({
 						handleGenderSelect('female');
 					}}
 				/>
-			</div>
-			<div>
+			</StepRowBox>
+			<StepRowBox>
 				<Button label="나이 선택" onClick={toggleDrawer} width={150} height={40} margin="10px" />
 				{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}대</span>}
 				<div
@@ -78,20 +78,20 @@ const Step4 = ({
 						</div>
 					))}
 				</div>
-				<Button
-					label="회원가입"
-					onClick={handleSubmit}
-					backgroundColor="rgba(255, 182, 73, 1)"
-					fontSize="16px"
-					margin="10px"
-					textColor="white"
-					borderRadius="100px"
-					borderColor="rgb(240, 240, 240)"
-					width={344}
-					height={64}
-				/>
-			</div>
-		</div>
+			</StepRowBox>
+			<Button
+				label="회원가입"
+				onClick={handleSubmit}
+				backgroundColor="rgba(255, 182, 73, 1)"
+				fontSize="16px"
+				margin="10px"
+				textColor="white"
+				borderRadius="100px"
+				borderColor="rgb(240, 240, 240)"
+				width={344}
+				height={64}
+			/>
+		</StepContainer>
 	);
 };
 

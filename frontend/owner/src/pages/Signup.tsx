@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Step1, Step2, Step3, Step4 } from '../components/signup';
-import { signUp } from '../api/user';
+import { checkId, signUp } from '../api/user';
 import { useNavigate } from 'react-router';
 
 const Signup = () => {
@@ -102,16 +102,16 @@ const Signup = () => {
 		setDrawerOpen(!drawerOpen);
 	};
 	// 아이디 중복검사
-	const checkIdDuplicate = (e: React.SyntheticEvent) => {
-		e.preventDefault();
-		// 임시로 랜덤한 방법으로 중복을 확인합니다.
-		// 실제로는 서버에 요청을 보내서 중복을 확인해야 합니다.
-		const isDuplicate = Math.random() > 0.5;
-
-		if (isDuplicate) {
-			alert('이미 사용 중인 아이디입니다.');
-		} else {
-			alert('사용 가능한 아이디입니다.');
+	const checkIdDuplicate = async (data: { checkId: string }) => {
+		try {
+			if (!data.checkId) {
+				return;
+			}
+			const response = await checkId(data.checkId);
+			return response; // 서버 응답을 그대로 반환합니다.
+		} catch (error) {
+			alert('아이디 중복 검사 중 오류가 발생했습니다.');
+			throw error;
 		}
 	};
 
