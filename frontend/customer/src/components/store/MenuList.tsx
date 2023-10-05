@@ -27,7 +27,7 @@ const ContentContainer = styled.div`
 	flex-direction: row;
 	align-items: flex-start;
 	justify-content: flex-start;
-	margin: 10px;
+	margin: 10px 20px;
 `;
 
 const MenuName = styled.div`

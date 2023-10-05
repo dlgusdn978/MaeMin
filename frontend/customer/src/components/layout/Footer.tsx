@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.footer`
 	/* position: fixed; */
 	height: 80px;
 	min-width: 390px;
@@ -19,7 +19,11 @@ const FooterContainer = styled.div`
 	justify-content: space-around;
 	align-items: center;
 	z-index: 999;
-	/* bottom: 0; */
+	@media (max-width: 768px) {
+		position: relative;
+		bottom: auto;
+		/* 다른 모바일 스타일 속성 */
+	}
 `;
 
 // const footerList = ['home', 'trend', 'log', 'myPage'];

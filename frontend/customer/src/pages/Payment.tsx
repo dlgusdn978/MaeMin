@@ -63,6 +63,7 @@ const PaySelect = () => {
 			//storeId, tableId, sessionId, requestId, store, amount
 			kakaoPayment(1, 1, 1, 1, '1', 1).then((response) => {
 				console.log(response.data);
+				window.open(response.data.next_redirect_mobile_url);
 				// response.data.tid -> tid
 				// response.data.next_redirect_mobile_url -> next_redirect_mobile_url
 				// response.data.partner_order_id -> partner_order_id
@@ -70,8 +71,7 @@ const PaySelect = () => {
 			});
 		} else if (selectedMethod == 1) {
 			//네이버페이 요청 코드
-		} else {
-			// 자체 페이 이동
+		} else if (selectedMethod == 2) {
 			navigate('/myPay');
 		}
 	};
@@ -124,7 +124,13 @@ const PaySelect = () => {
 					</PaymentMethodContentBox>
 				))}
 			</PaymentMethodBox>
-			<BasketPayBtn label={'결제하기'} onClick={() => selectPaymentMethod()}></BasketPayBtn>
+			<BasketPayBtn
+				label={'결제하기'}
+				onClick={() => {
+					selectPaymentMethod();
+				}}
+				method={selectedMethod}
+			></BasketPayBtn>
 		</PaymentContainer>
 	);
 };

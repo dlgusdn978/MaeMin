@@ -27,11 +27,12 @@ export const userPayCardRegist = (
 };
 // 자체 페이 인증
 export const userPayCardAuthenticate = (payPw: string) => {
-	return API.post('/pay-service/authentication', { payPw });
+	return API.post('/pay-service/pay/authentication', { payPw });
 };
 
 // 자체 페이 결제 요청 (PaymentReq)
 export const userPayment = (requestId: number, store: string, amount: number, payId: number, code: string) => {
+	console.log(requestId, store, amount, payId, code);
 	return API.post('/payment-service/payment', { requestId, store, amount, payId, code });
 };
 

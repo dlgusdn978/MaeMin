@@ -10,27 +10,29 @@ interface StorePhotoProps {
 
 const StorePhotoContainer = styled.div`
 	position: relative;
-	height: 350px;
 	background-color: white;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
+	& > :last-child {
+		margin: 0 30px;
+		margin: 0 auto;
+		padding: 10px 60px;
+		border-radius: 10px;
+		box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+	}
 `;
 
 const FixedSizeImage = styled.img`
 	width: 236px;
 	height: 156px;
-	object-fit: contain;
+	object-fit: fill;
 	border-radius: 40px;
-	margin-bottom: 60px;
 `;
 
 const StoreInfoContainer = styled.div`
-	position: absolute;
-	bottom: 20px;
-	left: 50%;
-	transform: translateX(-50%);
 	text-align: center;
 	display: flex;
 	flex-direction: column;
@@ -41,6 +43,7 @@ const RatingContainer = styled.div`
 	display: flex;
 	align-items: center;
 	font-size: 24px;
+	justify-content: center;
 `;
 
 const StoreName = styled.div`
@@ -53,11 +56,13 @@ const StoreName = styled.div`
 const StorePhoto = (props: StorePhotoProps) => {
 	return (
 		<StorePhotoContainer>
-			<FixedSizeImage src={props.pictureUrl.length != 0 ? props.pictureUrl : subStore} alt={props.name} />
+			<div>
+				<FixedSizeImage src={props.pictureUrl.length != 0 ? props.pictureUrl : subStore} alt={props.name} />
+			</div>
 			<StoreInfoContainer>
 				<RatingContainer>
 					<StarRate rating={props.rating} />
-					<span style={{ marginLeft: '5px', marginTop: '104px' }}>{props.rating}</span>
+					<div>{props.rating}</div>
 				</RatingContainer>
 				<StoreName>{props.name}</StoreName>
 			</StoreInfoContainer>
