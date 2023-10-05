@@ -47,6 +47,7 @@ const StoreName = styled.div`
 	font-size: 24px;
 	font-weight: 1000;
 	margin: 10px;
+	white-space: nowrap; //한줄로
 `;
 
 const StorePhoto = (props: StorePhotoProps) => {

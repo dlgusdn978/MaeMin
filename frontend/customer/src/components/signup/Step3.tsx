@@ -20,21 +20,12 @@ interface Step3Props {
 	username: string;
 	setNickname: (value: string) => void;
 	setUsername: (value: string) => void;
-	// checkNicknameDuplicate: () => void;
 	checkNicknameDuplicate: (e: React.SyntheticEvent) => void;
 	prevStep: () => void;
 	nextStep: () => void;
 }
 
-const Step3 = ({
-	nickname,
-	setNickname,
-	username,
-	setUsername,
-	checkNicknameDuplicate,
-	// prevStep,
-	nextStep,
-}: Step3Props): JSX.Element => {
+const Step3 = ({ nickname, setNickname, username, setUsername, nextStep }: Step3Props): JSX.Element => {
 	const [isNameValid, setIsNameValid] = useState(true);
 	const [validationMessage, setValidationMessage] = useState('');
 
@@ -72,7 +63,7 @@ const Step3 = ({
 				margin="10px"
 				paddingLeft="30px"
 			/>
-			<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkNicknameDuplicate} />
+
 			<Input
 				value={username}
 				placeholder="이름"
@@ -87,7 +78,6 @@ const Step3 = ({
 			/>
 			{!isNameValid && <ValidationError>{validationMessage}</ValidationError>}
 			<br />
-			{/* <Button label="이전" onClick={prevStep} /> */}
 			<Button
 				label="다음 (3/4)"
 				onClick={handleNextClick}

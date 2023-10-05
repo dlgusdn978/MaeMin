@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -13,6 +12,19 @@ const CarouselWrapper = styled.section<{ background: string | undefined }>`
 	padding-bottom: 10px;
 `;
 
+interface SliderProps {
+	children: React.ReactNode;
+	keyword?: string;
+	className?: string;
+	autoplay?: boolean | number;
+	speed?: number;
+	loop?: boolean;
+	slideToShow?: number;
+	background?: string;
+	dots?: boolean;
+	storeDataLength?: number;
+}
+
 const Carousel = ({
 	children,
 	keyword,
@@ -20,27 +32,24 @@ const Carousel = ({
 	autoplay = true,
 	speed = 300,
 	loop = true,
-	slideToShow,
+	slideToShow = 2,
 	background,
 	dots,
+	storeDataLength = 0,
 }: SliderProps) => {
 	const settings = {
-		dots: !dots ? false : true,
+		dots: dots || false,
 		infinite: loop,
 		speed: speed,
-		slidesToShow: !slideToShow ? 2 : slideToShow,
+		slidesToShow: storeDataLength < slideToShow ? storeDataLength : slideToShow, // 수정
 		autoplay: Boolean(autoplay),
 		autoplaySpeed: typeof autoplay === 'boolean' ? 3000 : autoplay,
-		beforeChange: (current: number, next: number) => {
-			setIndex(next);
-		},
 	};
-	const [index, setIndex] = useState(0);
+
 	return (
 		<CarouselWrapper className={className} background={background}>
-			<CarouselTitle>{!keyword ? keyword : `#${keyword}`}</CarouselTitle>
+			<CarouselTitle>{keyword ? `#${keyword}` : keyword}</CarouselTitle>
 			<Slider {...settings}>{children}</Slider>
-			{index}
 		</CarouselWrapper>
 	);
 };

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
 import StorePhoto from '../components/store/StorePhoto';
 import StoreMap from '../components/store/StoreMap';
 import MenuList from '../components/store/MenuList';
@@ -26,6 +25,16 @@ interface StoreDetailData {
 	reviewCount: number;
 }
 
+export interface MenuData {
+	menuId: number;
+	storeId: number;
+	category: number[];
+	name: string;
+	price: number;
+	menuPictureUrl: string;
+	popularity: number;
+}
+
 const StoreDetail = () => {
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);
@@ -47,7 +56,7 @@ const StoreDetail = () => {
 		fetchData();
 	}, []);
 
-	const trendMenus = menuData.filter((menu) => menu.popularity === 10);
+	const trendMenus = menuData.filter((menu) => menu.popularity === 1);
 	const otherMenus = menuData.filter((menu) => menu.popularity === 0);
 
 	return (
@@ -56,7 +65,7 @@ const StoreDetail = () => {
 			{storeData && (
 				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
 			)}
-			<TrendKeyword />
+			{storeData && <TrendKeyword content={storeData.content} />}
 			{storeData && <StoreInfo phone={storeData.phone} operationHours={storeData.operationHours} />}
 			{storeData && <StoreMap address={storeData.address} />}
 			<MenuList menu={trendMenus} title="트렌드 메뉴" iconSrc={MedalIcon} popularity={1} />
