@@ -14,7 +14,7 @@ import {
 	PayPasswordButtonBox,
 	PayPasswordButtonItem,
 } from '../components/style/payment';
-import encrypt from '../components/Encrypto';
+import { SHA } from '../components/Encrypto';
 const PayPassword = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -88,7 +88,7 @@ const PayPassword = () => {
 			console.log(num, numCheck);
 			if (num === numCheck) {
 				setNum('');
-				const encrypted = encrypt(numCheck);
+				const encrypted = SHA(numCheck);
 				userPayRegist(encrypted);
 				dispatch(setPay(true));
 				setIsOpen(true);

@@ -3,19 +3,26 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MenuInfoContainer = styled.div`
+	width: 90%;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
 	justify-content: space-between;
+	margin: 0 auto;
 	margin-bottom: 5px;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	&:last-child {
+		border-bottom: 0;
+	}
 `;
 
 const MenuDetail = styled.div`
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-	justify-content: center;
+	justify-contents: space-between;
+	& > div {
+		margin: 10px 0;
+	}
 `;
 
 const MenuName = styled.div`
@@ -31,6 +38,7 @@ const MenuPrice = styled.div`
 	color: rgba(0, 0, 0, 0.5);
 	margin-left: 10px;
 `;
+const MenuImageBox = styled.div``;
 
 const MenuImage = styled.img`
 	width: 80px;
@@ -68,7 +76,9 @@ const MenuInfo = (props: MenuInfoProps) => {
 				<MenuName>{name}</MenuName>
 				<MenuPrice>{addRest(price)}</MenuPrice>
 			</MenuDetail>
-			<MenuImage src={imageUrl} alt={name} />
+			<MenuImageBox>
+				<MenuImage src={imageUrl} alt={name} />
+			</MenuImageBox>
 		</MenuInfoContainer>
 	);
 };

@@ -1,19 +1,17 @@
 import Button from '../../components/Button';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import { useNavigate } from 'react-router-dom';
 import { BasketPayBtnContainer } from '../style/basket';
 interface ButtonProps {
 	label: string;
-	url: string;
 	basketCheck?: boolean;
+	onClick: () => void;
 }
-function BasketPayBtn({ label, url, basketCheck }: ButtonProps) {
+function BasketPayBtn({ label, basketCheck }: ButtonProps) {
 	const basketTotal = useSelector((state: RootState) => state.basket.totalPrice);
-	const navigate = useNavigate();
 	console.log(basketTotal);
 	return (
-		<BasketPayBtnContainer onClick={() => (basketCheck ? '' : navigate(url))}>
+		<BasketPayBtnContainer>
 			<Button
 				label={label}
 				width={'100%'}
