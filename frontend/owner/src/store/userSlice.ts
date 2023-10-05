@@ -1,14 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface userState {
-	loginId: string;
+	nickName: string;
 	userName: string;
 	role?: string;
+	storeId?: number;
 }
 
 const initialState: userState = {
-	loginId: '',
+	nickName: '',
 	userName: '',
+	storeId: 7,
 };
 
 export const userSlice = createSlice({
@@ -17,7 +19,8 @@ export const userSlice = createSlice({
 	reducers: {
 		setUser: (state, action: PayloadAction<userState>) => {
 			state.userName = action.payload.userName;
-			state.loginId = action.payload.loginId;
+			state.nickName = action.payload.nickName;
+			action.payload.storeId ? (state.storeId = action.payload.storeId) : (state.storeId = 7);
 		},
 	},
 });

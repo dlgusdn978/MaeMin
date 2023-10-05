@@ -58,7 +58,7 @@ const TodoItem = ({ index, todo, todos, setTodos, inbox, completed, setInbox, se
 		<Draggable draggableId={todo.id.toString()} index={index}>
 			{(provided) => (
 				<CardContainer
-					width={150}
+					width={170}
 					className="todo-item"
 					{...provided.draggableProps}
 					{...provided.dragHandleProps}

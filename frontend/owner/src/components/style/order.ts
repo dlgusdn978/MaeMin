@@ -37,3 +37,16 @@ export const OrderBoxTitle = styled.span`
 export const NoOrderText = styled.p`
 	margin-top: 15px;
 `;
+
+export const AlertBox = styled.div`
+	width: 40px;
+	height: 20px;
+	background-color: #ff0808;
+	position: absolute;
+	right: 3px;
+	border-radius: 100%;
+	top: 0px;
+	display: flex;
+	justify-content: center;
+	color: rgba(255, 255, 255, 1);
+`;

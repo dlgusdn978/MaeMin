@@ -11,6 +11,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const HeaderDiv = styled.div`
+	position: relative;
 	background-color: gray;
 	width: 100%;
 	height: 100px;

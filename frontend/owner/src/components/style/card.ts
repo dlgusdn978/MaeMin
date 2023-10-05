@@ -5,6 +5,7 @@ const CardContainer = styled.div<CardProps>`
 	flex-direction: column;
 	justify-content: space-between;
 	background-color: white;
+	text-align: center;
 	box-shadow: 1 1;
 	width: ${({ width }) => (width ? `${width}px` : '345px')};
 	height: ${({ height }) => (height ? `${height}px` : '170px')};

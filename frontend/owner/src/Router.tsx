@@ -6,7 +6,7 @@ import Signup from './pages/Signup';
 import PageNotFound from './pages/PageNotFound';
 import Order from './pages/Order';
 import StoreManagement from './pages/StoreManagement';
-import StoreAnalysis from './pages/StoreAnalysis';
+import StoreInfo from './pages/StoreInfo';
 import StoreMenu from './pages/StoreMenu';
 
 /** Router */
@@ -39,8 +39,8 @@ export function MainRoutes() {
 			element: <StoreManagement />,
 		},
 		{
-			path: '/store-analysis',
-			element: <StoreAnalysis />,
+			path: '/store-info',
+			element: <StoreInfo />,
 		},
 		{
 			path: '/store-menu',

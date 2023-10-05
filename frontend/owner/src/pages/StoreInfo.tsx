@@ -3,6 +3,9 @@ import { Container, FlexBox } from '../components/style/common';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { CardContainer } from '../components/style/card';
 import { logout } from '../api/user';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import styled from 'styled-components';
 
 const data = [
 	{
@@ -43,11 +46,23 @@ const data = [
 	},
 ];
 
-const StoreAnalysis = () => {
+const UserInfoBox = styled.div`
+	width: 100%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin-bottom: 10px;
+	background-color: white;
+`;
+
+const StoreInfo = () => {
+	const userInfo = useSelector((state: RootState) => state.user);
 	const noUser = () => {
 		alert('로그인 정보가 존재하지 않습니다.');
 		window.location.href = '/owner';
 	};
+	console.log(userInfo);
 	useEffect(() => {
 		!localStorage.getItem('access_token') && noUser();
 	}, []);
@@ -55,7 +70,7 @@ const StoreAnalysis = () => {
 		<Container>
 			<FlexBox dir="row">
 				<div>
-					매장 정보(분석 예정)
+					매장 정보
 					{localStorage.getItem('access_token') && (
 						<div>
 							<button onClick={logout}>로그아웃</button>
@@ -63,6 +78,12 @@ const StoreAnalysis = () => {
 					)}
 				</div>
 			</FlexBox>
+			<UserInfoBox>
+				<div>닉네임 : {userInfo.nickName}</div>
+				<div>이름 : {userInfo.userName}</div>
+				<div>매장아이디 : {userInfo.storeId}</div>
+			</UserInfoBox>
+
 			<CardContainer width={800} height={300}>
 				<LineChart width={750} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
 					<CartesianGrid strokeDasharray="3 3" />
@@ -78,4 +99,4 @@ const StoreAnalysis = () => {
 	);
 };
 
-export default StoreAnalysis;
+export default StoreInfo;
