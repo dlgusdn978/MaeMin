@@ -32,3 +32,7 @@ export const BoldText = styled.span<FontSizeProps>`
 	display: inline-block;
 	margin: 20px 20px;
 `;
+
+export const HeaderBox = styled.div`
+	margin: 20px;
+`;

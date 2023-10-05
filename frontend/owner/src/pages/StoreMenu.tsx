@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import { Container, FlexBox } from '../components/style/common';
 import testImg from '../assets/imgs/pastatest.png';
@@ -7,11 +7,19 @@ import Button from '../components/Button';
 import { RootState } from '../store/store';
 import { useSelector } from 'react-redux';
 import Modal from '../components/Modal';
+import { useNavigate } from 'react-router-dom';
 
 const StoreMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
+	const storeId = useSelector((state: RootState) => state.user.storeId);
 	const menuList = useSelector((state: RootState) => state.store.menuList);
-
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (!(storeId! > 0)) {
+			alert('등록된 매장이 없습니다');
+			navigate('/');
+		}
+	});
 	const addMenu = () => {
 		// 메뉴추가
 		console.log('메뉴추가');

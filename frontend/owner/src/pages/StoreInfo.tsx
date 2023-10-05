@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import { BoldText, Container, FlexBox } from '../components/style/common';
+import { BoldText, Container, FlexBox, HeaderBox } from '../components/style/common';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { CardContainer } from '../components/style/card';
 import { logout } from '../api/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import styled from 'styled-components';
 import { getStoreInfo } from '../api/store';
 import { setStore } from '../store/storeSlice';
 import Button from '../components/Button';
+import { ContentBox, NumberBox, SmallTextBox, StoreInfoContainer, StyledImg, TextBox } from '../components/style/store';
+import ClockIcon from '../assets/imgs/clock.svg';
+import CallIcon from '../assets/imgs/call.svg';
 
 const data = [
 	{
@@ -49,16 +51,6 @@ const data = [
 	},
 ];
 
-const UserInfoBox = styled.div`
-	width: 100%;
-	text-align: center;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	margin-bottom: 10px;
-	background-color: white;
-`;
-
 const StoreInfo = () => {
 	const userInfo = useSelector((state: RootState) => state.user);
 	const storeInfo = useSelector((state: RootState) => state.store);
@@ -83,7 +75,7 @@ const StoreInfo = () => {
 	return (
 		<Container>
 			<FlexBox dir="row">
-				<div>
+				<HeaderBox>
 					<BoldText>매장 정보</BoldText>
 
 					{localStorage.getItem('access_token') && (
@@ -100,20 +92,40 @@ const StoreInfo = () => {
 							borderColor="rgb(240, 240, 240)"
 						/>
 					)}
-				</div>
+				</HeaderBox>
 			</FlexBox>
-			<UserInfoBox>
-				<BoldText>매장 이름 : {storeInfo.name}</BoldText>
-				<div>매장 주소 : {storeInfo.address}</div>
-				<div>카테고리 : {storeInfo.category}</div>
-				<div>전화번호 : {storeInfo.phone}</div>
-				<div>소개글 : {storeInfo.content}</div>
-				<div>운영 시간 : {storeInfo.operationHours}</div>
-
-				<div>닉네임 : {userInfo.nickName}</div>
-				<div>이름 : {userInfo.userName}</div>
-				<div>매장아이디 : {userInfo.storeId}</div>
-			</UserInfoBox>
+			<StoreInfoContainer>
+				<BoldText>
+					<TextBox>매장 이름 : {storeInfo.name}</TextBox>
+				</BoldText>
+				<ContentBox>
+					<TextBox>매장 주소 : {storeInfo.address}</TextBox>
+				</ContentBox>
+				<ContentBox>
+					<TextBox>카테고리 : {storeInfo.category}</TextBox>
+				</ContentBox>
+				<ContentBox>
+					<TextBox>소개글 : {storeInfo.content}</TextBox>
+				</ContentBox>
+				<ContentBox>
+					<StyledImg src={CallIcon} alt="시계아이콘" />
+					<NumberBox>전화번호 : {storeInfo.phone}</NumberBox>
+				</ContentBox>
+				<ContentBox>
+					<StyledImg src={ClockIcon} alt="시계아이콘" />
+					<NumberBox>운영 시간 : {storeInfo.operationHours}</NumberBox>
+				</ContentBox>
+				<br />
+				<ContentBox>
+					<SmallTextBox>닉네임 : {userInfo.nickName}</SmallTextBox>
+				</ContentBox>
+				<ContentBox>
+					<SmallTextBox>이름 : {userInfo.userName}</SmallTextBox>
+				</ContentBox>
+				<ContentBox>
+					<SmallTextBox>매장아이디 : {userInfo.storeId}</SmallTextBox>
+				</ContentBox>
+			</StoreInfoContainer>
 
 			<CardContainer width={800} height={300}>
 				<LineChart width={750} height={250} data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>

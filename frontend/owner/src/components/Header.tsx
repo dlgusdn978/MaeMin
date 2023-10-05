@@ -4,7 +4,8 @@ import { BoldText } from './style/common';
 import { useNavigate } from 'react-router-dom';
 import { AlertBox } from './style/order';
 import { RootState } from '../store/store';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFlag } from '../store/sseSlice';
 
 const Header = () => {
 	const [selected, setSelected] = useState('');
@@ -15,8 +16,11 @@ const Header = () => {
 		{ name: '매장 정보', url: '/store-info' },
 	];
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const storeId = useSelector((state: RootState) => state.user.storeId);
+	const flag = useSelector((state: RootState) => state.sse.flag);
 	console.log(storeId);
+	const receiveMsg = 'new';
 
 	useEffect(() => {
 		if (storeId! > 0) {
@@ -27,14 +31,19 @@ const Header = () => {
 				console.log('연결됨');
 			};
 
-			eventSource.onmessage = async (event) => {
-				console.log(event);
-				// setTest(JSON.parse(event.data));
-				// alert(test);
-			};
+			// 이거 동작 안함요
+			// eventSource.onmessage = async (event) => {
+			// 	console.log(event);
+			// 	// setTest(JSON.parse(event.data));
+			// 	// alert(test);
+			// 	setFlag(true);
+			// 	console.log(flag);
+			// };
 
 			eventSource.addEventListener('order', (event) => {
 				console.log(event);
+				dispatch(setFlag({ flag: true }));
+				console.log(flag);
 			});
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,10 +59,15 @@ const Header = () => {
 				if (e.target.readyState === EventSource.CLOSED) {
 					// 종료 시 할 일
 					console.log('연결종료');
+					flag && dispatch(setFlag({ flag: true }));
 				}
 			};
 		}
 	}, [storeId]);
+
+	const readMsg = () => {
+		flag && dispatch(setFlag({ flag: false }));
+	};
 
 	return (
 		<HeaderContainer>
@@ -64,12 +78,13 @@ const Header = () => {
 						onClick={() => {
 							setSelected(item.name);
 							navigate(item.url);
+							i === 0 && readMsg();
 						}}
 						// style={item.url === location.href && 'background: red'}
 						url={selected}
 					>
 						<BoldText>{item.name}</BoldText>
-						{i === 0 && <AlertBox>new</AlertBox>}
+						{i === 0 && flag && <AlertBox>{receiveMsg}</AlertBox>}
 					</HeaderDiv>
 				);
 			})}

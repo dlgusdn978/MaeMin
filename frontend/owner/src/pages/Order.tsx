@@ -14,9 +14,10 @@ const Order = () => {
 	const [inProgressTodos, setInProgressTodos] = useLocalStorage<OrderData[]>('inprogress', []);
 	const [completedTodos, setCompletedTodos] = useLocalStorage<OrderData[]>('completed', []);
 	const storeId = useSelector((state: RootState) => state.user.storeId);
+	const flag = useSelector((state: RootState) => state.sse.flag);
 	const storeName = useSelector((state: RootState) => state.store.name);
 	const navigate = useNavigate();
-
+	// [FE] Feat : sse redux setting & storeInfo page update
 	const dummyList = [
 		{
 			id: nanoid(),
@@ -61,7 +62,7 @@ const Order = () => {
 				console.log(todos);
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [flag]);
 
 	const onDragEnd = (result: DropResult) => {
 		const { source, destination } = result;
