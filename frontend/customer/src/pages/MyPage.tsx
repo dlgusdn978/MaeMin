@@ -3,9 +3,27 @@ import { Container } from '../components/layout/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { getMyLog } from '../api/user';
-import { MyOrderHistory, MyPageHeader, UserInfoBox } from '../components/style/mypage';
+import { MyOrderHistory, UserInfoBox } from '../components/style/mypage';
 import { CardContainer } from '../components/Card';
-
+import styled from 'styled-components';
+import userIcon from '../assets/imgs/userIcon.png';
+import Navigation from '../components/Navigation';
+const UserImgItem = styled.div``;
+const UserInfoItem = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	& > :first-child {
+		display: flex;
+		align-items: flex-start;
+		font-size: 32px;
+	}
+	& > :last-child {
+		display: flex;
+		align-items: flex-end;
+		font-size: 16px;
+	}
+`;
 const MyPage = () => {
 	const [myLog, setMyLog] = useState([]);
 	const userInfo = useSelector((state: RootState) => state.user);
@@ -29,13 +47,20 @@ const MyPage = () => {
 
 	return (
 		<Container>
-			<MyPageHeader>My page</MyPageHeader>
+			<Navigation title={'마이페이지'} />
 			<UserInfoBox>
-				<div>닉네임 : {userInfo.nickName}</div>
-				<div>이름 : {userInfo.userName}</div>
-				<div>페이등록여부 : {userInfo.pay ? 'TFT 회원' : '페이 정보 없음'}</div>
+				<UserImgItem>
+					<img src={userIcon} />
+				</UserImgItem>
+				<UserInfoItem>
+					<div>{userInfo.nickName}</div>
+					<div>님</div>
+				</UserInfoItem>
 			</UserInfoBox>
 			<MyOrderHistory>
+				<UserInfoItem>
+					<div>페이등록여부 : {userInfo.pay ? 'TFT 회원' : '페이 정보 없음'}</div>
+				</UserInfoItem>
 				내 결제 내역
 				{myLog?.map((item: MyOrder, i) => {
 					return (

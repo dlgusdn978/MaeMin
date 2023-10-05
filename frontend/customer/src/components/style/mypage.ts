@@ -14,9 +14,12 @@ export const UserInfoBox = styled.div`
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
+	align-items: center;
 	margin-bottom: 10px;
 	background-color: white;
+	justify-content: space-evenly;
+	flex-direction: row;
+	padding: 20px 0;
 `;
 
 export const MyOrderHistory = styled.div`

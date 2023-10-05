@@ -69,7 +69,6 @@ const MenuDetail = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
 	const addMenuList = () => {
 		const lastIndex = menuList.length !== 0 ? menuList[menuList.length - 1].index + 1 : 0;
 		const selectMenu = {
@@ -125,7 +124,7 @@ const MenuDetail = () => {
 					width={344}
 					height={64}
 					borderColor="rgb(240, 240, 240)"
-					onClick={() => setIsModalOpen(true)}
+					onClick={() => addMenuList()}
 				/>
 			</ButtonWrapper>
 			{isModalOpen && (

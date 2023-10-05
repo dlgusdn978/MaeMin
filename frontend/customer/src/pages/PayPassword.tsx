@@ -4,7 +4,7 @@ import { setPay } from '../store/userSlice';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
-import { userPayRegist, userPayCardAuthenticate, userPayment } from '../api/pay';
+import { userPayRegist, userPayCardAuthenticate, userPayment, order } from '../api/pay';
 import Modal from '../components/Modal';
 import {
 	PayPasswordContainer,
@@ -15,7 +15,6 @@ import {
 	PayPasswordButtonItem,
 } from '../components/style/payment';
 import { SHA } from '../components/Encrypto';
-import { basketActions } from '../store/basketSlice';
 const PayPassword = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -65,6 +64,7 @@ const PayPassword = () => {
 		}
 		return result;
 	};
+
 	const pwCheck = () => {
 		// api 연결 후 수정.
 		const encrypted = SHA(num);
@@ -74,10 +74,24 @@ const PayPassword = () => {
 				const random = Math.floor(Math.random() * 8999999) + 1000000;
 				user.payId &&
 					userPayment(random, basket.store, basket.pickedMenuPrice, user.payId, code)
-						.then(() => {
+						.then((response) => {
+							console.log(response.data);
+							console.log(basket.menuList);
+							const menus: menuListProps[] = basket.menuList.map((item) => {
+								return { menuId: item.menuId, menuOptionId: [], quantity: item.menuCount };
+							});
+							order(
+								basket.storeId,
+								basket.requests,
+								1,
+								response.data.authCode,
+								basket.totalPrice,
+								user.payMethod,
+								menus,
+								1,
+							);
 							setIsOpen(true);
 							setModalTitle('paymentComplete');
-							dispatch(basketActions.initBasket());
 							setTimeout(() => {
 								// 페이지 넘기는 로직
 

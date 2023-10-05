@@ -35,7 +35,7 @@ const Carousel = ({
 	slideToShow = 2,
 	background,
 	dots,
-	storeDataLength = 0,
+	storeDataLength = 1,
 }: SliderProps) => {
 	const settings = {
 		dots: dots || false,
