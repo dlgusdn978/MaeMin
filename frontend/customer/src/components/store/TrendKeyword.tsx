@@ -6,7 +6,6 @@ interface TrendKeywordProps {
 }
 const TrendKeywordContainer = styled.div`
 	position: relative;
-	height: 110px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -17,7 +16,7 @@ const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin: 10px;
+	margin: 10px 20px;
 `;
 
 const TrendName = styled.div`

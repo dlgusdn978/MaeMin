@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import cardImg from '../assets/imgs/cardImg.png';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ import {
 	MyPayInfoValue,
 	MyPayButtonBox,
 } from '../components/style/payment';
+import { setPayId } from '../store/userSlice';
 const MyPay = () => {
 	interface payProps {
 		payId: number;
@@ -27,6 +28,7 @@ const MyPay = () => {
 		basicInfo: string;
 		nickname: string;
 	}
+	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(false);
 	const today = new Date().toLocaleDateString().replaceAll('.', '').split(' ');
 	today[1] = today[1].padStart(2, '0');
@@ -36,7 +38,6 @@ const MyPay = () => {
 	const navigate = useNavigate();
 	const [userPayList, setUserPayList] = useState<payProps[]>([]);
 	console.log(userPayList);
-	console.log(cardImg);
 
 	const userCardList = [
 		{
@@ -103,7 +104,10 @@ const MyPay = () => {
 						border={'none'}
 						backgroundColor={'rgb(150, 150, 150)'}
 						textColor={'white'}
-						onClick={() => navigate('/payPassword')}
+						onClick={() => {
+							navigate('/payPassword');
+							dispatch(setPayId(5));
+						}}
 					></Button>
 				</MyPayButtonBox>
 			</MyPayBox>

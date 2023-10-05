@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+// import axios from 'axios';
 import StorePhoto from '../components/store/StorePhoto';
 import StoreMap from '../components/store/StoreMap';
 import MenuList from '../components/store/MenuList';
@@ -6,9 +8,13 @@ import MedalIcon from '../assets/imgs/medal.svg';
 import MenuBoardIcon from '../assets/imgs/menuBoard.svg';
 import TrendKeyword from './../components/store/TrendKeyword';
 import StoreInfo from './../components/store/StoreInfo';
-import StoreTopButton from '../components/store/StoreTopButton';
+
 import { useParams } from 'react-router-dom';
 import { getStoreInfo } from '../api/store';
+import { useDispatch } from 'react-redux';
+import { basketActions } from '../store/basketSlice';
+import Navigation from '../components/Navigation';
+
 interface StoreDetailData {
 	ownerId: number;
 	name: string;
@@ -20,11 +26,17 @@ interface StoreDetailData {
 	content: string;
 	operationHours: string;
 	closedDays: string;
+	latitude: string;
+	longitude: string;
 	rating: number;
 	dibsCount: number;
 	reviewCount: number;
 }
-
+const StoreDetailContainer = styled.div`
+	& > :nth-child(n + 2) {
+		border-radius: 5px;
+	}
+`;
 export interface MenuData {
 	menuId: number;
 	storeId: number;
@@ -39,7 +51,8 @@ const StoreDetail = () => {
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);
 	const params = useParams();
-
+	const dispatch = useDispatch();
+	storeData && dispatch(basketActions.setStore(storeData.name));
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -60,17 +73,19 @@ const StoreDetail = () => {
 	const otherMenus = menuData.filter((menu) => menu.popularity === 0);
 
 	return (
-		<div>
-			<StoreTopButton />
+		<StoreDetailContainer>
+			<Navigation></Navigation>
 			{storeData && (
 				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
 			)}
 			{storeData && <TrendKeyword content={storeData.content} />}
 			{storeData && <StoreInfo phone={storeData.phone} operationHours={storeData.operationHours} />}
-			{storeData && <StoreMap address={storeData.address} />}
-			<MenuList menu={trendMenus} title="트렌드 메뉴" iconSrc={MedalIcon} popularity={1} />
+			{storeData && (
+				<StoreMap address={storeData.address} latitude={storeData.latitude} longitude={storeData.longitude} />
+			)}
+			<MenuList menu={trendMenus} title="인기 메뉴" iconSrc={MedalIcon} popularity={1} />
 			<MenuList menu={otherMenus} title="다른 메뉴" iconSrc={MenuBoardIcon} popularity={0} />
-		</div>
+		</StoreDetailContainer>
 	);
 };
 
