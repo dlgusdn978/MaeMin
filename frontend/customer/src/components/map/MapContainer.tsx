@@ -6,7 +6,6 @@ import { getCurLoc } from '../../api/map';
 import { locationActions } from '../../store/locationSlice';
 import { getStoreList } from '../../api/store';
 import { OverlayContainer, OverlayTitleBox } from '../CustomOverlay';
-import { useNavigate } from 'react-router';
 
 const { kakao } = window;
 
@@ -21,11 +20,6 @@ const MapContainer = () => {
 	const location = useSelector((state: RootState) => state.location);
 	const [curAddress, setCurAddress] = useState<string>('');
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-
-	function moveToStore(storeId: number) {
-		navigate(`/store-detail/${storeId}`);
-	}
 
 	const [markerList, setMarketList] = useState<any[]>([
 		{
@@ -78,15 +72,13 @@ const MapContainer = () => {
 			});
 			// 마커에 표시할 인포윈도우를 생성합니다
 
-			const url = `https://j9c208.p.ssafy.io/customer/store-detail/${obj.storeId}`;
+			const url = `http://localhost:3000/customer/store-detail/${obj.storeId}`;
 
 			const overlay = new window.kakao.maps.CustomOverlay({
 				content:
-					`<div class="wrap" style="${OverlayContainer}" 
-					onClick="${() => moveToStore(obj.storeId)}">` +
+					`<div class="wrap" style="${OverlayContainer(obj.title.length)}" ` +
 					`        <div class="title" style="${OverlayTitleBox}">` +
-					`${obj.title}` +
-					`<a href=${url} >` +
+					`<a href=${url} style="text-decoration:none; color:black" >` +
 					obj.title +
 					'</a>' +
 					'        </div>' +
@@ -136,7 +128,6 @@ const MapContainer = () => {
 
 	return (
 		<div className="kakaomap">
-			<div>현 위치 : {curAddress} </div>
 			<div id="map" style={{ width: '390px', height: '300px' }} />
 		</div>
 	);

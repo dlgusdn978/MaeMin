@@ -11,6 +11,7 @@ import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
 import { RootState } from '../store/store';
 import { getPublicKey } from '../api/crypto';
+import { useLocation } from 'react-router-dom';
 import moment from 'moment';
 import homecategory from '../assets/imgs/homecategory.png';
 import { secureActions } from '../store/secureSlice';
@@ -30,7 +31,11 @@ const HomeCategoryIcon = styled.img`
 
 const Home = () => {
 	const dispatch = useDispatch();
-
+	const test = useSelector((state: RootState) => state.basket);
+	console.log(test);
+	const urlLocation = useLocation();
+	const urlLoc = urlLocation.search;
+	console.log(urlLoc);
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
 	const secure = useSelector((state: RootState) => state.secure);
 	const location = useGeolocation();

@@ -51,30 +51,33 @@
 // };
 // export default CustomOverlayString;
 
-export const OverlayContainer = `background-color: white;
+export const OverlayContainer = (length: number) => `
+		background-color: white;
 		height: 40px;
+		width: ${length * 20 > 100 ? `${length * 20}px` : '120px'};
 		border-radius: 15px;
 		position: absolute;
+		left:-${length * 20 > 100 ? `${length * 10}px` : '60px'};
 		bottom: 50px;
 		margin: 0;
 		padding: 0;
-		cursor: pointer;`;
-// export const OverlayContainer = (title: string) => {
-// 	'background-color: white;' +
-// 		`width: ${title.length * 20 > 100 ? `${title.length * 20}px` : '120px'};` +
-// 		'height: 40px;' +
-// 		'border-radius: 15px;' +
-// 		'position: absolute;' +
-// 		`left: -${title.length * 20 > 100 ? `${title.length * 10}px` : '60px'};` +
-// 		'bottom: 50px;' +
-// 		'margin: 0;' +
-// 		'padding: 0;' +
-// 		'cursor: pointer;';
-// };
+		z-index:10;
+		cursor: pointer;
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		border: 3px solid #ffb649;
+		
+		`;
+
 export const OverlayTitleBox = `border: 3px solid #ffb649;
     	border-radius: 15px;
     	height: 40px;
     	display: flex;
     	justify-content: center;
     	align-items: center;
-    	font-weight: bold;`;
+    	font-weight: bold;
+		a{
+		text-decoration:none;
+		}
+		`;

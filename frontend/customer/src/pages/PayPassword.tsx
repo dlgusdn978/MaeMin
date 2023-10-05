@@ -4,7 +4,7 @@ import { setPay } from '../store/userSlice';
 import { useNavigate } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
-import { userPayRegist } from '../api/pay';
+import { userPayRegist, userPayCardAuthenticate, userPayment } from '../api/pay';
 import Modal from '../components/Modal';
 import {
 	PayPasswordContainer,
@@ -15,6 +15,7 @@ import {
 	PayPasswordButtonItem,
 } from '../components/style/payment';
 import { SHA } from '../components/Encrypto';
+import { basketActions } from '../store/basketSlice';
 const PayPassword = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -24,6 +25,8 @@ const PayPassword = () => {
 	const activeRef = useRef<HTMLDivElement[] | null[]>([]);
 	const [pwChecker, setPwChecker] = useState<boolean>(true);
 	const [isOpen, setIsOpen] = useState(false);
+	const user = useSelector((state: RootState) => state.user);
+	const basket = useSelector((state: RootState) => state.basket);
 	const userpayRegInfo = useSelector((state: RootState) => state.user.pay);
 	const navTitle = !userpayRegInfo
 		? numCheck.length == 0
@@ -64,28 +67,46 @@ const PayPassword = () => {
 	};
 	const pwCheck = () => {
 		// api 연결 후 수정.
-		if (num === '123456') {
-			setIsOpen(true);
-			setModalTitle('paymentComplete');
-			setTimeout(() => {
-				// 페이지 넘기는 로직
+		const encrypted = SHA(num);
+		userPayCardAuthenticate(encrypted)
+			.then((response) => {
+				const code = response.data.code;
+				const random = Math.floor(Math.random() * 8999999) + 1000000;
+				user.payId &&
+					userPayment(random, basket.store, basket.pickedMenuPrice, user.payId, code)
+						.then(() => {
+							setIsOpen(true);
+							setModalTitle('paymentComplete');
+							dispatch(basketActions.initBasket());
+							setTimeout(() => {
+								// 페이지 넘기는 로직
 
-				navigate('/home');
-			}, 3000);
-		} else {
-			setNum('');
-			setPwChecker(false);
-			setTimeout(() => {
-				setPwChecker(true);
-			}, 1000);
-		}
+								navigate('/home');
+							}, 3000);
+						})
+						.catch(() => {
+							setIsOpen(true);
+							setModalTitle('paymentFail');
+							setTimeout(() => {
+								// 페이지 넘기는 로직
+
+								navigate(-1);
+							}, 3000);
+						});
+			})
+			.catch(() => {
+				setNum('');
+				setPwChecker(false);
+				setTimeout(() => {
+					setPwChecker(true);
+				}, 1000);
+			});
 	};
 	const pwRegCheck = () => {
 		if (numCheck == '') {
 			setNumCheck(num);
 			setNum('');
 		} else {
-			console.log(num, numCheck);
 			if (num === numCheck) {
 				setNum('');
 				const encrypted = SHA(numCheck);

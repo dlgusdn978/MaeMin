@@ -9,7 +9,6 @@ interface StoreInfoProps {
 }
 const StoreInfoContainer = styled.div`
 	position: relative;
-	height: 92px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -41,17 +40,35 @@ const StoreTime = styled.div`
 const CallContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	align-items: center;
-	margin: 10px;
+	margin: 10px 20px;
 `;
-
+const CallBox = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+const CallItem = styled.div`
+	display: flex;
+	align-items: center;
+`;
 const TimeContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	align-items: center;
-	margin: 10px;
+	margin: 10px 20px;
 `;
-
+const TimeBox = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+const TimeItem = styled.div`
+	display: flex;
+	align-items: center;
+`;
 const StoreInfo = (props: StoreInfoProps) => {
 	const { phone, operationHours } = props;
 
@@ -61,14 +78,26 @@ const StoreInfo = (props: StoreInfoProps) => {
 	return (
 		<StoreInfoContainer>
 			<CallContainer>
-				<CallImg src={CallIcon} alt="Call Icon" />
-				<CallNumber>번호</CallNumber>
-				{phone}
+				<CallBox>
+					<CallItem>
+						<CallImg src={CallIcon} alt="Call Icon" />
+					</CallItem>
+					<CallItem>
+						<CallNumber>번호</CallNumber>
+					</CallItem>
+				</CallBox>
+				<CallBox>{phone}</CallBox>
 			</CallContainer>
 			<TimeContainer>
-				<ClockImg src={ClockIcon} alt="Clock Icon" />
-				<StoreTime>영업시간</StoreTime>
-				{operationHours}
+				<TimeBox>
+					<TimeItem>
+						<ClockImg src={ClockIcon} alt="Clock Icon" />
+					</TimeItem>
+					<TimeItem>
+						<StoreTime>영업시간</StoreTime>
+					</TimeItem>
+				</TimeBox>
+				<TimeBox>{operationHours}</TimeBox>
 			</TimeContainer>
 		</StoreInfoContainer>
 	);

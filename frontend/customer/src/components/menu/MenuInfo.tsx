@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MenuInfoContainer = styled.div`
-	width: 90%;
+	width: 85%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
