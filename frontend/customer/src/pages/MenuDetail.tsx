@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
 import styled from 'styled-components';
@@ -68,7 +68,7 @@ const MenuDetail = () => {
 	const [totalPrice, setTotalPrice] = useState(0);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+
 	const addMenuList = () => {
 		const lastIndex = menuList.length !== 0 ? menuList[menuList.length - 1].index + 1 : 0;
 		const selectMenu = {
@@ -90,7 +90,7 @@ const MenuDetail = () => {
 	};
 
 	const handleConfirm = () => {
-		navigate(-1);
+		console.log('확인 후');
 	};
 
 	useEffect(() => {
