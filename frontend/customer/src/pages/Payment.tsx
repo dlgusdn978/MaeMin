@@ -137,7 +137,8 @@ const PaySelect = () => {
 			<BasketPayBtn
 				label={'결제하기'}
 				onClick={() => {
-					if (user.loginId != '') {
+					console.log(user.loginId);
+					if (user.loginId !== '') {
 						selectPaymentMethod();
 						userRequest.current && dispatch(basketActions.setRequests(userRequest.current?.value));
 						console.log(userRequest.current?.value);
