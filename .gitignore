@@ -155,6 +155,7 @@ out/
 
 
 ### Spring Boot - custom ###
+<<<<<<< HEAD
 **/application-env.yml
 
 # dotenv environment variable files
@@ -163,3 +164,6 @@ out/
 .env.test.local
 .env.production.local
 .env.local
+=======
+**/application-env.yml
+>>>>>>> 3c8c3e705d39beb8ac959d1258d13e351cd766b1
