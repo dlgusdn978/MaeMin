@@ -11,9 +11,10 @@ import StoreInfo from './../components/store/StoreInfo';
 
 import { useParams } from 'react-router-dom';
 import { getStoreInfo } from '../api/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { basketActions } from '../store/basketSlice';
 import Navigation from '../components/Navigation';
+import { RootState } from '../store/store';
 import { StoreImg } from './Trend';
 
 interface StoreDetailData {
@@ -49,16 +50,18 @@ export interface MenuData {
 }
 
 const StoreDetail = () => {
+	const userInfo = useSelector((state: RootState) => state.user);
+	console.log(userInfo);
 	const [storeData, setStoreData] = useState<StoreDetailData | null>(null);
 	const [menuData, setMenuData] = useState<MenuData[]>([]);
 	const params = useParams();
 	const dispatch = useDispatch();
 	storeData && dispatch(basketActions.setStore(storeData.name));
+	params && dispatch(basketActions.setStoreId(Number(params.storeId)));
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				getStoreInfo(Number(params.storeId)).then((response) => {
-					console.log(response.data);
 					setStoreData(response.data);
 					console.log(storeData);
 					setMenuData(response.data.menuList);
@@ -76,7 +79,7 @@ const StoreDetail = () => {
 
 	return (
 		<StoreDetailContainer>
-			<Navigation></Navigation>
+			{storeData && <Navigation title={'가게'}></Navigation>}
 			{storeData && (
 				<StorePhoto name={storeData.name} pictureUrl={storeData?.pictureUrl} rating={storeData.rating} />
 			)}

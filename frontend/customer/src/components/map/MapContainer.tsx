@@ -40,7 +40,7 @@ const MapContainer = () => {
 			.then((response) =>
 				setCurAddress(response.data.documents[0].address_name.split(' ').splice(0, 2).join(' ')),
 			)
-			.catch((response) => console.log(response.data));
+			.catch((response) => console.error(response.data));
 	}, []);
 
 	// 현 위치 기준 가게 리스트 마커 세팅
@@ -58,7 +58,7 @@ const MapContainer = () => {
 				setMarketList(getList);
 				console.log(markerList);
 			})
-			.catch((response) => console.log(response.data));
+			.catch((response) => console.error(response.data));
 	}, [curAddress]);
 
 	const setMarkers = (map: any) => {
@@ -72,7 +72,7 @@ const MapContainer = () => {
 			});
 			// 마커에 표시할 인포윈도우를 생성합니다
 
-			const url = `http://localhost:3000/customer/store-detail/${obj.storeId}`;
+			const url = `https://j9c208.p.ssafy.io/customer/store-detail/${obj.storeId}`;
 
 			const overlay = new window.kakao.maps.CustomOverlay({
 				content:

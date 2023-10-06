@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import { RootState } from '../store/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BasketTotalResult from '../components/basket/BasketTotalResult';
 import Input from '../components/Input';
 import Kakao from '../assets/imgs/payment_icon_yellow_medium.png';
@@ -24,6 +24,8 @@ import {
 	PaymentMethodContentItem,
 	PaymentMethodContentImg,
 } from '../components/style/payment';
+import { basketActions } from '../store/basketSlice';
+import { setPayMethod } from '../store/userSlice';
 
 interface payMethod {
 	src: string;
@@ -35,12 +37,17 @@ const PaySelect = () => {
 	const [selectedMethod, setSelectedMethod] = useState(-1);
 	const userRequest = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	// const storeInfo = useSelector((state: RootState) => state.basket);
 	// storeInfo.storeId 하면 데이터 꺼내올 수 있음.
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
 	const payMethodList = [
+		{
+			src: Foorending,
+			name: '푸렌딩페이',
+		},
 		{
 			src: Kakao,
 			name: '카카오페이',
@@ -49,19 +56,16 @@ const PaySelect = () => {
 			src: Naver,
 			name: '네이버페이',
 		},
-		{
-			src: Foorending,
-			name: '푸렌딩페이',
-		},
 	];
 	const clickArea = (index: number) => {
 		setSelectedMethod(index);
 	};
 	const selectPaymentMethod = () => {
-		if (selectedMethod == 0) {
+		if (selectedMethod == 1) {
 			// 카카오페이 요청 코드
 			//storeId, tableId, sessionId, requestId, store, amount
-			kakaoPayment(1, 1, 1, 1, '1', 1).then((response) => {
+			const random = Math.floor(Math.random() * 8999999) + 1000000;
+			kakaoPayment(1, 1, 1, random, '1', 1).then((response) => {
 				console.log(response.data);
 				window.open(response.data.next_redirect_mobile_url);
 				// response.data.tid -> tid
@@ -69,9 +73,9 @@ const PaySelect = () => {
 				// response.data.partner_order_id -> partner_order_id
 				// window.location.href = next_redirect_mobile_url
 			});
-		} else if (selectedMethod == 1) {
-			//네이버페이 요청 코드
 		} else if (selectedMethod == 2) {
+			//네이버페이 요청 코드
+		} else if (selectedMethod == 0) {
 			navigate('/myPay');
 		}
 	};
@@ -116,6 +120,7 @@ const PaySelect = () => {
 					<PaymentMethodContentBox
 						onClick={() => {
 							clickArea(index);
+							console.log(index);
 						}}
 						selected={index == selectedMethod}
 					>
@@ -128,6 +133,9 @@ const PaySelect = () => {
 				label={'결제하기'}
 				onClick={() => {
 					selectPaymentMethod();
+					userRequest.current && dispatch(basketActions.setRequests(userRequest.current?.value));
+					console.log(userRequest.current?.value);
+					dispatch(setPayMethod(selectedMethod));
 				}}
 				method={selectedMethod}
 			></BasketPayBtn>

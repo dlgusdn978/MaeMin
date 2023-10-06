@@ -203,7 +203,7 @@ export const MyPayImg = styled.img`
 `;
 
 export const MyPayInfoBox = styled.div`
-	width: 40%;
+	width: 55%;
 	margin: 0 auto;
 	color: white;
 	font-size: 12px;

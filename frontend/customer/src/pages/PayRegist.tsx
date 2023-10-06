@@ -13,9 +13,12 @@ import {
 	PayRegistInputItem,
 	PayRegistButtonItem,
 } from '../components/style/payment';
+import Modal from '../components/Modal';
 const PayRegist = () => {
 	const navigate = useNavigate();
 	const index = useSelector((state: RootState) => state.secure.index);
+	const [isOpen, setIsOpen] = useState(false);
+	const [modalTitle, setModalTitle] = useState('');
 	// const cardList = ['삼성카드', '현대카드', '롯데카드'];
 	const cardNumFirstRef = useRef<HTMLInputElement>(null);
 	const [cardNumFirst, setCardNumFirst] = useState('');
@@ -45,8 +48,17 @@ const PayRegist = () => {
 		const cardExpireDate = encrypt(cardMonth + cardYear);
 		const cvc = encrypt(cardCVC);
 		const cardPw = encrypt(cardPassword);
-		userPayCardRegist(cardNumber, cardExpireDate, cvc, cardPw, index);
-		navigate('/myPay');
+		userPayCardRegist(cardNumber, cardExpireDate, cvc, cardPw, index)
+			.then(() => {
+				setIsOpen(true);
+				setModalTitle('paymentComplete');
+				setTimeout(() => {
+					// 페이지 넘기는 로직
+
+					navigate('/myPay');
+				}, 3000);
+			})
+			.catch(() => {});
 	};
 
 	const checker = (value: string, length: number) => {
@@ -55,6 +67,7 @@ const PayRegist = () => {
 	};
 	return (
 		<PayRegistContainer>
+			{isOpen && <Modal isOpen={isOpen} title={modalTitle} />}
 			<Navigation title={'간편결제 등록'}></Navigation>
 			{/* <PayRegistContentBox>
 				<PayRegistTitleItem>카드사 선택</PayRegistTitleItem>

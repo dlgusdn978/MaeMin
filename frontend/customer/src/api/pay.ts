@@ -47,3 +47,27 @@ export const kakaoPayment = (
 ) => {
 	return API.post('/payment-service/payment/kakao', { storeId, tableId, sessionId, requestId, store, amount });
 };
+
+// 주문하기
+export const order = (
+	storeId: number,
+	requests: string,
+	status: number,
+	authCode: string,
+	totalPrice: number,
+	method: number,
+	menus: menuListProps[],
+	tableId: number,
+) => {
+	console.log(storeId, requests, status, authCode, totalPrice, method, menus, tableId);
+	return API.post('/store-service/customer/order/register', {
+		storeId,
+		requests,
+		status,
+		authCode,
+		totalPrice,
+		method,
+		menus,
+		tableId,
+	});
+};

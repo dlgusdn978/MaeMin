@@ -11,10 +11,12 @@ import useGeolocation from '../hooks/useGeolocation';
 import { locationActions } from '../store/locationSlice';
 import { RootState } from '../store/store';
 import { getPublicKey } from '../api/crypto';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import homecategory from '../assets/imgs/homecategory.png';
 import { secureActions } from '../store/secureSlice';
+import { order } from '../api/pay';
+import { basketActions } from '../store/basketSlice';
 type directionType = {
 	dir: string;
 };
@@ -31,14 +33,28 @@ const HomeCategoryIcon = styled.img`
 
 const Home = () => {
 	const dispatch = useDispatch();
-	const test = useSelector((state: RootState) => state.basket);
-	console.log(test);
-	const urlLocation = useLocation();
-	const urlLoc = urlLocation.search;
-	console.log(urlLoc);
+	const navigate = useNavigate();
+	const basket = useSelector((state: RootState) => state.basket);
 	const menuCount = useSelector((state: RootState) => state.basket.menuList.length);
 	const secure = useSelector((state: RootState) => state.secure);
+	const urlLocation = useLocation();
+	const urlLoc = urlLocation.search;
+
+	useEffect(() => {
+		if (urlLoc != '') {
+			const code = urlLoc.split('=')[1];
+			const menus: menuListProps[] = basket.menuList.map((item) => {
+				return { menuId: item.menuId, menuOptionId: [], quantity: item.menuCount };
+			});
+			order(basket.storeId, basket.requests, 1, code, basket.totalPrice, 2, menus, 1).then(() => {
+				dispatch(basketActions.initBasket());
+				navigate('/home');
+			});
+		}
+	}, []);
+	console.log(basket);
 	const location = useGeolocation();
+	console.log(basket);
 	const locationInfo = location.coordinates;
 	const myLocation = {
 		lat: locationInfo?.lat,

@@ -11,7 +11,10 @@ import { useNavigate } from 'react-router-dom';
 import { BasketContainer, BasketBox, BasketStoreInfoBox, BasketMenuListInfoBox } from '../components/style/basket';
 const Basket = () => {
 	// const dispatch = useDispatch();
+
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
+	const store = useSelector((state: RootState) => state.basket.store);
+	console.log(store);
 	const basketCheck = menuList.length === 0;
 	const navigate = useNavigate();
 	return (
@@ -23,7 +26,7 @@ const Basket = () => {
 						{'장바구니에 추가된 메뉴가 없어요'}
 					</BasketStoreInfoBox>
 				) : (
-					<BasketStoreInfoBox basketCheck={basketCheck}>a파스타</BasketStoreInfoBox>
+					<BasketStoreInfoBox basketCheck={basketCheck}>{store}</BasketStoreInfoBox>
 				)}
 
 				<BasketMenuListInfoBox>
