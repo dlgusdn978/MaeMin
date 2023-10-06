@@ -86,7 +86,7 @@ const PayPassword = () => {
 								basket.requests,
 								1,
 								response.data.authCode,
-								basket.totalPrice,
+								basket.pickedMenuPrice,
 								user.payMethod,
 								menus,
 								1,
