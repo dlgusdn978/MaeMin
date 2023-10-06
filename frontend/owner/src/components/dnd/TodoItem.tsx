@@ -97,7 +97,7 @@ const TodoItem = ({ index, todo, todos, setTodos, inbox, completed, setInbox, se
 						</div>
 						<OrderPriceText>주문 금액 : {todo.totalPrice}</OrderPriceText>
 						<OrderMenuBox>
-							{todo.menus.map((item) => (
+							{todo?.menus?.map((item) => (
 								<OrderMenuText>
 									{item.name} x {item.quantity}
 								</OrderMenuText>
