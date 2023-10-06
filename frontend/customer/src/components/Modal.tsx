@@ -68,6 +68,11 @@ const Modal = ({ isOpen, title }: booleanProps) => {
 			title: '결제 실패',
 			content: '결제 실패하였습니다.',
 		},
+		{
+			code: 'loginRequest',
+			title: ' 결제 실패',
+			content: '로그인이 필요한 기능입니다.',
+		},
 	];
 	const codeNum = modalList.findIndex((item) => item.code == title);
 	useEffect(() => {

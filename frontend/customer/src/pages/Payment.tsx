@@ -26,6 +26,7 @@ import {
 } from '../components/style/payment';
 import { basketActions } from '../store/basketSlice';
 import { setPayMethod } from '../store/userSlice';
+import Modal from '../components/Modal';
 
 interface payMethod {
 	src: string;
@@ -43,6 +44,9 @@ const PaySelect = () => {
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
+	const user = useSelector((state: RootState) => state.user);
+	const [isOpen, setIsOpen] = useState(false);
+	const [modalTitle, setModalTitle] = useState('');
 	const payMethodList = [
 		{
 			src: Foorending,
@@ -81,6 +85,7 @@ const PaySelect = () => {
 	};
 	return (
 		<PaymentContainer>
+			{isOpen && <Modal isOpen={isOpen} title={modalTitle} />}
 			<Navigation title={'결제'}></Navigation>
 			<PaymentMenuBox>
 				<PaymentTitleItem>내 결제항목</PaymentTitleItem>
@@ -132,10 +137,20 @@ const PaySelect = () => {
 			<BasketPayBtn
 				label={'결제하기'}
 				onClick={() => {
-					selectPaymentMethod();
-					userRequest.current && dispatch(basketActions.setRequests(userRequest.current?.value));
-					console.log(userRequest.current?.value);
-					dispatch(setPayMethod(selectedMethod));
+					if (user.loginId != '') {
+						selectPaymentMethod();
+						userRequest.current && dispatch(basketActions.setRequests(userRequest.current?.value));
+						console.log(userRequest.current?.value);
+						dispatch(setPayMethod(selectedMethod));
+					} else {
+						setIsOpen(true);
+						setModalTitle('loginRequest');
+						setTimeout(() => {
+							// 페이지 넘기는 로직
+
+							navigate('/login');
+						}, 3000);
+					}
 				}}
 				method={selectedMethod}
 			></BasketPayBtn>
