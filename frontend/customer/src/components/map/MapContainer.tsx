@@ -36,7 +36,7 @@ const MapContainer = () => {
 		const lng = location.lng ? location.lng : 127.0495556;
 		const lat = location.lat ? location.lat : 37.514575;
 		dispatch(locationActions.setLocation(location));
-		getCurLoc(lng, lat)
+		getCurLoc(String(lng), String(lat))
 			.then((response) =>
 				setCurAddress(response.data.documents[0].address_name.split(' ').splice(0, 2).join(' ')),
 			)

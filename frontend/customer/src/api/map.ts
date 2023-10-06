@@ -7,6 +7,6 @@ const mapAPI = axios.create({
 	},
 });
 
-export const getCurLoc = (x: number, y: number) => {
+export const getCurLoc = (x: string, y: string) => {
 	return mapAPI.get(`/geo/coord2regioncode?x=${x}&y=${y}`);
 };
