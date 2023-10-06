@@ -44,15 +44,6 @@ const BackButton = styled.button`
 	z-index: 3;
 `;
 
-const CenterContainer = styled.div`
-	position: absolute;
-	font-size: 24px;
-	width: 100%;
-	text-align: center;
-	z-index: 2;
-	top: 20px;
-`;
-
 const CartButton = styled.button`
 	position: absolute;
 	top: 0;
@@ -70,7 +61,7 @@ interface FixedHeaderProps {
 	itemCount: number;
 }
 
-const FixedHeaderComponent = ({ selectedMenuName, onBackClick, itemCount }: FixedHeaderProps) => {
+const FixedHeaderComponent = ({ onBackClick, itemCount }: FixedHeaderProps) => {
 	const navigate = useNavigate();
 	const moveToBasket = () => {
 		navigate('/basket');
@@ -80,7 +71,6 @@ const FixedHeaderComponent = ({ selectedMenuName, onBackClick, itemCount }: Fixe
 			<BackButton onClick={onBackClick}>
 				<img src={BackarrowIcon} alt="Go back" />
 			</BackButton>
-			<CenterContainer>{selectedMenuName} 상세 조회</CenterContainer>
 			<CartButton onClick={() => moveToBasket()}>
 				<img src={CartIcon} alt="Share" />
 				{itemCount > 0 && <ItemCountSpan>{itemCount}</ItemCountSpan>}

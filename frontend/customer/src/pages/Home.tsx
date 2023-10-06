@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Card from '../components/Card';
 import { Container } from '../components/layout/common';
-import { ReactComponent as RedArrowIcon } from '../assets/imgs/redarrow.svg';
 import { ReactComponent as ReservationIcon } from '../assets/imgs/reservation.svg';
 import { ReactComponent as CartIcon } from '../assets/imgs/cart.svg';
 import { ReactComponent as QrIcon } from '../assets/imgs/qrImg.svg';
@@ -14,7 +13,7 @@ import { RootState } from '../store/store';
 import { getPublicKey } from '../api/crypto';
 import { useLocation } from 'react-router-dom';
 import moment from 'moment';
-
+import homecategory from '../assets/imgs/homecategory.png';
 import { secureActions } from '../store/secureSlice';
 type directionType = {
 	dir: string;
@@ -23,6 +22,11 @@ type directionType = {
 const HomeBox = styled.div<directionType>`
 	display: flex;
 	flex-direction: ${(props) => (props.dir === 'row' ? 'row' : 'column')};
+`;
+
+const HomeCategoryIcon = styled.img`
+	width: 90px;
+	height: 90px;
 `;
 
 const Home = () => {
@@ -66,10 +70,10 @@ const Home = () => {
 			<Search placeholder="배고프니까 일단 검색!!!" />
 			<HomeBox dir="column">
 				<Card
-					title="트렌드"
-					content="현재 핫 토픽 키워드는?"
+					title="카테고리"
+					content="카테고리별 가게 보러가기"
 					height={160}
-					icon={(props) => <RedArrowIcon {...props} />}
+					icon={(props) => <HomeCategoryIcon src={homecategory} {...props} />}
 					iconSize={90}
 					titleSize="24px"
 					url={'trend'}
