@@ -90,7 +90,6 @@ const MenuDetail = () => {
 	};
 
 	const handleConfirm = () => {
-		addMenuList();
 		navigate(-1);
 	};
 
