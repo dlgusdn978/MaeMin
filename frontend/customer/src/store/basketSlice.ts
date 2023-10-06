@@ -87,7 +87,7 @@ export const basketSlice = createSlice({
 					else return false;
 				});
 				if (temp >= 0)
-					state.pickedMenuPrice +=
+					state.pickedMenuPrice =
 						Math.floor((menu.menuPrice * menu.menuCount) / menu.menuPayerList.length / 10) * 10;
 			});
 		},
