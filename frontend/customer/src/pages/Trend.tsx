@@ -5,11 +5,16 @@ import MapContainer from '../components/map/MapContainer';
 import CarouselCard from '../components/Carousel/CarouselCard';
 import { getAllStores } from '../api/store';
 
+export interface StoreImg {
+	storeImageId: number;
+	storePicureUrl: string;
+}
+
 interface Store {
 	storeId: number;
 	name: string;
 	category: string;
-	pictureUrl: { storeImageId: number; storePicureUrl: string }[];
+	pictureUrl: StoreImg[];
 }
 
 const Trend = () => {
