@@ -52,7 +52,6 @@ const Home = () => {
 			});
 		}
 	}, []);
-	console.log(basket);
 	const location = useGeolocation();
 	console.log(basket);
 	const locationInfo = location.coordinates;
