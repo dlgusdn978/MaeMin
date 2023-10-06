@@ -51,7 +51,7 @@ const PayRegist = () => {
 		userPayCardRegist(cardNumber, cardExpireDate, cvc, cardPw, index)
 			.then(() => {
 				setIsOpen(true);
-				setModalTitle('paymentComplete');
+				setModalTitle('payRegist');
 				setTimeout(() => {
 					// 페이지 넘기는 로직
 
