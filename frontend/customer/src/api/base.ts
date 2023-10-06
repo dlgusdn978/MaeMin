@@ -17,9 +17,9 @@ API.interceptors.request.use(
 			/* 만료 체크 로직 */
 			if (moment(expiredTime).diff(moment()) <= 30) {
 				const newAccessToken = await reissue();
-				config.headers.Authorization = `Bearer ${newAccessToken}`;
+				config.headers!.Authorization = `Bearer ${newAccessToken}`;
 			} else {
-				config.headers.Authorization = `Bearer ${accessToken}`;
+				config.headers!.Authorization = `Bearer ${accessToken}`;
 			}
 		}
 		return config;
