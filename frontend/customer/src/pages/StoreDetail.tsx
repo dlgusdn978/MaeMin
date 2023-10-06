@@ -61,7 +61,6 @@ const StoreDetail = () => {
 		const fetchData = async () => {
 			try {
 				getStoreInfo(Number(params.storeId)).then((response) => {
-					console.log(response.data);
 					setStoreData(response.data);
 					setMenuData(response.data.menuList);
 				});

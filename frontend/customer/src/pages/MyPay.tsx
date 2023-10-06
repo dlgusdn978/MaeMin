@@ -35,18 +35,9 @@ const MyPay = () => {
 	const todayFormat = today.join('-');
 	const price = useSelector((state: RootState) => state.basket.pickedMenuPrice);
 	const userInfo = useSelector((state: RootState) => state.user);
+	const basket = useSelector((state: RootState) => state.basket);
 	const navigate = useNavigate();
 	const [userPayList, setUserPayList] = useState<payProps[]>([]);
-	console.log(userPayList);
-
-	const userCardList = [
-		{
-			basicInfo: '',
-			company: '',
-			nickname: '',
-			payId: 0,
-		},
-	];
 
 	const addCard = () => {
 		navigate('/payRegist');
@@ -54,7 +45,10 @@ const MyPay = () => {
 	useEffect(() => {
 		console.log(userInfo, ' userInfo');
 		userPayCheck()
-			.then((response) => setUserPayList(response.data))
+			.then((response) => {
+				setUserPayList(response.data.payList);
+				console.log(response.data.payList);
+			})
 			.catch((response) => console.log(response.data));
 		if (userInfo.pay) {
 			setIsOpen(false);
@@ -74,9 +68,8 @@ const MyPay = () => {
 			<MyPayBox>
 				<MyPayDateBox>{todayFormat}</MyPayDateBox>
 				<Carousel dots={true} slideToShow={1} background={'black'} autoplay={false} loop={false}>
-					{userCardList.map((item, index: number) => (
-						<MyPayImg src={cardImg} key={index}></MyPayImg>
-					))}
+					{userPayList.length != 0 &&
+						userPayList.map((item, index: number) => <MyPayImg src={cardImg} key={index}></MyPayImg>)}
 					<MyPayImg
 						src={cardPlus}
 						onClick={() => {
@@ -88,7 +81,7 @@ const MyPay = () => {
 				<MyPayInfoBox>
 					<MyPayInfoItem>
 						<MyPayInfoTitle>가게명</MyPayInfoTitle>
-						<MyPayInfoValue>a파스타</MyPayInfoValue>
+						<MyPayInfoValue>{basket.store}</MyPayInfoValue>
 					</MyPayInfoItem>
 					<MyPayInfoItem>
 						<MyPayInfoTitle>결제 금액</MyPayInfoTitle>
@@ -106,7 +99,7 @@ const MyPay = () => {
 						textColor={'white'}
 						onClick={() => {
 							navigate('/payPassword');
-							dispatch(setPayId(5));
+							dispatch(setPayId(userPayList[0].payId));
 						}}
 					></Button>
 				</MyPayButtonBox>

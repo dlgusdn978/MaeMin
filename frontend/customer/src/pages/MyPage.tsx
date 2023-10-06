@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Container } from '../components/layout/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { getMyLog } from '../api/user';
+import { getMyLog, logout } from '../api/user';
 import { MyOrderHistory, UserInfoBox } from '../components/style/mypage';
 import { CardContainer } from '../components/Card';
 import styled from 'styled-components';
 import userIcon from '../assets/imgs/userIcon.png';
 import Navigation from '../components/Navigation';
+import Button from '../components/Button';
 const UserImgItem = styled.div``;
 const UserInfoItem = styled.div`
 	display: flex;
@@ -24,6 +25,7 @@ const UserInfoItem = styled.div`
 		font-size: 16px;
 	}
 `;
+const LogoutBox = styled.div``;
 const MyPage = () => {
 	const [myLog, setMyLog] = useState([]);
 	const userInfo = useSelector((state: RootState) => state.user);
@@ -73,6 +75,19 @@ const MyPage = () => {
 					);
 				})}
 			</MyOrderHistory>
+			<LogoutBox>
+				<Button
+					label={'로그아웃'}
+					width={'300px'}
+					padding={'20px'}
+					margin={'20px 0'}
+					borderRadius={'5px'}
+					backgroundColor={'#ffb649'}
+					textColor={'white'}
+					fontWeight={'bold'}
+					onClick={() => logout()}
+				></Button>
+			</LogoutBox>
 		</Container>
 	);
 };

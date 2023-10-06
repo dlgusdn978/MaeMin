@@ -15,6 +15,7 @@ import {
 	PayPasswordButtonItem,
 } from '../components/style/payment';
 import { SHA } from '../components/Encrypto';
+import { basketActions } from '../store/basketSlice';
 const PayPassword = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const PayPassword = () => {
 								menus,
 								1,
 							);
+							dispatch(basketActions.initBasket());
 							setIsOpen(true);
 							setModalTitle('paymentComplete');
 							setTimeout(() => {

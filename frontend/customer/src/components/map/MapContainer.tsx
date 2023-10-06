@@ -40,7 +40,7 @@ const MapContainer = () => {
 			.then((response) =>
 				setCurAddress(response.data.documents[0].address_name.split(' ').splice(0, 2).join(' ')),
 			)
-			.catch((response) => console.log(response.data));
+			.catch((response) => console.error(response.data));
 	}, []);
 
 	// 현 위치 기준 가게 리스트 마커 세팅
@@ -58,7 +58,7 @@ const MapContainer = () => {
 				setMarketList(getList);
 				console.log(markerList);
 			})
-			.catch((response) => console.log(response.data));
+			.catch((response) => console.error(response.data));
 	}, [curAddress]);
 
 	const setMarkers = (map: any) => {
