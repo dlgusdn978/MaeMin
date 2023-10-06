@@ -116,7 +116,7 @@ type MyOrder = {
 	totalPrice: number;
 	requests: string;
 	createdDate: Date;
-	menuList: [];
+	menuList: string[];
 };
 
 type MenuOption = {

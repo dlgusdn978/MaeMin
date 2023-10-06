@@ -1,15 +1,5 @@
 import styled from 'styled-components';
 
-export const ImageContainer = styled.div`
-	position: relative;
-	width: 300px;
-	height: 400px;
-	background-size: cover;
-	background-position: center;
-	padding: 20px;
-	margin-bottom: 20px;
-	border-radius: 10px;
-`;
 export const MyPageHeader = styled.h1`
 	font-size: 24px;
 	color: #333;
@@ -18,6 +8,7 @@ export const MyPageHeader = styled.h1`
 	font-weight: 900;
 	font-size: 50px;
 `;
+
 export const UserInfoBox = styled.div`
 	background-color: #f8f8f8;
 	padding: 20px;
@@ -49,30 +40,41 @@ export const MyOrderHistory = styled.div`
 	justify-content: flex-start;
 	align-items: center;
 	height: auto;
-	/* overflow-y: auto; */
+`;
+
+export const CardContainer = styled.div`
+	position: relative;
+	width: 350px;
+	height: 200px;
+	margin-bottom: 20px;
 `;
 
 export const BackgroundImage = styled.img`
 	position: absolute;
 	z-index: 1;
-	width: 350px;
-	height: 620px;
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
 `;
 
 export const OrderText = styled.div`
-	position: relative;
+	position: absolute;
 	z-index: 2;
 	padding: 20px;
-	color: blue;
+	color: black;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: transparent;
 `;
 
-export const CardContainer = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	color: #fff;
-
-	div,
-	p {
-	}
+export const Font = styled.div`
+	font-size: 25px;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+	font-weight: 700;
 `;
