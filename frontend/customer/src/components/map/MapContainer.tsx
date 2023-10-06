@@ -36,7 +36,7 @@ const MapContainer = () => {
 		const lng = location.lng ? location.lng : 127.0495556;
 		const lat = location.lat ? location.lat : 37.514575;
 		dispatch(locationActions.setLocation(location));
-		getCurLoc(String(lng), String(lat))
+		getCurLoc(lng, lat)
 			.then((response) =>
 				setCurAddress(response.data.documents[0].address_name.split(' ').splice(0, 2).join(' ')),
 			)
@@ -49,7 +49,7 @@ const MapContainer = () => {
 			.then((response) => {
 				console.log(response.data);
 				const getList: any[] = response.data.map((item: storeProps) => ({
-					latlng: new window.kakao.maps.LatLng(Number(item.latitude), Number(item.longitude)),
+					latlng: new window.kakao.maps.LatLng(item.latitude, item.longitude),
 					title: item.name,
 					storeId: item.storeId,
 					content: item.content,
