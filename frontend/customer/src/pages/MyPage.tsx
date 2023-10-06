@@ -15,7 +15,7 @@ const MyPage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				getMyLog().then((res) => {
+				await getMyLog().then((res) => {
 					console.log(res.data);
 					setMyLog(res.data);
 				});
