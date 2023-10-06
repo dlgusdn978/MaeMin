@@ -45,7 +45,7 @@ const MyPage = () => {
 		};
 
 		fetchData();
-	}, []);
+	}, [userInfo]);
 
 	return (
 		<Container>
