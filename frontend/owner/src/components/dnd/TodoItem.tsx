@@ -66,7 +66,7 @@ const TodoItem = ({ index, todo, todos, setTodos, inbox, completed, setInbox, se
 					ref={provided.innerRef}
 				>
 					<form className="edit-form" onSubmit={(e) => handleEdit(e, todo.id)}>
-						<div>
+						<OrderHeaderBox>
 							<OrderHeaderBox>
 								<span onClick={() => handleDone(todo.id)}>
 									{todo.isDone ? <BsFillCheckSquareFill /> : <BsSquare />}
@@ -90,11 +90,11 @@ const TodoItem = ({ index, todo, todos, setTodos, inbox, completed, setInbox, se
 										{todo.todo}
 									</span>
 								)}
-								<button type="button" className="deletebtn" onClick={() => handleDelete(todo.id)}>
-									<FiX />
-								</button>
 							</OrderHeaderBox>
-						</div>
+							<button type="button" className="deletebtn" onClick={() => handleDelete(todo.id)}>
+								<FiX />
+							</button>
+						</OrderHeaderBox>
 						<OrderPriceText>주문 금액 : {todo.totalPrice}</OrderPriceText>
 						<OrderMenuBox>
 							{todo?.menus?.map((item) => (

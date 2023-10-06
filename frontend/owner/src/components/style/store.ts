@@ -7,7 +7,7 @@ const StoreInfoContainer = styled.div`
 	flex-direction: column;
 	margin-top: 10px;
 	min-width: 925px;
-	min-height: 375px;
+	min-height: 305px;
 `;
 
 const NumberBox = styled.div`

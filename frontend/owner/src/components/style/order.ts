@@ -76,4 +76,6 @@ export const OrderHeaderBox = styled.div`
 	display: flex;
 	justify-content: center;
 	text-align: center;
+	align-items: center;
+	padding: 5px;
 `;

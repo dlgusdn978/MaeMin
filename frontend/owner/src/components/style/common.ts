@@ -34,5 +34,5 @@ export const BoldText = styled.span<FontSizeProps>`
 `;
 
 export const HeaderBox = styled.div`
-	margin: 20px;
+	margin: 12px;
 `;

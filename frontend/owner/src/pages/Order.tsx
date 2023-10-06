@@ -18,23 +18,23 @@ const Order = () => {
 	const storeName = useSelector((state: RootState) => state.store.name);
 	const navigate = useNavigate();
 	// [FE] Feat : sse redux setting & storeInfo page update
-	const dummyList = [
-		{
-			id: nanoid(),
-			todo: '주문1',
-			isDone: false,
-		},
-		{
-			id: nanoid(),
-			todo: '주문2',
-			isDone: false,
-		},
-		{
-			id: nanoid(),
-			todo: '주문3',
-			isDone: false,
-		},
-	];
+	// const dummyList = [
+	// 	{
+	// 		id: nanoid(),
+	// 		todo: '주문1',
+	// 		isDone: false,
+	// 	},
+	// 	{
+	// 		id: nanoid(),
+	// 		todo: '주문2',
+	// 		isDone: false,
+	// 	},
+	// 	{
+	// 		id: nanoid(),
+	// 		todo: '주문3',
+	// 		isDone: false,
+	// 	},
+	// ];
 
 	useEffect(() => {
 		// if (dummyList) {
@@ -42,7 +42,7 @@ const Order = () => {
 		// 	// setTodos([...todos, { id: nanoid(), todo, isDone: false }]);
 		// }
 		// console.log(todos);
-		console.log(dummyList);
+		// console.log(dummyList);
 		console.log(storeId);
 
 		if (!(storeId! > 0)) {
