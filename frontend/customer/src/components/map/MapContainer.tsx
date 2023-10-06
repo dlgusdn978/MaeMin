@@ -72,7 +72,7 @@ const MapContainer = () => {
 			});
 			// 마커에 표시할 인포윈도우를 생성합니다
 
-			const url = `http://localhost:3000/customer/store-detail/${obj.storeId}`;
+			const url = `https://j9c208.p.ssafy.io/customer/store-detail/${obj.storeId}`;
 
 			const overlay = new window.kakao.maps.CustomOverlay({
 				content:
