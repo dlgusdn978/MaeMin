@@ -2,22 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { Container } from '../components/layout/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { getMyLog } from '../api/user';
-import { MyPageHeader, UserInfoBox, MyOrderHistory, BackgroundImage, OrderText } from '../components/style/mypage';
-import ReceiptImage from '../assets/imgs/receipt.jpg';
+import { getMyLog, logout } from '../api/user';
+import { MyOrderHistory, UserInfoBox } from '../components/style/mypage';
+import { CardContainer } from '../components/Card';
 import styled from 'styled-components';
-
-const Font = styled.div`
-	font-size: 25px;
-	margin-bottom: 20px;
-	margin-top: 20px;
-	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
-	font-weight: 700;
+import userIcon from '../assets/imgs/userIcon.png';
+import Navigation from '../components/Navigation';
+import Button from '../components/Button';
+const UserImgItem = styled.div``;
+const UserInfoItem = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	& > :first-child {
+		display: flex;
+		align-items: flex-start;
+		font-size: 32px;
+	}
+	& > :last-child {
+		display: flex;
+		align-items: flex-end;
+		font-size: 16px;
+	}
 `;
-
+const LogoutBox = styled.div``;
 const MyPage = () => {
 	const [myLog, setMyLog] = useState([]);
-	const [isLoading, setIsLoading] = useState(true); // Add loading state
 	const userInfo = useSelector((state: RootState) => state.user);
 
 	console.log(userInfo);
@@ -25,14 +35,12 @@ const MyPage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				await getMyLog().then((res) => {
+				getMyLog().then((res) => {
 					console.log(res.data);
 					setMyLog(res.data);
 				});
 			} catch (error) {
 				console.error('There was an error fetching the data:', error);
-			} finally {
-				setIsLoading(false); // End loading
 			}
 		};
 
@@ -41,40 +49,45 @@ const MyPage = () => {
 
 	return (
 		<Container>
-			<MyPageHeader>My page</MyPageHeader>
+			<Navigation title={'마이페이지'} />
 			<UserInfoBox>
-				<div>닉네임 : {userInfo.nickName}</div>
-				<div>이름 : {userInfo.userName}</div>
-				<div>페이등록여부 : {userInfo.pay ? 'TFT 회원' : '페이 정보 없음'}</div>
+				<UserImgItem>
+					<img src={userIcon} />
+				</UserImgItem>
+				<UserInfoItem>
+					<div>{userInfo.nickName}</div>
+					<div>님</div>
+				</UserInfoItem>
 			</UserInfoBox>
-			<Font>내 결제 내역 </Font>
 			<MyOrderHistory>
-				<BackgroundImage src={ReceiptImage} alt="Receipt" />
-				{isLoading ? (
-					<OrderText>
-						<div>매장 이름 : Loading...</div>
-						<div>결제 수단 : Loading...</div>
-						<div>결제 금액 : Loading...</div>
-						<p>주문 일시 : Loading...</p>
-					</OrderText>
-				) : myLog.length > 0 ? (
-					myLog.map((item: MyOrder, i) => (
-						<OrderText key={i}>
+				<UserInfoItem>
+					<div>페이등록여부 : {userInfo.pay ? 'TFT 회원' : '페이 정보 없음'}</div>
+				</UserInfoItem>
+				내 결제 내역
+				{myLog?.map((item: MyOrder, i) => {
+					return (
+						<CardContainer key={i}>
 							<div>매장 이름 : {item.storeName}</div>
 							<div>결제 수단 : {item.paymentMethod}</div>
 							<div>결제 금액 : {item.totalPrice}</div>
 							<p>주문 일시 : {item.createdDate.toString()}</p>
-						</OrderText>
-					))
-				) : (
-					<OrderText>
-						<div>매장 이름 :</div>
-						<div>결제 수단 :</div>
-						<div>결제 금액 :</div>
-						<p>주문 일시 :</p>
-					</OrderText>
-				)}
+						</CardContainer>
+					);
+				})}
 			</MyOrderHistory>
+			<LogoutBox>
+				<Button
+					label={'로그아웃'}
+					width={'300px'}
+					padding={'20px'}
+					margin={'20px 0'}
+					borderRadius={'5px'}
+					backgroundColor={'#ffb649'}
+					textColor={'white'}
+					fontWeight={'bold'}
+					onClick={() => logout()}
+				></Button>
+			</LogoutBox>
 		</Container>
 	);
 };
