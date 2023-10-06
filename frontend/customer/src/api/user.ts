@@ -1,18 +1,16 @@
 import API from './base';
 import { setUser } from '../store/userSlice';
-import { useDispatch } from 'react-redux';
 export const signUp = (signUpData: SignupForm) =>
 	API.post<User>('/user-service/users/join', signUpData).then((res) => console.log(res.data));
 
 export const login = async (loginData: LoginForm) => {
-	const dispatch = useDispatch();
 	try {
 		const res = await API.post<LoginRes>('/user-service/login', loginData);
 		const tokenData = res.data.data;
 		console.log(res.data.userInfo);
 		console.log(tokenData);
 
-		dispatch(setUser(res.data.userInfo));
+		setUser(res.data.userInfo);
 		localStorage.setItem('access_token', tokenData.accessToken);
 		localStorage.setItem('expired_time', tokenData.expiredTime);
 
