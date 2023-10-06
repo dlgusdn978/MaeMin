@@ -82,6 +82,7 @@ const MenuDetail = () => {
 			index: lastIndex,
 		};
 		dispatch(basketActions.addMenu(selectMenu));
+		setIsModalOpen(true);
 	};
 
 	const addRest = (price: number) => {
