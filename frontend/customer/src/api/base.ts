@@ -8,13 +8,16 @@ const API = axios.create({
 });
 
 const accessToken = localStorage.getItem('access_token');
-const expiredTime = localStorage.getItem('expired_token');
+const expiredTime = localStorage.getItem('expired_time');
 
 /* access토큰있는데 만료되도 reissue가능해서 그대로 보냄. */
 API.interceptors.request.use(
 	async (config) => {
 		if (accessToken) {
 			/* 만료 체크 로직 */
+			console.log(moment('2023-10-07 03:14:00'));
+			console.log(moment(expiredTime).fromNow());
+
 			if (moment(expiredTime).diff(moment()) <= 30) {
 				const newAccessToken = await reissue();
 				config.headers!.Authorization = `Bearer ${newAccessToken}`;
