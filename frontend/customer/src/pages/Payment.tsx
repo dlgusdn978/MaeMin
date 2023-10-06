@@ -45,6 +45,10 @@ const PaySelect = () => {
 	};
 	const payMethodList = [
 		{
+			src: Foorending,
+			name: '푸렌딩페이',
+		},
+		{
 			src: Kakao,
 			name: '카카오페이',
 		},
@@ -52,16 +56,12 @@ const PaySelect = () => {
 			src: Naver,
 			name: '네이버페이',
 		},
-		{
-			src: Foorending,
-			name: '푸렌딩페이',
-		},
 	];
 	const clickArea = (index: number) => {
 		setSelectedMethod(index);
 	};
 	const selectPaymentMethod = () => {
-		if (selectedMethod == 0) {
+		if (selectedMethod == 1) {
 			// 카카오페이 요청 코드
 			//storeId, tableId, sessionId, requestId, store, amount
 			const random = Math.floor(Math.random() * 8999999) + 1000000;
@@ -73,9 +73,9 @@ const PaySelect = () => {
 				// response.data.partner_order_id -> partner_order_id
 				// window.location.href = next_redirect_mobile_url
 			});
-		} else if (selectedMethod == 1) {
-			//네이버페이 요청 코드
 		} else if (selectedMethod == 2) {
+			//네이버페이 요청 코드
+		} else if (selectedMethod == 0) {
 			navigate('/myPay');
 		}
 	};
@@ -120,6 +120,7 @@ const PaySelect = () => {
 					<PaymentMethodContentBox
 						onClick={() => {
 							clickArea(index);
+							console.log(index);
 						}}
 						selected={index == selectedMethod}
 					>
