@@ -7,12 +7,11 @@ const API = axios.create({
 	withCredentials: true,
 });
 
-const accessToken = localStorage.getItem('access_token');
-const expiredTime = localStorage.getItem('expired_time');
-
 /* access토큰있는데 만료되도 reissue가능해서 그대로 보냄. */
 API.interceptors.request.use(
 	async (config) => {
+		const accessToken = localStorage.getItem('access_token');
+		const expiredTime = localStorage.getItem('expired_time');
 		if (accessToken) {
 			/* 만료 체크 로직 */
 			console.log(moment('2023-10-07 03:14:00'));
@@ -20,8 +19,10 @@ API.interceptors.request.use(
 
 			if (moment(expiredTime).diff(moment()) <= 30) {
 				const newAccessToken = await reissue();
+				console.log('reissue됨 / 새토큰 : ', newAccessToken);
 				config.headers!.Authorization = `Bearer ${newAccessToken}`;
 			} else {
+				console.log('기존 토큰 그대로 authorization에 담기 / 기존 토큰 : ', accessToken);
 				config.headers!.Authorization = `Bearer ${accessToken}`;
 			}
 		}
