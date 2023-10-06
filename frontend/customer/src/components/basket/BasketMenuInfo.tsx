@@ -80,7 +80,7 @@ const BasketMenuInfo = ({
 	}, []);
 	useEffect(() => {
 		setPayerIndex(menuPayerList.indexOf('나'));
-	});
+	}, []);
 	return (
 		<BasketMenuContainer>
 			<BasketMenuTitleBox>

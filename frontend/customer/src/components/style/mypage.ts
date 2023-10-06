@@ -28,6 +28,16 @@ export const UserInfoBox = styled.div`
 		text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 		font-weight: 700;
 	}
+	width: 100%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 10px;
+	background-color: white;
+	justify-content: space-evenly;
+	flex-direction: row;
+	padding: 20px 0;
 `;
 
 export const MyOrderHistory = styled.div`

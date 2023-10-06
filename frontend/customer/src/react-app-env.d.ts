@@ -214,3 +214,8 @@ interface menuState {
 	menuPayerList: string[];
 	index: number;
 }
+interface menuListProps {
+	menuId: number;
+	menuOptionId: number[];
+	quantity: number;
+}
