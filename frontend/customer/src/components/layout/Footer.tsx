@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import IconBox from '../IconBox';
-import { ReactComponent as TrendIcon } from '../../assets/imgs/trend.svg';
+import { ReactComponent as CategoryIcon } from '../../assets/imgs/categoryfoot.svg';
 import { ReactComponent as HomeIcon } from '../../assets/imgs/home.svg';
 import { ReactComponent as LogIcon } from '../../assets/imgs/log.svg';
 import { ReactComponent as MyIcon } from '../../assets/imgs/mypage.svg';
@@ -41,7 +41,7 @@ const Footer = () => {
 				<IconBox icon={(props) => <HomeIcon {...props} />} iconSize={25} />
 			</div>
 			<div onClick={() => moveTo('trend')}>
-				<IconBox icon={(props) => <TrendIcon {...props} />} iconSize={25} />
+				<IconBox icon={(props) => <CategoryIcon {...props} />} iconSize={35} />
 			</div>
 			<div onClick={() => moveTo('log')}>
 				<IconBox icon={(props) => <LogIcon {...props} />} iconSize={25} />
