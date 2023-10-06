@@ -54,6 +54,6 @@ export const reissue = async () => {
 	}
 };
 
-export const getMyLog = () => {
+export const getMyLog = async () => {
 	return API.get('/user-service/users/bills');
 };

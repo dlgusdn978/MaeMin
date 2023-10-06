@@ -7,6 +7,9 @@ const Font = styled.div`
 	font-size: 25px;
 	margin-bottom: 20px;
 	margin-left: 20px;
+	margin-top: 20px;
+	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+	font-weight: 700;
 `;
 
 interface Step1Props {
@@ -73,6 +76,7 @@ const Step1 = ({
 				border="white"
 				margin="10px"
 				paddingLeft="30px"
+				readOnly={!isIdDuplicated} // 여기에 readOnly 추가
 			/>
 			<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkIdDuplicateHandler} />
 			<Input

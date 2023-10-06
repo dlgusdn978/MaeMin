@@ -17,6 +17,7 @@ interface InputComponentProps {
 	padding?: string;
 	inputRef?: React.ForwardedRef<HTMLInputElement>;
 	max?: string;
+	readOnly?: boolean;
 }
 
 const Input = React.forwardRef(
@@ -37,6 +38,7 @@ const Input = React.forwardRef(
 		inputRef,
 		name,
 		max,
+		readOnly,
 	}: InputComponentProps): React.ReactElement => {
 		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 			onChange(e.target.value);
@@ -52,6 +54,7 @@ const Input = React.forwardRef(
 				onChange={handleChange}
 				name={name}
 				max={max}
+				readOnly={readOnly}
 				style={{
 					backgroundColor,
 					fontSize,
