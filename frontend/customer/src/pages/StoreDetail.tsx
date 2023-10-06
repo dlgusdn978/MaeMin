@@ -14,12 +14,13 @@ import { getStoreInfo } from '../api/store';
 import { useDispatch } from 'react-redux';
 import { basketActions } from '../store/basketSlice';
 import Navigation from '../components/Navigation';
+import { StoreImg } from './Trend';
 
 interface StoreDetailData {
 	ownerId: number;
 	name: string;
 	category: number[];
-	pictureUrl: string;
+	pictureUrl: StoreImg[];
 	address: string;
 	areaCode: number;
 	phone: string;
@@ -59,6 +60,7 @@ const StoreDetail = () => {
 				getStoreInfo(Number(params.storeId)).then((response) => {
 					console.log(response.data);
 					setStoreData(response.data);
+					console.log(storeData);
 					setMenuData(response.data.menuList);
 				});
 			} catch (error) {
@@ -76,7 +78,7 @@ const StoreDetail = () => {
 		<StoreDetailContainer>
 			<Navigation></Navigation>
 			{storeData && (
-				<StorePhoto name={storeData.name} pictureUrl={storeData.pictureUrl} rating={storeData.rating} />
+				<StorePhoto name={storeData.name} pictureUrl={storeData?.pictureUrl} rating={storeData.rating} />
 			)}
 			{storeData && <TrendKeyword content={storeData.content} />}
 			{storeData && <StoreInfo phone={storeData.phone} operationHours={storeData.operationHours} />}

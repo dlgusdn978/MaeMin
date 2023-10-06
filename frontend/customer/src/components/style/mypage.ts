@@ -35,16 +35,18 @@ export const MyOrderHistory = styled.div`
 	position: relative;
 	border-radius: 10px;
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
-	height: 600px;
+	height: auto;
+	/* overflow-y: auto; */
 `;
 
 export const BackgroundImage = styled.img`
 	position: absolute;
 	z-index: 1;
 	width: 350px;
-	height: 600px;
+	height: 620px;
 `;
 
 export const OrderText = styled.div`

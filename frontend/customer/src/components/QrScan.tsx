@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Button from './Button';
+import { Container } from './layout/common';
 
 const QrCodeReader = () => {
 	const videoRef = useRef<any>(null);
@@ -8,6 +10,10 @@ const QrCodeReader = () => {
 	const height = 320;
 	const width = 320;
 	let workerInterval: any;
+
+	useEffect(() => {
+		return stopCam();
+	}, []);
 
 	//function to start the web cam feed
 	const startCam = () => {
@@ -80,19 +86,30 @@ const QrCodeReader = () => {
 	};
 
 	return (
-		<main>
+		<Container>
 			<div className="video-card">
 				<video ref={videoRef} id="video" autoPlay></video>
 				<canvas ref={canvasRef} id="canvas"></canvas>
 			</div>
-			<button className="btn btn-primary" onClick={startCam}>
-				Start Camera
-			</button>
-			<button className="btn btn-danger" onClick={stopCam}>
+			<Button
+				label="QR 찍으러가기"
+				onClick={startCam}
+				backgroundColor="rgba(255, 182, 73, 1)"
+				fontSize="16px"
+				margin="10px"
+				textColor="white"
+				borderRadius="100px"
+				width={250}
+				height={64}
+				borderColor="rgb(240, 240, 240)"
+			/>
+			{/* <button className="btn btn-danger" onClick={stopCam}>
 				Stop Camera
-			</button>
-			<div className="result">{result}</div>
-		</main>
+			</button> */}
+			<div className="result">
+				<a href={result}>{result}</a>
+			</div>
+		</Container>
 	);
 };
 
