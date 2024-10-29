@@ -4,18 +4,21 @@ import Button from '../../components/Button';
 import styled from 'styled-components';
 
 const Font = styled.div`
-	font-size: 25px;
+	font-size: 20px;
 	margin-bottom: 20px;
 	margin-left: 20px;
 	margin-top: 20px;
-	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 	font-weight: 700;
 `;
-
+const Space = styled.div`
+	width: 100%;
+	height: 80px;
+`;
 const ValidationError = styled.div`
 	color: red;
 	font-size: 16px;
-	margin: 5px 0;
+	margin: 0 0 10px 20px;
+	height: 10px;
 `;
 
 interface Step3Props {
@@ -53,18 +56,20 @@ const Step3 = ({ nickname, setNickname, username, setUsername, nextStep }: Step3
 
 	return (
 		<div>
-			<Font>닉네임 입력</Font>
+			<Space></Space>
+			<Font>닉네임과 이름을</Font>
+			<Font>입력해주세요</Font>
 			<Input
 				value={nickname}
 				placeholder="닉네임"
 				type="text"
 				onChange={setNickname}
-				width={270}
+				width={320}
 				height={40}
-				borderRadius="100px"
-				border="white"
+				borderRadius="3px"
+				border="1px solid rgba(0, 0, 0, 0.5)"
 				margin="10px"
-				paddingLeft="30px"
+				paddingLeft="20px"
 			/>
 
 			<Input
@@ -72,17 +77,17 @@ const Step3 = ({ nickname, setNickname, username, setUsername, nextStep }: Step3
 				placeholder="이름"
 				type="text"
 				onChange={handleUsernameChange}
-				width={270}
+				width={320}
 				height={40}
-				borderRadius="100px"
-				border={isNameValid ? '1px solid white' : '2px solid red'} // 여기서 변경
+				borderRadius="3px"
+				border={isNameValid ? '1px solid rgba(0, 0, 0, 0.5)' : '2px solid red'} // 여기서 변경
 				margin="10px"
-				paddingLeft="30px"
+				paddingLeft="20px"
 			/>
 			{!isNameValid && <ValidationError>{validationMessage}</ValidationError>}
 			<br />
 			<Button
-				label="다음 (3/4)"
+				label="다음"
 				onClick={handleNextClick}
 				borderRadius="20px"
 				height={54}

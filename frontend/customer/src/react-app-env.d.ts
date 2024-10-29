@@ -76,6 +76,7 @@ interface SelectProps {
 
 interface NavigationProps {
 	title?: string;
+	hide?: boolean;
 }
 
 interface InputProps {

@@ -61,7 +61,7 @@ const MyPage = () => {
 			</UserInfoBox>
 			<MyOrderHistory>
 				<UserInfoItem>
-					<div>페이등록여부 : {userInfo.pay ? 'TFT 회원' : '페이 정보 없음'}</div>
+					<div>페이등록여부 : {userInfo.pay ? 'TFF 회원' : '페이 정보 없음'}</div>
 				</UserInfoItem>
 				내 결제 내역
 				{myLog?.map((item: MyOrder, i) => {

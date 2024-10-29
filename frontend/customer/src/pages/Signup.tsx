@@ -7,7 +7,15 @@ import Step4 from '../components/signup/Step4';
 import { signUp } from '../api/user';
 import { checkIdDuplicate as apiCheckIdDuplicate } from '../api/signup'; // 수정된 부분
 import { SlideContainer, StepWrapper } from '../components/style/signupStyles';
+import Navigation from '../components/Navigation';
+import styled from 'styled-components';
 
+const Container = styled.div`
+	position: fixed;
+	width: 390px;
+	z-index: 1;
+	top: 0;
+`;
 const Signup = () => {
 	const [id, setId] = useState<string>('');
 	const [password, setPassword] = useState<string>('');
@@ -17,7 +25,7 @@ const Signup = () => {
 	const [username, setUsername] = useState<string>('');
 	const [nickname, setNickname] = useState<string>('');
 	const [gender, setGender] = useState<string>('');
-	const [isPasswordMismatch, setIsPasswordMismatch] = useState<boolean>(false);
+	const [isPasswordMatch, setIsPasswordMatch] = useState<boolean>(false);
 	const [selectedAgeGroup, setSelectedAgeGroup] = useState<number>(0);
 	const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 	const [timer, setTimer] = useState<number | null>(null);
@@ -40,7 +48,7 @@ const Signup = () => {
 				alert('아이디와 비밀번호를 모두 입력해주세요.');
 				return;
 			}
-			if (isPasswordMismatch) {
+			if (!isPasswordMatch) {
 				alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 				return;
 			}
@@ -103,14 +111,15 @@ const Signup = () => {
 
 	useEffect(() => {
 		if (password && confirmPassword) {
-			setIsPasswordMismatch(password !== confirmPassword);
+			setIsPasswordMatch(password === confirmPassword);
 		} else {
-			setIsPasswordMismatch(false);
+			setIsPasswordMatch(false);
 		}
 	}, [password, confirmPassword]);
 
 	const toggleDrawer = (e: React.SyntheticEvent) => {
-		e.preventDefault();
+		// e.preventDefault();
+		console.log(e);
 		setDrawerOpen(!drawerOpen);
 	};
 
@@ -150,7 +159,7 @@ const Signup = () => {
 	const handleSubmit = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
 
-		if (isPasswordMismatch) {
+		if (!isPasswordMatch) {
 			alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
 			return;
 		}
@@ -174,58 +183,64 @@ const Signup = () => {
 	};
 
 	return (
-		<div style={{ paddingLeft: '15px', overflow: 'hidden', height: '50vh' }}>
-			<SlideContainer step={step - 1}>
-				<StepWrapper>
-					<Step1
-						id={id}
-						setId={setId}
-						password={password}
-						setPassword={setPassword}
-						confirmPassword={confirmPassword}
-						setConfirmPassword={setConfirmPassword}
-						isPasswordMismatch={isPasswordMismatch}
-						nextStep={nextStep}
-						checkIdDuplicate={checkIdDuplicate} // 수정된 부분
-					/>
-				</StepWrapper>
-				<StepWrapper>
-					<Step2
-						phone={phone}
-						setPhone={setPhone}
-						verificationCode={verificationCode}
-						setVerificationCode={setVerificationCode}
-						timer={timer}
-						startTimer={startTimer}
-						displayTime={displayTime}
-						nextStep={nextStep}
-						prevStep={prevStep}
-						check={checkLogic}
-					/>
-				</StepWrapper>
-				<StepWrapper>
-					<Step3
-						username={username}
-						setUsername={setUsername}
-						nickname={nickname}
-						setNickname={setNickname}
-						nextStep={nextStep}
-						prevStep={prevStep}
-						checkNicknameDuplicate={checkNicknameDuplicate}
-					/>
-				</StepWrapper>
-				<StepWrapper>
-					<Step4
-						gender={gender}
-						handleGenderSelect={handleGenderSelect}
-						selectedAgeGroup={selectedAgeGroup}
-						toggleDrawer={toggleDrawer}
-						handleAgeGroupSelect={handleAgeGroupSelect}
-						handleSubmit={handleSubmit}
-						drawerOpen={drawerOpen}
-					/>
-				</StepWrapper>
-			</SlideContainer>
+		<div>
+			<Container>
+				<Navigation title={'회원가입'} hide={true}></Navigation>
+			</Container>
+
+			<div>
+				<SlideContainer step={step - 1}>
+					<StepWrapper>
+						<Step1
+							id={id}
+							setId={setId}
+							password={password}
+							setPassword={setPassword}
+							confirmPassword={confirmPassword}
+							setConfirmPassword={setConfirmPassword}
+							isPasswordMatch={isPasswordMatch}
+							nextStep={nextStep}
+							checkIdDuplicate={checkIdDuplicate} // 수정된 부분
+						/>
+					</StepWrapper>
+					<StepWrapper>
+						<Step2
+							phone={phone}
+							setPhone={setPhone}
+							verificationCode={verificationCode}
+							setVerificationCode={setVerificationCode}
+							timer={timer}
+							startTimer={startTimer}
+							displayTime={displayTime}
+							nextStep={nextStep}
+							prevStep={prevStep}
+							check={checkLogic}
+						/>
+					</StepWrapper>
+					<StepWrapper>
+						<Step3
+							username={username}
+							setUsername={setUsername}
+							nickname={nickname}
+							setNickname={setNickname}
+							nextStep={nextStep}
+							prevStep={prevStep}
+							checkNicknameDuplicate={checkNicknameDuplicate}
+						/>
+					</StepWrapper>
+					<StepWrapper>
+						<Step4
+							gender={gender}
+							handleGenderSelect={handleGenderSelect}
+							selectedAgeGroup={selectedAgeGroup}
+							toggleDrawer={toggleDrawer}
+							handleAgeGroupSelect={handleAgeGroupSelect}
+							handleSubmit={handleSubmit}
+							drawerOpen={drawerOpen}
+						/>
+					</StepWrapper>
+				</SlideContainer>
+			</div>
 		</div>
 	);
 };

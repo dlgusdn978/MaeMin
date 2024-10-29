@@ -4,14 +4,16 @@ import Button from '../../components/Button';
 import styled from 'styled-components';
 
 const Font = styled.div`
-	font-size: 25px;
+	font-size: 20px;
 	margin-bottom: 20px;
 	margin-left: 20px;
 	margin-top: 20px;
-	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 	font-weight: 700;
 `;
-
+const Space = styled.div`
+	width: 100%;
+	height: 80px;
+`;
 interface Step1Props {
 	id: string;
 	setId: (value: string) => void;
@@ -19,7 +21,7 @@ interface Step1Props {
 	setPassword: (value: string) => void;
 	confirmPassword: string;
 	setConfirmPassword: (value: string) => void;
-	isPasswordMismatch: boolean;
+	isPasswordMatch: boolean;
 	checkIdDuplicate: (data: { checkId: string }) => Promise<{ message: string }>;
 	nextStep: () => void;
 }
@@ -31,12 +33,11 @@ const Step1 = ({
 	setPassword,
 	confirmPassword,
 	setConfirmPassword,
-	isPasswordMismatch,
+	isPasswordMatch,
 	checkIdDuplicate,
 	nextStep,
 }: Step1Props): JSX.Element => {
-	const [isIdDuplicated, setIsIdDuplicated] = useState(true);
-
+	const [isIdDuplicated, setIsIdDuplicated] = useState(false);
 	const checkIdDuplicateHandler = async (e: React.SyntheticEvent) => {
 		e.preventDefault();
 		try {
@@ -53,67 +54,90 @@ const Step1 = ({
 			console.error('ID 중복 검사 에러:', error);
 		}
 	};
-
 	const handleNextClick = () => {
-		if (isIdDuplicated) {
-			alert('아이디 중복 확인을 해주세요.');
-		} else {
-			nextStep();
-		}
+		// if (isIdDuplicated) {
+		// 	alert('아이디 중복 확인을 해주세요.');
+		// } else {
+		nextStep();
+		// }
 	};
-
 	return (
 		<div>
-			<Font>아이디,비밀번호입력</Font>
+			<Space></Space>
+			<Font>아이디와 비밀번호를</Font>
+			<Font>입력해주세요</Font>
 			<Input
 				value={id}
-				placeholder="ID"
+				placeholder="아이디"
 				type="text"
-				onChange={(value) => setId(value)}
+				onChange={(value) => {
+					setId(value);
+				}}
 				width={270}
 				height={40}
-				borderRadius="100px"
-				border="white"
+				borderRadius="3px"
+				border="1px solid rgba(0, 0, 0, 0.5)"
 				margin="10px"
-				paddingLeft="30px"
-				readOnly={!isIdDuplicated} // 여기에 readOnly 추가
+				paddingLeft="20px"
+				readOnly={isIdDuplicated} // 여기에 readOnly 추가
 			/>
-			<Button label="중복검사" fontSize="10px" width={57} height={26} onClick={checkIdDuplicateHandler} />
+
+			<Button
+				label="확인"
+				textColor={'white'}
+				backgroundColor={'rgba(255, 182, 73, 1)'}
+				borderColor="white"
+				borderRadius="3px"
+				fontSize="10px"
+				width={57}
+				height={40}
+				onClick={checkIdDuplicateHandler}
+			/>
 			<Input
 				value={password}
-				placeholder="PW"
+				placeholder="비밀번호"
 				type="password"
 				onChange={(value) => setPassword(value)}
-				border={isPasswordMismatch ? '2px solid red' : '1px solid white'}
+				border={
+					confirmPassword.length === 0 || isPasswordMatch ? '1px solid rgba(0, 0, 0, 0.5)' : '2px solid red'
+				}
 				width={270}
 				height={40}
-				borderRadius="100px"
+				borderRadius="3px"
 				margin="10px"
-				paddingLeft="30px"
+				paddingLeft="20px"
 			/>
 			<Input
 				value={confirmPassword}
-				placeholder="PW 확인"
+				placeholder="비밀번호 확인"
 				type="password"
 				onChange={(value) => setConfirmPassword(value)}
-				border={isPasswordMismatch ? '2px solid red' : '1px solid white'}
+				border={
+					confirmPassword.length === 0 || isPasswordMatch ? '1px solid rgba(0, 0, 0, 0.5)' : '2px solid red'
+				}
 				width={270}
 				height={40}
-				borderRadius="100px"
+				borderRadius="3px"
 				margin="10px"
-				paddingLeft="30px"
+				paddingLeft="20px"
 			/>
-			{isPasswordMismatch && <div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>}
+			{confirmPassword.length != 0 && !isPasswordMatch && (
+				<div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>
+			)}
 			<Button
-				label="다음 (1/4)"
+				label="다음"
 				onClick={handleNextClick}
-				borderRadius="20px"
+				borderRadius="10px"
 				height={54}
 				width={350}
 				margintop="20px"
 				textColor="white"
-				backgroundColor="rgba(255, 182, 73, 1)"
-				disabled={isPasswordMismatch || isIdDuplicated}
+				backgroundColor={
+					password.length > 0 && isPasswordMatch && !isIdDuplicated
+						? 'rgba(255, 182, 73, 1)'
+						: 'rgba(255, 182, 73, 0.5)'
+				}
+				// disabled={isPasswordMismatch || isIdDuplicated}
 			/>
 		</div>
 	);

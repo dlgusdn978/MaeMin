@@ -17,7 +17,8 @@ const NavContainer = styled.div`
 const NavTitleBox = styled.div`
 	font-weight: bold;
 `;
-const NavIconBox = styled.div`
+const NavIconBox = styled.div<{ hide?: boolean }>`
+	visibility: ${(props) => (props.hide ? 'hidden' : 'visible')};
 	position: relative;
 `;
 const NavIconItem = styled.div`
@@ -33,7 +34,7 @@ const NavIconItem = styled.div`
 	align-items: center;
 	border-radius: 10px;
 `;
-const Navigation = ({ title }: NavigationProps) => {
+const Navigation = ({ title, hide }: NavigationProps) => {
 	const cartMenuList = useSelector((state: RootState) => state.basket);
 	const navigate = useNavigate();
 	return (
@@ -47,6 +48,7 @@ const Navigation = ({ title }: NavigationProps) => {
 			</NavIconBox>
 			<NavTitleBox>{title}</NavTitleBox>
 			<NavIconBox
+				hide={hide}
 				onClick={() => {
 					navigate('/basket');
 				}}

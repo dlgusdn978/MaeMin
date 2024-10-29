@@ -9,6 +9,7 @@ export const SlideContainer = styled.div<{ step: number }>`
 
 export const StepWrapper = styled.div`
 	width: 100%;
+	background-color: white;
 	height: 100vh;
 	overflow: hidden;
 `;

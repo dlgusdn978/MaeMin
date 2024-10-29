@@ -5,19 +5,21 @@ import Button from '../../components/Button';
 import styled from 'styled-components';
 
 const Font = styled.div`
-	font-size: 25px;
+	font-size: 20px;
 	margin-bottom: 20px;
 	margin-left: 20px;
 	margin-top: 20px;
-	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 	font-weight: 700;
 `;
-
+const Space = styled.div`
+	width: 100%;
+	height: 80px;
+`;
 const ValidationError = styled.div`
 	color: red;
 	font-size: 16px;
-	margin: 5px 0;
-	height: 20px;
+	margin: 0 0 10px 20px;
+	height: 10px;
 `;
 
 const InputButtonContainer = styled.div`
@@ -25,6 +27,19 @@ const InputButtonContainer = styled.div`
 	align-items: center;
 `;
 
+const DisplayTimeContainer = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	font-size: 12px;
+	margin-left: 10px;
+`;
+const DisplayTimeTextR = styled.p`
+	color: red;
+`;
+const DisplayTimeText = styled.p`
+	font-size: 10px;
+`;
 interface Step2Props {
 	phone: string;
 	setPhone: (value: string) => void;
@@ -48,8 +63,9 @@ const Step2 = ({
 	nextStep,
 }: Step2Props): JSX.Element => {
 	const [isPhoneValid, setIsPhoneValid] = useState(true);
+	const [showValidationForm, setShowValidationForm] = useState(false);
 	const [validationMessage, setValidationMessage] = useState('');
-	const [isVerified, setIsVerified] = useState(false);
+	// const [isVerified, setIsVerified] = useState(false);
 
 	const handlePhoneChange = (value: string) => {
 		const onlyNums = value.replace(/[^\d]/g, '');
@@ -61,6 +77,7 @@ const Step2 = ({
 		} else {
 			formattedPhone = `${onlyNums.slice(0, 3)}-${onlyNums.slice(3, 7)}-${onlyNums.slice(7, 11)}`;
 		}
+		if (onlyNums.length > 11) return;
 		setPhone(formattedPhone);
 
 		const regex = /^\d{3}-\d{4}-\d{4}$/;
@@ -82,6 +99,8 @@ const Step2 = ({
 	};
 
 	const handleSendSmsClick = async (e: React.SyntheticEvent) => {
+		setShowValidationForm(true);
+		startTimer(e);
 		try {
 			const plainPhone = phone.replace(/-/g, '');
 			const response = await sendSms(plainPhone);
@@ -106,64 +125,93 @@ const Step2 = ({
 			if (response.data.message === 'SUCCESS') {
 				console.log('인증번호 확인 성공');
 				alert('인증번호 확인이 완료되었습니다.');
-				setIsVerified(true); // 인증 성공 시 isVerified 상태를 true로 설정
+				// setIsVerified(true); // 인증 성공 시 isVerified 상태를 true로 설정
 				nextStep();
 			} else {
 				alert('인증번호 확인에 실패했습니다.');
-				setIsVerified(false); // 인증 실패 시 isVerified 상태를 false로 설정
+				// setIsVerified(false); // 인증 실패 시 isVerified 상태를 false로 설정
 			}
 		} catch (error) {
 			console.error('인증번호 확인 과정에서 에러 발생:', error);
 			alert('인증번호 확인에 실패했습니다.');
-			setIsVerified(false); // 예외 발생 시 isVerified 상태를 false로 설정
+			// setIsVerified(false); // 예외 발생 시 isVerified 상태를 false로 설정
 		}
 	};
 	return (
 		<div>
-			<Font>전화번호,인증번호 입력</Font>
+			<Space></Space>
+			<Font>휴대폰 인증을</Font>
+			<Font>받아주세요</Font>
 			<InputButtonContainer>
 				<Input
 					value={phone}
-					placeholder="Phone"
+					placeholder="휴대폰 번호"
 					type="tel"
 					onChange={handlePhoneChange}
 					width={270}
 					height={40}
-					borderRadius="100px"
-					border={isPhoneValid ? '1px solid white' : '2px solid red'}
+					borderRadius="3px"
+					border={isPhoneValid ? '1px solid rgba(0, 0, 0, 0.5)' : '2px solid red'}
 					margin="10px"
-					paddingLeft="30px"
+					paddingLeft="20px"
 				/>
-				<Button label="인증번호 발송" fontSize="10px" width={81} height={26} onClick={handleSendSmsClick} />
+				<Button
+					label="인증번호 발송"
+					textColor={'white'}
+					backgroundColor={isPhoneValid ? 'rgba(255, 182, 73, 1)' : 'rgba(255, 182, 73, 0.5)'}
+					borderColor="white"
+					borderRadius="3px"
+					fontSize="10px"
+					width={81}
+					height={40}
+					onClick={handleSendSmsClick}
+				/>
 			</InputButtonContainer>
 			<ValidationError>{validationMessage}</ValidationError>
-			<InputButtonContainer>
-				<Input
-					value={verificationCode}
-					placeholder="인증번호"
-					type="text"
-					onChange={setVerificationCode}
-					width={270}
-					height={40}
-					borderRadius="100px"
-					border="white"
-					margin="10px"
-					paddingLeft="30px"
-				/>
-				<Button label="인증번호 확인" fontSize="10px" width={81} height={26} onClick={handleVerifySmsClick} />
-			</InputButtonContainer>
-			<div>남은 시간: {displayTime()}</div>
-			<Button
-				label="다음 (2/4)"
-				onClick={handleNextClick}
-				borderRadius="20px"
-				height={54}
-				width={350}
-				textColor="white"
-				margintop="20px"
-				backgroundColor="rgba(255, 182, 73, 1)"
-				disabled={!isVerified}
-			/>
+			{showValidationForm && (
+				<>
+					<InputButtonContainer>
+						<Input
+							value={verificationCode}
+							placeholder="인증번호"
+							type="text"
+							onChange={setVerificationCode}
+							width={270}
+							height={40}
+							borderRadius="3px"
+							border="1px solid rgba(0, 0, 0, 0.5)"
+							margin="10px"
+							paddingLeft="20px"
+						/>
+						<Button
+							label="인증번호 확인"
+							textColor={'white'}
+							backgroundColor={'rgba(255, 182, 73, 1)'}
+							borderColor="white"
+							borderRadius="3px"
+							fontSize="10px"
+							width={81}
+							height={40}
+							onClick={handleVerifySmsClick}
+						/>
+					</InputButtonContainer>
+					<DisplayTimeContainer>
+						<DisplayTimeText>{'남은 시간 '}</DisplayTimeText>
+						<DisplayTimeTextR>{displayTime()}</DisplayTimeTextR>
+					</DisplayTimeContainer>
+					<Button
+						label="다음"
+						onClick={handleNextClick}
+						borderRadius="20px"
+						height={54}
+						width={350}
+						textColor="white"
+						margintop="20px"
+						backgroundColor="rgba(255, 182, 73, 1)"
+						// disabled={!isVerified}
+					/>
+				</>
+			)}
 		</div>
 	);
 };

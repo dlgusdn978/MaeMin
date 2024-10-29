@@ -114,7 +114,7 @@ const PaySelect = () => {
 						borderRadius={'5px'}
 						onChange={() => {}}
 						placeholder={'예) 맵지 않게 해주세요'}
-						inputRef={userRequest}
+						ref={userRequest}
 					></Input>
 				</PaymentRequestContentItem>
 			</PaymentRequestBox>

@@ -1,5 +1,4 @@
-import React, { ChangeEvent } from 'react';
-
+import React, { useState, ChangeEvent } from 'react';
 interface InputComponentProps {
 	value?: string;
 	name?: string;
@@ -15,9 +14,10 @@ interface InputComponentProps {
 	border?: string;
 	paddingLeft?: string;
 	padding?: string;
-	inputRef?: React.ForwardedRef<HTMLInputElement>;
+	inputRef?: React.MutableRefObject<HTMLInputElement>;
 	max?: string;
 	readOnly?: boolean;
+	color?: string;
 }
 
 const Input = React.forwardRef(
@@ -39,11 +39,15 @@ const Input = React.forwardRef(
 		name,
 		max,
 		readOnly,
+		color,
 	}: InputComponentProps): React.ReactElement => {
+		const [isFocused, setIsFocused] = useState<boolean>(false);
 		const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 			onChange(e.target.value);
 		};
-
+		const handleFocus = () => {
+			setIsFocused(!isFocused);
+		};
 		return (
 			<input
 				// autoFocus 맨 아래 input으로 커서이동됨 -> 회원가입 폼에 영향있어 지워둠
@@ -52,6 +56,8 @@ const Input = React.forwardRef(
 				value={value}
 				placeholder={placeholder}
 				onChange={handleChange}
+				onFocus={handleFocus}
+				onBlur={handleFocus}
 				name={name}
 				max={max}
 				readOnly={readOnly}
@@ -62,9 +68,10 @@ const Input = React.forwardRef(
 					borderRadius,
 					width,
 					height,
-					border,
+					border: `${isFocused ? '1px solid rgba(255, 182, 73, 1)' : border}`,
 					padding,
 					paddingLeft: paddingLeft ? paddingLeft : '10px',
+					color,
 				}}
 			/>
 		);

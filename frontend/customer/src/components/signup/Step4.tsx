@@ -3,14 +3,40 @@ import Button from '../../components/Button';
 import styled from 'styled-components';
 
 const Font = styled.div`
-	font-size: 25px;
+	font-size: 20px;
 	margin-bottom: 20px;
 	margin-left: 20px;
 	margin-top: 20px;
-	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
 	font-weight: 700;
 `;
-
+const Space = styled.div`
+	width: 100%;
+	height: 80px;
+`;
+const Container = styled.div`
+	display: flex;
+	align-items: center;
+	margin: 20px 10px;
+`;
+const SelectContainer = styled.div`
+	margin: 0px;
+`;
+const SelectForm = styled.select`
+	width: 200px;
+	height: 40px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 5px;
+	background-color: white;
+	&:focus {
+		outline: none;
+		border-color: rgba(255, 182, 73, 1);
+	}
+`;
+const SelectOption = styled.option`
+	font-size: 12px;
+`;
 interface Step4Props {
 	gender: string;
 	handleGenderSelect: (gender: string) => void;
@@ -30,19 +56,23 @@ const Step4 = ({
 	handleSubmit,
 	drawerOpen,
 }: Step4Props): JSX.Element => {
+	console.log(drawerOpen);
+	console.log(toggleDrawer);
 	return (
 		<div>
 			<div>
-				<Font>성별,나이선택</Font>
+				<Space></Space>
+				<Font>성별과 나이를</Font>
+				<Font>선택해주세요</Font>
 				<Button
 					label="남자"
 					fontSize="16px"
-					width={150}
+					width={160}
 					height={40}
 					margin="10px"
-					backgroundColor={gender === 'male' ? 'rgba(255, 182, 73, 1)' : 'grey'}
+					backgroundColor={gender === 'male' ? 'rgba(255, 182, 73, 1)' : 'rgba(255, 182, 73, 0.5)'}
 					textColor="white"
-					borderRadius="100px"
+					borderRadius="3px"
 					borderColor="rgb(240, 240, 240)"
 					// onClick={() => handleGenderSelect('male')}
 					onClick={(e: React.SyntheticEvent) => {
@@ -53,12 +83,12 @@ const Step4 = ({
 				<Button
 					label="여자"
 					fontSize="16px"
-					width={150}
+					width={160}
 					height={40}
 					margin="10px"
-					backgroundColor={gender === 'female' ? 'rgba(255, 182, 73, 1)' : 'grey'}
+					backgroundColor={gender === 'female' ? 'rgba(255, 182, 73, 1)' : 'rgba(255, 182, 73, 0.5)'}
 					textColor="white"
-					borderRadius="100px"
+					borderRadius="3px"
 					borderColor="rgb(240, 240, 240)"
 					// onClick={() => handleGenderSelect('female')}
 					onClick={(e: React.SyntheticEvent) => {
@@ -68,36 +98,24 @@ const Step4 = ({
 				/>
 			</div>
 			<div>
-				<Button
-					label="나이 선택"
-					onClick={toggleDrawer}
-					width={150}
-					height={40}
-					margin="10px"
-					margintop="20px"
-				/>
-				{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}대</span>}
-				<div
-					style={{
-						display: drawerOpen ? 'block' : 'none',
-						position: 'absolute',
-						width: '200px',
-						background: 'white',
-						border: '1px solid black',
-					}}
-				>
-					{['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대'].map((ageGroup) => (
-						// <div key={ageGroup} onClick={() => handleAgeGroupSelect(Number(ageGroup.slice(0, -1)))}>
-						<div
-							key={ageGroup}
-							onClick={() => {
-								handleAgeGroupSelect(Number(ageGroup.slice(0, -1)));
-							}}
+				<Container>
+					<SelectContainer>
+						<SelectForm
+							id={'ageGroup'}
+							value={'ageGroup'}
+							onChange={(e) => handleAgeGroupSelect(Number(e.target.value.slice(0, -1)))}
 						>
-							{ageGroup}
-						</div>
-					))}
-				</div>
+							<SelectOption value="">선택하세요</SelectOption>
+							<SelectOption value="10대">10대</SelectOption>
+							<SelectOption value="20대">20대</SelectOption>
+							<SelectOption value="30대">30대</SelectOption>
+							<SelectOption value="40대">40대</SelectOption>
+							<SelectOption value="50대">50대</SelectOption>
+							<SelectOption value="60대 이상">60대 이상</SelectOption>
+						</SelectForm>
+					</SelectContainer>
+					{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}대</span>}
+				</Container>
 				<Button
 					label="회원가입"
 					onClick={handleSubmit}
@@ -105,7 +123,7 @@ const Step4 = ({
 					fontSize="16px"
 					margin="10px"
 					textColor="white"
-					borderRadius="100px"
+					borderRadius="3px"
 					borderColor="rgb(240, 240, 240)"
 					width={344}
 					height={64}
