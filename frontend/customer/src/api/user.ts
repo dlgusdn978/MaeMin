@@ -15,7 +15,6 @@ export const login = async (loginData: LoginForm) => {
 
 		return res.data.userInfo;
 	} catch (error) {
-		// 에러 핸들링을 여기에 추가할 수 있습니다.
 		console.error('로그인에 실패했습니다.', error);
 	}
 };

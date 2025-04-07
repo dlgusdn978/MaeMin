@@ -6,6 +6,7 @@ import { getCurLoc } from '../../api/map';
 import { locationActions } from '../../store/locationSlice';
 import { getStoreList } from '../../api/store';
 import { OverlayContainer, OverlayTitleBox } from '../CustomOverlay';
+import { getLocationByAddress } from '../../hooks/getLocationByAddress';
 
 const { kakao } = window;
 
@@ -35,6 +36,8 @@ const MapContainer = () => {
 	useEffect(() => {
 		const lng = location.lng ? location.lng : 127.0495556;
 		const lat = location.lat ? location.lat : 37.514575;
+		console.log(lng + ' ' + lat);
+		console.log(location);
 		dispatch(locationActions.setLocation(location));
 		getCurLoc(lng, lat)
 			.then((response) =>
@@ -45,6 +48,7 @@ const MapContainer = () => {
 
 	// 현 위치 기준 가게 리스트 마커 세팅
 	useEffect(() => {
+		console.log(curAddress);
 		getStoreList(curAddress)
 			.then((response) => {
 				console.log(response.data);
@@ -59,6 +63,9 @@ const MapContainer = () => {
 				console.log(markerList);
 			})
 			.catch((response) => console.error(response.data));
+		console.log(markerList);
+		console.log(getLocationByAddress('아차산로31길 10'));
+		console.log(curAddress);
 	}, [curAddress]);
 
 	const setMarkers = (map: any) => {

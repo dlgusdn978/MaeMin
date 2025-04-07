@@ -1,9 +1,10 @@
 spring:
   datasource:
-    url: jdbc:mariadb://j9c208.p.ssafy.io:3308/card
+#    url: jdbc:mariadb://j9c208.p.ssafy.io:3306/card
+    url: jdbc:mariadb://localhost:3306/card
     driverClassName: org.mariadb.jdbc.Driver
     username: root
-    password: bigbigred
+    password: ssafy
     hikari:
       idle-timeout: '600000'
       maximum-pool-size: '50'

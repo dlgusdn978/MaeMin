@@ -77,5 +77,5 @@
     "prettier": "^3.0.3"
   },
   "homepage": "/customer",
-  "proxy": "http://localhost:3000"
+  "proxy": "http://localhost:8000"
 }
