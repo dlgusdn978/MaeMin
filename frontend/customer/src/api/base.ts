@@ -12,7 +12,7 @@ API.interceptors.request.use(
 	async (config) => {
 		const accessToken = localStorage.getItem('access_token');
 		const expiredTime = localStorage.getItem('expired_time');
-		console.log(accessToken + '  ' + expiredTime);
+
 		if (accessToken) {
 			/* 만료 체크 로직 */
 			console.log(moment('2023-10-07 03:14:00'));
@@ -27,13 +27,10 @@ API.interceptors.request.use(
 				config.headers!.Authorization = `Bearer ${accessToken}`;
 			}
 		}
-		const headersSize = JSON.stringify(config.headers);
-		console.log(headersSize);
-		console.log(config.headers);
+
 		return config;
 	},
 	(error) => {
-		console.log(error.response);
 		Promise.reject(error);
 	},
 );
@@ -57,7 +54,6 @@ API.interceptors.response.use(
 				alert('권한이 없습니다. 다시 로그인 해주세요');
 			}
 		} else {
-			console.log(431 + '?????');
 			error.response && console.log(error.response);
 		}
 		//응답 200도 401도 아닌 경우 - 디버깅

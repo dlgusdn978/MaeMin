@@ -31,7 +31,7 @@ spring:
 
   redis:
     port: 6379
-    host: j9c208.p.ssafy.io
+    host: localhost
 
   profiles:
     include: secret

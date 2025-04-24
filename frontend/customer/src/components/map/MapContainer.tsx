@@ -6,7 +6,7 @@ import { getCurLoc } from '../../api/map';
 import { locationActions } from '../../store/locationSlice';
 import { getStoreList } from '../../api/store';
 import { OverlayContainer, OverlayTitleBox } from '../CustomOverlay';
-import { getLocationByAddress } from '../../hooks/getLocationByAddress';
+// import { getLocationByAddress } from '../../hooks/getLocationByAddress';
 
 const { kakao } = window;
 
@@ -19,57 +19,48 @@ declare global {
 
 const MapContainer = () => {
 	const location = useSelector((state: RootState) => state.location);
-	const [curAddress, setCurAddress] = useState<string>('');
+	const [address, setAddress] = useState<string>('');
 	const dispatch = useDispatch();
 
-	const [markerList, setMarketList] = useState<any[]>([
-		{
-			latlng: new window.kakao.maps.LatLng(33.45023, 126.572965),
-			title: 'test1',
-		},
-		{
-			latlng: new window.kakao.maps.LatLng(33.455529, 126.561838),
-			title: 'test2',
-		},
-	]);
-	// 현 위치 세팅
-	useEffect(() => {
-		const lng = location.lng ? location.lng : 127.0495556;
-		const lat = location.lat ? location.lat : 37.514575;
-		console.log(lng + ' ' + lat);
-		console.log(location);
-		dispatch(locationActions.setLocation(location));
-		getCurLoc(lng, lat)
-			.then((response) =>
-				setCurAddress(response.data.documents[0].address_name.split(' ').splice(0, 2).join(' ')),
-			)
-			.catch((response) => console.error(response.data));
-	}, []);
+	const [marketData, setMarketData] = useState<any[]>([]);
 
-	// 현 위치 기준 가게 리스트 마커 세팅
 	useEffect(() => {
-		console.log(curAddress);
-		getStoreList(curAddress)
-			.then((response) => {
-				console.log(response.data);
-				const getList: any[] = response.data.map((item: storeProps) => ({
+		const getLocation = async () => {
+			const lng = location.lng ? location.lng : 127.0495556;
+			const lat = location.lat ? location.lat : 37.514575;
+			dispatch(locationActions.setLocation(location));
+			try {
+				const response = await getCurLoc(lng, lat);
+				const [city, county, district] = response.data.documents[0].address_name.split(' ');
+				console.log(district);
+				setAddress(city + ' ' + county);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		getLocation();
+	}, []);
+	useEffect(() => {
+		const getMarket = async () => {
+			try {
+				const res = await getStoreList(address);
+				const marketList = res.data.map((item: storeProps) => ({
 					latlng: new window.kakao.maps.LatLng(item.latitude, item.longitude),
 					title: item.name,
 					storeId: item.storeId,
 					content: item.content,
 					phone: item.phone,
 				}));
-				setMarketList(getList);
-				console.log(markerList);
-			})
-			.catch((response) => console.error(response.data));
-		console.log(markerList);
-		console.log(getLocationByAddress('아차산로31길 10'));
-		console.log(curAddress);
-	}, [curAddress]);
+				setMarketData(marketList);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		getMarket();
+	}, [address]);
 
 	const setMarkers = (map: any) => {
-		markerList.forEach((obj) => {
+		marketData.forEach((obj) => {
 			const marker = new kakao.maps.Marker({
 				map: map,
 				position: obj.latlng,
@@ -131,7 +122,9 @@ const MapContainer = () => {
 
 		mainMarker.setMap(map); // 메인 위치 set
 		setMarkers(map); // 마커 배열 set
-	}, [location, markerList]);
+		console.log(map);
+		console.log(marketData);
+	}, [marketData]);
 
 	return (
 		<div className="kakaomap">

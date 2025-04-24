@@ -65,11 +65,13 @@ const Home = () => {
 
 	// 초기 암호키 상태 세팅
 	const initSecureState = ({ index, publicKey, validTime }: secureState) => {
+		console.log('여기서 오류발생');
 		dispatch(secureActions.setKey({ index, publicKey, validTime }));
 	};
 	useEffect(() => {
 		const curValidTime = secure.validTime;
 		const diff = moment.duration(moment(curValidTime).diff(moment())).asSeconds();
+
 		if (diff <= 90) {
 			getPublicKey().then((response) => {
 				const index = response.data.key;

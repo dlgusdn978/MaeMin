@@ -32,9 +32,6 @@ interface CarouselProps {
 
 function CarouselCard({ trendword, storeData }: CarouselProps) {
 	const navigate = useNavigate();
-
-	console.log('Received storeData:', storeData);
-
 	if (!storeData || storeData.length === 0) {
 		return (
 			<Carousel keyword={trendword} storeDataLength={1}>
