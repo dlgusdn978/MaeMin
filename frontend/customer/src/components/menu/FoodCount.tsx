@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../Button';
-
 interface FoodCountProps {
 	quantity: number;
 	setQuantity: React.Dispatch<React.SetStateAction<number>>;
@@ -14,21 +13,23 @@ const FoodCountContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-top: 10px;
+	justify-content: space-between;
+	padding: 30px 15px;
 `;
 
 const CountName = styled.div`
-	font-size: 24px;
+	font-size: 18px;
 	position: relative;
-	margin-left: 10px;
-	flex-grow: 1;
 `;
 
 const CountBox = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	margin-right: 20px;
+	height: 30px;
+	justify-contents: center;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
 `;
 
 const FoodCount = ({ quantity, setQuantity }: FoodCountProps) => {
@@ -54,9 +55,9 @@ const FoodCount = ({ quantity, setQuantity }: FoodCountProps) => {
 		<FoodCountContainer>
 			<CountName>수량</CountName>
 			<CountBox>
-				<Button label="-" onClick={handleDecrement} width={20} height={20} margin="5px" />
-				{quantity}
-				<Button label="+" onClick={handleIncrement} width={20} height={20} margin="5px" />
+				<Button label="-" onClick={handleDecrement} width={40} height={25} border={'none'} />
+				<span>{quantity}</span>
+				<Button label="+" onClick={handleIncrement} width={40} height={25} border={'none'} />
 			</CountBox>
 		</FoodCountContainer>
 	);

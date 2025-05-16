@@ -54,7 +54,7 @@ const MenuList = ({ menu, title, iconSrc, popularity }: MenuListProps) => {
 	return (
 		<MenuContainer popularity={popularity}>
 			<ContentContainer>
-				<img src={iconSrc} alt="아이콘" />
+				<img src={iconSrc} alt="아이콘" width={28} height={28} />
 				<MenuName>{title}</MenuName>
 			</ContentContainer>
 			{menu.map((item, index) => (

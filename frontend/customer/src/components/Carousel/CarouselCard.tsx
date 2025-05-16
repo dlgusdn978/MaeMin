@@ -4,7 +4,7 @@ import Carousel from './Carousel';
 import { StoreName } from '../text';
 import { useNavigate } from 'react-router';
 import StoreImage from './StoreImage';
-
+import placeholderImage from '../../assets/imgs/subs-store.png';
 const SliderItem = styled.div`
 	width: 100%;
 	padding-left: 12px;
@@ -36,7 +36,7 @@ function CarouselCard({ trendword, storeData }: CarouselProps) {
 		return (
 			<Carousel keyword={trendword} storeDataLength={1}>
 				<SliderItem>
-					<StoreImage imageUrl="default_image_url" altDescription="default" />
+					<StoreImage imageUrl={placeholderImage} altDescription="default" width={'183px'} height={'183px'} />
 					<StoreName>가게없음</StoreName>
 				</SliderItem>
 			</Carousel>
@@ -53,6 +53,8 @@ function CarouselCard({ trendword, storeData }: CarouselProps) {
 					}}
 				>
 					<StoreImage
+						width={'183px'}
+						height={'183px'}
 						imageUrl={store.pictureUrl[0]?.storePicureUrl}
 						altDescription={store.name || 'Unnamed Store'}
 					/>

@@ -115,7 +115,7 @@ const MenuDetail = () => {
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />
 			<ButtonWrapper>
 				<Button
-					label={`${totalPrice}원 담기`}
+					label={`${addRest(totalPrice)} 담기`}
 					backgroundColor="rgba(255, 182, 73, 1)"
 					fontSize="16px"
 					margin="10px"

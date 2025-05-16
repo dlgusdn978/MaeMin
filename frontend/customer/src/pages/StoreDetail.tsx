@@ -34,11 +34,7 @@ interface StoreDetailData {
 	dibsCount: number;
 	reviewCount: number;
 }
-const StoreDetailContainer = styled.div`
-	& > :nth-child(n + 2) {
-		border-radius: 5px;
-	}
-`;
+const StoreDetailContainer = styled.div``;
 export interface MenuData {
 	menuId: number;
 	storeId: number;
@@ -79,7 +75,7 @@ const StoreDetail = () => {
 
 	return (
 		<StoreDetailContainer>
-			{storeData && <Navigation title={'가게'}></Navigation>}
+			{storeData && <Navigation title={storeData.name}></Navigation>}
 			{storeData && (
 				<StorePhoto name={storeData.name} pictureUrl={storeData?.pictureUrl} rating={storeData.rating} />
 			)}

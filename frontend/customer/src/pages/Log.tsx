@@ -3,6 +3,11 @@ import { Container } from '../components/layout/common';
 import Card from '../components/Card';
 import { ReactComponent as LogBook } from '../assets/imgs/logbook.svg';
 import { dummyOrderData } from '../assets/dummy';
+import Navigation from '../components/Navigation';
+import { getMyLog } from '../api/user';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import LogContainer from '../components/log/LogContainer';
 // import { Stomp } from '@stomp/stompjs';
 
 const orderData = dummyOrderData;
@@ -44,11 +49,25 @@ const Log = () => {
 	// 	// };
 	// }, []);
 	const [orderState, setOrderState] = useState('');
-
+	const [myLog, setMyLog] = useState([]);
+	const userInfo = useSelector((state: RootState) => state.user);
 	useEffect(() => {
 		setOrderState('조리중...');
 	}, []);
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				await getMyLog().then((res) => {
+					console.log(res.data);
+					setMyLog(res.data);
+				});
+			} catch (error) {
+				console.error('There was an error fetching the data:', error);
+			}
+		};
 
+		fetchData();
+	}, [userInfo]);
 	{
 		menus &&
 			menus.map((item: OrderMenu) => {
@@ -58,6 +77,7 @@ const Log = () => {
 
 	return (
 		<Container>
+			<Navigation title={'주문내역'} />
 			<div>
 				<Card
 					title="현재 주문현황"
@@ -65,7 +85,7 @@ const Log = () => {
 					icon={(props) => <LogBook {...props} />}
 					iconSize={100}
 				/>
-				<Card title="과거 주문내역" menus={menus} icon={(props) => <LogBook {...props} />} iconSize={100} />
+				{myLog?.map((item: MyOrder, i) => <LogContainer {...item} key={i} />)}
 			</div>
 		</Container>
 	);

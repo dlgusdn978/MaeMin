@@ -17,8 +17,8 @@ const NavContainer = styled.div`
 const NavTitleBox = styled.div`
 	font-weight: bold;
 `;
-const NavIconBox = styled.div<{ hide?: boolean }>`
-	visibility: ${(props) => (props.hide ? 'hidden' : 'visible')};
+const NavIconBox = styled.div<{ hide?: number }>`
+	visibility: ${(props) => (props.hide == 1 ? 'hidden' : 'visible')};
 	position: relative;
 `;
 const NavIconItem = styled.div`

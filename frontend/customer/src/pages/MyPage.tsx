@@ -1,51 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container } from '../components/layout/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-import { getMyLog, logout } from '../api/user';
-import { MyOrderHistory, UserInfoBox } from '../components/style/mypage';
-import { CardContainer } from '../components/Card';
+
+import {
+	MyOrderHistory,
+	UserInfoBox,
+	UserInfoItem,
+	UserPayItem,
+	UserPayInfo,
+	UserPayNotice,
+	NoticeBox,
+	NoticeItem,
+} from '../components/style/mypage';
+
 import styled from 'styled-components';
 import userIcon from '../assets/imgs/userIcon.png';
 import Navigation from '../components/Navigation';
 import Button from '../components/Button';
-const UserImgItem = styled.div``;
-const UserInfoItem = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: flex-end;
-	& > :first-child {
-		display: flex;
-		align-items: flex-start;
-		font-size: 32px;
-	}
-	& > :last-child {
-		display: flex;
-		align-items: flex-end;
-		font-size: 16px;
-	}
+import { useNavigate } from 'react-router-dom';
+// import Button from '../components/Button';
+const UserImgItem = styled.div`
+	padding: 10px;
 `;
-const LogoutBox = styled.div``;
+
+// const LogoutBox = styled.div``;
 const MyPage = () => {
-	const [myLog, setMyLog] = useState([]);
 	const userInfo = useSelector((state: RootState) => state.user);
+	const navigate = useNavigate();
 
-	console.log(userInfo);
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				await getMyLog().then((res) => {
-					console.log(res.data);
-					setMyLog(res.data);
-				});
-			} catch (error) {
-				console.error('There was an error fetching the data:', error);
-			}
-		};
-
-		fetchData();
-	}, [userInfo]);
+	const moveTo = (page: string) => {
+		navigate(page);
+	};
 
 	return (
 		<Container>
@@ -55,27 +41,48 @@ const MyPage = () => {
 					<img src={userIcon} />
 				</UserImgItem>
 				<UserInfoItem>
-					<div>{userInfo.nickName}</div>
-					<div>님</div>
+					<div>
+						<span>{userInfo.nickName !== '' ? userInfo.nickName : '로그인하고 시작하기'}</span>
+						{userInfo.nickName === '' ? (
+							<Button
+								label={'>'}
+								border={'none'}
+								fontWeight={'200'}
+								onClick={() => moveTo('/login')}
+							></Button>
+						) : (
+							''
+						)}
+					</div>
+					{/* <Button
+						label={'로그아웃'}
+						onClick={() => {
+							logout().then((res) => console.log(res + ' ' + '성공'));
+						}}
+					></Button> */}
+					<div>
+						<div>리뷰관리</div>
+						<div>주소관리</div>
+					</div>
 				</UserInfoItem>
 			</UserInfoBox>
 			<MyOrderHistory>
-				<UserInfoItem>
-					<div>페이등록여부 : {userInfo.pay ? 'TFF 회원' : '페이 정보 없음'}</div>
-				</UserInfoItem>
-				내 결제 내역
-				{myLog?.map((item: MyOrder, i) => {
-					return (
-						<CardContainer key={i}>
-							<div>매장 이름 : {item.storeName}</div>
-							<div>결제 수단 : {item.paymentMethod}</div>
-							<div>결제 금액 : {item.totalPrice}</div>
-							<p>주문 일시 : {item.createdDate.toString()}</p>
-						</CardContainer>
-					);
-				})}
+				<UserPayItem>
+					<UserPayInfo>
+						<div>매민 페이</div>
+						<div>{userInfo.pay ? '사용 내역 확인하기' : '간편하게 등록하기 '}</div>
+					</UserPayInfo>
+					<UserPayNotice>머니로 결제할 때마다 포인트가 쌓여요!</UserPayNotice>
+				</UserPayItem>
 			</MyOrderHistory>
-			<LogoutBox>
+			<NoticeBox>
+				<NoticeItem>고객센터</NoticeItem>
+				<NoticeItem>자주 묻는 질문</NoticeItem>
+				<NoticeItem>공지사항</NoticeItem>
+				<NoticeItem>약관 및 정책</NoticeItem>
+				<NoticeItem>현재 버전 : 1.0.0</NoticeItem>
+			</NoticeBox>
+			{/* <LogoutBox>
 				<Button
 					label={'로그아웃'}
 					width={'300px'}
@@ -87,7 +94,7 @@ const MyPage = () => {
 					fontWeight={'bold'}
 					onClick={() => logout()}
 				></Button>
-			</LogoutBox>
+			</LogoutBox> */}
 		</Container>
 	);
 };

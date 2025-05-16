@@ -16,6 +16,7 @@ interface ButtonComponentProps {
 	padding?: string;
 	fontWeight?: string;
 	margintop?: string | number;
+	overflow?: string;
 }
 
 const Button = (props: ButtonComponentProps) => {

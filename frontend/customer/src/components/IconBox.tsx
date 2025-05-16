@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const IconDiv = styled.div`
 	:hover {
 		cursor: pointer;
-		background-color: #999;
 	}
 	display: flex;
 	align-items: center;
@@ -13,8 +12,22 @@ const IconDiv = styled.div`
 	min-height: 70px;
 `;
 
-const IconBox = ({ icon, iconSize }: PropsWithChildren<IconProps>) => {
-	return <IconDiv>{React.createElement(icon, { width: iconSize, height: iconSize })}</IconDiv>;
+const Icon = styled.svg<{ focus: number }>`
+	width: 25px;
+	height: 25px;
+
+	path {
+		// fill: ${(props) => (props.focus ? 'rgba(255, 182, 73, 0.7)' : 'rgba(0, 0, 0, 0,5)')};
+		stroke: ${(props) => (props.focus == 1 ? 'rgba(255, 182, 73, 0.7)' : 'rgba(0, 0, 0, 0.5)')};
+	}
+`;
+
+const IconBox = ({ icon, focus }: PropsWithChildren<IconProps>) => {
+	return (
+		<IconDiv>
+			<Icon as={icon} focus={focus} />
+		</IconDiv>
+	);
 };
 
 export default IconBox;

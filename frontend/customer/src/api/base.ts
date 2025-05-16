@@ -17,20 +17,25 @@ API.interceptors.request.use(
 			/* 만료 체크 로직 */
 			console.log(moment('2023-10-07 03:14:00'));
 			console.log(moment(expiredTime).fromNow());
+			console.log(accessToken.length);
+			config.headers = config.headers || {};
 
 			if (moment(expiredTime).diff(moment()) <= 30) {
 				const newAccessToken = await reissue();
+
 				console.log('reissue됨 / 새토큰 : ', newAccessToken);
-				config.headers!.Authorization = `Bearer ${newAccessToken}`;
+				config.headers.Authorization = `Bearer ${newAccessToken}`;
 			} else {
 				console.log('기존 토큰 그대로 authorization에 담기 / 기존 토큰 : ', accessToken);
-				config.headers!.Authorization = `Bearer ${accessToken}`;
+				config.headers.Authorization = `Bearer ${accessToken}`;
+				console.log(config);
 			}
 		}
-
+		console.log(config);
 		return config;
 	},
 	(error) => {
+		console.log('에러는 없음;');
 		Promise.reject(error);
 	},
 );
@@ -38,22 +43,26 @@ API.interceptors.request.use(
 /** 새 access토큰받으면 갈아끼기 */
 API.interceptors.response.use(
 	(res) => {
+		console.log(res);
 		return res;
 	},
 	async (error) => {
 		const originalRequest = error.config;
-
+		console.log('여기');
+		console.log(originalRequest);
 		// 요청 이후 401 - code가 expired이면 reissue요청
 		if (error.response.status === 401 && error.response.data.code === 'EXPIRED') {
 			try {
 				const newAccessToken = await reissue();
 				console.log(newAccessToken);
+				console.log('????');
 				originalRequest.headers!.Authorization = `Bearer ${newAccessToken}`;
 				return originalRequest;
 			} catch (err) {
 				alert('권한이 없습니다. 다시 로그인 해주세요');
 			}
 		} else {
+			console.log('431에러');
 			error.response && console.log(error.response);
 		}
 		//응답 200도 401도 아닌 경우 - 디버깅

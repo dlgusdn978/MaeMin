@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import IconBox from '../IconBox';
+import { useState } from 'react';
 import { ReactComponent as CategoryIcon } from '../../assets/imgs/categoryfoot.svg';
 import { ReactComponent as HomeIcon } from '../../assets/imgs/home.svg';
 import { ReactComponent as LogIcon } from '../../assets/imgs/log.svg';
 import { ReactComponent as MyIcon } from '../../assets/imgs/mypage.svg';
 import { useNavigate } from 'react-router';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../../store/store';
 
 const FooterContainer = styled.footer`
 	/* position: fixed; */
@@ -29,29 +30,51 @@ const FooterContainer = styled.footer`
 // const footerList = ['home', 'trend', 'log', 'myPage'];
 
 const Footer = () => {
-	const userName = useSelector((state: RootState) => state.user.userName);
+	// const userName = useSelector((state: RootState) => state.user.userName);
 	const navigate = useNavigate();
+	const [focusdIcon, setFocusedIcon] = useState(0);
 	const moveTo = (page: string) => {
 		navigate(page);
 	};
 
 	return (
 		<FooterContainer>
-			<div onClick={() => moveTo('home')}>
-				<IconBox icon={(props) => <HomeIcon {...props} />} iconSize={25} />
-			</div>
-			<div onClick={() => moveTo('trend')}>
-				<IconBox icon={(props) => <CategoryIcon {...props} />} iconSize={35} />
-			</div>
-			<div onClick={() => moveTo('log')}>
-				<IconBox icon={(props) => <LogIcon {...props} />} iconSize={25} />
+			<div
+				onClick={() => {
+					moveTo('home');
+					setFocusedIcon(0);
+				}}
+			>
+				<IconBox icon={(props) => <HomeIcon {...props} />} focus={focusdIcon == 0 ? 1 : 0} />
 			</div>
 			<div
 				onClick={() => {
-					userName ? moveTo('mypage') : moveTo('login');
+					moveTo('trend');
+					setFocusedIcon(1);
 				}}
 			>
-				<IconBox icon={(props) => <MyIcon {...props} />} iconSize={25} />
+				<IconBox icon={(props) => <CategoryIcon {...props} />} iconSize={35} focus={focusdIcon == 1 ? 1 : 0} />
+			</div>
+			<div
+				onClick={() => {
+					moveTo('log');
+					setFocusedIcon(2);
+				}}
+			>
+				<IconBox icon={(props) => <LogIcon {...props} />} focus={focusdIcon == 2 ? 1 : 0} />
+			</div>
+			{/* <div
+				onClick={() => {
+					userName ? moveTo('mypage') : moveTo('login');
+				}}
+			> */}
+			<div
+				onClick={() => {
+					moveTo('mypage');
+					setFocusedIcon(3);
+				}}
+			>
+				<IconBox icon={(props) => <MyIcon {...props} />} focus={focusdIcon == 3 ? 1 : 0} />
 			</div>
 		</FooterContainer>
 	);

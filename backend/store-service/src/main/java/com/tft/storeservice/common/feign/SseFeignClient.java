@@ -5,8 +5,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "cart-service", url = "https://j9c208.p.ssafy.io/cart-service")
+//@FeignClient(name = "cart-service", url = "https://j9c208.p.ssafy.io/cart-service")
+@FeignClient(name = "cart-service", url = "http://localhost:8000/cart-service")
 public interface SseFeignClient {
+
 
     //    @PostMapping("/pay/authentication")
 //    ResponseEntity<?> authenticationPayment(@RequestBody PayAuthenticationReq payAuthenticationReq);

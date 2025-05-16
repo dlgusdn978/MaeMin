@@ -46,10 +46,12 @@ const Home = () => {
 			const menus: menuListProps[] = basket.menuList.map((item) => {
 				return { menuId: item.menuId, menuOptionId: [], quantity: item.menuCount };
 			});
-			order(basket.storeId, basket.requests, 1, code, basket.totalPrice, 2, menus, 1).then(() => {
-				dispatch(basketActions.initBasket());
-				navigate('/home');
-			});
+			order(basket.storeId, basket.requests, 1, code, basket.totalPrice, 2, menus, 1)
+				.then(() => {
+					dispatch(basketActions.initBasket());
+					navigate('/home');
+				})
+				.catch((res) => console.log(res));
 		}
 	}, []);
 	const location = useGeolocation();
@@ -65,8 +67,8 @@ const Home = () => {
 
 	// 초기 암호키 상태 세팅
 	const initSecureState = ({ index, publicKey, validTime }: secureState) => {
-		console.log('여기서 오류발생');
 		dispatch(secureActions.setKey({ index, publicKey, validTime }));
+		console.log(publicKey + ' ' + validTime);
 	};
 	useEffect(() => {
 		const curValidTime = secure.validTime;
@@ -123,6 +125,18 @@ const Home = () => {
 					icon={(props) => <QrIcon {...props} />}
 					iconSize={40}
 					url={'qr'}
+				/>
+			</HomeBox>
+			<HomeBox dir="row">
+				<Card
+					title="최근 방문한 가게"
+					content=""
+					width={160}
+					height={160}
+					icon={(props) => <CartIcon {...props} />}
+					iconSize={40}
+					url={'basket'}
+					count={menuCount}
 				/>
 			</HomeBox>
 		</Container>

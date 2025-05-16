@@ -185,7 +185,7 @@ const Signup = () => {
 	return (
 		<div>
 			<Container>
-				<Navigation title={'회원가입'} hide={true}></Navigation>
+				<Navigation title={'회원가입'} hide={1}></Navigation>
 			</Container>
 
 			<div>

@@ -13,25 +13,17 @@ interface StorePhotoProps {
 const StorePhotoContainer = styled.div`
 	position: relative;
 	background-color: white;
+	width: 100%;
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
+
 	align-items: center;
 	flex-direction: column;
-	& > :last-child {
-		margin: 0 30px;
-		margin: 0 auto;
-		padding: 10px 60px;
-		border-radius: 10px;
-		box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-	}
 `;
 
-const FixedSizeImage = styled.img`
-	width: 236px;
-	height: 156px;
+const FixedSizeImage = styled.img<{ width: string; height: string }>`
+	width: ${(props) => props.width};
+	height: ${(props) => props.height};
 	object-fit: fill;
-	border-radius: 40px;
 `;
 
 const StoreInfoContainer = styled.div`
@@ -39,12 +31,13 @@ const StoreInfoContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	padding: 15px;
 `;
 
 const RatingContainer = styled.div`
 	display: flex;
 	align-items: center;
-	font-size: 24px;
+	font-size: 18px;
 	justify-content: center;
 `;
 
@@ -59,18 +52,18 @@ const StorePhoto = (props: StorePhotoProps) => {
 	console.log(props);
 	return (
 		<StorePhotoContainer>
-			<div>
-				<FixedSizeImage
-					src={props.pictureUrl.length != 0 ? props.pictureUrl[0].storePicureUrl : subStore}
-					alt={props.name}
-				/>
-			</div>
+			<FixedSizeImage
+				src={props.pictureUrl.length != 0 ? props.pictureUrl[0].storePicureUrl : subStore}
+				alt={props.name}
+				width={'100%'}
+				height={'183px'}
+			/>
 			<StoreInfoContainer>
+				<StoreName>{props.name}</StoreName>
 				<RatingContainer>
 					<StarRate rating={props.rating} />
 					<div>{props.rating}</div>
 				</RatingContainer>
-				<StoreName>{props.name}</StoreName>
 			</StoreInfoContainer>
 		</StorePhotoContainer>
 	);

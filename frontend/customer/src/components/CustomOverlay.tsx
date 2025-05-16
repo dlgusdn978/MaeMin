@@ -70,8 +70,9 @@ export const OverlayContainer = (length: number) => `
 		
 		`;
 
-export const OverlayTitleBox = `border: 3px solid #ffb649;
+export const OverlayTitleBox = `
     	border-radius: 15px;
+		position :absolute;
     	height: 40px;
     	display: flex;
     	justify-content: center;
@@ -80,4 +81,5 @@ export const OverlayTitleBox = `border: 3px solid #ffb649;
 		a{
 		text-decoration:none;
 		}
+		
 		`;

@@ -40,9 +40,9 @@ const MenuPrice = styled.div`
 `;
 const MenuImageBox = styled.div``;
 
-const MenuImage = styled.img`
-	width: 80px;
-	height: 68px;
+const MenuImage = styled.img<{ width: string; height: string }>`
+	width: ${(props) => props.width};
+	height: ${(props) => props.height};
 	object-fit: cover;
 	border-radius: 25px;
 	align-self: center;
@@ -76,7 +76,7 @@ const MenuInfo = (props: MenuInfoProps) => {
 				<MenuPrice>{addRest(price)}</MenuPrice>
 			</MenuDetail>
 			<MenuImageBox>
-				<MenuImage src={imageUrl} alt={name} />
+				<MenuImage src={imageUrl} alt={name} width={'80px'} height={'80px'} />
 			</MenuImageBox>
 		</MenuInfoContainer>
 	);

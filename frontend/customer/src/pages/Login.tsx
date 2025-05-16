@@ -7,7 +7,7 @@ import { login } from '../api/user';
 import { LogoWrapper, ButtonWrapper, InputWrapper, Container } from '../components/style/loginStyles';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../store/userSlice';
-
+import Navigation from '../components/Navigation';
 const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -46,8 +46,9 @@ const Login = () => {
 
 	return (
 		<Container>
+			<Navigation title={'로그인'} hide={1}></Navigation>
 			<LogoWrapper>
-				<img src={Logo} alt="Logo" width="250" height="250" />
+				<img src={Logo} alt="Logo" width="150" height="150" />
 			</LogoWrapper>
 			<InputWrapper>
 				<div>
@@ -56,12 +57,10 @@ const Login = () => {
 						placeholder="ID"
 						type="text"
 						onChange={handleIdChange}
-						width={300}
-						height={64}
-						borderRadius="20px"
-						border="white"
-						margin="10px"
-						paddingLeft="30px"
+						width={'100%'}
+						height={56}
+						paddingLeft="20px"
+						border={'1px solid rgba(0, 0, 0, 0.2)'}
 					/>
 				</div>
 				<div>
@@ -70,45 +69,46 @@ const Login = () => {
 						placeholder="PW"
 						type="password"
 						onChange={handlePasswordChange}
-						width={300}
-						height={64}
-						borderRadius="20px"
-						border="white"
-						margin="10px"
-						paddingLeft="30px"
+						width={'100%'}
+						height={56}
+						paddingLeft="20px"
+						border={'1px solid rgba(0, 0, 0, 0.2)'}
 					/>
 				</div>
 			</InputWrapper>
-			<div>
-				{/* 로그인 */}
-				<ButtonWrapper>
+			{/* 로그인 */}
+			<ButtonWrapper>
+				<div>
 					<Button
 						label="로그인"
 						onClick={handleLogin}
 						backgroundColor="rgba(255, 182, 73, 1)"
 						fontSize="16px"
-						margin="10px"
 						textColor="white"
-						borderRadius="100px"
-						width={380}
-						height={64}
+						borderRadius="10px"
+						width={'100%'}
+						height={48}
 						borderColor="rgb(240, 240, 240)"
 					/>
+				</div>
+				<div>
 					{/* 회원가입 */}
 					<Button
 						label="회원가입"
 						onClick={handleSignup}
-						backgroundColor="rgba(255, 182, 73, 1)"
+						backgroundColor="white"
 						fontSize="16px"
-						margin="10px"
-						textColor="white"
-						borderRadius="100px"
-						width={380}
-						height={64}
-						borderColor="rgb(240, 240, 240)"
+						textColor="rgba(255, 182, 73, 1)"
+						borderRadius="10px"
+						width={'100%'}
+						height={48}
+						borderColor="rgba(255, 182, 73, 1)"
 					/>
-				</ButtonWrapper>
-			</div>
+				</div>
+				<div>
+					<Button label="계정이 기억나지 않아요" border={'none'} fontWeight={'300'} />
+				</div>
+			</ButtonWrapper>
 		</Container>
 	);
 };

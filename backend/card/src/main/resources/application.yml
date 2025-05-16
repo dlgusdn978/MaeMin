@@ -7,7 +7,7 @@ spring:
     password: ssafy
     hikari:
       idle-timeout: '600000'
-      maximum-pool-size: '50'
+      maximum-pool-size: '20'
       auto-commit: 'true'
       connection-init-sql: SELECT 1
       driver-class-name: org.mariadb.jdbc.Driver

@@ -34,13 +34,13 @@ function StarRate({ rating }: StarRateProps) {
 					<span className="star_icon" key={`${item}_${idx}`}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
-							width="40"
-							height="39"
+							width="20"
+							height="20"
 							viewBox="0 0 14 13"
 							fill="#cacaca"
 						>
 							<clipPath id={`${item}StarClip`}>
-								<rect width={`${ratesResArr[idx]}`} height="39" />
+								<rect width={`${ratesResArr[idx]}`} height="20" />
 							</clipPath>
 							<path
 								id={`${item}Star`}

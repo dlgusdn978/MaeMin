@@ -3,7 +3,9 @@
 interface IconTypeProps {
 	width?: number;
 	height?: number;
-	color?: string;
+	fill?: string;
+	stroke?: string;
+	focus?: number;
 }
 
 type IconType = (props: IconTypeProps) => JSX.Element;
@@ -11,6 +13,10 @@ type IconType = (props: IconTypeProps) => JSX.Element;
 interface IconProps {
 	iconSize?: number;
 	icon: IconType;
+	color?: string;
+	fill?: string;
+	stroke?: string;
+	focus?: number;
 }
 
 interface CardProps {
@@ -76,7 +82,7 @@ interface SelectProps {
 
 interface NavigationProps {
 	title?: string;
-	hide?: boolean;
+	hide?: number;
 }
 
 interface InputProps {
@@ -194,7 +200,7 @@ interface storeProps2 {
 interface storeProps {
 	storeId: number;
 	address_name: string;
-	category_name: string;
+	category: string;
 	id: number;
 	phone: string;
 	name: string;
