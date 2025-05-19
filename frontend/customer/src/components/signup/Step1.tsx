@@ -14,6 +14,17 @@ const Space = styled.div`
 	width: 100%;
 	height: 80px;
 `;
+const InputDiv = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	& div {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 10px;
+	}
+`;
 interface Step1Props {
 	id: string;
 	setId: (value: string) => void;
@@ -66,79 +77,69 @@ const Step1 = ({
 			<Space></Space>
 			<Font>아이디와 비밀번호를</Font>
 			<Font>입력해주세요</Font>
-			<Input
-				value={id}
-				placeholder="아이디"
-				type="text"
-				onChange={(value) => {
-					setId(value);
-				}}
-				width={270}
-				height={40}
-				borderRadius="3px"
-				border="1px solid rgba(0, 0, 0, 0.5)"
-				margin="10px"
-				paddingLeft="20px"
-				readOnly={isIdDuplicated} // 여기에 readOnly 추가
-			/>
+			<InputDiv>
+				<div>
+					<Input
+						value={id}
+						placeholder="아이디"
+						type="text"
+						onChange={(value) => {
+							setId(value);
+						}}
+						width={'100%'}
+						height={40}
+						borderRadius="3px"
+						border="1px solid rgba(0, 0, 0, 0.5)"
+						paddingLeft="20px"
+						readOnly={isIdDuplicated} // 여기에 readOnly 추가
+					/>
 
-			<Button
-				label="확인"
-				textColor={'white'}
-				backgroundColor={'rgba(255, 182, 73, 1)'}
-				borderColor="white"
-				borderRadius="3px"
-				fontSize="10px"
-				width={57}
-				height={40}
-				onClick={checkIdDuplicateHandler}
-			/>
-			<Input
-				value={password}
-				placeholder="비밀번호"
-				type="password"
-				onChange={(value) => setPassword(value)}
-				border={
-					confirmPassword.length === 0 || isPasswordMatch ? '1px solid rgba(0, 0, 0, 0.5)' : '2px solid red'
-				}
-				width={270}
-				height={40}
-				borderRadius="3px"
-				margin="10px"
-				paddingLeft="20px"
-			/>
-			<Input
-				value={confirmPassword}
-				placeholder="비밀번호 확인"
-				type="password"
-				onChange={(value) => setConfirmPassword(value)}
-				border={
-					confirmPassword.length === 0 || isPasswordMatch ? '1px solid rgba(0, 0, 0, 0.5)' : '2px solid red'
-				}
-				width={270}
-				height={40}
-				borderRadius="3px"
-				margin="10px"
-				paddingLeft="20px"
-			/>
-			{confirmPassword.length != 0 && !isPasswordMatch && (
-				<div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>
-			)}
-			<Button
-				label="다음"
-				onClick={handleNextClick}
-				borderRadius="10px"
-				height={54}
-				width={350}
-				margintop="20px"
-				textColor="white"
-				backgroundColor={
-					password.length > 0 && isPasswordMatch && !isIdDuplicated
-						? 'rgba(255, 182, 73, 1)'
-						: 'rgba(255, 182, 73, 0.5)'
-				}
-				// disabled={isPasswordMismatch || isIdDuplicated}
-			/>
+					<Button label="확인" onClick={checkIdDuplicateHandler} variant={'small'} />
+				</div>
+
+				<div>
+					<Input
+						value={password}
+						placeholder="비밀번호"
+						type="password"
+						onChange={(value) => setPassword(value)}
+						border={
+							confirmPassword.length === 0 || isPasswordMatch
+								? '1px solid rgba(0, 0, 0, 0.5)'
+								: '2px solid red'
+						}
+						width={'100%'}
+						height={40}
+						borderRadius="3px"
+						paddingLeft="20px"
+					/>
+				</div>
+				<div>
+					<Input
+						value={confirmPassword}
+						placeholder="비밀번호 확인"
+						type="password"
+						onChange={(value) => setConfirmPassword(value)}
+						border={
+							confirmPassword.length === 0 || isPasswordMatch
+								? '1px solid rgba(0, 0, 0, 0.5)'
+								: '2px solid red'
+						}
+						width={'100%'}
+						height={40}
+						borderRadius="3px"
+						paddingLeft="20px"
+					/>
+				</div>
+				<div>
+					{confirmPassword.length != 0 && !isPasswordMatch && (
+						<div style={{ color: 'red' }}>비밀번호가 일치하지 않습니다.</div>
+					)}
+				</div>
+				<div>
+					<Button variant={'filled'} label="다음" onClick={handleNextClick}></Button>
+				</div>
+			</InputDiv>
 		</div>
 	);
 };

@@ -91,18 +91,7 @@ const QrCodeReader = () => {
 				<video ref={videoRef} id="video" autoPlay></video>
 				<canvas ref={canvasRef} id="canvas"></canvas>
 			</div>
-			<Button
-				label="QR 찍으러가기"
-				onClick={startCam}
-				backgroundColor="rgba(255, 182, 73, 1)"
-				fontSize="16px"
-				margin="10px"
-				textColor="white"
-				borderRadius="100px"
-				width={250}
-				height={64}
-				borderColor="rgb(240, 240, 240)"
-			/>
+			<Button label="QR 찍으러가기" onClick={startCam} />
 			{/* <button className="btn btn-danger" onClick={stopCam}>
 				Stop Camera
 			</button> */}

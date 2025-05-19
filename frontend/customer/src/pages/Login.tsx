@@ -79,34 +79,14 @@ const Login = () => {
 			{/* 로그인 */}
 			<ButtonWrapper>
 				<div>
-					<Button
-						label="로그인"
-						onClick={handleLogin}
-						backgroundColor="rgba(255, 182, 73, 1)"
-						fontSize="16px"
-						textColor="white"
-						borderRadius="10px"
-						width={'100%'}
-						height={48}
-						borderColor="rgb(240, 240, 240)"
-					/>
+					<Button variant={'filled'} label="로그인" onClick={handleLogin} />
 				</div>
 				<div>
 					{/* 회원가입 */}
-					<Button
-						label="회원가입"
-						onClick={handleSignup}
-						backgroundColor="white"
-						fontSize="16px"
-						textColor="rgba(255, 182, 73, 1)"
-						borderRadius="10px"
-						width={'100%'}
-						height={48}
-						borderColor="rgba(255, 182, 73, 1)"
-					/>
+					<Button variant={'outlined'} label="회원가입" onClick={handleSignup} />
 				</div>
 				<div>
-					<Button label="계정이 기억나지 않아요" border={'none'} fontWeight={'300'} />
+					<Button label="계정이 기억나지 않아요" />
 				</div>
 			</ButtonWrapper>
 		</Container>

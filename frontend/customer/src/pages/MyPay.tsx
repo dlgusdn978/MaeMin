@@ -91,12 +91,6 @@ const MyPay = () => {
 				<MyPayButtonBox>
 					<Button
 						label={'결제'}
-						width={'100%'}
-						padding={'10px'}
-						borderRadius={'5px'}
-						border={'none'}
-						backgroundColor={'rgb(150, 150, 150)'}
-						textColor={'white'}
 						onClick={() => {
 							navigate('/payPassword');
 							dispatch(setPayId(userPayList[0].payId));

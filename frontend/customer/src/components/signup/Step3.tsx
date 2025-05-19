@@ -86,16 +86,7 @@ const Step3 = ({ nickname, setNickname, username, setUsername, nextStep }: Step3
 			/>
 			{!isNameValid && <ValidationError>{validationMessage}</ValidationError>}
 			<br />
-			<Button
-				label="다음"
-				onClick={handleNextClick}
-				borderRadius="20px"
-				height={54}
-				width={350}
-				textColor="white"
-				margintop="20px"
-				backgroundColor="rgba(255, 182, 73, 1)"
-			/>
+			<Button label="다음" onClick={handleNextClick} variant={'filled'} />
 		</div>
 	);
 };

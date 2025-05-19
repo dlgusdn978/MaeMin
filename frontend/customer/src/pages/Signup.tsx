@@ -172,7 +172,7 @@ const Signup = () => {
 				phone: phone,
 				sex: false, //-> False=남자 / True=여자
 				age: selectedAgeGroup,
-				role: 'ROLE_CUSTOMER', // ROLE_CUSTOMER or ROLE_OWNER
+				role: 'ROLE_CUSTOMER',
 			});
 			alert('성공');
 			navigate('/'); // 로그인화면으로

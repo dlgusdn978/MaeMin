@@ -55,9 +55,9 @@ const FoodCount = ({ quantity, setQuantity }: FoodCountProps) => {
 		<FoodCountContainer>
 			<CountName>수량</CountName>
 			<CountBox>
-				<Button label="-" onClick={handleDecrement} width={40} height={25} border={'none'} />
+				<Button label="-" onClick={handleDecrement} />
 				<span>{quantity}</span>
-				<Button label="+" onClick={handleIncrement} width={40} height={25} border={'none'} />
+				<Button label="+" onClick={handleIncrement} />
 			</CountBox>
 		</FoodCountContainer>
 	);

@@ -90,7 +90,7 @@ const MenuDetail = () => {
 	};
 
 	const handleConfirm = () => {
-		console.log('확인 후');
+		setIsModalOpen(false);
 	};
 
 	useEffect(() => {
@@ -114,18 +114,7 @@ const MenuDetail = () => {
 			</FoodWrapper>
 			<FoodCount quantity={quantity} setQuantity={setQuantity} />
 			<ButtonWrapper>
-				<Button
-					label={`${addRest(totalPrice)} 담기`}
-					backgroundColor="rgba(255, 182, 73, 1)"
-					fontSize="16px"
-					margin="10px"
-					textColor="white"
-					borderRadius="100px"
-					width={344}
-					height={64}
-					borderColor="rgb(240, 240, 240)"
-					onClick={() => addMenuList()}
-				/>
+				<Button label={`${addRest(totalPrice)} 담기`} onClick={() => addMenuList()} variant={'filled'} />
 			</ButtonWrapper>
 			{isModalOpen && (
 				<ConfirmModal

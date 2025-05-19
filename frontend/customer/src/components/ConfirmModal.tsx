@@ -48,14 +48,7 @@ const ConfirmModal = ({ message, onConfirm, onCancel }: ConfirmModalProps) => {
 				<img src={signCheck} alt="Check Sign" />
 				<Message>{message}</Message>
 
-				<Button
-					label="확인"
-					backgroundColor="#ffb649"
-					textColor="white"
-					width={100}
-					height={40}
-					onClick={onConfirm}
-				/>
+				<Button label="확인" onClick={onConfirm} variant={'filled'} />
 			</ModalContainer>
 		</ModalOverlay>
 	);

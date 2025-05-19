@@ -32,7 +32,7 @@ const DisplayTimeContainer = styled.div`
 	align-items: center;
 	gap: 5px;
 	font-size: 12px;
-	margin-left: 10px;
+	margin: 0 10px 10px 10px;
 `;
 const DisplayTimeTextR = styled.p`
 	color: red;
@@ -155,17 +155,7 @@ const Step2 = ({
 					margin="10px"
 					paddingLeft="20px"
 				/>
-				<Button
-					label="인증번호 발송"
-					textColor={'white'}
-					backgroundColor={isPhoneValid ? 'rgba(255, 182, 73, 1)' : 'rgba(255, 182, 73, 0.5)'}
-					borderColor="white"
-					borderRadius="3px"
-					fontSize="10px"
-					width={81}
-					height={40}
-					onClick={handleSendSmsClick}
-				/>
+				<Button label="발송" onClick={handleSendSmsClick} variant={'small'} />
 			</InputButtonContainer>
 			<ValidationError>{validationMessage}</ValidationError>
 			{showValidationForm && (
@@ -183,33 +173,13 @@ const Step2 = ({
 							margin="10px"
 							paddingLeft="20px"
 						/>
-						<Button
-							label="인증번호 확인"
-							textColor={'white'}
-							backgroundColor={'rgba(255, 182, 73, 1)'}
-							borderColor="white"
-							borderRadius="3px"
-							fontSize="10px"
-							width={81}
-							height={40}
-							onClick={handleVerifySmsClick}
-						/>
+						<Button label="확인" onClick={handleVerifySmsClick} variant={'small'} />
 					</InputButtonContainer>
 					<DisplayTimeContainer>
 						<DisplayTimeText>{'남은 시간 '}</DisplayTimeText>
 						<DisplayTimeTextR>{displayTime()}</DisplayTimeTextR>
 					</DisplayTimeContainer>
-					<Button
-						label="다음"
-						onClick={handleNextClick}
-						borderRadius="20px"
-						height={54}
-						width={350}
-						textColor="white"
-						margintop="20px"
-						backgroundColor="rgba(255, 182, 73, 1)"
-						// disabled={!isVerified}
-					/>
+					<Button label="다음" onClick={handleNextClick} variant={'filled'} />
 				</>
 			)}
 		</div>

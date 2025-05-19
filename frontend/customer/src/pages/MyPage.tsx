@@ -43,16 +43,7 @@ const MyPage = () => {
 				<UserInfoItem>
 					<div>
 						<span>{userInfo.nickName !== '' ? userInfo.nickName : '로그인하고 시작하기'}</span>
-						{userInfo.nickName === '' ? (
-							<Button
-								label={'>'}
-								border={'none'}
-								fontWeight={'200'}
-								onClick={() => moveTo('/login')}
-							></Button>
-						) : (
-							''
-						)}
+						{userInfo.nickName === '' ? <Button label={'>'} onClick={() => moveTo('/login')}></Button> : ''}
 					</div>
 					{/* <Button
 						label={'로그아웃'}

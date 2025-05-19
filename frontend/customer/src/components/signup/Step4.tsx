@@ -18,6 +18,9 @@ const Container = styled.div`
 	align-items: center;
 	margin: 20px 10px;
 `;
+const ButtonContainer = styled.div`
+	display: flex;
+`;
 const SelectContainer = styled.div`
 	margin: 0px;
 `;
@@ -64,38 +67,24 @@ const Step4 = ({
 				<Space></Space>
 				<Font>성별과 나이를</Font>
 				<Font>선택해주세요</Font>
-				<Button
-					label="남자"
-					fontSize="16px"
-					width={160}
-					height={40}
-					margin="10px"
-					backgroundColor={gender === 'male' ? 'rgba(255, 182, 73, 1)' : 'rgba(255, 182, 73, 0.5)'}
-					textColor="white"
-					borderRadius="3px"
-					borderColor="rgb(240, 240, 240)"
-					// onClick={() => handleGenderSelect('male')}
-					onClick={(e: React.SyntheticEvent) => {
-						e.preventDefault();
-						handleGenderSelect('male');
-					}}
-				/>
-				<Button
-					label="여자"
-					fontSize="16px"
-					width={160}
-					height={40}
-					margin="10px"
-					backgroundColor={gender === 'female' ? 'rgba(255, 182, 73, 1)' : 'rgba(255, 182, 73, 0.5)'}
-					textColor="white"
-					borderRadius="3px"
-					borderColor="rgb(240, 240, 240)"
-					// onClick={() => handleGenderSelect('female')}
-					onClick={(e: React.SyntheticEvent) => {
-						e.preventDefault();
-						handleGenderSelect('female');
-					}}
-				/>
+				<ButtonContainer>
+					<Button
+						label="남자"
+						onClick={(e: React.SyntheticEvent) => {
+							e.preventDefault();
+							handleGenderSelect('male');
+						}}
+						variant={gender === 'male' ? 'filled' : 'outlined'}
+					/>
+					<Button
+						label="여자"
+						onClick={(e: React.SyntheticEvent) => {
+							e.preventDefault();
+							handleGenderSelect('female');
+						}}
+						variant={gender === 'female' ? 'filled' : 'outlined'}
+					/>
+				</ButtonContainer>
 			</div>
 			<div>
 				<Container>
@@ -116,19 +105,7 @@ const Step4 = ({
 					</SelectContainer>
 					{selectedAgeGroup && <span style={{ marginLeft: '40px' }}>{selectedAgeGroup}대</span>}
 				</Container>
-				<Button
-					label="회원가입"
-					onClick={handleSubmit}
-					backgroundColor="rgba(255, 182, 73, 1)"
-					fontSize="16px"
-					margin="10px"
-					textColor="white"
-					borderRadius="3px"
-					borderColor="rgb(240, 240, 240)"
-					width={344}
-					height={64}
-					margintop="20px"
-				/>
+				<Button label="회원가입" onClick={handleSubmit} variant={'filled'} />
 			</div>
 		</div>
 	);

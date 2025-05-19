@@ -1,64 +1,69 @@
 import React from 'react';
-
-interface ButtonComponentProps {
-	label: string;
-	backgroundColor?: string;
-	fontSize?: string;
+import styled, { css } from 'styled-components';
+type ButtonVariant = 'filled' | 'outlined' | 'small';
+interface ButtonProps {
+	variant?: ButtonVariant;
+	label?: string;
 	margin?: string;
-	borderRadius?: string;
-	textColor?: string;
-	width?: string | number;
-	height?: string | number;
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
-	disabled?: boolean;
-	border?: string;
-	borderColor?: string;
 	padding?: string;
 	fontWeight?: string;
 	margintop?: string | number;
 	overflow?: string;
 }
-
-const Button = (props: ButtonComponentProps) => {
-	const {
-		label,
-		backgroundColor,
-		fontSize,
-		margin,
-		borderRadius,
-		textColor,
-		width,
-		height,
-		onClick,
-		disabled,
-		border,
-		borderColor,
-		padding,
-		fontWeight,
-		margintop,
-	} = props;
+const TextButton = styled.button<ButtonProps>`
+	fontsize: 16px;
+	border-radius: 10px;
+	width: 100%;
+	height: 48px;
+	border: 1px solid rgba(255, 182, 73, 1);
+	&:focus {
+		outline: none;
+	}
+	${({ variant, label }) => {
+		switch (variant) {
+			case 'filled':
+				return css`
+					background: rgba(255, 182, 73, 1);
+					color: white;
+				`;
+			case 'outlined':
+				return css`
+					background: white;
+					color: rgba(255, 182, 73, 1);
+				`;
+			case 'small':
+				return css`
+					background: rgba(255, 182, 73, 1);
+					color: white;
+					fontsize: 12px;
+					width: ${label ? `${label.length * 20}px` : '57px'};
+					height: 40px;
+				`;
+			default:
+				return css`
+					background: white;
+					border: none;
+				`;
+		}
+	}}
+`;
+const Button = (props: ButtonProps) => {
+	const { variant, label, margin, onClick, padding, fontWeight, margintop } = props;
 
 	return (
-		<button
+		<TextButton
 			style={{
-				backgroundColor: backgroundColor ? `${backgroundColor}` : 'white',
-				fontSize: fontSize,
 				margin: margin,
-				borderRadius: borderRadius,
-				color: textColor,
-				width: width,
-				height: height,
 				padding: padding,
 				fontWeight: fontWeight,
-				border:
-					`${border}` === 'none' ? 'none' : borderColor ? `1px solid ${borderColor}` : '1px solid #D2B6B6',
 				marginTop: margintop,
 			}}
 			onClick={onClick}
-			disabled={disabled}
+			variant={variant}
 		>
 			{label}
-		</button>
+		</TextButton>
 	);
 };
 

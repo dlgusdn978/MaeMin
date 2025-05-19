@@ -89,15 +89,6 @@ const BasketMenuInfo = ({
 				</BasketMenuTitleItem>
 				<Button
 					label={payerCheck ? '참여하기' : '참여중'}
-					fontSize={'8px'}
-					width={'60px'}
-					padding={'5px'}
-					borderRadius={'5px'}
-					border={'solid'}
-					fontWeight={'bold'}
-					backgroundColor={payerCheck ? '' : 'rgba(123,160,255, 1)'}
-					borderColor={payerCheck ? 'rgba(123,160,255, 1)' : 'white'}
-					textColor={payerCheck ? 'rgba(123,160,255, 1)' : 'white'}
 					onClick={() => {
 						toggleParticipant();
 					}}

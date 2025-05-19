@@ -11,13 +11,10 @@ function BasketAddBtn() {
 		<BasketAddContainer>
 			<Button
 				label={' ➕ 더 담으러 가기'}
-				width={'100%'}
-				margin={'20px 0'}
-				padding={'10px'}
-				borderRadius={'5px'}
 				onClick={() => {
 					navigate(`/store-detail/${storeId}`);
 				}}
+				variant={'outlined'}
 			></Button>
 		</BasketAddContainer>
 	);
