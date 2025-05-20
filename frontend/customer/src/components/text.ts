@@ -29,7 +29,10 @@ export const HomeCardContent = styled.span`
 `;
 
 export const CarouselTitle = styled.span`
+	display: flex;
+	gap: 5px;
 	color: #000;
+	border-bottom: 1px solid rgba(255, 182, 73, 1);
 	font-feature-settings:
 		'clig' off,
 		'liga' off;
@@ -37,6 +40,10 @@ export const CarouselTitle = styled.span`
 	font-weight: 600;
 	line-height: 40px; /* 55.556% */
 	padding-left: 15px;
+	& > div {
+		display: flex;
+		align-items: center;
+	}
 `;
 
 export const StoreName = styled.span`

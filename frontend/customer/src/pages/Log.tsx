@@ -8,11 +8,16 @@ import { getMyLog } from '../api/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import LogContainer from '../components/log/LogContainer';
+import styled from 'styled-components';
 // import { Stomp } from '@stomp/stompjs';
 
 const orderData = dummyOrderData;
 const menus = orderData[0].menus;
-
+const Content = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+`;
 const Log = () => {
 	// console.log(myLocation);
 
@@ -59,7 +64,7 @@ const Log = () => {
 			try {
 				await getMyLog().then((res) => {
 					console.log(res.data);
-					setMyLog(res.data);
+					setMyLog(res.data.reverse());
 				});
 			} catch (error) {
 				console.error('There was an error fetching the data:', error);
@@ -78,7 +83,7 @@ const Log = () => {
 	return (
 		<Container>
 			<Navigation title={'주문내역'} />
-			<div>
+			<Content>
 				<Card
 					title="현재 주문현황"
 					content={orderState}
@@ -86,7 +91,7 @@ const Log = () => {
 					iconSize={100}
 				/>
 				{myLog?.map((item: MyOrder, i) => <LogContainer {...item} key={i} />)}
-			</div>
+			</Content>
 		</Container>
 	);
 };

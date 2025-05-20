@@ -1,11 +1,11 @@
 import React from 'react';
 import { BasketPriceContainer, BasketPriceBox } from '../style/basket';
-interface PriceProps {
+
+type BasketPriceInfoProps = {
 	title: string;
 	price: number;
-}
-
-function BasketPriceInfo({ title, price }: PriceProps) {
+};
+function BasketPriceInfo({ title, price }: BasketPriceInfoProps) {
 	// 가격 세자리마다 쉼표 추가 ex) 1,000원
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';

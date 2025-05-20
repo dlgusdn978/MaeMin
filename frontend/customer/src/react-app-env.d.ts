@@ -9,7 +9,7 @@ interface IconTypeProps {
 }
 
 type IconType = (props: IconTypeProps) => JSX.Element;
-
+type IconVariant = 'lg' | 'sm' | 'm';
 interface IconProps {
 	iconSize?: number;
 	icon: IconType;
@@ -17,6 +17,8 @@ interface IconProps {
 	fill?: string;
 	stroke?: string;
 	focus?: number;
+	onClick?: React.MouseEventHandler<HTMLDivElement>;
+	variant?: IconVariant;
 }
 
 interface CardProps {

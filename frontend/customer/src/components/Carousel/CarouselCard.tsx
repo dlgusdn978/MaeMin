@@ -7,7 +7,7 @@ import StoreImage from './StoreImage';
 import placeholderImage from '../../assets/imgs/subs-store.png';
 const SliderItem = styled.div`
 	width: 100%;
-	padding-left: 12px;
+	padding-left: 6px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -15,7 +15,7 @@ const SliderItem = styled.div`
 	text-align: center;
 	img {
 		max-width: 100%;
-		height: auto;
+		max-height: 100%;
 	}
 `;
 

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import { RootState } from '../store/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,6 +36,7 @@ const PaySelect = () => {
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
 	const myMenuList = menuList.filter((item) => item.menuPayerList.some((el) => el === '나') == true);
 	const [selectedMethod, setSelectedMethod] = useState(-1);
+	const [totalPrice, setTotalPrice] = useState(0);
 	const userRequest = useRef<HTMLInputElement>(null);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -61,6 +62,13 @@ const PaySelect = () => {
 			name: '네이버페이',
 		},
 	];
+	useEffect(() => {
+		let total = 0;
+		menuList.map((item) => {
+			total += item.menuPrice * item.menuCount;
+		});
+		setTotalPrice(total);
+	}, [menuList]);
 	const clickArea = (index: number) => {
 		setSelectedMethod(index);
 	};
@@ -118,7 +126,7 @@ const PaySelect = () => {
 					></Input>
 				</PaymentRequestContentItem>
 			</PaymentRequestBox>
-			<BasketTotalResult></BasketTotalResult>
+			<BasketTotalResult price={totalPrice}></BasketTotalResult>
 			<PaymentMethodBox>
 				<PaymentTitleItem>결제 수단 선택</PaymentTitleItem>
 				{payMethodList.map((item: payMethod, index: number) => (

@@ -87,8 +87,6 @@ const MapContainer = () => {
 				image: new kakao.maps.MarkerImage(getImage(obj.category), new kakao.maps.Size(32, 32)),
 			});
 			// 마커에 표시할 인포윈도우를 생성합니다
-
-			// const url = `http://localhost:3000/customer/store-detail/${obj.storeId}`;
 			const content = document.createElement('div');
 			content.className = 'wrap';
 			content.setAttribute('style', OverlayContainer(obj.title.length));
@@ -104,13 +102,8 @@ const MapContainer = () => {
 				removable: true,
 				position: marker.getPosition(),
 			});
-			// 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-			// 이벤트 리스너로는 클로저를 만들어 등록합니다
-			// 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-			// kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-			window.kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, overlay));
 
-			// kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+			window.kakao.maps.event.addListener(marker, 'click', makeClickListener(map, marker, overlay));
 		});
 	};
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import BasketMenuInfo from '../components/basket/BasketMenuInfo';
 import { useSelector } from 'react-redux';
@@ -11,12 +11,19 @@ import { useNavigate } from 'react-router-dom';
 import { BasketContainer, BasketBox, BasketStoreInfoBox, BasketMenuListInfoBox } from '../components/style/basket';
 const Basket = () => {
 	// const dispatch = useDispatch();
-
+	const [totalPrice, setTotalPrice] = useState(0);
 	const menuList = useSelector((state: RootState) => state.basket.menuList);
 	const store = useSelector((state: RootState) => state.basket.store);
 	console.log(store);
 	const basketCheck = menuList.length === 0;
 	const navigate = useNavigate();
+	useEffect(() => {
+		let total = 0;
+		menuList.map((item) => {
+			total += item.menuPrice * item.menuCount;
+		});
+		setTotalPrice(total);
+	}, [menuList]);
 	return (
 		<BasketContainer>
 			<Navigation title={'장바구니 '}></Navigation>
@@ -43,7 +50,7 @@ const Basket = () => {
 						></BasketMenuInfo>
 					))}
 				</BasketMenuListInfoBox>
-				<BasketTotalResult></BasketTotalResult>
+				<BasketTotalResult price={totalPrice}></BasketTotalResult>
 				<BasketAddBtn></BasketAddBtn>
 				<BasketPayBtn
 					label={'주문하기'}

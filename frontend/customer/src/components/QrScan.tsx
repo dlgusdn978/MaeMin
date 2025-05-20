@@ -91,7 +91,7 @@ const QrCodeReader = () => {
 				<video ref={videoRef} id="video" autoPlay></video>
 				<canvas ref={canvasRef} id="canvas"></canvas>
 			</div>
-			<Button label="QR 찍으러가기" onClick={startCam} />
+			<Button label="QR 찍으러가기" onClick={startCam} variant={'filled'} />
 			{/* <button className="btn btn-danger" onClick={stopCam}>
 				Stop Camera
 			</button> */}

@@ -1,15 +1,37 @@
 import React, { PropsWithChildren } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const IconDiv = styled.div`
+const IconDiv = styled.div<{ variant: string | undefined }>`
 	:hover {
 		cursor: pointer;
 	}
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-width: 70px;
-	min-height: 70px;
+	${({ variant }) => {
+		switch (variant) {
+			case 'lg':
+				return css`
+					width: 70px;
+					height: 70px;
+				`;
+			case 'm':
+				return css`
+					width: 50px;
+					height: 50px;
+				`;
+			case 'sm':
+				return css`
+					width: 25px;
+					height: 25px;
+				`;
+			default:
+				return css`
+					width: 30px;
+					height: 30px;
+				`;
+		}
+	}}
 `;
 
 const Icon = styled.svg<{ focus: number }>`
@@ -22,9 +44,9 @@ const Icon = styled.svg<{ focus: number }>`
 	}
 `;
 
-const IconBox = ({ icon, focus }: PropsWithChildren<IconProps>) => {
+const IconBox = ({ icon, variant, focus, onClick }: PropsWithChildren<IconProps>) => {
 	return (
-		<IconDiv>
+		<IconDiv variant={variant} onClick={onClick}>
 			<Icon as={icon} focus={focus} />
 		</IconDiv>
 	);

@@ -18,8 +18,8 @@ const MenuContainer = styled.div<{ popularity: number }>`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	margin-top: 20px;
-	border: ${(props) => (props.popularity === 1 ? '3px solid rgba(255, 182, 73, 1)' : 'none')};
+	margin-top: 10px;
+	border: ${(props) => (props.popularity === 1 ? '2px solid rgba(255, 182, 73, 1)' : 'none')};
 `;
 
 const ContentContainer = styled.div`

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from '../components/layout/common';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
-
+import { ReactComponent as ArrowIcon } from '../assets/imgs/rightArrow.svg';
 import {
 	MyOrderHistory,
 	UserInfoBox,
@@ -17,8 +17,8 @@ import {
 import styled from 'styled-components';
 import userIcon from '../assets/imgs/userIcon.png';
 import Navigation from '../components/Navigation';
-import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
+import IconBox from '../components/IconBox';
 // import Button from '../components/Button';
 const UserImgItem = styled.div`
 	padding: 10px;
@@ -43,14 +43,16 @@ const MyPage = () => {
 				<UserInfoItem>
 					<div>
 						<span>{userInfo.nickName !== '' ? userInfo.nickName : '로그인하고 시작하기'}</span>
-						{userInfo.nickName === '' ? <Button label={'>'} onClick={() => moveTo('/login')}></Button> : ''}
+						{userInfo.nickName === '' ? (
+							<IconBox
+								icon={(props) => <ArrowIcon {...props} />}
+								onClick={() => moveTo('/login')}
+								variant={'sm'}
+							/>
+						) : (
+							''
+						)}
 					</div>
-					{/* <Button
-						label={'로그아웃'}
-						onClick={() => {
-							logout().then((res) => console.log(res + ' ' + '성공'));
-						}}
-					></Button> */}
 					<div>
 						<div>리뷰관리</div>
 						<div>주소관리</div>

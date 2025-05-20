@@ -41,6 +41,7 @@ const LogPayMethod = styled.div`
 	font-weight: 300;
 `;
 const LogCard = (orderLog: MyOrder) => {
+	console.log(orderLog.menuList);
 	const addRest = (price: number) => {
 		return price.toLocaleString('ko-KR') + '원';
 	};
@@ -51,7 +52,7 @@ const LogCard = (orderLog: MyOrder) => {
 			</LogHeader>
 			<LogContent>
 				<div>{orderLog.storeName}</div>
-				<div>{orderLog.menuList}</div>
+				{orderLog.menuList && orderLog.menuList.map((item, index) => <div key={index}>{item}</div>)}
 				<div>{orderLog.requests}</div>
 			</LogContent>
 			<LogFooter>
